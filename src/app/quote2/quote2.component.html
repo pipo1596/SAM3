@@ -1,0 +1,191 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Create New Quote & Contract</h1>
+                </div>
+                
+            </div>
+            <div class="white pull-left w100 stepsblock">
+              <ul class="nav nav-wizard" id="quotesteps">
+                  <li class="active"><a routerLink="/app/Quote1">Vehicle</a></li>
+                  <li class="active"><a href="javascript:void(0)">Product</a></li>
+                  <li><a class="disabledstep" href="javascript:void(0)">Quote</a></li>
+              </ul>
+              </div>
+        </div>
+        <div class="row white" style="min-height:400px">
+                <form [class.hidden]="loading"  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);"  (submit)="checkData()" novalidate  autocomplete="off">
+                    <div class="col-md-12">
+                        <div class="alert alert-success" role="alert" 
+                        [ngClass]="{'alert-success':dispAlert.status==='S',
+                                  'alert-danger':dispAlert.status==='E',
+                                  'hidden':dispAlert.message===''}">{{dispAlert.message}}</div>
+                      
+                    </div>
+                    <div clas="row" style="margin:10px 0px 30px 0px" *ngIf="listvf>0">
+                        <div class="col-md-7" style="padding:0">
+                            <div class="well well-sm sectionlabel active">
+                                <div class="sectiontop" id="sec1" (click)="toggleVeh()">
+                                    <h3 class="firsth">Vehicle Details</h3>
+                                    <span class="vehspan"style="display:inline-block;padding:6px 0px 0px 10px;"  [ngClass]="{'hidden':expvehc}" >( {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}} )</span>
+                                    <i class="fa sectiond fa-minus"  [ngClass]="{'fa-minus':expvehc,'fa-plus':!expvehc}"></i>
+                                    <div class="clearfix"></div>
+                                </div>
+                
+                                <div class="viewcont closed" id="sectionVeh" [ngClass]="{'closed':!expvehc}" style="padding:0;overflow-y:hidden">
+                                    <hr>
+                                    <table class="table table-striped" style="margin-bottom:0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-right" style="width:40%">
+                                                    <b>Year:</b>
+                                                </td>
+                                                <td class="text-left" style="width:60%">{{pagedata.body.veh.year}}
+                                                    <div class="pull-right">
+                                                        <a routerLink="/app/Quote1" class="flat-button pull-right nextsection" section="2" id="submit" title="Edit" style="padding:2px 8px">Edit</a>
+                                                    </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <b>Make:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.make}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <b>Model:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.model}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <b>Mileage:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.miles}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.price ==''">
+                                                    <td class="text-right">
+                                                        <b>VIN:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.vin}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.price !==''">
+                                                    <td class="text-right">
+                                                        <b>Purchase Price:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.price | currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <b>In-Service:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.insrvc}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-md-12" style="padding:0">
+                            <h2>Vehicle Features</h2>
+                        </div>
+                        
+                        <ng-container *ngFor="let schg of pagedata.body.srchg ;let s = index">
+                        <div class="col-sm-4" *ngIf="schg.type =='VF'">
+                                <span class="flat-input-checkbox" >
+                                    <div class="custcheck" >
+                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" [disabled]="this.pagedata.body.veh.vin!='n/a'">
+                                        <label (click)="toggleschg(schg)"></label>
+                                    </div>
+                                    <label class="checklabel"(click)="toggleschg(schg)">{{schg.desc}}</label>
+                                </span>
+                        </div>
+                        <div class="clearfix" *ngIf="schg.type =='VF' && (s+1)%3 == 0"></div>
+                    </ng-container>
+                        <div class="col-xs-12" style="padding:0"><hr></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div clas="row" style="margin:10px 0px 30px 0px" *ngIf="listoc>0">
+                        <div class="col-md-12" style="padding:0">
+                            <h2>Optional Coverages</h2>
+                        </div>
+                        <ng-container *ngFor="let schg of pagedata.body.srchg ;let s = index">
+                        <div class="col-sm-4" *ngIf="schg.type =='OC'">
+                           
+                                <span class="flat-input-checkbox" >
+                                    <div class="custcheck" >
+                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" >
+                                        <label (click)="toggleschg(schg)"></label>
+                                    </div>
+                                    <label class="checklabel"(click)="toggleschg(schg)">{{schg.desc}}</label>
+                                </span>
+                            
+                        </div>
+                        <div class="clearfix" *ngIf="schg.type =='OC' && (s-listvf+1)%3 == 0"></div>
+                    </ng-container>
+                        
+                        
+                        
+                        <div class="col-md-12" style="padding:0"><hr></div>
+                    </div>
+                    <div class="row" style="margin:10px 0px 10px 0px">
+                        
+                    </div>
+                    
+                    <div class="well well-sm sectionlabel" *ngFor="let datads of pagedata.body.data;let m = index">
+                    <div class="sectiontop" (click)="toggle(datads)">
+                        <h3 class="pull-left" style="margin:8px 5px">{{datads.desc}}&nbsp;&nbsp;<span class="errorspan2 alert-danger validating" [class.hidden]="datads.mesg==''">{{datads.mesg}}</span></h3><i class="fa sectiond2 fa-caret-up" [ngClass]="{'fa-caret-up':datads.open,'fa-caret-down':!datads.open}"></i><div class="clearfix"></div>
+                    </div>
+                    <div class="viewcont" [class.closed]="!datads.open">
+                        <hr style="margin:-10px 0 20px 0">
+                    <div class="col-md-5 col-sm-12 col-xs-12" style="padding:0 0 25px 0" *ngIf="datads.showct">
+                        <span class="flat-input">
+                            <h4 style="margin:2px 0;">Contract Type</h4>
+                            <select class="form__select w100" name="year{{datads.prg+datads.ratc}}" [(ngModel)]="datads.ctrct" style="margin-bottom:3px">
+                                <ng-container *ngFor="let cont of pagedata.body.contracts">
+                                    <option  *ngIf="cont.prgm.padEnd(20) == datads.prg.padEnd(10) +datads.ratc.padEnd(10)" [value]="datads.prg.padEnd(10) + datads.ratc.padEnd(10) + cont.code.padEnd(30) + cont.valu" [attr.selected]="datads.ctrct== (cont.prgm.padEnd(20) +cont.code.padEnd(30)+cont.valu) ? true : null">{{cont.desc}}</option>
+                                </ng-container>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-4 col-xs-12" style="padding:5px 0 0 5px;">
+                        <div class="custcheck parentcheck"><input name="plan" id="check1i{{datads.prg+datads.ratc}}" type="checkbox" class="cparent" (change)="selectAll($event,datads.cov.coverages)"><label for="check1i{{datads.prg+datads.ratc}}"></label></div><label for="check1i{{datads.prg+datads.ratc}}"><h4 class="showh4">Coverages <span class="showspan">(Show)</span></h4></label>
+                        <ng-container *ngFor="let coverage of datads.cov.coverages">
+                            <span class="flat-input-checkbox" *ngIf="!coverage.check" [class.hidden]="coverage.dup"><div class="custcheck"><input name="plan" [checked]="coverage.check2" value="{{coverage.termc}}" id="check{{datads.prg+datads.ratc+coverage.termc}}" type="checkbox" class="c1" [checked]="coverage.check2" (change)="togglebox(coverage,m)"><label for="check{{datads.prg+datads.ratc+coverage.termc}}"></label></div><label class="checklabel" for="check{{datads.prg+datads.ratc+coverage.termc}}">{{coverage.desc | uppercase}}</label></span>
+                        </ng-container>
+                        <!--Stacked-->
+                    </div>
+                    <div class="col-sm-4 col-xs-12" style="padding:5px 0 0 5px;">
+                        <hr style="margin-left:20px;margin-right:20px;" class="hidden-lg hidden-md hidden-sm">
+                        <div class="custcheck parentcheck"><input name="plan" id="check3i{{datads.prg+datads.ratc}}" type="checkbox" class="cparent"  (change)="selectAll($event,datads.trm.terms)" ><label for="check3i{{datads.prg+datads.ratc}}"></label></div><label for="check3i{{datads.prg+datads.ratc}}"><h4 class="showh4">Terms <span class="showspan">(Show)</span></h4></label>
+                        <ng-container *ngFor="let term of datads.trm.terms">
+                            <span class="flat-input-checkbox" *ngIf="!term.check"><div class="custcheck" ><input name="plan" [checked]="term.check2" value="{{term.termm}}"  id="check{{datads.prg+datads.ratc+term.termm+term.miles}}"  type="checkbox" class="c1" [checked]="term.check2" (change)="togglebox(term,m)"><label for="check{{datads.prg+datads.ratc+term.termm+term.miles}}"></label></div><label class="checklabel" for="check{{datads.prg+datads.ratc+term.termm+term.miles}}"><span>{{term.termm}} Months</span> / {{term.miles| number:0 }} miles</label></span>
+                        </ng-container>
+                    </div>
+                    <div class="col-sm-4 col-xs-12" style="padding:5px 0 0 5px;">
+                        <hr style="margin-left:20px;margin-right:20px;" class="hidden-lg hidden-md hidden-sm">
+                        <div class="custcheck parentcheck"><input name="plan" id="check2i{{datads.prg+datads.ratc}}" type="checkbox"  class="cparent" (change)="selectAll($event,datads.ded.deductibles)" ><label for="check2i{{datads.prg+datads.ratc}}"></label></div><label for="check2i{{datads.prg+datads.ratc}}"><h4 class="showh4">Deductibles <span class="showspan">(Show)</span></h4></label>
+                        <ng-container *ngFor="let deductible of datads.ded.deductibles">
+                            <span class="flat-input-checkbox" *ngIf="!deductible.check"><div class="custcheck" ><input name="plan" [checked]="deductible.check2" value="{{deductible.code}}" id="check{{datads.prg+datads.ratc+deductible.code}}" type="checkbox" class="c1"  [checked]="deductible.check2" (change)="togglebox(deductible,m)"><label for="check{{datads.prg+datads.ratc+deductible.code}}"></label></div><label class="checklabel" for="check{{datads.prg+datads.ratc+deductible.code}}">{{deductible.desc}}</label></span>
+                        </ng-container>
+                    </div>
+                    <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                        <span class="flat-input"><button name="submit" type="submit" class="flat-button pull-right" id="submit" title="Continue">Continue</button></span>
+                </div>
+                </form>  
+            
+            
+        </div>
+    </div>
+    <div class="loading hidden" id="calculating" ><div class="bar"><p>Preparing quote please wait...</p></div></div>
+</section>
+<app-footer></app-footer>

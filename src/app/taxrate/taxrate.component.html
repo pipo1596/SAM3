@@ -1,0 +1,65 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I' ||noAuth}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Tax Rate Maintenance</h1>
+                </div>
+            </div>
+        </div> 
+        <div class="row white">
+
+            <form  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkData()"
+                id="adduser"  autocomplete="off">
+                <div class="col-md-12">
+                    <h2>Current Tax Rate</h2>
+                    <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+                    <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel">*Tax Rate
+                        <span class="errorspan2" [class.opqquezero]="rate.message===''" [class.alert-danger]="rate.erlevel==='D'" [class.validating]="validating">{{rate.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password"  name="rate" type="number" placeholder="Rate" [class.required]="rate.message !==''"  [class.validating]="validating" [(ngModel)]="rate.value" max="99" (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel">*Include in Quote?
+                        <span class="errorspan2" [class.opqquezero]="incl.message===''" [class.alert-danger]="incl.erlevel==='D'"  [class.validating]="validating">{{incl.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="incl" id="incl" [(ngModel)]="incl.value" [class.required]="incl.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <option value="Y" [attr.selected]="incl.value=='Y' ? true : null">Yes</option>
+                            <option value="N" [attr.selected]="incl.value=='N' ? true : null">No</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="col-md-12 hidden-xs">
+                    <span class="flat-input">
+                        <button name="submit" type="submit"  class="flat-button pull-right" style="margin-right:10px" title="Update">Update</button>
+                    </span>
+                </div>
+                <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <span class="flat-input">
+                            <button name="submit" type="submit"  class="flat-button btn-block" style="margin:0" title="Update">Update</button>
+                        </span>
+                    </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                        <hr>
+                        <p>If you are required to charge tax on the sale of a contract, please enter the tax rate above. 
+                          By entering the tax rate, SAM will calculate tax within the quote results if you designate "YES" under "Include in Quote".  If you designate "NO", the tax rate calculation will only be used on the Payment Plan agreement for financed contracts.
+                        <br><br>Tax cannot be included in the Contract Purchase Price section of the coverage Application Page.
+                        <br><br>It is the responsibility of the seller to know the appropriate tax rate and handling for their state, county, etc.  
+                        <br><br>INDS does not accept responsibility for sales tax calculations, reporting or payment.<br><br>
+                        </p>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

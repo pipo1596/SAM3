@@ -1,0 +1,132 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Create New Quote & Contract</h1>
+                </div>
+                
+            </div>
+            <div class="white pull-left w100 stepsblock">
+              <ul class="nav nav-wizard" id="quotesteps">
+                  <li class="active"><a href="javascript:void(0)">Vehicle</a></li>
+                  <li><a class="disabledstep" href="javascript:void(0)">Product</a></li>
+                  <li><a class="disabledstep" href="javascript:void(0)">Quote</a></li>
+              </ul>
+              </div>
+        </div>
+        <div class="row white">
+                <form   class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);"  (submit)="checkStep1()" novalidate  autocomplete="off">
+                  <div class="col-md-12">
+                      <div class="alert alert-success" role="alert" 
+                      [ngClass]="{'alert-success':dispAlert.status==='S',
+                                  'alert-danger':dispAlert.status==='E',
+                                  'hidden':dispAlert.message===''}">{{dispAlert.message}}</div>
+                      
+                  </div>
+                    <div class="col-md-6">
+                        <h2>Select A Product&nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="product.erlevel==='D'" [class.validating]="validating">{{product.message}}</span></h2>
+                        
+                        <span *ngFor="let plan of pagedata.body.pln.plans">
+                        <span class="flat-input-checkbox">
+                            <div class="custcheck">
+                                <input [disabled]="plan.plnt!==pagedata.body.type && pagedata.body.type!==''" value="{{plan.prg+plan.ratc}}" id="chk{{plan.prg+plan.ratc}}" type="checkbox" [checked]="plan.check" (change)="addplan($event,plan)">
+                                <label for="chk{{plan.prg+plan.ratc}}"></label>
+                            </div><label class="checklabel" style="font-weight: bold" for="chk{{plan.prg+plan.ratc}}"><span >{{plan.desc | uppercase}}</span></label>
+                        </span>
+                        </span>
+
+                  </div>
+                  <div class="col-md-6">
+                      
+                      <div [ngClass]="{'hidden':pagedata.body.dispdms!=='Y'}">
+                        <h3 style="margin-bottom:0px">DMS RECORD # &nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="year.erlevel==='D'" [class.validating]="validating">{{year.message}}</span></h3>
+                        <div class="col-xs-7" style="padding-left:0">
+                            <span class="flat-input">
+                                <input autocomplete="new-password{{ran}}" name="dlno" (focus)="dmsOn()" (blur)="dmsOff()"   [(ngModel)]="dlno.value" type="text" placeholder="DMS RECORD #">   
+                            </span>
+                        </div>
+                        <div class="col-xs-5" style="padding-left:0">
+                            <a href="javascript:void(0)" class="btn btn-primary" style="min-width:100px;padding-top:8px;height:40px;" (click)="importDms()">IMPORT</a>
+                        </div>
+                      </div>
+
+                        <div class="clearfix"></div>
+                        <h2>Vehicle Information&nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="year.erlevel==='D'" [class.validating]="validating">{{year.message}}</span></h2>
+                        <span class="flat-input">
+                          <select class="form__select" name="year" [(ngModel)]="year.value" [class.required]="year.message!==''"  [class.validating]="validating"  (change)="yearChange()">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let yeard of years" [value]="yeard" [attr.selected]="yeard==year.value ? true : null">{{yeard}}</option>
+                          </select>
+                        </span>
+                        <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
+                          <select class="form__select" name="make" [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating"  (change)="makeChange()" [disabled]="year.value===''">
+                            <option value="">Select Make</option>
+                            <option *ngFor="let maked of pagedata.body.makes" [value]="maked.make" [attr.selected]="maked.make==make.value ? true : null">{{maked.desc}}</option>
+                          </select>
+                        </span>
+                        <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
+                          <select class="form__select" name="model" [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating"  (change)="onChange()" [disabled]="year.value===''||make.value===''">
+                            <option value="">Select Model</option>
+                            <option *ngFor="let modeld of pagedata.body.models" [value]="modeld.model" [attr.selected]="modeld.model==model.value ? true : null">{{modeld.desc}}</option>
+                          </select>
+                        </span>
+                        <span class="flat-input" *ngIf="pagedata.body.type==='R' ||
+                                                        (pagedata.body.type==='' && pagedata.body.dtype==='R')">
+                            <input autocomplete="new-password{{ran}}" name="make"  type="text" placeholder="Make" maxlength="17"  [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating" (change)="onChange()">
+                        </span>
+                        <span class="flat-input" *ngIf="pagedata.body.type==='R' ||
+                                                        (pagedata.body.type==='' && pagedata.body.dtype==='R')">
+                                <input autocomplete="new-password{{ran}}" name="model"  type="text" placeholder="Model" maxlength="17"  [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating" (change)="onChange()">
+                            </span>
+                        <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 style="margin-bottom: 0">OR</h4></div>
+                        <div><span class="errorspan2 alert-danger"  [class.hidden]="vin.erlevel==='S'" [class.validating]="vin.erlevel=='D' || validating">{{vin.message}}</span>&nbsp;
+                            <span class="errorspan2 alert-success"  [class.hidden]="vin.erlevel==='D'" [class.validating]="vin.erlevel=='S'">{{vin.message}}</span>&nbsp;</div>
+                        <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
+                            <input autocomplete="new-password{{ran}}" name="vin" id="vin" type="text" placeholder="VIN" maxlength="17" (keyup)="vinCheck('S')" [(ngModel)]="vin.value" [class.required]="vin.message !==''"  [class.validating]="validating" (change)="vinCheck('S');onChange()">
+                        </span>
+                        <div class="text-center"><hr style="margin:10px 10px 20px 10px"></div>
+                        <label class="flat-input inputlabel">*Mileage
+                            <span class="errorspan2" [class.opqquezero]="miles.message===''" [class.alert-danger]="miles.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{miles.message}}</span> 
+                        </label>
+                        <span class="flat-input">
+                            <input autocomplete="new-password{{ran}}" name="mileage" id="mileage" type="number" placeholder="Mileage" [(ngModel)]="miles.value" [class.required]="miles.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                        </span>
+                        <label class="flat-input inputlabel" *ngIf="pagedata.body.type==='R' ||
+                                                                    (pagedata.body.type==='' && pagedata.body.dtype==='R')">*Original Purchase Price
+                                <span class="errorspan2" [class.opqquezero]="price.message===''" [class.alert-danger]="price.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{price.message}}</span> 
+                            </label>
+                            <span class="flat-input"  *ngIf="pagedata.body.type==='R' ||
+                                                            (pagedata.body.type==='' && pagedata.body.dtype==='R')">
+                                <input autocomplete="new-password{{ran}}" name="price" id="price" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            </span>
+                        <label class="flat-input inputlabel">*In Service Date
+                            <span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                        <div class="col-sm-7" style="padding:0">
+                          <input autocomplete="new-password{{ran}}" name="servicedate"  [class.validating]="validating" id="servicedate" type="date" [(ngModel)]="insrvc.value" [class.required]="insrvc.message !==''" placeholder="In-Service-Date"  (change)="onChange()">
+                        </div>
+                        <div class="col-sm-5" style="padding:0 0 0 25px">
+                          <span class="flat-input-checkbox"><div class="custcheck"><input name="ckdate" id="ckdate"  type="checkbox" (change)="setDate($event)" [disabled]="pagedata.body.dyear===''"><label for="ckdate"></label></div><label class="checklabel" for="ckdate">Don't Know</label></span>
+                        </div>
+                        </div>
+                        <!--As Of Date-->
+                        <label class="flat-input inputlabel" *ngIf="pagedata.head.as400">*Rating Date
+                            <span class="errorspan2" [class.opqquezero]="asofdt.message===''" [class.alert-danger]="asofdt.erlevel==='D'" [class.validating]="validating">{{asofdt.message}}</span> 
+                        </label>
+                        <div class="flat-input w100" *ngIf="pagedata.head.as400">
+                        <div class="col-sm-7" style="padding:0">
+                          <input autocomplete="new-password{{ran}}" name="asofdt" id="asofdt" type="date" [(ngModel)]="asofdt.value" [class.required]="asofdt.message !==''" [class.validating]="validating" placeholder="Rating Date"  (change)="onChange()">
+                        </div>
+                        <div class="col-sm-5" style="padding:0 0 0 25px">
+                        </div>
+                        </div>
+                        <span class="flat-input"><button name="submit" type="submit" class="flat-button pull-right" id="submit" title="Continue">Continue</button></span>
+                  </div>
+            </form>  
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

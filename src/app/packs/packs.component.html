@@ -1,0 +1,198 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" *ngIf="pagedata.head.status==='I'" [ngClass]="{'hidden':pagedata.head.status!=='I' || noAuth}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Packs Maintenance</h1>
+                </div>
+            </div>
+        </div> 
+        <div class="row white">
+
+            <form *ngIf="selectedRec" class="contactform style4 clearfix panel-body" method="post" style="display:none" action="javascript:void(0);" (submit)="checkData()"
+                id="topform"  autocomplete="off">
+                <div class="col-md-12">
+                    <h2>{{modebtn}} Pack</h2>
+                    <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+                    <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel">*Program
+                        <span class="errorspan2" [class.opqquezero]="prg.message===''" [class.alert-danger]="prg.erlevel==='D'"  [class.validating]="validating">{{prg.message}}</span> 
+                    </label>
+                    <select class="form__select w100" name="prg" [(ngModel)]="selectedRec.prg"  [class.required]="prg.message !==''"  [class.validating]="validating" (change)="newPrg('NEW')">
+                        <option value="">Select Program</option>
+                        <ng-container *ngFor="let prg of pagedata.prgdrop.ratecards">
+                            <option [value]="prg.termp.padEnd(10)+prg.card.padEnd(10)"  >{{prg.desc}}</option>
+                        </ng-container>
+                    </select> 
+
+                    <label class="flat-input inputlabel" style="margin-top:10px">Coverage
+                        <span class="errorspan2" [class.opqquezero]="cov.message===''" [class.alert-danger]="cov.erlevel==='D'"  [class.validating]="validating">{{cov.message}}</span> 
+                    </label>
+                    <select class="form__select w100" name="cov" [(ngModel)]="selectedRec.cov"  [class.required]="cov.message !==''"  [class.validating]="validating">
+                        <option value="">Select Coverage</option>
+                        <ng-container *ngFor="let coverage of pagedata.covdrop.coverages">
+                            <option  *ngIf="coverage.termc!==''" [value]="coverage.termc"  >{{coverage.desc+' - '+coverage.termc}}</option>
+                        </ng-container>
+                    </select> 
+
+                    <label class="flat-input inputlabel" style="margin-top:10px">Term
+                        <span class="errorspan2" [class.opqquezero]="term.message===''" [class.alert-danger]="term.erlevel==='D'"  [class.validating]="validating">{{term.message}}</span> 
+                    </label>
+                    <select class="form__select w100" name="term" [(ngModel)]="selectedRec.term"  [class.required]="term.message !==''"  [class.validating]="validating">
+                        <option value="">Select Term</option>
+                        <ng-container *ngFor="let term1 of pagedata.trm.terms">
+                            <option  *ngIf="term1.termm!==''" [value]="term1.termm.padEnd(3)+term1.miles"  ><span *ngIf="term1.termm %12== 0 ">{{term1.termm/12}} Year</span><span *ngIf="term1.termm%12!==0">{{term1.termm}} Months</span><span *ngIf="term1.termm % 12 == 0 && term1.termm > 12">s</span> / {{term1.miles}} miles</option>
+                        </ng-container>
+                    </select> 
+                    
+                    <label class="flat-input inputlabel" style="margin-top:10px" >Min Odometer
+                        <span class="errorspan2" [class.opqquezero]="mino.message===''" [class.alert-danger]="mino.erlevel==='D'"  [class.validating]="validating">{{mino.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="mino" type="number" placeholder="Min Odometer" [class.required]="mino.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.mino" max="999999"  (change)="onChange()">
+                    </div>
+                    <label class="flat-input inputlabel">Max Odometer
+                        <span class="errorspan2" [class.opqquezero]="upmi.message===''" [class.alert-danger]="upmi.erlevel==='D'"  [class.validating]="validating">{{upmi.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="upmi" type="number" placeholder="Max Odometer" [class.required]="upmi.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.upmi" max="9999999" maxlength="7"  (change)="onChange()">
+                    </div>
+                    
+                    <label class="flat-input inputlabel" >New / Program / Used
+                        <span class="errorspan2" [class.opqquezero]="nub.message===''" [class.alert-danger]="nub.erlevel==='D'"  [class.validating]="validating">{{nub.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="nub" id="nub" [(ngModel)]="selectedRec.nub" [class.required]="nub.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <option value="N" [attr.selected]="'N'==selectedRec.catg ? true : null">New</option>
+                            <option value="P" [attr.selected]="'P'==selectedRec.catg ? true : null">Program</option>
+                            <option value="U" [attr.selected]="'U'==selectedRec.catg ? true : null">Used</option>
+                        </select>
+                    </span>
+                                       
+                    
+
+                    <label class="flat-input inputlabel">*Effective From
+                        <span class="errorspan2" [class.opqquezero]="effd.message===''" [class.alert-danger]="effd.erlevel==='D'"  [class.validating]="validating">{{effd.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="effd" type="date" placeholder="Effective From" [class.required]="effd.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.effd" (change)="onChange()">
+                    </div> 
+                    <label class="flat-input inputlabel">*Effective To
+                        <span class="errorspan2" [class.opqquezero]="expd.message===''" [class.alert-danger]="expd.erlevel==='D'"  [class.validating]="validating">{{expd.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="expd" type="date" placeholder="Effective To" [class.required]="expd.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.expd" (change)="onChange()">
+                    </div> 
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" style="margin-top:2px">Customer Retail Amount
+                        <span class="errorspan2" [class.opqquezero]="amtc.message===''" [class.alert-danger]="amtc.erlevel==='D'"  [class.validating]="validating">{{amtc.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="amtc" type="number" placeholder="Customer Retail Amount" [class.required]="amtc.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amtc" max="99999"  (change)="onChange()">
+                    </div> 
+                    
+                   
+                    <label class="flat-input inputlabel">Internal Markup $
+                        <span class="errorspan2" [class.opqquezero]="amti.message===''" [class.alert-danger]="amti.erlevel==='D'"  [class.validating]="validating">{{amti.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="amti" type="number" placeholder="Internal Markup $" [class.required]="amti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amti" max="99999"  (change)="onChange()">
+                    </div> 
+                    <label class="flat-input inputlabel">Retail Markup $
+                        <span class="errorspan2" [class.opqquezero]="amtr.message===''" [class.alert-danger]="amtr.erlevel==='D'"  [class.validating]="validating">{{amtr.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="amtr" type="number" placeholder="Retail Markup $" [class.required]="amtr.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amtr" max="99999"  (change)="onChange()">
+                    </div> 
+                    <label class="flat-input inputlabel">Internal Markup %
+                        <span class="errorspan2" [class.opqquezero]="pcti.message===''" [class.alert-danger]="pcti.erlevel==='D'"  [class.validating]="validating">{{pcti.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="pcti" type="number" placeholder="Internal Markup %" [class.required]="pcti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pcti" max="100" maxlength="5"  (change)="onChange()">
+                    </div>
+                    <label class="flat-input inputlabel">Retail Markup %
+                        <span class="errorspan2" [class.opqquezero]="pctr.message===''" [class.alert-danger]="pctr.erlevel==='D'"  [class.validating]="validating">{{pctr.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="pctr" type="number" placeholder="Retail Markup %" [class.required]="pctr.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pctr" max="100" maxlength="5"  (change)="onChange()">
+                    </div>
+                    <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
+                    
+
+                    
+                    
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 hidden-xs">
+                    <span class="flat-input">
+                        <button name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Pack</button>
+                    </span>
+                    <span class="flat-input">
+                        <button [class.hidden]="selectedRec.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="pull-right btn-danger" style="margin-right:10px"
+                            title="Delete">Delete</button>
+                    </span>
+                    <span class="flat-input">
+                            <button name="submit" type="button" (click)="cancel()" class="pull-right btn-warning" style="margin-right:10px"
+                                title="Cancel">Cancel</button>
+                    </span>
+                </div>
+                <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <span class="flat-input">
+                            <button name="submit" type="submit"  class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} User">{{modebtn}} Pack</button>
+                        </span>
+                        <span class="flat-input">
+                            <button [class.hidden]="selectedRec.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="btn-danger btn-block" style="margin:5px 0"  title="Delete">Delete</button>
+                        </span>
+                        <span class="flat-input">
+                                <button name="submit" type="button" (click)="cancel()" class="btn-warning btn-block" style="margin:5px 0"  title="Cancel">Cancel</button>
+                        </span>
+                    </div>
+                <div class="w100 pull-left">
+                    <hr>
+                </div>
+            </form>
+            <form class="contactform style4 clearfix panel-body " method="post"  autocomplete="off" >
+                <h2 class="pull-left">Packs</h2>
+                <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="New Pack"
+                    (click)="addRecInit()" id="addnewb">New Pack</a>
+                <div class="p-table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b>Program</b>
+                                </th>
+                                <th>
+                                    <b>From</b>
+                                </th>
+                                <th>
+                                    <b>To</b>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="pagedata.packs && pagedata.packs.length <1">
+                                <td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Packs To List----</h4></td>                        
+                            </tr>
+                            <tr *ngFor="let pack of pagedata.packs">
+                                <td data-label="Program">{{xlate(pack.prg)}}</td>
+                                <td data-label="From">{{pack.effd | date : "MM/d/y" }}</td>
+                                <td data-label="To">{{pack.expd | date : "MM/d/y" }}</td>
+                                <td data-label="">
+                                    <a href="javascript:void(0)" (click)="onSelect(pack)" class="btn btn-warning btnedit">Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

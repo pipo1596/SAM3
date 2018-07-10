@@ -1,0 +1,30 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+<div class="container invisible" [ngClass]="{'visible':pagedata.head.status==='I'}">                                                                           
+        <div class="dealparent">                                                                             
+           <img src="assets/images/welcome1.png" >
+           <h1 style="margin:5px 20px">Welcome {{this.pagedata.head.fnam}} {{this.pagedata.head.lnam}}!</h1>
+           <div class="dealerblock" *ngIf="this.pagedata.home.name !== ''">
+              
+              <h3>{{this.pagedata.home.name}}</h3>
+              <p>{{this.pagedata.home.add1}}</p>
+              <p>{{this.pagedata.home.add2}}</p>
+              <p>{{this.pagedata.home.city}}, {{this.pagedata.home.st}} {{this.pagedata.home.zip}}</p>
+
+              <div class="agentblock" *ngIf="this.pagedata.home.aname!==''" >
+                <h3>YOUR INDS AGENT</h3>
+                <p>{{this.pagedata.home.aname}}</p>
+                <p>{{this.pagedata.home.aadd1}}</p>
+                <p>{{this.pagedata.home.aadd2}}</p>
+                <p>{{this.pagedata.home.acity}}, {{this.pagedata.home.ast}} {{this.pagedata.home.zip}} <span *ngIf="this.pagedata.home.aphn1!==''"> /  {{this.pagedata.home.aphn1}}</span></p>                  
+             </div>  
+                               
+           </div>  
+           <div class="dealerblock" *ngIf="this.pagedata.head.currdlr ==''">
+             <h3>No location selected !</h3>
+           </div> 
+           
+           </div>                                                                                                                                                                        
+</div>
+</section>  
+<app-footer></app-footer> 

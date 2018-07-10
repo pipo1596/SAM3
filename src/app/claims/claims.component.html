@@ -1,0 +1,79 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">ACH Claims Report</h1>
+				</div>
+			</div>
+		</div>
+
+		<form class="contactform style4 clearfix panel-body" method="post" autocomplete="off">
+			
+
+			
+			<div class="row white" style="min-height: 600px">
+					<div class="col-md-6 col-md-offset-3" style="margin-top:10px;">
+							<label class="flat-input inputlabel">Date Processed:
+								<span class="errorspan2" [class.opqquezero]="period.message===''" [class.alert-danger]="period.erlevel==='D'"  [class.validating]="validating">{{period.message}}</span> 
+							</label>
+							<span class="flat-input">
+								<select *ngIf="pagedata.rows" autocomplete="new-password" class="form__select" name="period"  [class.validating]="validating"  (change)="onChangeDrop()" [(ngModel)]="period.value">
+									<option value="" >List All</option>
+									<ng-container *ngFor="let option of pagedata.rows">
+										<option  [value]="option.cutd" *ngIf="option.show=='T'" >{{option.cutd.substring(4,6)+'/'+option.cutd.substring(6,8)+'/'+option.cutd.substring(0,4)}}</option>
+									</ng-container>
+								</select>
+							</span>
+						</div>
+					<div class="col-xs-12"><hr></div>
+					<div class="col-xs-12" style="margin-top:15px">
+							<div style="overflow-x:auto;">
+							<table class="table">
+									<thead>
+									  <tr>
+										<th style="font-weight: bold">Date Processed</th>
+										<th style="font-weight: bold">Claim # </th>
+										<th style="font-weight: bold">R.O. #</th>
+										<th style="font-weight: bold">Contract #</th>
+										<th style="font-weight: bold">First Name</th>
+										<th style="font-weight: bold">Last Name</th>
+										<th style="font-weight: bold" class="text-right">Paid Amount</th>
+									  </tr>
+									</thead>
+									<ng-container *ngFor="let row of pagedata.rows">
+											<tr class="{{row.cls}}" *ngIf="row.show!=='T' && (row.cutd == period.value || period.value=='') " >
+													<td>{{row.cutd.substring(4,6)+'/'+row.cutd.substring(6,8)+'/'+row.cutd.substring(0,4)}}</td>
+													<td>{{row.clmn}}</td>
+													<td>{{row.ron1}}</td>
+													<td>{{row.btch}}</td>
+													<td>{{row.ofn}}</td>
+													<td>{{row.oln}}</td>
+													<td class="text-right">{{row.pamt | currency }}</td>
+											</tr>
+											<tr  class="{{row.cls}}" *ngIf="row.show=='T' && (row.cutd == period.value || period.value=='') ">
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td style="font-weight: bold">Total ({{row.cutd.substring(4,6)+'/'+row.cutd.substring(6,8)+'/'+row.cutd.substring(0,4)}}):</td>
+													<td style="font-weight: bold"class="text-right">{{row.pamt | currency }}</td>
+											</tr>
+
+									</ng-container>
+									
+							</table>
+							</div>
+					</div>
+
+			</div>
+
+
+		</form>
+	</div>
+</section>
+
+<app-footer></app-footer>

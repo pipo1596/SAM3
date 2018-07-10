@@ -1,0 +1,207 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Processed Contracts Inquiry</h1>
+				</div>
+			</div>
+		</div>
+		<form class="contactform style4 clearfix panel-body" method="post"  (submit)="getData()" autocomplete="off" [class.hidden]="pagemode!=='L'">
+			<div class="row white">
+				<div class="col-md-12">
+					<div class="alert alert-success" style="margin:15px 5px 0 5px" [ngClass]="{'hidden':dispAlert.message===''|| dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+          			<div class="alert alert-danger"  style="margin:15px 5px 0 5px" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+				</div>
+				<div class="col-xs-12">
+					<h5 class="pull-left">&nbsp;</h5>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Policy/Agr #
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password{{ran}}" (change)="onChange()" name="policy{{ran}}" id="anum" type="text" placeholder="Policy/Agr #" [(ngModel)]="anum">
+					</div>
+				</div>				
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Sufix
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password{{ran}}" (change)="onChange()" name="Suffix{{ran}}" id="asuf" type="text" placeholder="Suffix" [(ngModel)]="asuf">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Last 6 of VIN
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-vn{{ran}}" (change)="onChange()" name="newvn{{ran}}" id="newvn" type="text" maxlength="6" placeholder="Last 6 of VIN" [(ngModel)]="vin">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Last Name
+						<span class="errorspan2"> </span>
+					</label>
+					<div class="flat-input w100">
+            <input autocomplete="new-vin{{ran}}" name="oln{{ran}}" (change)="onChange()" id="oln" type="text" placeholder="Last Name" [(ngModel)]="oln">
+          </div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">First Name
+						<span class="errorspan2{{ran}}"></span>
+					</label>
+					<div class="flat-input w100">
+            <input autocomplete="new-password{{ran}}" name="ofn{{ran}}" (change)="onChange()" id="ofn" type="text" placeholder="First Name" [(ngModel)]="ofn">
+          </div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">&nbsp;
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<button name="submit" type="submit"  class="flat-button" style="margin-right:10px" title="Apply">Search</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row white apply-delete-space">						
+				<div class="col-sm-6" *ngIf="pager.totalPages>1">
+					<ul *ngIf="pager.pages && pager.pages.length" class="pagination ULpageOf">
+						<li [ngClass]="{disabled:pager.currentPage === 1}">
+							<a (click)="setPage(pager.currentPage - 1)">Previous</a>
+						</li>
+						<li>
+							<span class="pageOf">Page {{pager.currentPage}} of {{pager.totalPages}}</span>
+						</li>
+						<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+							<a (click)="setPage(pager.currentPage + 1)">Next</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row white">
+				<div class="p-table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><b>Policy/Agr #</b></th>
+								<th><b>Suffix</b></th>
+								<th><b>Last, First Name</b></th>
+								<th><b>Last 6 of VIN</b></th>
+								<th><b>Year</b></th>
+								<th><b>Make</b></th>
+								<th><b style="padding-left:8px;">View</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="pagedItems.length <1 && searched">
+								<td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Processed Contracts To List----</h4></td>                        
+							</tr>
+							<ng-container *ngFor="let cont of (pagedItems)">
+								<tr *ngIf="cont.show">
+									<td data-label="Pol/Agr #">{{cont.anum}}</td>	
+									<td data-label="Suffix">{{cont.asuf}}</td>
+									<td data-label="Last, First Name">{{cont.oln}}, {{cont.ofn}}</td>
+									<td data-label="Last 6 of VIN">{{cont.vin}}</td>
+									<td data-label="Year">{{cont.yr}}</td>
+									<td data-label="Make"><span class="vinspan">{{cont.manf}}</span></td>
+									<td data-label="View"><a href="javascript:void(0);" (click)="viewCont(cont)" class="btn btn-warning btnedit" ><i style="font-size:17px" class="fa fa-eye"></i>&nbsp;View</a></td>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+		</form>
+		<form class="contactform style4 clearfix panel-body" method="post" autocomplete="off" [class.hidden]="pagemode==='L'">
+		<div class="row white">
+			<h2 style="margin:15px 15px 0 15px;float: left">View/Edit Contract Information</h2>
+			<a href="javascript:void(0)"  (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
+				<span class="fa fa-backward"></span>&nbsp;&nbsp; Back</a>
+			<div class="col-xs-12">
+				<hr>
+			</div>
+			<div class="col-md-8 col-md-offset-2" >
+					<table class="table table-bordered table-striped" *ngIf="view">
+							
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Contract Number / Status</td>
+										<td width="50">{{view.anum}}-{{view.asuf}} / {{view.stat}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Full Name</td>
+										<td width="50">{{view.ofn}} {{view.oln}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Street Address</td>
+										<td width="50">{{view.oad1}}</td>
+								</tr>
+								<tr *ngIf="view.oad2!==''">
+										<td style="font-weight: bold;text-align: right">Apartment Number</td>
+										<td width="50">{{view.oad2}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">City, State, Zip</td>
+										<td width="50">{{view.octy}}, {{view.ost}} {{view.ozip}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Telephone</td>
+										<td width="50">{{view.ophn}}</td>
+								</tr>
+								<tr *ngIf="view.mail!==''">
+										<td style="font-weight: bold;text-align: right">Email Address</td>
+										<td width="50">{{view.mail}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Covered Vehicle</td>
+										<td width="50">{{view.veh}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">VIN</td>
+										<td width="50">{{view.vin}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Contract Term</td>
+										<td width="50">{{view.cvmn}} Months / {{view.cvml|number:0}} miles</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Coverage</td>
+										<td width="50">{{view.cov}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Deductible</td>
+										<td width="50">{{view.ded | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Purchase Date / Selling Price</td>
+										<td width="50">{{view.vpd}} / {{view.ccst | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Vehicle In Service Date / Mileage</td>
+										<td width="50">{{view.vid}} / {{view.odr |number:0}} </td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Expiration Date / Mileage</td>
+										<td width="50">{{view.texd}} / {{view.exml |number:0}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Dealer</td>
+										<td width="50">{{view.dnam}}</td>
+								</tr>
+								
+					</table>
+					<hr>
+			</div>
+
+		</div>
+		</form>
+	</div>
+</section>
+
+<app-footer></app-footer>

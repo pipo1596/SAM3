@@ -13,19 +13,21 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SAM3",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "./src/polyfills.ts",
+            "tsConfig": "./src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+                "src/assets/css/bootstrap.min.css",
+                "src/assets/css/style.css",
+                "src/assets/css/responsive.css"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js","./node_modules/date-input-polyfill/date-input-polyfill.dist.js"]
           },
           "configurations": {
             "production": {

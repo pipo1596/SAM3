@@ -1,0 +1,94 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Overrides Maintenance</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="row white">
+			<form *ngIf="selectedRec" action="javascript:void(0)" class="contactform style4 clearfix panel-body" method="post" style="display:none;" (submit)="checkData()" id="topform"  autocomplete="off">
+				<div class="col-md-12">
+					<h2>{{modebtn}} Override</h2>
+					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+          <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel">*{{PMTYPE}} Code
+						<span class="errorspan2" [class.opqquezero]="srky.message===''" [class.alert-danger]="srky.erlevel==='D'" [class.validating]="validating">{{srky.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="50" (change)="onChange()">
+					</div>
+					<label class="flat-input inputlabel">*Override Description
+						<span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.validating]="validating">{{desc.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password" id="desc" name="desc" type="text" placeholder="Description" [class.required]="desc.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.desc" maxlength="50" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel">Dealer Code
+						<span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.validating]="validating">{{dlr.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password" style="text-transform:uppercase;" id="dlr" name="dlr" type="text" placeholder="Code" [class.required]="dlr.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.dlr" maxlength="10" (change)="onChange()">
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12 hidden-xs">
+					<span class="flat-input">
+						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Override">{{modebtn}} Override</button>
+					</span>
+					<span class="flat-input">
+						<button [class.hidden]="selectedRec.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="pull-right btn-danger" style="margin-right:10px" title="Delete">Delete</button>
+					</span>
+					<span class="flat-input">
+						<button name="submit" type="button" (click)="cancel()" class="pull-right btn-warning" style="margin-right:10px" title="Cancel">Cancel</button>
+					</span>
+				</div>
+				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
+					<span class="flat-input">
+						<button name="submit" type="submit" class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} Override">{{modebtn}} Override</button>
+					</span>
+					<span class="flat-input">
+						<button [class.hidden]="selectedRec.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="btn-danger btn-block" style="margin:5px 0" title="Delete">Delete</button>
+					</span>
+					<span class="flat-input">
+						<button name="submit" type="button" (click)="cancel()" class="btn-warning btn-block" style="margin:5px 0"  title="Cancel">Cancel</button>
+					</span>
+				</div>
+			</form>
+
+			<form class="contactform style4 clearfix panel-body" method="post"  autocomplete="off">
+				<h2 class="pull-left">Overrides</h2>
+				<a href="javascript:void(0);" name="submit" class="flat-button pull-right" title="New Override" (click)="addRecInit()" id="addnewb">New Override</a>
+				<div class="p-table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><b>{{PMTYPE}} Code</b></th>
+								<th><b>Override Description</b></th>
+								<th><b>Dealer Code</b></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let ovrd of pagedata.overrides">
+								<td data-label="Program Code">{{ovrd.srky}}</td>
+								<td data-label="Override Description">{{ovrd.desc}}</td>
+								<td data-label="Dealer Code">{{ovrd.dlr}}</td>
+								<td data-label=""><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</section>
+<app-footer></app-footer>

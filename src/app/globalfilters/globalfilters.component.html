@@ -1,0 +1,55 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I' ||   noAuth}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Global Filters Settings</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row white">
+                <form   class="contactform style4 clearfix panel-body"  (submit)="saveFilters()"  autocomplete="off">
+            <div class="col-md-6 col-md-offset-3"> 
+                <div class="col-sm-12">
+                    <div class="alert alert-success" 
+                    [ngClass]="{'alert-success':dispAlert.status==='S','alert-danger':dispAlert.status==='E','hidden':dispAlert.message===''}"
+                    role="alert">{{dispAlert.message}}</div>
+                <h3 style="margin-bottom:0">Program</h3>
+                </div>
+                <div class="col-sm-8">
+                    <span class="flat-input">
+                        <select class="form__select w100" name="ratecard" [(ngModel)]="pagedata.body.ratc" (change)="newCard($event)">
+                         <ng-container *ngFor="let card of pagedata.body.drop.ratecards">
+                          <option   [value]="card.card.padEnd(10)+card.termp" [attr.termp]="card.termp" >{{card.desc | uppercase}}</option>
+                        </ng-container>
+                        </select> 
+                    </span>
+                </div>
+                <div class="col-sm-4">
+                        <button  name="submit" type="button" (click)="saveFilters()" class="btn-primary btn-block"  title="Save" style="margin:2px 0">Save</button>
+                </div>
+            </div>
+
+            <div class="col-xs-12"><hr></div>
+            <div class="col-sm-4 col-xs-6" style="padding: 5px 0 0 15px;">
+                        <div class="custcheck parentcheck"><input name="plan" id="check1i" type="checkbox" class="cparent" (change)="selectAll($event,'C')"  [checked]="coveragesAll" [(ngModel)]="coveragesAll"><label for="check1i"></label></div><label for="check1i"><h4 class="showh4">Coverages <span class="showspan">(Exclude)</span></h4></label>
+                        <ng-container *ngFor="let coverage of pagedata.body.cov.coverages">
+                            <span class="flat-input-checkbox" [class.hidden]="coverage.dup"><div class="custcheck"><input name="plan" value="{{coverage.termc}}" id="check{{coverage.termc}}" type="checkbox" class="c1"  [checked]="coverage.check" (change)="addfilt($event,'C','')"><label for="check{{coverage.termc}}"></label></div><label class="checklabel" for="check{{coverage.termc}}">{{coverage.desc | uppercase}}</label></span>
+                        </ng-container>
+            </div>
+            <div class="col-sm-4 col-xs-6"  style="padding: 5px 0 0 15px;">
+                <div class="custcheck parentcheck"><input name="plan" id="checkt" type="checkbox" class="cparent"  (change)="selectAll($event,'T')" [checked]="termsAll" [(ngModel)]="termsAll"><label for="checkt"></label></div><label for="checkt"><h4 class="showh4">Terms <span class="showspan">(Exclude)</span></h4></label>
+                <span class="flat-input-checkbox" *ngFor="let term of pagedata.body.trm.terms"><div class="custcheck"><input name="plan" value="{{term.termm}}"  id="check{{term.termm+term.miles}}" [checked]="term.check" type="checkbox" class="c1" (change)="addfilt($event,'T',term.miles)"><label for="check{{term.termm+term.miles}}"></label></div><label class="checklabel" for="check{{term.termm+term.miles}}"><span>{{term.termm}} Months</span> / {{term.miles|number:0}} miles</label></span>
+            </div>
+            <div class="col-sm-4 col-xs-6"  style="padding:5px 0 0 5px;">
+                        <hr style="margin-left:20px;margin-right:20px;"  class="hidden-lg hidden-md hidden-sm" >
+                        <div class="custcheck parentcheck"><input name="plan" id="check2i" type="checkbox"  class="cparent" (change)="selectAll($event,'D')"  [checked]="deductiblesAll" [(ngModel)]="deductiblesAll"><label for="check2i"></label></div><label for="check2i"><h4 class="showh4">Deductibles <span class="showspan">(Exclude)</span></h4></label>
+                        <span class="flat-input-checkbox" *ngFor="let deductible of pagedata.body.ded.deductibles"><div class="custcheck"><input name="plan" value="{{deductible.code}}" id="check{{deductible.code}}" type="checkbox" class="c1"  [checked]="deductible.check" (change)="addfilt($event,'D','')"><label for="check{{deductible.code}}"></label></div><label class="checklabel" for="check{{deductible.code}}">{{deductible.desc}}</label></span>
+            </div>
+            
+            </form>  
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

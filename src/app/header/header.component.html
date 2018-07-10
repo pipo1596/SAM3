@@ -1,0 +1,209 @@
+<head>
+    <title>{{headdata.title}}</title>                                                                                  
+    <!-- Mobile Specific Metas -->                      
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">        
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">                                                                                                                  
+  </head>   
+<body>
+  <div class="boxed">                             
+  <div class="flat-header-wrap">                 
+                                                                                                        
+      <header id="header" class="header header-classic header-style1">                                                                 
+          <div class="container">                                                                                                      
+              <div class="row">      
+                  <div class="col-sm-7 col-xs-7 col-md-6 col-lg-7" [ngClass]="{'col-md-6 col-lg-7':headdata.status!=='I' ,'col-md-4':headdata.status==='I'}" style="padding-right:0">
+                    <div id="logo" class="logo">                     
+                              <a *ngIf="headdata.status!=='I'" routerLink="/app" rel="home" class="pull-left" >                                    
+                                  <img src="/assets/images/logo.png" alt="image">         
+                              </a>
+                              <a *ngIf="headdata.status==='I'" routerLink="/app/Home" rel="home" class="pull-left" >                                    
+                                <img src="/assets/images/logo.png" alt="image">         
+                            </a> 
+                            <div *ngIf="headdata.status==='I' && (headdata.multi || headdata.as400)" class="loccont" (click)="showLoc()" title="{{headdata.currloc}}">
+                                <div class="info-icon">
+                                    <i class="fa fa-map-marker"></i>
+                                </div> 
+                                <p class="plocation" *ngIf="headdata.currloc!==''">{{headdata.currloc}}</p> 
+                                <p class="plocation" *ngIf="headdata.currloc ==''">Select A Location!</p> 
+                            </div>                                                                                                 
+                          </div><!-- /.logo -->                          
+                  </div>                                                                                                  
+                  <div class="col-sm-5 col-xs-5 col-md-6 col-lg-5" *ngIf="headdata.status!=='I'">                                                                                              
+                      <div class="flat-wrap-header">                                                                                   
+                          <div class="nav-wrap clearfix">                                                                              
+                              <nav id="mainnav" class="mainnav">                                                                       
+                                  <ul class="menu"> 
+                                      <li><a href="javascript:void(0)">Claims Forms</a></li>                                                                                                                    
+                                      <li><a href="javascript:void(0)">Star Defense</a></li>                                                                                                   
+                                  </ul><!-- /.menu -->                                                                                      
+                              </nav><!-- /.mainnav -->     
+                              <div class="btn-menu">           
+                                  <span></span>                
+                              </div><!-- //mobile menu button -->      
+                          </div><!-- /.nav-wrap -->                    
+                      </div>                                           
+                  </div> 
+                  <div class="col-sm-5 col-xs-5 col-md-8" *ngIf="headdata.status==='I'" style="padding-left:0">                                                                                              
+                        <div class="flat-wrap-header">                                                                                   
+                            <div class="nav-wrap clearfix">                                                                              
+                                <nav id="mainnav" class="mainnav">                                                                       
+                                    <ul class="menu">     
+                                        <ng-container *ngFor="let main of headdata.menuOp">                                                                                                                                              
+                                        <li *ngIf="headdata.currdlr !=='' && main.type=='QM'"><a href="javascript:void(0)">Quotes &amp; Contracts</a>
+                                            <ul class="submenu"> 
+                                                <!--Quotes-->
+                                                <ng-container *ngFor="let main of headdata.menuOp">
+                                                <li class="headerli" *ngIf="main.type=='Q'"><hr><div>Quotes</div></li> 
+                                                <ng-container *ngIf="main.type=='Q'"> 
+                                                <ng-container  *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='Q1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
+                                                </ng-container>
+                                                </ng-container>  
+                                                <!--Contracts-->
+                                                <ng-container *ngFor="let main of headdata.menuOp">
+                                                <li class="headerli" *ngIf="main.type=='C'"><hr><div>Contracts</div></li> 
+                                                <ng-container *ngIf="main.type=='C'">   
+                                                <ng-container  *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='C1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
+                                                <ng-container  *ngFor="let menu of headdata.menuOp">
+                                                       <!-- <li class="headerli2" *ngIf="menu.type=='C2'"><hr></li>-->
+                                                        <li class="headerfirst" *ngIf="menu.type=='C2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
+                                                </ng-container>
+                                                </ng-container>               
+                                            </ul><!-- /.submenu --> 
+                                        </li> 
+                                        </ng-container>
+                                        <ng-container *ngFor="let main of headdata.menuOp">
+                                        <li *ngIf="main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
+                                            <ul class="submenu">
+                                                <ng-container *ngFor="let menu of headdata.menuOp">
+                                                    <li *ngIf="menu.type=='M1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                    <li *ngIf="menu.type=='M1'" class="headerli2"><hr></li> 
+                                                </ng-container>
+                                                <ng-container *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='M2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
+                                                 
+                                                <li><a *ngIf="headdata.as400" [routerLink]="['/app/DescOverride','Program']">Program Overrides</a></li>
+                                                <li><a *ngIf="headdata.as400" [routerLink]="['/app/DescOverride','Coverage']">Coverage Overrides</a></li>
+
+                                            </ul><!-- /.submenu --> 
+                                        </li> 
+                                        </ng-container>
+                                        <!--Reports-->
+                                        <ng-container *ngFor="let main of headdata.menuOp">
+                                                <li *ngIf="main.type=='R'"><a href="javascript:void(0)">Reports</a>
+                                                <ul class="submenu">       
+                                                <ng-container  *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='R1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
+                                                </ul>
+                                                </li>
+                                        </ng-container>
+                                        <li><a href="javascript:void(0)">Forms</a>
+                                            <ul class="submenu">                                                 
+                                                <li><a href="./forms/cancellationform.html" target="_blank">Cancellation</a></li> 
+                                                <li><a href="./forms/Transfer_Form.pdf" target="_blank">Transfer</a></li>  
+                                                <li><a href="./forms/RemittanceRegister2-02.pdf" target="_blank">Remittance Register</a></li>
+                                                <li><a href="./forms/Remittance_Register_Certified.pdf" target="_blank">Remittance Register Certified</a></li>
+                                                <li><a href="./forms/Exception_Request_Form.pdf" target="_blank">Exception Request</a></li>
+                                                <li><a href="./forms/Upgrade_Request_Form.pdf" target="_blank">Upgrade Request</a></li>
+                                                <li><a href="./forms/star_waiver_form.pdf" target="_blank">Star Waiver Form</a></li>                    
+                                            </ul><!-- /.submenu --> 
+                                        </li>                                                                                                                       
+                                        <li><a href="javascript:void(0)" (click)="logOut()">Log Out</a></li>                                                                                                   
+                                    </ul><!-- /.menu -->                                                                                      
+                                </nav><!-- /.mainnav -->     
+                                <div class="btn-menu">           
+                                    <span></span>                
+                                </div><!-- //mobile menu button -->      
+                            </div><!-- /.nav-wrap -->                    
+                        </div>                                           
+                    </div>                                              
+              </div>                                                   
+          </div>                                                       
+      </header>
+  </div> 
+
+  <div class="modal" id="logout" role="dialog">
+    <input type="hidden" value="{{headdata.status}}" id="instatus">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Inactivity detected</h4>
+        </div>
+        <div class="modal-body">
+          <p>Your session is about to expire, stay Logged In?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="logOutTimer('R')" >Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="alertModal" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left" id="alertTitle"></h4>
+            </div>
+            <div class="modal-body">
+              <p id="alertBody"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="hideAlert()" >Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div class="modal" id="vrsnModal" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left" id="alertTitle">New version available!</h4>
+            </div>
+            <div class="modal-body">
+              <p id="alertBody">Load new verion now?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" (click)="hideVersion()" >Not Now</button>
+              <button type="button" class="btn btn-primary" (click)="getVersion()" >Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <div class="modal" id="roofTop" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Select a Location<div class="info-icon" style="margin:2px 15px 0 0">
+                                    <i class="fa fa-map-marker"></i>
+                                </div> </h4>
+        </div>
+        <div class="modal-body">
+            <div class="flat-input w100 text-center" *ngIf="headdata.as400">
+                <input class="pull-left" style="margin-right:15px" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  type="text" placeholder="Dealer Code" maxlength="10">
+                <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
+            </div>
+          <ul *ngIf="!process && headdata.loctn" style="max-height: 400px;overflow-y: scroll">
+             <li *ngFor="let loc of headdata.loctn" >
+                <a href="javascript:void(0)" class="lochref" (click)="changeLoc(loc)">{{loc.desc}}</a>
+            </li> 
+            <li *ngIf="headdata.loctn.length==0 && dealer!==''"  class=""><b>No results found!</b></li>
+          </ul>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="hideLoc()" >Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop fade hidden"></div>

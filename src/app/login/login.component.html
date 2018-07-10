@@ -1,0 +1,28 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+<div class="container">                                                                           
+  <div class="row">                                                                             
+      <div class="col-md-6 col-md-offset-3 panel invisible" [ngClass]="{'visible':pagedata.head.status!=='I'}">       
+                                                                       
+          <form id="Login" class="contactform style4 clearfix panel-body" action="javascript:void(0);" (submit)="checkLogin()" autocomplete="new-password">
+                      <h1>Producer Login</h1>
+                      <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+                      <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+                      <div >
+                      <span class="flat-input">
+                          <span class="errorspan" [class.opqquezero]="employee.message===''" [class.alert-danger]="employee.erlevel==='D'" [class.alert-success]="employee.erlevel==='S'" [class.validating]="validating">{{employee.message}}</span> 
+                        <input [(ngModel)]="employee.value" autocomplete="new-password" name="employee" autofocus id="employee" [class.required]="employee.value===''" [class.validating]="validating"  (change)="onChange()" type="text" placeholder="*Email" maxlength="50">
+                      </span>
+                      <span class="flat-input">
+                          <span class="errorspan" [class.opqquezero]="password.message===''" [class.alert-danger]="password.erlevel==='D'" [class.alert-success]="password.erlevel==='S'" [class.validating]="validating">{{password.message}}</span> 
+                        <input [(ngModel)]="password.value" autocomplete="new-password" name="password" id="password" [class.required]="password.value===''" [class.validating]="validating" (change)="onChange()" type="password" placeholder="* Password" max="50">
+                      </span>
+                    </div>
+                      <span *ngIf="!changeP" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Log In</button></span>
+                      <span *ngIf="changeP" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Update Pasword</button></span>
+                    </form>                                                                              
+      </div>                                                                                                                                                                           
+  </div>  
+</div>
+</section>  
+<app-footer></app-footer> 

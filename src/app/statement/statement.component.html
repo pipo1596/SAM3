@@ -1,0 +1,39 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Dealer Statement</h1>
+				</div>
+			</div>
+		</div>
+
+		<form class="contactform style4 clearfix panel-body" method="post"  autocomplete="off">
+			
+
+			
+			<div class="row white" style="min-height: 600px">
+					<div class="col-md-6 col-md-offset-3" style="margin-top:10px;">
+							<label class="flat-input inputlabel">Available Periods
+								<span class="errorspan2" [class.opqquezero]="period.message===''" [class.alert-danger]="period.erlevel==='D'"  [class.validating]="validating">{{period.message}}</span> 
+							</label>
+							<span class="flat-input">
+								<select *ngIf="pagedata.dates" autocomplete="new-password" class="form__select" name="period"  [class.validating]="validating"  (change)="onChangeDrop()" [(ngModel)]="period.value">
+									<option value="" >Select</option>
+									<option *ngFor="let option of pagedata.dates" [value]="option.key" >{{option.desc}}</option>
+								</select>
+							</span>
+						</div>
+					<div class="col-xs-12"><hr></div>
+					<div class="col-xs-12" style="margin-top:15px"><iframe id="pdfIframe" style="width:100%;min-height: 700px"></iframe></div>
+
+			</div>
+
+
+		</form>
+	</div>
+</section>
+
+<app-footer></app-footer>

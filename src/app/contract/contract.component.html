@@ -1,0 +1,490 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Create New Quote & Contract</h1>
+                </div>
+            </div>
+            <div class="white pull-left w100 stepsblock" id="quotesteps"></div>
+        </div>
+        <div class="row white" style="min-height:400px">
+        <form  method="post" autocomplete="new-password" class="contactform style4" action="javascript:void(0);" (submit)="checkData()" novalidate>
+            <div class="col-xs-12">
+                    <div class="alert alert-success" role="alert" [ngClass]="{'alert-success':dispAlert.status==='S',
+                    'alert-danger':dispAlert.status==='E',
+                    'hidden':dispAlert.message===''}" style="margin-top:8px">{{dispAlert.message}}</div>
+            </div>    
+            <div class="col-md-12" style="margin-top:10px">
+                    <h1 class="pull-left">Contract Details</h1>
+                    
+                    <a routerLink="/app/Quote1" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 18px;margin:0 0 0 15px;">
+                        <span class="fa fa-fast-backward"></span>&nbsp;&nbsp;Edit Vehicle</a>
+                    <a routerLink="/app/Results" class="btn pull-right nextsection btn-warning"  title="Back" style="padding:10px 18px;">
+                            <span class="fa fa-backward"></span>&nbsp;&nbsp;Back</a>
+                    
+                </div>
+                <div class="col-xs-12" *ngIf="pagedata.body.contract">
+                        <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <b>Coverage</b>
+                                        </th>
+                                        <th scope="col">
+                                            <b>Term</b>
+                                        </th>
+                                        <th scope="col">
+                                            <b>Deductible</b>
+                                        </th>
+                                        <th scope="col">
+                                            <b>Price</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                            <td style="font-weight: bold">
+                                                <span>{{ pagedata.body.contract.cvds }}
+                                                <span style="color:gray" *ngIf="pagedata.body.contract.nup =='N'">- [New]</span>
+                                                <span style="color:gray" *ngIf="pagedata.body.contract.nup =='U'">- [Used]</span>
+                                                <span style="color:gray" *ngIf="pagedata.body.contract.nup =='P'">- [Program]</span></span>
+                                            </td>
+                                            <td style="font-weight: bold">{{ pagedata.body.contract.term }}</td>
+                                            <td style="font-weight: bold">{{ pagedata.body.contract.ded | currency }}</td>
+                                            <td style="font-weight: bold">{{ pagedata.body.contract.ccst| currency }}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                        <hr>
+                </div>
+                
+                <div class="clearfix"></div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                        <label class="flat-input inputlabel">Vehicle</label> 
+                        <span class="pull-left" style="padding:0 5PX;" *ngIf="pagedata.body.veh">{{pagedata.body.veh.year}} {{pagedata.body.veh.make}} {{pagedata.body.veh.model}}</span>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2">
+                        <label class="flat-input inputlabel">In-Service Date</label> 
+                        <span class="pull-left" style="padding:0 5PX;" *ngIf="pagedata.body.veh">{{pagedata.body.veh.insrvc}}</span>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="pagedata.body.veh && pagedata.body.veh.price ===''">
+                        <label class="flat-input inputlabel" id="vinlbl">*VIN&nbsp;<a  *ngIf="vinE==false && pagedata.body.veh.vin==''" href="javascript:void(0)" (click)="editVin()" style="color:#5a8ce6">- Edit</a>
+                           
+                        </label>  
+                        <span class="pull-left" style="padding:0 5PX;"  *ngIf="vinE==false">{{vin.value}}</span>  
+                        <div class="flat-input w100" *ngIf="vinE==true" style="position:relative">
+                            <input autocomplete="new-password{{ran}}" class="w100" (keyup)="vinCheck()"   name="vin{{ran}}" type="text"  placeholder="VIN" [class.required]="vin.message !== ''"  [class.validating]="validating"  [(ngModel)]="vin.value" maxlength="17"  style="margin-bottom:7px">
+                            <a routerLink="/app/Quote1" class="hidden flat-button pull-right nextsection"  title="Back" style="padding:6px 18px;position:absolute;top:2px;right:2px;">
+                                <span class="fa fa-backward"></span>&nbsp;&nbsp;Edit</a>
+                        </div>
+                        <span *ngIf="pagedata.body.veh.vin==''" class="errorspan2 validating pull-left" [class.opqquezero]="vin.message===''" [class.alert-danger]="vin.erlevel==='D'" [class.alert-success]="vin.erlevel==='S'">{{vin.message}}</span> 
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="pagedata.body.veh && pagedata.body.veh.price !==''">
+                    <label class="flat-input inputlabel">Purchase Price:</label>
+                    <div class="flat-input w100" style="padding:0 5PX;">
+                        <span>{{pagedata.body.veh.price | currency}}&nbsp;</span>
+                    </div> </div>
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                        <label class="flat-input inputlabel" id="vpdlbl">*Purchase Date
+                            <span class="errorspan2" [class.opqquezero]="vpd.message===''" [class.alert-danger]="vpd.erlevel==='D'" [class.validating]="validating">{{vpd.message}}</span> 
+                        </label>    
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()"  name="vpd{{ran}}" type="date"  placeholder="Purchase Date" [class.required]="vpd.message !== ''"  [class.validating]="validating"  [(ngModel)]="vpd.value" maxlength="50"  style="margin-bottom:7px">
+                        </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12 col-sm-6 col-md-3" *ngIf="pagedata.body.veh && pagedata.body.veh.miles!==''">
+                    <label class="flat-input inputlabel">Mileage</label>
+                    <div class="flat-input w100" style="padding:0 5PX;">
+                        <span>{{pagedata.body.veh.miles |number:0}} miles&nbsp;</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3" *ngIf="pagedata.body.srchg && pagedata.body.srchg.length>0">
+                    <label class="flat-input inputlabel">Features / Opt.Coverages</label>
+                    <div class="flat-input w100" style="padding:0 5PX;">
+                        <ng-container *ngFor="let VF of pagedata.body.srchg;let i=index;">
+                            <span *ngIf="VF.type =='VF'">{{VF.code}}&nbsp;</span>
+                        </ng-container>  
+                        <ng-container *ngFor="let VF of pagedata.body.srchg;let i=index;">
+                            <span *ngIf="i==0">&nbsp;/&nbsp;</span>
+                            <span *ngIf="VF.type !=='VF'">{{VF.code}}&nbsp;</span>
+                        </ng-container>  
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3" *ngIf="pagedata.body.veh && pagedata.body.veh.mmth>0">
+                    <label class="flat-input inputlabel">Mfg. Warranty Full</label>
+                    <div class="flat-input w100" style="padding:0 5PX;">
+                            <span>{{pagedata.body.veh.mmth}} Months / {{pagedata.body.veh.mmil |number:0}} miles&nbsp;</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3" *ngIf="pagedata.body.veh && pagedata.body.veh.pmth>0">
+                    <label class="flat-input inputlabel">Mfg. Warranty Powertrain</label>
+                    <div class="flat-input w100" style="padding:0 5PX;">
+                            <span>{{pagedata.body.veh.pmth}} Months / {{pagedata.body.veh.pmil |number:0}} miles&nbsp;</span>
+                    </div>
+                </div>
+                
+                
+                <div class="col-xs-12"><hr></div>
+                <div class="col-xs-12"><h3>Customer Information</h3></div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="stocklbl">*Stock # / Member ID 
+                        <span class="errorspan2" [class.opqquezero]="stock.message===''" [class.alert-danger]="stock.erlevel==='D'" [class.validating]="validating">{{stock.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="stock{{ran}}" type="text"  placeholder="Stock # / Member ID " [class.required]="stock.message !== ''"  [class.validating]="validating"  [(ngModel)]="stock.value" maxlength="15" style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="lhiflbl">Lien Holder Name 
+                        <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}"  class="w100"  (change)="onChange()" name="lhif{{ran}}" type="text"  placeholder="Lien Holder Name" [class.required]="lhfi.message !== ''"  [class.validating]="validating"  [(ngModel)]="lhfi.value" maxlength="50" style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="cpdlbl">*Contract Purchase Date 
+                        <span class="errorspan2" [class.opqquezero]="cpd.message===''"  [class.alert-danger]="cpd.erlevel==='D'" [class.validating]="validating">{{cpd.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="cpd{{ran}}" type="date"  placeholder="Contract Purchase Date" [class.required]="cpd.message !== ''"  [class.validating]="validating"  [(ngModel)]="cpd.value" maxlength="15" style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="firstlbl">*First Name 
+                       <span class="errorspan2" [class.opqquezero]="first.message===''" [class.alert-danger]="first.erlevel==='D'" [class.validating]="validating">{{first.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100"  (change)="onChange()" name="first{{ran}}" type="text"  placeholder="First Name" [class.required]="first.message !== ''"  [class.validating]="validating"  [(ngModel)]="first.value" maxlength="50" style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="lastlbl">*Last Name 
+                       <span class="errorspan2" [class.opqquezero]="last.message===''" [class.alert-danger]="last.erlevel==='D'" [class.validating]="validating">{{last.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="last{{ran}}" type="text"  placeholder="Last Name" [class.required]="last.message !== ''"  [class.validating]="validating"  [(ngModel)]="last.value" maxlength="50"  style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="emaillbl">*Email 
+                       <span class="errorspan2" [class.opqquezero]="email.message===''" [class.alert-danger]="email.erlevel==='D'" [class.validating]="validating">{{email.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100"  (change)="onChange()" name="email{{ran}}" type="text"  placeholder="Email Address" [class.required]="email.message !== ''"  [class.validating]="validating"  [(ngModel)]="email.value" maxlength="50"  style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="phonelbl">*Phone 
+                       <span class="errorspan2" [class.opqquezero]="phone.message===''" [class.alert-danger]="phone.erlevel==='D'" [class.validating]="validating">{{phone.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100"  (change)="onChange()" (keyup)="formatPhone(phone)" name="phone{{ran}}" type="tel"  placeholder="Phone" [class.required]="phone.message !== ''"  [class.validating]="validating"  [(ngModel)]="phone.value" maxlength="14" style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="addr1lbl">*Address 1 
+                       <span class="errorspan2" [class.opqquezero]="addr1.message===''" [class.alert-danger]="addr1.erlevel==='D'" [class.validating]="validating">{{addr1.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100"  (change)="onChange()" name="addr1{{ran}}" type="text"  placeholder="Address 1" [class.required]="addr1.message !== ''"  [class.validating]="validating"  [(ngModel)]="addr1.value" maxlength="50"  style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="addr2lbl">Address 2 
+                        <span class="errorspan2" [class.opqquezero]="addr2.message===''" [class.alert-danger]="addr2.erlevel==='D'" [class.validating]="validating">{{addr2.message}}</span> 
+                     </label>
+                     <div class="flat-input w100">
+                         <input autocomplete="new-password{{ran}}" class="w100"  (change)="onChange()" name="addr2{{ran}}" type="text"  placeholder="Address 2" [class.required]="addr2.message !== ''"  [class.validating]="validating"  [(ngModel)]="addr2.value" maxlength="50"  style="margin-bottom:7px">
+                     </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="citylbl">*City 
+                        <span class="errorspan2" [class.opqquezero]="city.message===''" [class.alert-danger]="city.erlevel==='D'" [class.validating]="validating">{{city.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" class="w100" name="City{{ran}}" type="text"  placeholder="City" [class.required]="city.message !== ''"  [class.validating]="validating"  [(ngModel)]="city.value" maxlength="30" style="margin-bottom:7px">
+                   </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="col-xs-7"  style="padding-left: 0">
+                        <label class="flat-input inputlabel" id="statelbl">*State 
+                            <span class="errorspan2" [class.opqquezero]="state.message===''" [class.alert-danger]="state.erlevel==='D'" [class.validating]="validating">{{state.message}}</span> 
+                        </label>
+                        <span class="flat-input">
+                           <select  autocomplete="new-password"  (change)="onChange()" class="form__select w100" name="state"  [(ngModel)]="state.value" [class.required]="state.message !==''"  [class.validating]="validating">
+                                <option value="">Select</option>                                    <option *ngFor="let statesl of pagedata.body.states" [value]="statesl.code" [attr.selected]="statesl.code==state.value ? true : null">{{statesl.desc}}</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="col-xs-5" style="padding-right: 0">
+                    <label class="flat-input inputlabel" id="ziplbl">*Zip 
+                            <span class="errorspan2" [class.opqquezero]="zip.message===''" [class.alert-danger]="zip.erlevel==='D'" [class.validating]="validating">{{zip.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="zip{{ran}}" type="text"  placeholder="Zip" [class.required]="zip.message !== ''"  [class.validating]="validating"  [(ngModel)]="zip.value" maxlength="12" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="cbfirstlbl">Co-buyer First Name 
+                       <span class="errorspan2" [class.opqquezero]="cbfirst.message===''" [class.alert-danger]="cbfirst.erlevel==='D'" [class.validating]="validating">{{cbfirst.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="cbfirst{{ran}}" type="text"  placeholder="Co-buyer First Name" [class.required]="cbfirst.message !== ''"  [class.validating]="validating"  [(ngModel)]="cbfirst.value" maxlength="50" style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="cblastlbl">Co-buyer Last Name 
+                       <span class="errorspan2" [class.opqquezero]="cblast.message===''" [class.alert-danger]="cblast.erlevel==='D'" [class.validating]="validating">{{cblast.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="cblast{{ran}}" type="text"  placeholder="Co-buyer Last Name" [class.required]="cblast.message !== ''"  [class.validating]="validating"  [(ngModel)]="cblast.value" maxlength="50"  style="margin-bottom:7px">
+                    </div>
+                </div>
+                <div class="col-xs-12" *ngIf="pagedata.body.fields && pagedata.body.fields.length >0"><hr></div>
+                <div class="col-xs-12"  *ngIf="pagedata.body.fields && pagedata.body.fields.length >0"><h3>Required Fields</h3></div>
+                <ng-container *ngIf="pagedata.body.fields && pagedata.body.fields.length >0">
+                <ng-container  *ngFor="let fld of pagedata.body.fields;let j=index;">
+                    <div class="col-sm-6 col-xs-12">
+                    <label class="flat-input inputlabel" id="{{fld.name}}lbl">*{{fld.labl}} 
+                        <span class="errorspan2" [class.opqquezero]="fld.message===''" [class.alert-danger]="fld.erlevel==='D'" [class.validating]="validating">{{fld.message}}</span> 
+                    </label>
+                    <div class="flat-input w100" *ngIf="fld.type == 'TEL'">
+                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="text"  placeholder="{{fld.labl}}" (keyup)="formatPhone(fld)"[class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
+                    </div>
+                    <div class="flat-input w100" *ngIf="fld.type == 'TXT' || fld.type == 'NUM' || fld.type=='EML'">
+                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="text"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
+                    </div>
+                    <div class="flat-input w100" *ngIf="fld.type == 'DAT'">
+                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="date"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
+                    </div>
+                    <span class="flat-input w100" *ngIf="fld.type == 'DRP'">
+                        <select   (change)="onChange()" class="form__select w100" name="{{fld.name}}{{ran}}"  [(ngModel)]="fld.value" [class.required]="fld.message !==''"  [class.validating]="validating">
+                            <option value="">Select</option>                                    
+                            <option *ngFor="let optn of fld.data" [value]="optn.code" [attr.selected]="optn.code==fld.value ? true : null">{{optn.desc}}</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="clearfix" *ngIf="(j%2)==1"></div>
+                </ng-container>
+            </ng-container>
+                <div class="col-xs-12"><hr style="margin-top:8px"></div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12"><h3>Payment Information</h3></div>
+                <div class="col-md-12" style="margin-bottom:20px;margin-top:10px;">
+                    <div class="col-sm-3 col-lg-2 col-md-3" style="padding-top:3px;">
+                       <h4>Paylink Options:</h4>
+                    </div>
+                    <div class="col-sm-9">
+                       <div class="col-sm-4 col-md-3" style="padding-top:3px;">
+                         <div class="custradio"><input name="payment" id="payment1" value="C" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment1"></label></div>
+                         <label class="checklabel" for="payment1">Credit Card</label>
+                       </div>
+                       <div class="col-sm-2"  style="padding-top:3px;">
+                         <div class="custradio"><input name="payment" id="payment2" value="A" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment2"></label></div>
+                         <label class="checklabel" for="payment2">ACH</label>
+                       </div>
+                       <div class="col-sm-3" style="padding-right:0;padding-top: 3px;">
+                         <div class="custradio"><input name="payment" id="payment3" value="M" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment3"></label></div>
+                         <label class="checklabel" for="payment3">Monthly Bill</label>
+                       </div>
+                       <div class="col-sm-3"  style="padding-top:3px;">
+                         <div class="custradio"><input name="payment" id="payment4" value="F" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment4"></label></div>
+                         <label class="checklabel" for="payment4">Full Pay</label>
+                       </div>
+                    </div>
+                       <div class="col-xs-12" style="padding: 5px 15px"><small>* Use "Full Pay" option when the cost will be remitted to INDS in full by the producer *</small></div>
+               </div>
+               <div class="clearfix"></div>
+               <div style="margin:10px" id="dynamicsec">
+               <div [class.ng-hide]="payment!=='C'" [class.ng-primary]="payment==='C'"  class="col-md-8 col-md-offset-2 well">
+                    <div class="col-xs-12">
+                        <label class="flat-input inputlabel" id="ccnumlbl">*Card Number
+                           <span class="errorspan2" [class.opqquezero]="ccnum.message===''"  [class.alert-danger]="ccnum.erlevel==='D'" [class.validating]="validating">{{ccnum.message}}</span> 
+                        </label>
+                        <div class="flat-input col-xs-8 col-sm-9" style="padding-left:0">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" (keyup)="validCC()" name="ccnum{{ran}}" type="text"  placeholder="Card Number" [class.required]="ccnum.message !== ''"  [class.validating]="validating"  [(ngModel)]="ccnum.value" maxlength="19" style="margin-bottom:7px">
+                        </div>
+                        <div class="col-xs-4 col-sm-3" style="padding:0" class="creditcards">
+                           <img  src="/assets/images/visa.png" class="pull-left" [class.hidden]="cctyp!=='V'">
+                           <img  src="/assets/images/master.png" class="pull-left"  [class.hidden]="cctyp!=='M'">
+                           <img  src="/assets/images/discover.png" class="pull-left"  [class.hidden]="cctyp!=='D'">
+                           <img  src="/assets/images/amex.png" class="pull-left"  [class.hidden]="cctyp!=='A'">
+                           <p class="valid2 pull-left" style="font-size: 23px;padding-top:6px" *ngIf="cctyp!=='U'"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-12">
+                        <div class="col-xs-5"  style="padding-left: 0">
+                            <label class="flat-input inputlabel" id="ccexplbl">*Exp. Date 
+                                <span class="errorspan2" [class.opqquezero]="ccexp.message===''" [class.alert-danger]="ccexp.erlevel==='D'" [class.validating]="validating">{{ccexp.message}}</span> 
+                            </label>
+                            <span class="flat-input">
+                                    <input autocomplete="new-password{{ran}}" class="w100" (keyup)="formatExp()" (change)="onChange()" (focus)="clearexp()" name="ccexp{{ran}}" type="text"  placeholder="MM / YY" [class.required]="ccexp.message !== ''"  [class.validating]="validating"  [(ngModel)]="ccexp.value" maxlength="7" style="margin-bottom:7px">   
+                            </span>
+                        </div>
+                        <div class="col-xs-7" style="padding-right: 0">
+                        <label class="flat-input inputlabel" id="cccvvlbl">*Security Code 
+                                <span class="errorspan2" [class.opqquezero]="cccvv.message===''" [class.alert-danger]="cccvv.erlevel==='D'" [class.validating]="validating">{{cccvv.message}}</span> 
+                            </label>
+                            <div class="flat-input w100">
+                                <input autocomplete="new-password{{ran}}" class="w100" (keyup)="formatCVV()" (change)="onChange()" name="cccvv{{ran}}" type="text"  placeholder="CVV" [class.required]="cccvv.message !== ''"  [class.validating]="validating"  [(ngModel)]="cccvv.value" maxlength="3" style="margin-bottom:7px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="flat-input inputlabel" id="ccnamlbl">*Name on Card 
+                           <span class="errorspan2" [class.opqquezero]="ccnam.message===''" [class.alert-danger]="ccnam.erlevel==='D'" [class.validating]="validating">{{ccnam.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="ccnam{{ran}}" type="text"  placeholder="Name on card" [class.required]="ccnam.message !== ''"  [class.validating]="validating"  [(ngModel)]="ccnam.value" maxlength="50" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+               </div>
+               <div [class.ng-hide]="payment!=='A'" [class.ng-primary]="payment==='A'" class="col-md-8 col-md-offset-2 well">
+                    <div class="col-sm-6  col-xs-12">
+                        <label class="flat-input inputlabel" id="achbanklbl">*Bank Name
+                           <span class="errorspan2" [class.opqquezero]="achbank.message===''"  [class.alert-danger]="achbank.erlevel==='D'" [class.validating]="validating">{{achbank.message}}</span> 
+                        </label>
+                        <div class="flat-input w100" style="padding-left:0">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()"  name="achbank{{ran}}" type="text"  placeholder="Bank Name" [class.required]="achbank.message !== ''"  [class.validating]="validating"  [(ngModel)]="achbank.value" maxlength="50" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <label class="flat-input inputlabel" id="achrotnlbl">*ABA Routing Number
+                           <span class="errorspan2" [class.opqquezero]="achrotn.message===''" [class.alert-danger]="achrotn.erlevel==='D'" [class.validating]="validating">{{achrotn.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="achrotn{{ran}}" type="text"  placeholder="ABA Routing Number" [class.required]="achrotn.message !== ''"  [class.validating]="validating"  [(ngModel)]="achrotn.value" maxlength="50" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-6 col-xs-12">
+                        <label class="flat-input inputlabel" id="achacnolbl">*Account Number
+                           <span class="errorspan2" [class.opqquezero]="achacno.message===''" [class.alert-danger]="achacno.erlevel==='D'" [class.validating]="validating">{{achacno.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="achacno{{ran}}" type="text"  placeholder="Account Number" [class.required]="achacno.message !== ''"  [class.validating]="validating"  [(ngModel)]="achacno.value" maxlength="50" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <label class="flat-input inputlabel" id="achcheklbl">*Check Number
+                           <span class="errorspan2" [class.opqquezero]="achchek.message===''" [class.alert-danger]="achchek.erlevel==='D'" [class.validating]="validating">{{achchek.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="achchek{{ran}}" type="text"  placeholder="Check Number" [class.required]="achchek.message !== ''"  [class.validating]="validating"  [(ngModel)]="achchek.value" maxlength="50" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+               </div>
+            </div>
+            <div style="margin:10px" *ngIf="payment!=='F'">
+            <div class="col-md-8 col-md-offset-2 well">
+
+                    <div class="col-xs-6">
+                        <label class="flat-input inputlabel" style="margin-top:10px">Total Price</label>
+                        <div class="flat-input w100">
+                            <input  type="text" placeholder="Total Price" name="totalp" disabled [(ngModel)]="totalp" (keyup)="calcChng('totalp')" >
+                        </div>
+                        <label class="flat-input inputlabel" style="margin-top:10px">Min 5% Down</label>
+                        <div class="flat-input w100">
+                            <select class="form__select w100" name="mindwn" [(ngModel)]="mindwn" (change)="calcChng('mindwn')" >
+                                <option value="5">5%</option>
+                                <option value="10">10%</option>
+                                <option value="20">20%</option>
+                                <option value="30">30%</option>
+                                <option value="40">40%</option>
+                                <option value="100">Full Pay</option>
+                            </select>
+                        </div>
+                        <label class="flat-input inputlabel" style="margin-top:10px" id="dwnpmlbl">Down Payment
+                                <span class="errorspan2" [class.opqquezero]="downpmMsg===''"  [class.alert-danger]="downpmMsg!==''" [class.validating]="validating">{{downpmMsg}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <div style="padding:0">
+                                <input type="text" placeholder="Down Payment" name="downpm" [(ngModel)]="downpm" (keyup)="calcChng('downpm')" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <label class="flat-input inputlabel" style="margin-top:10px"># Months</label>
+                        <div class="flat-input w100">
+                            <select class="form__select w100" name="months" [(ngModel)]="months"  (change)="calcChng('months')" >
+                                <option value="12">12</option>
+                                <option value="15">15</option>
+                                <option value="18">18</option>
+                                <option value="24">24</option>
+                            </select>
+                        </div>
+                        <label class="flat-input inputlabel" style="margin-top:10px">Monthly Payment</label>
+                        <div class="flat-input w100">
+                            <div style="padding:0">
+                                <input name="mthlyp" [(ngModel)]="mthlyp" type="text" placeholder="Monthly Payment" disabled >
+                            </div>
+                        </div>
+                        <label class="flat-input inputlabel" style="margin-top:10px">Balance</label>
+                        <div class="flat-input w100">
+                            <div style="padding:0">
+                                <input name="balnce" [(ngModel)]="balnce" type="text" placeholder="Balance" disabled >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+                <div class="col-xs-12" style="padding:15px;">
+                        <button name="submit" style="background:#f19614" type="submit" class="flat-button pull-right" id="submit" title="Continue">Continue</button>
+                </div>
+                </form>
+        </div>
+    </div>
+    <div class="loading hidden" id="calculating">
+        <div class="bar">
+            <p>Preparing quote please wait...</p>
+        </div>
+    </div>
+    <div class="modal" id="contractModal" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Success</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Contract Successfuly Created!</p>
+                </div>
+                <div class="modal-footer">
+                  <a class="btn btn-default" routerLink="/app/Home" >Done</a>
+                  <a class="btn btn-info" routerLink="/app/Quote1" >Start a New Quote</a>
+                  <a class="btn btn-primary" id="viewPdf" href="javascript:void(0)" (click)="viewPdf()" >View Contract</a>
+                  <div id="waitPdf" class="loader2 pull-right" style="margin:0 25px"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="VFMismatchModal" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Vehicle Features Mismatch</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Selected Vehicle Features don't match VIN entered! Click 
+                      <a style="color:#2a8fe6" routerLink="/app/Quote2"><b>&nbsp;<u>Here</u>&nbsp;</b></a> to re-Quote!
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="hideVF()" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+</section>
+<app-footer></app-footer>

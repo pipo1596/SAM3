@@ -1,0 +1,136 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Repair Facility Search</h1>
+				</div>
+			</div>
+		</div>
+
+		<form class="contactform style4 clearfix panel-body" method="post"  (submit)="checkData()" autocomplete="off">
+			
+
+			
+			<div class="row white" style="min-height: 600px;padding-top: 10px">
+					<div class="col-xs-12"><h2>Search By:</h2></div>
+					<!--Area Code-->
+					<div class="col-md-4" style="padding-top:10px;">
+						<div class="custradio" style="margin-top:3px"><input name="payment" id="zip" value="Z" type="radio" (change)="onChangeT()"  [(ngModel)]="mode"><label for="zip"></label></div>
+						<label class="checklabel" for="zip"><h3>Zip Code Search</h3></label>
+					</div>
+					<div class="col-md-4" style="padding-top:10px;">
+						<div class="custradio" style="margin-top:3px"><input name="payment" id="city" value="C" type="radio"  (change)="onChangeT()"  [(ngModel)]="mode"><label for="city"></label></div>
+						<label class="checklabel" for="city"><h3>City/State Search</h3></label>
+					</div>
+					
+					<div class="col-md-4" style="padding-top:10px;">
+						<div class="custradio" style="margin-top:3px"><input name="payment" id="area" value="A" type="radio" (change)="onChangeT()"  [(ngModel)]="mode"><label for="area"></label></div>
+						<label class="checklabel" for="area"><h3>Area Code Search</h3></label>
+					</div>
+					<div class="col-xs-12" *ngIf="mode=='A'">
+					<div class="well well-sm">
+				    <div class="col-sm-6 col-xs-12" >
+							<label class="flat-input inputlabel">*Area Code 
+								<span class="errorspan2" [class.opqquezero]="area.message===''" [class.alert-danger]="area.erlevel==='D'" [class.validating]="validating">{{area.message}}</span> 
+							</label>
+							<div class="flat-input w100">
+								<input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="area{{ran}}" type="text"  placeholder="Area Code" [class.required]="area.message !== ''"  [class.validating]="validating"  [(ngModel)]="area.value" maxlength="3">
+							</div>
+					</div>
+					<div class="col-xs-12 text-left">
+							<div _ngcontent-c0="" class="flat-input w100">
+								<button _ngcontent-c0="" class="flat-button" name="submita"  title="Search" type="submit">Search</button>
+							</div>
+					</div>
+					
+					<div class="clearfix"></div>
+					</div>
+					</div>
+					<!--City/State-->
+					<div class="col-xs-12" *ngIf="mode=='C'">
+					<div class="well well-sm">
+				    <div class="col-sm-6 col-xs-12" >
+							<label class="flat-input inputlabel">*City 
+								<span class="errorspan2" [class.opqquezero]="city.message===''" [class.alert-danger]="city.erlevel==='D'" [class.validating]="validating">{{city.message}}</span> 
+							</label>
+							<div class="flat-input w100">
+								<input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="city{{ran}}" type="text"  placeholder="City" [class.required]="city.message !== ''"  [class.validating]="validating"  [(ngModel)]="city.value" maxlength="20">
+							</div>
+					</div>
+					<div class="col-sm-6 col-xs-12">
+							<label class="flat-input inputlabel">*State:
+								<span class="errorspan2" [class.opqquezero]="stat.message===''" [class.alert-danger]="stat.erlevel==='D'"  [class.validating]="validating">{{stat.message}}</span> 
+							</label>
+							<span class="flat-input">
+								<select autocomplete="new-password" class="form__select" name="stat"  [(ngModel)]="stat.value" [class.required]="stat.message !==''"  [class.validating]="validating">
+									<option value="" >Select State</option>
+									<ng-container *ngFor="let option of pagedata.states">
+										<option  [value]="option.code">{{option.desc}}</option>
+									</ng-container>
+								</select>
+							</span>
+					</div>
+					<div class="col-sm-6 text-left">
+						<div _ngcontent-c0="" class="flat-input w100">
+							<button _ngcontent-c0="" class="flat-button" name="submitc"  title="Search" type="submit">Search</button>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					</div>
+					</div>
+					<!--Zip Code-->
+					
+						<div class="col-xs-12" *ngIf="mode=='Z'">
+						<div class="well well-sm">
+						<div class="col-sm-6 col-xs-12" >
+								<label class="flat-input inputlabel">*Zip Code 
+									<span class="errorspan2" [class.opqquezero]="zip.message===''" [class.alert-danger]="zip.erlevel==='D'" [class.validating]="validating">{{zip.message}}</span> 
+								</label>
+								<div class="flat-input w100">
+									<input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="zip{{ran}}" type="text"  placeholder="Zip Code" [class.required]="zip.message !== ''"  [class.validating]="validating"  [(ngModel)]="zip.value" maxlength="9">
+								</div>
+						</div>
+						<div class="col-xs-12 text-left">
+							<div _ngcontent-c0="" class="flat-input w100">
+								<button _ngcontent-c0="" class="flat-button" name="submitc"  title="Search" type="submit">Search</button>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="col-xs-12"><hr></div>
+					<div class="col-xs-12" style="margin-top:15px">
+							<div style="overflow-x:auto;">
+							<table class="table table-striped">
+									<thead>
+									  <tr>
+										<th style="font-weight: bold">Dealer Name</th>
+										<th style="font-weight: bold">Address</th>
+										<th style="font-weight: bold">Phone</th>
+									  </tr>
+									</thead>
+									<ng-container *ngFor="let row of pagedata.rows">
+											<tr>
+													<td>{{row.name}}</td>
+													<td>{{row.add1}}<br>{{row.city}} {{row.stat}} , {{row.zip}}</td>
+													<td>{{row.phn}}</td>
+											</tr>
+											
+
+									</ng-container>
+									
+							</table>
+							</div>
+					</div>
+
+			</div>
+
+
+		</form>
+	</div>
+</section>
+
+<app-footer></app-footer>

@@ -1,0 +1,90 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I' || noAuth}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Authorities Maintenance</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row white">
+
+            <form  *ngIf="selectedRole" class="contactform style4 clearfix panel-body" smethod="post" action="javascript:void(0);"  style="display:none" (submit)="checkRole()"
+                id="addrole"  autocomplete="off">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>{{modebtn}} Authority</h2>
+                    <div class="alert alert-success" 
+                         [ngClass]="{'alert-success':dispAlert.status==='S','alert-danger':dispAlert.status==='E','hidden':dispAlert.message===''}"
+                         role="alert">{{dispAlert.message}}</div>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <label class="flat-input inputlabel">*Authority
+                        <span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.alert-success]="desc.erlevel==='S'" [class.validating]="validating">{{desc.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input  (change)="onChange()" [disabled]="this.selectedRole.type=='Y'" autocomplete="new-password"  name="desc" type="text" placeholder="Authority Description" [class.required]="desc.value===''"  [class.validating]="validating" [(ngModel)]="selectedRole.desc" maxlength="50">
+                    </div>
+                    <label class="flat-input inputlabel">Access to</label>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let trole of selectedRole.autharr">
+                                <div class="custcheck">
+                                    <input [disabled]="this.selectedRole.type=='Y' && !pagedata.head.as400" [checked]="trole.chek==='Y'" id="chk{{trole.auth}}" value="{{trole.auth}}" type="checkbox" (change)="addauth($event)">
+                                    <label for="chk{{trole.auth}}"></label>
+                                </div>
+                                <label class="checklabel" style="font-weight: bold" for="chk{{trole.auth}}">{{trole.desc}}</label>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <div class="col-md-6 col-md-offset-3 hidden-xs">
+                    <span class="flat-input" *ngIf="this.selectedRole.type!='Y' || pagedata.head.as400">
+                        <button name="submit" type="submit"  class="flat-button pull-right saveRole" style="margin-right:10px" title="{{modebtn}} Authority">{{modebtn}} Authority</button>
+                    </span>
+                    <span class="flat-input" *ngIf="this.selectedRole.type!='Y'">
+                        <button [class.hidden]="this.selectedRole.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="pull-right btn-danger" style="margin-right:10px"
+                            title="Delete">Delete</button>
+                    </span>
+                    <span class="flat-input">
+                            <button name="submit" type="button" (click)="cancel()" class="pull-right btn-warning" style="margin-right:10px"
+                                title="Cancel">Cancel</button>
+                    </span>
+                </div>
+                <div class="col-md-6 hidden-sm hidden-md hidden-lg">
+                        <span class="flat-input" *ngIf="this.selectedRole.type!='Y' || pagedata.head.as400">
+                            <button name="submit" type="submit"  class="flat-button btn-block saveRole" style="margin:0" title="{{modebtn}} Authority">{{modebtn}} Authority</button>
+                        </span>
+                        <span class="flat-input" *ngIf="this.selectedRole.type!='Y'">
+                            <button [class.hidden]="this.selectedRole.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="btn-danger btn-block" style="margin:5px 0"  title="Delete">Delete</button>
+                        </span>
+                        <span class="flat-input">
+                                <button name="submit" type="button" (click)="cancel()" class="btn-warning btn-block" style="margin:5px 0"  title="Cancel">Cancel</button>
+                        </span>
+                    </div>
+                <div class="w100 pull-left">
+                    <hr>
+                </div>
+            </form>
+            <div class="col-md-8 col-md-offset-2">
+            <form class="contactform style4 clearfix panel-body " method="post"  autocomplete="off">
+                <h2 class="pull-left">Authorities</h2>
+                <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="Add New"
+                    (click)="addRoleInit()" id="addnewb">Add New</a>
+                <div class="">
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let role of pagedata.roles">
+                                <td data-label="Authority">{{role.desc}}</td>
+                                <td data-label="" class="text-right">
+                                    <a href="javascript:void(0)" (click)="onSelect(role)" class="btn btnedit" [class.btn-warning]="role.type!='Y' || pagedata.head.as400" [class.btn-default]="role.type=='Y'&& !pagedata.head.as400"><span *ngIf="role.type=='Y'&& !pagedata.head.as400">View&nbsp;<i class="fa fa-eye"></i></span><span *ngIf="role.type!='Y' || pagedata.head.as400">&nbsp;Edit&nbsp;<i class="fa fa-pencil-square-o"></i></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</section>
+<app-footer></app-footer>
