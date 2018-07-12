@@ -4,7 +4,7 @@ import { JsonService } from '../utilities/json.service';
 import { Util } from '../utilities/util';
 import { Processeddata, Cont, Readnextdata } from './processeddata'; 
 import { Textfield , Numfield} from '../utilities/textfield';
-import { Dispalert , Errsetter } from '../utilities/dispalert';
+import { Dispalert } from '../utilities/dispalert';
 import { PagerService } from '../_services/index'
 
 
@@ -22,6 +22,9 @@ export class ProcessedComponent implements OnInit {
 	valid = false;
   changes = false;
   searched = false;
+  canedit = false;
+  eanum:string="";
+  easuf:string="";
   pagemode:string = "L";
 	//Input Fields
 	ofn  : string="";
@@ -30,9 +33,17 @@ export class ProcessedComponent implements OnInit {
   asuf : string="";
   vin  : string="";
   view : any;
+  erScrolid :string = "";
+  //Edit Input Fields
+  eoad1  = new Textfield
+  eoad2  = new Textfield
+  eocty = new Textfield
+  eost  = new Textfield
+  eozip = new Textfield
+  eophn = new Textfield
+  email = new Textfield
 	//Alerts
   dispAlert = new Dispalert();
-  errSet    = new Errsetter();
 	
 	showDelete : boolean = false;
   //Paging
@@ -52,8 +63,84 @@ export class ProcessedComponent implements OnInit {
     this.validating = false;
     this.dispAlert.default();
   }
+  onChangeE(){
+  	this.changes = true;
+    this.validating = false;
+    this.dispAlert.default();
+  }
 
+  checkEdit(){
+        this.valid = true;
+        this.validating = true;
+        this.eoad1.message='';
+        this.eoad2.message='';
+        this.eocty.message='';
+        this.eost.message='';
+        this.eozip.message='';
+        this.eophn.message='';
+        this.email.message='';
+        this.eoad1.value  = this.eoad1.value.trim();
+        this.eoad2.value  = this.eoad2.value.trim();
+        this.eocty.value  = this.eocty.value.trim();
+        this.eost.value   = this.eost.value.trim();
+        this.eozip.value  = this.eozip.value.trim();
+        this.eophn.value  = this.eophn.value.trim();
+        this.email.value  = this.email.value.trim();
+
+        if (this.eoad1.value == "") { this.eoad1.message = "( required )"; this.valid = false;this.erscrol('eoad1');}
+        if (this.eocty.value == "") { this.eocty.message = "( required )"; this.valid = false;this.erscrol('eocty');}
+        if (this.eost.value == "")  { this.eost.message  = "( required )"; this.valid = false;this.erscrol('eost');}
+        if (this.eozip.value == "") { this.eozip.message = "( required )"; this.valid = false;this.erscrol('eozip');}
+        if (this.eophn.value == "") { this.eophn.message = "( required )"; this.valid = false;this.erscrol('eophn');}
+
+        
+        if (this.eozip.value !== "" && !Util.validZip(this.eozip.value))   { this.eozip.message = "( invalid )"; this.valid = false;this.erscrol('eozip');} 
+        if (this.eophn.value !== "" && !Util.validphone(this.eophn.value)) { this.eophn.message = "( invalid )"; this.valid = false;this.erscrol('eophn');}
+        if (this.email.value !== "" && !Util.validemail(this.email.value)) { this.email.message = "( invalid )"; this.valid = false;this.erscrol('email');}
+       
+        this.loadDb();
+  }
+
+  loadDb() {
+    if (!this.valid){ Util.scrollToId(this.erScrolid);Util.firstErrFocus(); return false;}
+    Util.showWait();
+    var obj ={"mode":"UPDATE",
+              "anum":  this.eanum,
+              "asuf":  this.easuf,
+              "oad1": this.eoad1.value,
+              "oad2": this.eoad2.value,
+              "octy": this.eocty.value,
+              "ost" :  this.eost.value,
+              "ozip": this.eozip.value,
+              "ophn": this.eophn.value,
+              "oeml": this.email.value
+             }
+    this.jsonService
+    .initService(obj,Util.Url("CGICPRCNTR"))
+    .subscribe(data => this.view = data,
+    err => {Util.responsiveMenu(); },
+    () => {
+    this.pagemode = 'L'; 
+    
+    Util.hideWait();
+    }
+    );
+    }
+  erscrol(id){
+    if(this.erScrolid=='')
+      this.erScrolid = id;
+  }
+  formatPhone(phone) {
+    var numbers = phone.value.replace(/\D/g, ''),
+      char = { 0: '(', 3: ') ', 6: '-' };
+    phone.value = '';
+    for (var i = 0; i < numbers.length; i++) {
+      phone.value += (char[i] || '') + numbers[i];
+    }
+  }
   viewCont(agr){
+    this.eanum = agr.anum;
+    this.easuf = agr.asuf;
     Util.showWait();
     var obj ={"mode":"VIEW",
               "anum": agr.anum,
@@ -64,12 +151,35 @@ export class ProcessedComponent implements OnInit {
   	.subscribe(data => this.view = data,
   		err => {Util.responsiveMenu(); },
   		() => {
-        this.pagemode = 'V'; 
+        this.pagemode = 'V';
+        if(this.view.stat !== 'Active') this.canedit = false; 
+
+        this.eoad1.message='';
+        this.eoad1.message='';
+        this.eocty.message='';
+        this.eost.message='';
+        this.eozip.message='';
+        this.eophn.message='';
+        this.email.message='';
+        this.eoad1.value = this.view.oad1;
+        this.eoad2.value = this.view.oad2;
+        this.eocty.value = this.view.octy;
+        this.eost.value  = this.view.ost;
+        this.eozip.value = this.view.ozip;
+        this.eophn.value = this.view.ophn;
+        this.email.value = this.view.mail;
+        Util.hideWait();  
   		}
   	);
-    Util.hideWait();
+    
   }
   clearMode(){
+   
+    if(this.changes){
+    if(!confirm("Disregard changes?")) return false;
+    }
+    this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
+    this.changes = false;
     Util.showWait();
     this.pagemode = 'L';
     Util.hideWait();
@@ -154,7 +264,8 @@ export class ProcessedComponent implements OnInit {
           console.log(this.pagedata.contracts);
           this.masterPgCnt = this.pageCount;
           this.setPage(1); 
-  				Util.hideWait();
+          Util.hideWait();
+          this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
   			}
   		}
   	);

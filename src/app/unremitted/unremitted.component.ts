@@ -28,6 +28,7 @@ export class UnremittedComponent implements OnInit {
 	stock : string="";
   lname : string="";
   salep : string="";
+  pagemode:string = "L";
 	//Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -44,6 +45,20 @@ export class UnremittedComponent implements OnInit {
   masterPgCnt : number=0;
   //navigate away from page stop the recursive calls to build quotes
   killRecur : boolean = false;
+  view : any;
+  canedit = false;
+  eecno:string="";
+  erScrolid :string = "";
+  //Edit Input Fields
+  eofn  = new Textfield
+  eoln  = new Textfield
+  eoad1  = new Textfield
+  eoad2  = new Textfield
+  eocty = new Textfield
+  eost  = new Textfield
+  eozip = new Textfield
+  eophn = new Textfield
+  email = new Textfield
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
 
@@ -52,6 +67,143 @@ export class UnremittedComponent implements OnInit {
     this.validating = false;
     this.dispAlert.default();
   }
+  onChangeE(){
+  	this.changes = true;
+    this.validating = false;
+    this.dispAlert.default();
+  }
+
+  checkEdit(){
+    this.valid = true;
+    this.validating = true;
+    this.eofn.message='';
+    this.eoln.message='';
+    this.eoad1.message='';
+    this.eoad2.message='';
+    this.eocty.message='';
+    this.eost.message='';
+    this.eozip.message='';
+    this.eophn.message='';
+    this.email.message='';
+    this.eofn.value   = this.eofn.value.trim();
+    this.eoln.value   = this.eoln.value.trim();
+    this.eoad1.value  = this.eoad1.value.trim();
+    this.eoad2.value  = this.eoad2.value.trim();
+    this.eocty.value  = this.eocty.value.trim();
+    this.eost.value   = this.eost.value.trim();
+    this.eozip.value  = this.eozip.value.trim();
+    this.eophn.value  = this.eophn.value.trim();
+    this.email.value  = this.email.value.trim();
+
+    if (this.eofn.value == "")  { this.eofn.message  = "( required )"; this.valid = false;this.erscrol('eofn');}
+    if (this.eoln.value == "")  { this.eoln.message  = "( required )"; this.valid = false;this.erscrol('eoln');}
+    if (this.eoad1.value == "") { this.eoad1.message = "( required )"; this.valid = false;this.erscrol('eoad1');}
+    if (this.eocty.value == "") { this.eocty.message = "( required )"; this.valid = false;this.erscrol('eocty');}
+    if (this.eost.value == "")  { this.eost.message  = "( required )"; this.valid = false;this.erscrol('eost');}
+    if (this.eozip.value == "") { this.eozip.message = "( required )"; this.valid = false;this.erscrol('eozip');}
+    if (this.eophn.value == "") { this.eophn.message = "( required )"; this.valid = false;this.erscrol('eophn');}
+    if (this.email.value == "") { this.email.message = "( required )"; this.valid = false;this.erscrol('email');}
+
+    
+    if (this.eozip.value !== "" && !Util.validZip(this.eozip.value))   { this.eozip.message = "( invalid )"; this.valid = false;this.erscrol('eozip');} 
+    if (this.eophn.value !== "" && !Util.validphone(this.eophn.value)) { this.eophn.message = "( invalid )"; this.valid = false;this.erscrol('eophn');}
+    if (this.email.value !== "" && !Util.validemail(this.email.value)) { this.email.message = "( invalid )"; this.valid = false;this.erscrol('email');}
+   
+    this.loadDb();
+}
+
+loadDb() {
+if (!this.valid){ Util.scrollToId(this.erScrolid);Util.firstErrFocus(); return false;}
+Util.showWait();
+var obj ={"mode":"UPDATE",
+          "ecno":  this.eecno,
+          "ofn" :  this.eofn.value,
+          "oln" :  this.eoln.value,
+          "oad1": this.eoad1.value,
+          "oad2": this.eoad2.value,
+          "octy": this.eocty.value,
+          "ost" :  this.eost.value,
+          "ozip": this.eozip.value,
+          "ophn": this.eophn.value,
+          "oeml": this.email.value
+         }
+this.jsonService
+.initService(obj,Util.Url("CGICRMCT"))
+.subscribe(data => this.view = data,
+err => {Util.responsiveMenu(); },
+() => {
+this.pagemode = 'L'; 
+var index = this.pagedata.contracts.findIndex(obj => obj.ecno==this.eecno);
+if(index>=0) {
+  this.pagedata.contracts[index].fnam = this.eofn.value;
+  this.pagedata.contracts[index].lnam = this.eoln.value;
+}
+Util.hideWait();
+}
+);
+}
+erscrol(id){
+if(this.erScrolid=='')
+  this.erScrolid = id;
+}
+formatPhone(phone) {
+var numbers = phone.value.replace(/\D/g, ''),
+  char = { 0: '(', 3: ') ', 6: '-' };
+phone.value = '';
+for (var i = 0; i < numbers.length; i++) {
+  phone.value += (char[i] || '') + numbers[i];
+}
+}
+
+
+  editCont(cont){
+    Util.showWait();
+    this.eecno = cont.ecno;
+    var obj ={"mode":"VIEW",
+              "ecno": cont.ecno }
+    this.jsonService
+  	.initService(obj,Util.Url("CGICRMCT"))
+  	.subscribe(data => this.view = data,
+  		err => {Util.responsiveMenu(); },
+  		() => {
+        this.pagemode = 'V'; 
+        
+        this.eofn.message='';
+        this.eoln.message='';
+        this.eoad1.message='';
+        this.eoad1.message='';
+        this.eocty.message='';
+        this.eost.message='';
+        this.eozip.message='';
+        this.eophn.message='';
+        this.email.message='';
+        this.eofn.value  = this.view.ofn;
+        this.eoln.value  = this.view.oln;
+        this.eoad1.value = this.view.oad1;
+        this.eoad2.value = this.view.oad2;
+        this.eocty.value = this.view.octy;
+        this.eost.value  = this.view.ost;
+        this.eozip.value = this.view.ozip;
+        this.eophn.value = this.view.ophn;
+        this.email.value = this.view.mail;
+        Util.hideWait();
+        Util.scrollToId("viewtop");
+  		}
+  	);
+    
+  }
+  clearMode(){
+   
+    if(this.changes){
+    if(!confirm("Disregard changes?")) return false;
+    }
+    this.changes = false;
+    Util.showWait();
+    this.pagemode = 'L';
+    
+    Util.hideWait();
+  }
+
 
   remitt(){
   	if(this.remtarr.length === 0){
@@ -257,6 +409,7 @@ export class UnremittedComponent implements OnInit {
           } else {
             this.applyFiltBtn = true;
           }
+          this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
   			}
   		}
   	);

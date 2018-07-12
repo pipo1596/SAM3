@@ -34,6 +34,7 @@ import { RemittedComponent } from './remitted/remitted.component';
 import { ProcessedComponent } from './processed/processed.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { StatementComponent } from './statement/statement.component';
+import { ProfitComponent } from './profit/profit.component';
 import { ClaimsComponent } from './claims/claims.component';
 import { RepairsComponent } from './repairs/repairs.component';
 import { CancellationsComponent } from './cancellations/cancellations.component';
@@ -47,7 +48,7 @@ enableProdMode();
     FooterComponent,
     LoginComponent,
     Login1Component,
-    HomeComponent,
+    HomeComponent, 
     UsersComponent,
     RolesComponent,
     GlobalFiltersComponent,
@@ -65,6 +66,7 @@ enableProdMode();
     ProcessedComponent,
     InvoicesComponent,
     StatementComponent,
+    ProfitComponent,
     ClaimsComponent,
     RepairsComponent,
     CancellationsComponent,

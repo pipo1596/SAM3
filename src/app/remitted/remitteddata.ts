@@ -2,13 +2,19 @@ import {Headerdata} from "../header/headerdata";
 
 export class Remitteddata{
     head = new Headerdata ;
-    contracts :[ Cont ];
+	contracts :[ Cont ];
+	states : [State];
     ttlpgs = new PageCount;
 }
 
 export class Readnextdata {
 	contracts :[ Cont ];
 	ttlpgs = new PageCount;
+}
+
+export class State{
+    code :string="";
+    desc :string=""
 }
 
 export class Cont {

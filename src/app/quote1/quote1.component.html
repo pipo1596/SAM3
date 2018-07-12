@@ -29,7 +29,7 @@
                         <h2>Select A Product&nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="product.erlevel==='D'" [class.validating]="validating">{{product.message}}</span></h2>
                         
                         <span *ngFor="let plan of pagedata.body.pln.plans">
-                        <span class="flat-input-checkbox">
+                        <span class="flat-input-checkbox" *ngIf="plan.desc!==''">
                             <div class="custcheck">
                                 <input [disabled]="plan.plnt!==pagedata.body.type && pagedata.body.type!==''" value="{{plan.prg+plan.ratc}}" id="chk{{plan.prg+plan.ratc}}" type="checkbox" [checked]="plan.check" (change)="addplan($event,plan)">
                                 <label for="chk{{plan.prg+plan.ratc}}"></label>

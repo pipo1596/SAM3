@@ -2292,7 +2292,7 @@ date-input-polyfill button{padding:5px;}
 
 .dealerblock h3{margin-bottom:2px;}
 .dealerblock {margin:30px;}
-.dealerblock p{font-weight:bold;}
+.dealerblock p{font-weight:bold;text-transform: uppercase;}
 .agentblock{margin-top:30px}
 
 @media screen and (max-width: 767px) {

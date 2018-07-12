@@ -335,7 +335,7 @@
                                 <span class="errorspan2" [class.opqquezero]="cccvv.message===''" [class.alert-danger]="cccvv.erlevel==='D'" [class.validating]="validating">{{cccvv.message}}</span> 
                             </label>
                             <div class="flat-input w100">
-                                <input autocomplete="new-password{{ran}}" class="w100" (keyup)="formatCVV()" (change)="onChange()" name="cccvv{{ran}}" type="text"  placeholder="CVV" [class.required]="cccvv.message !== ''"  [class.validating]="validating"  [(ngModel)]="cccvv.value" maxlength="3" style="margin-bottom:7px">
+                                <input autocomplete="new-password{{ran}}" class="w100" (keyup)="formatCVV()" (change)="onChange()" name="cccvv{{ran}}" type="text"  placeholder="CVV" [class.required]="cccvv.message !== ''"  [class.validating]="validating"  [(ngModel)]="cccvv.value" maxlength="4" style="margin-bottom:7px">
                             </div>
                         </div>
                     </div>
