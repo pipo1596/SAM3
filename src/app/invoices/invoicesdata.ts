@@ -13,6 +13,7 @@ export class Readnextdata {
 
 export class Inv {
 	show : boolean;
+	stat : string;
 	ivno : string;
 	ivdt : string;
 	ivdd : string;

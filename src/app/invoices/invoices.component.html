@@ -86,13 +86,16 @@
 							</tr>
 							<ng-container *ngFor="let inv of (pagedItems)">
 								<tr *ngIf="inv.show === true">
-									<td data-label="Delete" style="padding-top:0">
+									<td data-label="Delete" style="padding-top:0" *ngIf="inv.stat!=='T'">
 										<span class="flat-input-checkbox-SQ">
 											<div class="custcheck">
 												<input class="c1" name="{{inv.ivno}}"  (change)="onChange()" type="checkbox" id="{{inv.ivno}}" [checked]="inv.selected" (change)="chkInv(inv)">
 												<label for="{{inv.ivno}}"></label>
 											</div>
 										</span>
+									</td>
+									<td data-label="Delete" style="padding-top:0" *ngIf="inv.stat=='T'">
+										(Transmitted)
 									</td>
 									<td data-label="Invoice #">{{inv.ivno}}</td>	
 									<td data-label="Invoice Date">{{inv.ivdt}}</td>

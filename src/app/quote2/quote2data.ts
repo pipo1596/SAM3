@@ -13,6 +13,7 @@ contracts: [Cont];
     srchg: [Srchg];
     chkdf:[any];
     veh  = new Vehicle;
+    hasdd: boolean = false;
 }
 
 export class Data{

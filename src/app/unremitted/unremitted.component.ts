@@ -128,7 +128,7 @@ var obj ={"mode":"UPDATE",
           "oeml": this.email.value
          }
 this.jsonService
-.initService(obj,Util.Url("CGICRMCT"))
+.initService(obj,Util.Url("CGICUNRMCT"))
 .subscribe(data => this.view = data,
 err => {Util.responsiveMenu(); },
 () => {
@@ -162,7 +162,7 @@ for (var i = 0; i < numbers.length; i++) {
     var obj ={"mode":"VIEW",
               "ecno": cont.ecno }
     this.jsonService
-  	.initService(obj,Util.Url("CGICRMCT"))
+  	.initService(obj,Util.Url("CGICUNRMCT"))
   	.subscribe(data => this.view = data,
   		err => {Util.responsiveMenu(); },
   		() => {
@@ -370,8 +370,9 @@ for (var i = 0; i < numbers.length; i++) {
   }
 
   viewCont(contractID){
+    var d = new Date().getTime();
     Util.showWait();
-    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+contractID),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+contractID+"&PMRAN="+d),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 
     } 

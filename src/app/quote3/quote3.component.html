@@ -469,6 +469,7 @@
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
                                         <td *ngIf="col.check">
+                                            <ng-container *ngIf="table.data[r][c][0]>0">
                                             <div class="custcheck" *ngIf="table.data[r][c]!==undefined">
                                                 <input name="plan" id="cell{{table.program+table.coverage+r+c}}" type="checkbox" class="c2" [checked]="table.data[r][c][2]==1" (change)="selectCov($event,p,t,r,c)">
                                                 <label for="cell{{table.program+table.coverage+r+c}}"></label>
@@ -476,6 +477,8 @@
                                             <ng-container *ngFor="let inAr of table.data[r][c];let g = index">
                                                 <label *ngIf="g==0" class="checklabel labelprice" for="cell{{table.program+table.coverage+r+c}}">{{ inAr | currency}}</label>
                                             </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="table.data[r][c][0]<0">N/A</ng-container>
                                         </td>
                                     </ng-container>
                                     </tr>
@@ -543,6 +546,7 @@
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
                                         <td *ngIf="col.check">
+                                            <ng-container *ngIf="table.data[r][c][0]>0">
                                             <div class="custcheck" *ngIf="table.data[r][c]!==undefined">
                                                 <input name="plan" id="cell{{table.program+table.coverage+r+c}}" type="checkbox" class="c2" [checked]="table.data[r][c][2]==1" (change)="selectCov($event,p,t,r,c)">
                                                 <label for="cell{{table.program+table.coverage+r+c}}"></label>
@@ -550,6 +554,8 @@
                                             <ng-container *ngFor="let inAr of table.data[r][c];let g = index">
                                                 <label *ngIf="g==0" class="checklabel labelprice" for="cell{{table.program+table.coverage+r+c}}">{{ inAr | currency}}</label>
                                             </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="table.data[r][c][0]<0">N/A</ng-container>
                                         </td>
                                     </ng-container>
                                     </tr>

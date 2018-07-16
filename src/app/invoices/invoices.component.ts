@@ -62,18 +62,21 @@ export class InvoicesComponent implements OnInit {
   		for(var i=0;i<this.remtarr.length;i++){
   			if(this.remtarr[i] !== undefined){
   				delArr[i]= {"value":this.remtarr[i]};
-  				this.pagedata.invoices.splice(this.pagedata.invoices.findIndex(obj => obj.ivno==this.remtarr[i]),1);
+          var index = this.pagedata.invoices.findIndex(obj => obj.ivno==this.remtarr[i]);
+          console.log(index);
+          this.pagedata.invoices[index].stat = 'T';
           this.pageCount -= 1;
           this.masterPgCnt -= 1;
   			}
   		}
   		this.jsonService
-  		.initService({"mode":"TRNSM","remtarr":delArr}, Util.Url("CGICUNRMCT"))
+  		.initService({"mode":"TRNSM","remtarr":delArr}, Util.Url("CGICINVCES"))
   		.subscribe(data => this.errSet = data,
   			err => { this.dispAlert.error(), Util.hideWait();},
   			()=>{
           Util.hideWait();
           this.showDelete = false;
+          this.changes = false;
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
             this.setPage(this.pager.currentPage);
@@ -146,7 +149,7 @@ export class InvoicesComponent implements OnInit {
   	return day > 0 && day <= monthLength[month - 1];
 	}
 
-	chkInc(invoice){
+	chkInv(invoice){
     invoice.selected = !invoice.selected;
     
 		if(invoice.selected){

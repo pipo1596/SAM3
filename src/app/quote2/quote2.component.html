@@ -172,7 +172,9 @@
                         <hr style="margin-left:20px;margin-right:20px;" class="hidden-lg hidden-md hidden-sm">
                         <div class="custcheck parentcheck"><input name="plan" id="check2i{{datads.prg+datads.ratc}}" type="checkbox"  class="cparent" (change)="selectAll($event,datads.ded.deductibles)" ><label for="check2i{{datads.prg+datads.ratc}}"></label></div><label for="check2i{{datads.prg+datads.ratc}}"><h4 class="showh4">Deductibles <span class="showspan">(Show)</span></h4></label>
                         <ng-container *ngFor="let deductible of datads.ded.deductibles">
-                            <span class="flat-input-checkbox" *ngIf="!deductible.check"><div class="custcheck" ><input name="plan" [checked]="deductible.check2" value="{{deductible.code}}" id="check{{datads.prg+datads.ratc+deductible.code}}" type="checkbox" class="c1"  [checked]="deductible.check2" (change)="togglebox(deductible,m)"><label for="check{{datads.prg+datads.ratc+deductible.code}}"></label></div><label class="checklabel" for="check{{datads.prg+datads.ratc+deductible.code}}">{{deductible.desc}}</label></span>
+                            <span class="flat-input-checkbox" *ngIf="!deductible.check 
+                                                                  && !(deductible.code=='DD' && !pagedata.body.hasdd)
+                                                                  && !(deductible.code=='50DD' && !pagedata.body.hasdd)"><div class="custcheck" ><input name="plan" [checked]="deductible.check2" value="{{deductible.code}}" id="check{{datads.prg+datads.ratc+deductible.code}}" type="checkbox" class="c1"  [checked]="deductible.check2" (change)="togglebox(deductible,m)"><label for="check{{datads.prg+datads.ratc+deductible.code}}"></label></div><label class="checklabel" for="check{{datads.prg+datads.ratc+deductible.code}}">{{deductible.desc}}</label></span>
                         </ng-container>
                     </div>
                     <div class="clearfix"></div>
