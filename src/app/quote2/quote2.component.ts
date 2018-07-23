@@ -248,7 +248,9 @@ export class Quote2Component implements OnInit {
       .initService({ "mode": "INIT" }, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.pagedata = data,
         err => {Util.responsiveMenu();  },
-        () => {Util.responsiveMenu(); 
+        () => {
+          if(this.pagedata.body.typc){this.valid=true;this.loadDb();return false;}
+          Util.responsiveMenu(); 
           Util.setHead(this.pagedata.head);
           //Sort By User Ascending
           this.pagedata.body.srchg = Util.sortByKey(this.pagedata.body.srchg, "type","D");
@@ -267,8 +269,9 @@ export class Quote2Component implements OnInit {
             Util.hideWait();
             setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
           }
-
+          
           this.loading = false;
+
         } 
 
       );

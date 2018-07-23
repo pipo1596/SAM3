@@ -32,7 +32,7 @@
                         <span class="flat-input-checkbox" *ngIf="plan.desc!=='' && (pagedata.body.condyn || pagedata.body.condprg.indexOf(plan.prg)<0)">
                             <div class="custcheck">
                                 <input [disabled]="(plan.plnt!==pagedata.body.type && pagedata.body.type!=='')
-                                || (plan.typc!==pagedata.body.typc && pagedata.body.typc==='C')
+                                || (plan.typc!==pagedata.body.typc && pagedata.body.typc==='Y')
                                 || (pagedata.body.type!=='' && pagedata.body.typc =='' && pagedata.body.condprg.indexOf(plan.prg)>=0)" 
                                  [checked]="plan.check"
                                 value="{{plan.prg+plan.ratc}}" id="chk{{plan.prg+plan.ratc}}" type="checkbox"  (change)="addplan($event,plan)">
@@ -139,8 +139,8 @@
               <h4 class="modal-title pull-left" id="alertTitle">Vehicle Information</h4>
             </div>
             <div class="modal-body">
-              <p id="alertBody">Is this vehicle USED or within 4,000 miles or 4 months of the FACTORY POWERTRAIN WARRANTY expiring?<br><br>
-            (GM & Ford Certified Vehicles, Click NO)<br><br>
+              <p id="alertBody">Is this vehicle <b>USED</b> or <b>within 4,000 miles</b> or <b>4 months</b> of the <b>FACTORY POWERTRAIN WARRANTY</b> expiring?<br><br>
+            (<b>GM & Ford</b> Certified Vehicles, Click NO)<br><br>
             (If up-selling to Wrap Coverage, Click No)</p>
             </div>
             <div class="modal-footer">

@@ -293,11 +293,11 @@ addplan(e,plan){
 }
 setcondtype(prg){
   if(!this.pagedata.body.condyn) return "";
-  if (this.pagedata.body.condprg.indexOf(prg)>=0){ this.pagedata.body.typc = 'C'; return 'C';}
+  if (this.pagedata.body.condprg.indexOf(prg)>=0){ this.pagedata.body.typc = 'Y'; return 'Y';}
   else return "";
 }
 setcondtype2(prg){
-  if (this.pagedata.body.condprg.indexOf(prg)>=0){ return 'C'; }
+  if (this.pagedata.body.condprg.indexOf(prg)>=0){ return 'Y'; }
   else return "";
 }
 

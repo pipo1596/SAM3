@@ -14,6 +14,7 @@ contracts: [Cont];
     chkdf:[any];
     veh  = new Vehicle;
     hasdd: boolean = false;
+    typc: boolean = false;
 }
 
 export class Data{
