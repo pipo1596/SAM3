@@ -19,7 +19,14 @@
   * Testimonials
   * Pricing
   * Teammember
-*/
+*//* You can add global styles to this file, and also import other style files */
+@media print {
+	/* print mode */
+    .menu,.footer,button,.btn{visibility: hidden}
+    a[href]:after {
+        content: none !important;
+      }
+   }
 
 .flat-button, .fancybox:after, .fancybox:before, .iconbox, .flat-team .avatar img,  .wrap-testimonial #testimonial-carousel .slides li img, .imagebox .imagebox-image img, .testimonials.style2 .message, .testimonials.style2 .message::before, .fancybox:before, .fancybox:after, .imagebox .imagebox-content, .iconbox .box-content .box-title, .iconbox .box-content p, .iconbox .box-header .box-icon i, .iconbox .box-header .box-icon, .iconbox .box-header .box-icon {
     -webkit-transition: all 0.3s ease-in-out;

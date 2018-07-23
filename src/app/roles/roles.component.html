@@ -29,7 +29,7 @@
                     <ul class="list-group">
                         <li class="list-group-item" *ngFor="let trole of selectedRole.autharr">
                                 <div class="custcheck">
-                                    <input [disabled]="this.selectedRole.type=='Y' && !pagedata.head.as400" [checked]="trole.chek==='Y'" id="chk{{trole.auth}}" value="{{trole.auth}}" type="checkbox" (change)="addauth($event)">
+                                    <input [disabled]="this.selectedRole.type=='Y' && !pagedata.canedit" [checked]="trole.chek==='Y'" id="chk{{trole.auth}}" value="{{trole.auth}}" type="checkbox" (change)="addauth($event)">
                                     <label for="chk{{trole.auth}}"></label>
                                 </div>
                                 <label class="checklabel" style="font-weight: bold" for="chk{{trole.auth}}">{{trole.desc}}</label>
@@ -38,7 +38,7 @@
                     
                 </div>
                 <div class="col-md-6 col-md-offset-3 hidden-xs">
-                    <span class="flat-input" *ngIf="this.selectedRole.type!='Y' || pagedata.head.as400">
+                    <span class="flat-input" *ngIf="this.selectedRole.type!='Y' || pagedata.canedit">
                         <button name="submit" type="submit"  class="flat-button pull-right saveRole" style="margin-right:10px" title="{{modebtn}} Authority">{{modebtn}} Authority</button>
                     </span>
                     <span class="flat-input" *ngIf="this.selectedRole.type!='Y'">
@@ -51,7 +51,7 @@
                     </span>
                 </div>
                 <div class="col-md-6 hidden-sm hidden-md hidden-lg">
-                        <span class="flat-input" *ngIf="this.selectedRole.type!='Y' || pagedata.head.as400">
+                        <span class="flat-input" *ngIf="this.selectedRole.type!='Y' || pagedata.canedit">
                             <button name="submit" type="submit"  class="flat-button btn-block saveRole" style="margin:0" title="{{modebtn}} Authority">{{modebtn}} Authority</button>
                         </span>
                         <span class="flat-input" *ngIf="this.selectedRole.type!='Y'">
@@ -76,7 +76,7 @@
                             <tr *ngFor="let role of pagedata.roles">
                                 <td data-label="Authority">{{role.desc}}</td>
                                 <td data-label="" class="text-right">
-                                    <a href="javascript:void(0)" (click)="onSelect(role)" class="btn btnedit" [class.btn-warning]="role.type!='Y' || pagedata.head.as400" [class.btn-default]="role.type=='Y'&& !pagedata.head.as400"><span *ngIf="role.type=='Y'&& !pagedata.head.as400">View&nbsp;<i class="fa fa-eye"></i></span><span *ngIf="role.type!='Y' || pagedata.head.as400">&nbsp;Edit&nbsp;<i class="fa fa-pencil-square-o"></i></span></a>
+                                    <a href="javascript:void(0)" (click)="onSelect(role)" class="btn btnedit" [class.btn-warning]="role.type!='Y' || pagedata.canedit" [class.btn-default]="role.type=='Y'&& !pagedata.canedit"><span *ngIf="role.type=='Y'&& !pagedata.canedit">View&nbsp;<i class="fa fa-eye"></i></span><span *ngIf="role.type!='Y' || pagedata.canedit">&nbsp;Edit&nbsp;<i class="fa fa-pencil-square-o"></i></span></a>
                                 </td>
                             </tr>
                         </tbody>

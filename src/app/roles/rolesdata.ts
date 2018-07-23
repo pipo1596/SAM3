@@ -4,6 +4,7 @@ export class Rolesdata{
     public head         = new Headerdata ;
     public tableroles   : [ Auth ];
     public roles        : [ Role ];
+    public canedit      : boolean = false;
 }
 
 export class Role{

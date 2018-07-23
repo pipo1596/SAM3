@@ -22,6 +22,8 @@ export class ProcessedComponent implements OnInit {
 	valid = false;
   changes = false;
   searched = false;
+  showp = false;
+  showc = false;
   canedit = false;
   eanum:string="";
   easuf:string="";
@@ -57,7 +59,14 @@ export class ProcessedComponent implements OnInit {
   killRecur : boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
-
+  togglep(){
+    this.showp = !this.showp;
+    this.showc = false;
+  }
+  togglec(){
+    this.showc = !this.showc;
+    this.showp = false;
+  }
   onChange(){
   	this.changes = true;
     this.validating = false;

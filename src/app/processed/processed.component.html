@@ -130,12 +130,40 @@
 		</form>
 		<form class="contactform style4 clearfix panel-body" action="javascript:void(0)" method="post" autocomplete="new-password{{ran}}" (submit)="checkEdit()" [class.hidden]="pagemode==='L'">
 		<div class="row white">
+				<div class="btn-group col-xs-12" role="group" aria-label="Select View" style="margin-bottom: 10px;margin-top:10px;font-size: 18px">
+						<button type="button" class="btn btn-primary col-xs-3">Contract Info</button>
+
+						<div class="btn-group" role="group" style="width:25%">
+							<button (click)="togglep()" type="button" class="btn btn-default" style="width:100%">
+								Payments &nbsp;<span class="fa fa-caret-down"></span>
+							</button>
+						<div class="dropdown-menu" [class.show]="showp" style="min-width:80%">
+						  <a class="pull-left" style="clear: left;padding:8px;" href="#">View Payment Info</a>
+						</div>
+					  	</div>
+						<div class="btn-group" role="group" style="width:25%">
+							<button (click)="togglec()" type="button" class="btn btn-default" style="width:100%">
+								Cancellations &nbsp;<span class="fa fa-caret-down"></span>
+							</button>
+						<div class="dropdown-menu show" [class.show]="showc"  style="min-width:80%">
+						  <a class="pull-left" style="clear: left;padding:8px;" href="#">View Cancellation Info</a>
+							  <a class="pull-left" style="clear: left;padding:8px;" href="#">Calculate Cancellation Refund</a>
+						</div>
+					  	</div>
+					    <button type="button" class="btn btn-default col-xs-3">Claims History</button>
+					  </div>
+					  <div class="clearfix"></div>
 			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop">View<span *ngIf="canedit">/Edit</span> Contract Information</h2>
+			
+			<a href="javascript:window.print()"  class="btn pull-right nextsection btn-default"  title="Print" style="padding:10px 30px;margin: 15px;">
+				<span class="fa fa-print" style="font-size:16px"></span>&nbsp;&nbsp; Print</a>
 			<a href="javascript:void(0)"  (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
 				<span class="fa fa-backward"></span>&nbsp;&nbsp; Back</a>
 			<div class="col-xs-12">
 				<hr>
 				<div class="clearfix"></div>
+				
+					  <div class="clearfix"></div>
 			</div>
 			<div class="col-md-8 col-md-offset-2" >
 					<table class="table table-bordered table-striped" *ngIf="view">
