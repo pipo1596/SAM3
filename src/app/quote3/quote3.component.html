@@ -745,7 +745,8 @@
                                                         </td>
                                                         <td style="font-weight: bold">
                                                             <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</td>
-                                                        <td style="font-weight: bold">{{ col.ded | currency}}</td>
+                                                        <td style="font-weight: bold" *ngIf="col.ded!=='DD'">{{ col.ded | currency}}</td>
+                                                        <td style="font-weight: bold" *ngIf="col.ded =='DD'">{{ col.ded }}</td>
                                                         <td style="font-weight: bold">{{ table.data[r][c][0] | currency}}</td>
                                                         <td class="text-center">
                                                             <div class="custradio w100">

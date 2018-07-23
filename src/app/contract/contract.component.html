@@ -52,7 +52,8 @@
                                                 <span style="color:gray" *ngIf="pagedata.body.contract.nup =='P'">- [Program]</span></span>
                                             </td>
                                             <td style="font-weight: bold">{{ pagedata.body.contract.term }}</td>
-                                            <td style="font-weight: bold">{{ pagedata.body.contract.ded | currency }}</td>
+                                            <td style="font-weight: bold" *ngIf="pagedata.body.contract.ded!=='DD'">{{ pagedata.body.contract.ded | currency }}</td>
+                                            <td style="font-weight: bold" *ngIf="pagedata.body.contract.ded =='DD'">{{ pagedata.body.contract.ded }}</td>
                                             <td style="font-weight: bold">{{ pagedata.body.contract.ccst| currency }}</td>
                                     </tr>
                                 </tbody>
