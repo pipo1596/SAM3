@@ -9,8 +9,10 @@ export class bodyData{
 
     mode    :string = "SAVE";
     dtype   :string ;
+    dtypc   :string ;
     dyear   :string ;
     type    :string ;
+    typc    :string ;
     pln    = new plans ;
     year    :string ;
     dlno    :string ;
@@ -24,6 +26,8 @@ export class bodyData{
     ckprgs :[any];
     models  :[model];
     makes   :[make];
+    condprg :[any];
+    condyn :boolean;
     dms     : dms;
     dispdms :string;
 

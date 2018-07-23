@@ -312,7 +312,7 @@ for (var i = 0; i < numbers.length; i++) {
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
-  			if (this.pagedata.head.status === "O" ||  Util.noAuth(this.pagedata.head.menuOp,'WREMITT')) {
+  			if (this.pagedata.head.status === "O" ||  Util.noAuth(this.pagedata.head.menuOp,'WVREMITT')) {
   				Util.showWait();
   				setTimeout(() => {
   					Util.hideWait();

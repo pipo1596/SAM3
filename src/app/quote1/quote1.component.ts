@@ -88,6 +88,14 @@ setDate(e){
     if(srcEl.checked){ this.insrvc.value=this.pagedata.body.dyear +"-01-01";}
 }
 
+condyes(){
+  this.pagedata.body.condyn = true;
+  Util.modalid("hide","fucilloModal");
+}
+condno(){
+  this.pagedata.body.condyn = false;
+  Util.modalid("hide","fucilloModal");
+}
 checkStep1(){
   if(this.dmsmode) return false;
     this.validating = true;
@@ -275,12 +283,22 @@ addplan(e,plan){
     var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
     if(srcEl.checked){
         this.pagedata.body.type = plan.plnt;
+        plan.typc = this.setcondtype(plan.prg);
         this.pagedata.body.ckprgs.push(obj);
     }else{
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
-      if(!this.pagedata.body.ckprgs.length) this.pagedata.body.type =""
+      if(!this.pagedata.body.ckprgs.length){ this.pagedata.body.type =""; this.pagedata.body.typc=""}
     }
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");
+}
+setcondtype(prg){
+  if(!this.pagedata.body.condyn) return "";
+  if (this.pagedata.body.condprg.indexOf(prg)>=0){ this.pagedata.body.typc = 'C'; return 'C';}
+  else return "";
+}
+setcondtype2(prg){
+  if (this.pagedata.body.condprg.indexOf(prg)>=0){ return 'C'; }
+  else return "";
 }
 
 prgIndex(prg,ratc){
@@ -330,16 +348,28 @@ ngOnInit() {
           this.pagedata.body.pln.plans = Util.killDups(this.pagedata.body.pln.plans);
           this.pagedata.body.pln.plans.forEach(eachObj =>{  
             var obj = {"prg":eachObj.prg,"ratc":eachObj.ratc}; 
+            eachObj.typc = this.setcondtype2(eachObj.prg);
             if(eachObj.plnt==="")eachObj.plnt ="A";//default to Auto if blank
             if(master.findIndex(obj => obj.prg  == eachObj.prg  && 
                                        obj.ratc == eachObj.ratc && 
                                        eachObj.plnt == this.pagedata.body.type)>=0){
             //if(master.findIndex(obj)>=0){  
               eachObj.check = true;
+              this.pagedata.body.typc = eachObj.typc;
             }else{
               eachObj.check = false;
             }
            });
+           if(!this.pagedata.body.condyn){
+             this.pagedata.body.pln.plans.forEach(plan => {
+              if(this.pagedata.body.condprg.indexOf(plan.prg)>=0){
+              Util.modalid("show","fucilloModal");
+              return false;
+              }
+             });
+            
+            
+           }
           Util.hideWait();
         }
        }

@@ -123,7 +123,7 @@ hideLoc(){
 this.logOutTimer("I");
 this.validVersion();
 window.onbeforeunload = () => {
- this.logOut();
+ //this.logOut();
 };
 
   }
