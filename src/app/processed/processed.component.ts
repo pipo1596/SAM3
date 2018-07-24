@@ -22,8 +22,9 @@ export class ProcessedComponent implements OnInit {
 	valid = false;
   changes = false;
   searched = false;
-  showp = false;
   showc = false;
+  gotpaym = false;
+  showcp = false;
   canedit = false;
   eanum:string="";
   easuf:string="";
@@ -35,6 +36,7 @@ export class ProcessedComponent implements OnInit {
   asuf : string="";
   vin  : string="";
   view : any;
+  paym : any;
   erScrolid :string = "";
   //Edit Input Fields
   eoad1  = new Textfield
@@ -59,13 +61,9 @@ export class ProcessedComponent implements OnInit {
   killRecur : boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
-  togglep(){
-    this.showp = !this.showp;
-    this.showc = false;
-  }
+ 
   togglec(){
     this.showc = !this.showc;
-    this.showp = false;
   }
   onChange(){
   	this.changes = true;
@@ -147,6 +145,13 @@ export class ProcessedComponent implements OnInit {
       phone.value += (char[i] || '') + numbers[i];
     }
   }
+
+  setmode(mode){
+    Util.showWait();
+    this.pagemode = mode;
+    this.showc = false;
+    Util.hideWait();
+  }
   viewCont(agr){
     this.eanum = agr.anum;
     this.easuf = agr.asuf;
@@ -177,6 +182,29 @@ export class ProcessedComponent implements OnInit {
         this.eozip.value = this.view.ozip;
         this.eophn.value = this.view.ophn;
         this.email.value = this.view.mail;
+        this.showc = false;
+        Util.hideWait();  
+  		}
+  	);
+    
+  }
+  getPaym(){
+    
+    Util.showWait();
+    
+    if(this.gotpaym) {this.pagemode = 'P';this.showc=false;Util.hideWait();return false;}
+    
+    var obj ={"mode":"PAYM",
+              "anum": this.eanum,
+              "asuf": this.easuf
+            }
+    this.jsonService
+  	.initService(obj,Util.Url("CGICPRCNTR"))
+  	.subscribe(data => this.paym = data,
+  		err => {Util.responsiveMenu(); },
+  		() => {
+        this.pagemode = 'P';
+        this.gotpaym = true;
         Util.hideWait();  
   		}
   	);
@@ -191,6 +219,7 @@ export class ProcessedComponent implements OnInit {
     this.changes = false;
     Util.showWait();
     this.pagemode = 'L';
+    this.gotpaym = false;
     Util.hideWait();
   }
   getData(){
