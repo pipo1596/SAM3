@@ -24,7 +24,9 @@ export class ProcessedComponent implements OnInit {
   searched = false;
   showc = false;
   gotpaym = false;
+  gotcanc = false;
   showcp = false;
+  showcc = false;
   canedit = false;
   eanum:string="";
   easuf:string="";
@@ -37,6 +39,7 @@ export class ProcessedComponent implements OnInit {
   vin  : string="";
   view : any;
   paym : any;
+  canc : any;
   erScrolid :string = "";
   //Edit Input Fields
   eoad1  = new Textfield
@@ -192,7 +195,7 @@ export class ProcessedComponent implements OnInit {
     
     Util.showWait();
     
-    if(this.gotpaym) {this.pagemode = 'P';this.showc=false;Util.hideWait();return false;}
+    if(this.gotpaym) {this.pagemode = 'P';this.showcp=false;this.showc=false;Util.hideWait();return false;}
     
     var obj ={"mode":"PAYM",
               "anum": this.eanum,
@@ -210,6 +213,30 @@ export class ProcessedComponent implements OnInit {
   	);
     
   }
+  getCanc(){
+    
+    Util.showWait();
+    
+    if(this.gotcanc) {this.pagemode = 'C';this.showc=false;this.showcc=false;this.showc=false;Util.hideWait();return false;}
+    
+    var obj ={"mode":"CANC",
+              "anum": this.eanum,
+              "asuf": this.easuf
+            }
+    this.jsonService
+  	.initService(obj,Util.Url("CGICPRCNTR"))
+  	.subscribe(data => this.canc = data,
+  		err => {Util.responsiveMenu(); },
+  		() => {
+        this.pagemode = 'C';
+        this.gotcanc = true;
+        this.showc = false;
+        this.showcc = false;
+        Util.hideWait();  
+  		}
+  	);
+    
+  }
   clearMode(){
    
     if(this.changes){
@@ -220,6 +247,7 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     this.pagemode = 'L';
     this.gotpaym = false;
+    this.gotcanc = false;
     Util.hideWait();
   }
   getData(){

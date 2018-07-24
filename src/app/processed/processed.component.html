@@ -140,7 +140,7 @@
 								Cancellations &nbsp;<span class="fa fa-caret-down"></span>
 							</button>
 						<div class="dropdown-menu show" [class.show]="showc"  style="min-width:80%">
-						  <a class="pull-left" style="clear: left;padding:8px;" href="#">View Cancellation Info</a>
+						  <a class="pull-left" style="clear: left;padding:8px;" href="javascript:void(0)" (click)="getCanc()">View Cancellation Info</a>
 							  <a class="pull-left" style="clear: left;padding:8px;" href="#">Calculate Cancellation Refund</a>
 						</div>
 					  	</div>
@@ -302,7 +302,7 @@
 								Cancellations &nbsp;<span class="fa fa-caret-down"></span>
 							</button>
 						<div class="dropdown-menu show" [class.show]="showc"  style="min-width:80%">
-						  <a class="pull-left" style="clear: left;padding:8px;" href="#">View Cancellation Info</a>
+						  <a class="pull-left" style="clear: left;padding:8px;" href="javascript:void(0)" (click)="getCanc()">View Cancellation Info</a>
 							  <a class="pull-left" style="clear: left;padding:8px;" href="#">Calculate Cancellation Refund</a>
 						</div>
 					  	</div>
@@ -434,13 +434,7 @@
 										<td style="font-weight: bold;text-align: right">Dealer</td>
 										<td width="50">{{view.dnam}}</td>
 								</tr>
-								<tr *ngIf="canedit">
-										<td colspan="2">
-											<div class="flat-input pull-right">
-												<button name="Save" type="submit"  class="flat-button" style="margin-right:10px" title="Apply">Save Changes</button>
-											</div>
-										</td>
-								</tr>
+								
 								
 					</table>
 					<hr>
@@ -490,7 +484,7 @@
 										<th style="font-weight: bold">Due Amt</th>
 										<th style="font-weight: bold">Paid Date</th>
 										<th style="font-weight: bold">Paid Amt</th>
-										<th style="font-weight: bold">Check#/CC#</th>
+										<th style="font-weight: bold">Check#  /  CC#</th>
 										
 								</tr>
 								<tr *ngFor="let payment of paym.rows">
@@ -500,6 +494,211 @@
 										<td>{{payment.pmdt}}</td>
 										<td>{{payment.amnt | currency}}</td>
 										<td>{{payment.ccno}}</td>
+								</tr>
+								
+					</table>
+				</div>
+			</div>
+
+		</div>
+		</form>
+		<!--Cancellations C 
+			=
+			=
+			=
+			=
+			=
+			=
+			=
+		-->
+		<form class="contactform style4 clearfix panel-body" action="javascript:void(0)" method="post" autocomplete="new-password{{ran}}" [class.hidden]="pagemode!=='C'">
+		<div class="row white">
+				<div class="btn-group col-xs-12" role="group" aria-label="Select View" style="margin-bottom: 10px;margin-top:10px;font-size: 18px">
+						<button type="button" class="btn btn-default col-xs-3" (click)="setmode('V')" style="padding:12px 0">Contract Info</button>
+						<button type="button" class="btn btn-default col-xs-3" (click)="getPaym()" style="padding:12px 0">Payments</button>
+						
+						<div class="btn-group" role="group" style="width:25%">
+							<button (click)="togglec()" type="button" class="btn btn-primary" style="width:100%;padding:12px 0">
+								Cancellations &nbsp;<span class="fa fa-caret-down"></span>
+							</button>
+						<div class="dropdown-menu show" [class.show]="showc"  style="min-width:80%">
+						  <a class="pull-left" style="clear: left;padding:8px;" href="javascript:void(0)" (click)="getCanc()">View Cancellation Info</a>
+							  <a class="pull-left" style="clear: left;padding:8px;" href="#">Calculate Cancellation Refund</a>
+						</div>
+					  	</div>
+					    <button type="button" class="btn btn-default col-xs-3" style="padding:12px 0">Claims History</button>
+					  </div>
+					  <div class="clearfix"></div>
+			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop">View Cancellation Info</h2>
+			
+			<a href="javascript:window.print()"  class="btn pull-right nextsection btn-default"  title="Print" style="padding:10px 30px;margin: 15px;">
+					<span class="fa fa-print" style="font-size:16px"></span>&nbsp;&nbsp; Print</a>
+			<a href="javascript:void(0)"  (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
+				<span class="fa fa-backward"></span>&nbsp;&nbsp; Back</a>
+			<div class="col-xs-12">
+				<hr>
+				<div class="clearfix"></div>
+				
+					  <div class="clearfix"></div>
+			</div>
+			<div class="col-md-8 col-md-offset-2" style="padding-bottom:15px">
+				    <h3 style="cursor: pointer" (click)="showcc=!showcc"><i class="fa fa-plus" [class.fa-plus]="!showcc" [class.fa-minus]="showcc" ></i>&nbsp;Contract Information</h3>
+					<table class="table table-bordered table-striped" *ngIf="view" [class.hidden]="!showcc">
+							
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Contract Number / Status</td>
+										<td width="50">{{view.anum}}-{{view.asuf}} / {{view.stat}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Full Name</td>
+										<td width="50">{{view.ofn}} {{view.oln}}</td>
+								</tr>
+								<tr *ngIf="!canedit">
+										<td style="font-weight: bold;text-align: right">Street Address</td>
+										<td width="50">{{view.oad1}}</td>
+								</tr>
+								<tr *ngIf="canedit" id="eoad1">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eoad1.message===''">{{eoad1.message}}</span> 	
+											&nbsp;&nbsp;*Street Address</td>
+										<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eoad1.message !== ''" type="text" autocomplete="new-password{{ran}}" name="eoad1{{ran}}" [(ngModel)]="eoad1.value" style="margin:0;width:100%" ></td>
+								</tr>
+								<tr *ngIf="view.oad2!=='' && !canedit">
+										<td style="font-weight: bold;text-align: right">Apartment Number</td>
+										<td width="50">{{view.oad2}}</td>
+								</tr>
+								<tr *ngIf="canedit" id="eoad2">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">Apartment Number</td>
+										<td width="50"><input type="text" (change)="onChangeE()"  autocomplete="new-password{{ran}}" name="eoad2{{ran}}" [(ngModel)]="eoad2.value" style="margin:0;" ></td>
+								</tr>
+								<tr *ngIf="!canedit">
+										<td style="font-weight: bold;text-align: right">City, State, Zip</td>
+										<td width="50">{{view.octy}}, {{view.ost}} {{view.ozip}}</td>
+								</tr>
+								<tr *ngIf="canedit" id="eocty">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eocty.message===''">{{eocty.message}}</span>
+											&nbsp;&nbsp;*City</td>
+										<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eocty.message !== ''"  type="text" autocomplete="new-password{{ran}}" name="eocty{{ran}}" [(ngModel)]="eocty.value" style="margin:0;width:100%" ></td>
+								</tr>
+								<tr *ngIf="canedit" id="eost">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eost.message===''">{{eost.message}}</span>
+											&nbsp;&nbsp;*State</td>
+										<td width="50">
+											<select  [class.validating]="validating" [class.required]="eost.message !== ''"   name="eost{{ran}}" [(ngModel)]="eost.value" (change)="onChangeE()" class="form__select">
+													<option value="">Select</option>                                    
+													<option *ngFor="let statesl of pagedata.states" [value]="statesl.code" [attr.selected]="statesl.code==eost.value ? true : null">{{statesl.desc}}</option>
+											</select>
+										</td>
+								</tr>
+								<tr *ngIf="canedit" id="eozip">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eozip.message===''">{{eozip.message}}</span>
+											&nbsp;&nbsp;*Zip</td>
+										<td width="50"><input [class.validating]="validating" (change)="onChangeE()" autocomplete="new-password{{ran}}" [class.required]="eozip.message !== ''" type="text"  name="eozip{{ran}}" [(ngModel)]="eozip.value" style="margin:0;" ></td>
+								</tr>
+								<tr *ngIf="!canedit">
+										<td style="font-weight: bold;text-align: right">Telephone</td>
+										<td width="50">{{view.ophn}}</td>
+								</tr>
+								<tr *ngIf="canedit" id="eophn">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+											<span class="errorspan2 alert-danger" [class.validating]="validating"  [class.opqquezero]="eophn.message===''">{{eophn.message}}</span>
+											&nbsp;&nbsp;*Telephone</td>
+										<td width="50"><input [class.validating]="validating" autocomplete="new-password{{ran}}" (change)="onChangeE()" (keyup)="formatPhone(eophn)"  name="new-password{{ran}}" [class.required]="eophn.message !== ''" type="tel" maxlength="14"  [(ngModel)]="eophn.value" style="margin:0;" ></td>
+								</tr>
+								<tr *ngIf="view.mail!=='' && !canedit">
+										<td style="font-weight: bold;text-align: right">Email Address</td>
+										<td width="50">{{view.mail}}</td>
+								</tr>
+								<tr *ngIf="canedit" id="email">
+										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eophn.message===''">{{email.message}}</span>
+											&nbsp;&nbsp;Email Address</td>
+										<td width="50"><input [class.validating]="validating" autocomplete="new-password{{ran}}" (change)="onChangeE()" [class.required]="email.message !== ''" type="text" [(ngModel)]="email.value" name="email{{ran}}" style="margin:0;width:100%;" ></td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Covered Vehicle</td>
+										<td width="50">{{view.veh}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">VIN</td>
+										<td width="50">{{view.vin}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Contract Term</td>
+										<td width="50">{{view.cvmn}} Months / {{view.cvml|number:0}} miles</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Coverage</td>
+										<td width="50">{{view.cov}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Deductible</td>
+										<td width="50">{{view.ded | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Purchase Date / Selling Price</td>
+										<td width="50">{{view.vpd}} / {{view.ccst | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Vehicle In Service Date / Mileage</td>
+										<td width="50">{{view.vid}} / {{view.odr |number:0}} miles</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Expiration Date / Mileage</td>
+										<td width="50">{{view.texd}} / {{view.exml |number:0}} miles</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Dealer</td>
+										<td width="50">{{view.dnam}}</td>
+								</tr>
+								
+								
+					</table>
+					<hr>
+					<h3>Cancellation Information</h3>
+					<table class="table table-bordered table-striped" *ngIf="canc">
+							
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Cancellation Date</td>
+										<td width="50">{{canc.date}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Cancellation Mileage</td>
+										<td width="50">{{canc.cmil | number:0}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Cancellation Method</td>
+										<td width="50">{{canc.meth}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Cancellation Fee</td>
+										<td width="50">{{canc.cfee | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right">Refund Percentage</td>
+										<td width="50">{{canc.refp}}</td>
+								</tr>
+								
+					</table>
+					<div *ngIf="canc && canc.rows.length>0">
+					<h3 style="margin-top:15px">Payments</h3>
+					<table class="table table-bordered table-striped">
+							
+								<tr>
+										<th style="font-weight: bold">Date Paid</th>
+										<th style="font-weight: bold">Amount</th>
+										<th style="font-weight: bold">Check#</th>
+										<th style="font-weight: bold">Pay To</th>
+										
+								</tr>
+								<tr *ngFor="let payment of canc.rows">
+										<td>{{payment.date}}</td>
+										<td>{{payment.amnt | currency}}</td>
+										<td>{{payment.ccno}}</td>
+										<td>{{payment.pyto}}</td>
 								</tr>
 								
 					</table>
