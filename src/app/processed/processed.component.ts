@@ -25,6 +25,8 @@ export class ProcessedComponent implements OnInit {
   showc = false;
   gotpaym = false;
   gothist = false;
+  gotrfnd = false;
+  dt = new Date();
   gotcanc = false;
   showcc = false;
   canedit = false;
@@ -40,6 +42,7 @@ export class ProcessedComponent implements OnInit {
   view : any;
   paym : any;
   hist : any;
+  rfnd : any;
   canc : any;
   erScrolid :string = "";
   //Edit Input Fields
@@ -50,6 +53,8 @@ export class ProcessedComponent implements OnInit {
   eozip = new Textfield
   eophn = new Textfield
   email = new Textfield
+  miles = new Textfield
+  cdate = new Textfield
 	//Alerts
   dispAlert = new Dispalert();
 	
@@ -66,6 +71,38 @@ export class ProcessedComponent implements OnInit {
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
  
+  calculate(){
+    this.valid = true;
+    this.gotrfnd = false;
+    this.validating = true;
+    this.cdate.message = "";
+    this.miles.message = "";
+    if (this.cdate.value == "") { this.cdate.message = "(required)"; this.cdate.erlevel = "D"; this.valid = false; }
+    if (this.miles.value == "") { this.miles.message = "(required)"; this.miles.erlevel = "D"; this.valid = false; }
+
+    this.getRefund();
+  }
+  getRefund(){
+    if(!this.valid){return false;}
+    Util.showWait();
+    var obj ={"mode":"RFND",
+              "anum": this.eanum,
+              "asuf": this.easuf,
+              "miles": this.miles.value,
+              "cdate": this.cdate.value
+            }
+    this.jsonService
+  	.initService(obj,Util.Url("CGICPRCNTR"))
+  	.subscribe(data => this.rfnd = data,
+  		err => {Util.responsiveMenu(); },
+  		() => {
+        this.gotcanc = false;
+        this.gotrfnd = true;
+        Util.hideWait();  
+  		}
+  	);
+  }
+
   togglec(){
     this.showc = !this.showc;
   }
@@ -154,6 +191,8 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     this.pagemode = mode;
     this.showc = false;
+    this.showcc = false;
+    this.gotrfnd = false;
     Util.hideWait();
   }
   viewCont(agr){
@@ -273,6 +312,8 @@ export class ProcessedComponent implements OnInit {
     this.gotpaym = false;
     this.gothist = false;
     this.gotcanc = false;
+    this.cdate.message = "";
+    this.miles.message = "";
     Util.hideWait();
   }
   getData(){
