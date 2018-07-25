@@ -24,8 +24,8 @@ export class ProcessedComponent implements OnInit {
   searched = false;
   showc = false;
   gotpaym = false;
+  gothist = false;
   gotcanc = false;
-  showcp = false;
   showcc = false;
   canedit = false;
   eanum:string="";
@@ -39,6 +39,7 @@ export class ProcessedComponent implements OnInit {
   vin  : string="";
   view : any;
   paym : any;
+  hist : any;
   canc : any;
   erScrolid :string = "";
   //Edit Input Fields
@@ -191,11 +192,34 @@ export class ProcessedComponent implements OnInit {
   	);
     
   }
+  getHist(){
+    
+    Util.showWait();
+    
+    if(this.gothist) {this.pagemode = 'H';this.showcc=false;this.showc=false;Util.hideWait();return false;}
+    
+    var obj ={"mode":"HIST",
+              "anum": this.eanum,
+              "asuf": this.easuf
+            }
+    this.jsonService
+  	.initService(obj,Util.Url("CGICPRCNTR"))
+  	.subscribe(data => this.hist = data,
+  		err => {Util.responsiveMenu(); },
+  		() => {
+        this.pagemode = 'H';
+        this.hist.rows = Util.sortByKey(this.hist.rows,"clmm","D");
+        this.gothist = true;
+        Util.hideWait();  
+  		}
+  	);
+    
+  }
   getPaym(){
     
     Util.showWait();
     
-    if(this.gotpaym) {this.pagemode = 'P';this.showcp=false;this.showc=false;Util.hideWait();return false;}
+    if(this.gotpaym) {this.pagemode = 'P';this.showcc=false;this.showc=false;Util.hideWait();return false;}
     
     var obj ={"mode":"PAYM",
               "anum": this.eanum,
@@ -247,6 +271,7 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     this.pagemode = 'L';
     this.gotpaym = false;
+    this.gothist = false;
     this.gotcanc = false;
     Util.hideWait();
   }
