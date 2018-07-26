@@ -8,6 +8,7 @@ export class Overridedata{
 export class Ovrd{
 	mode : string;
 	srky : string;
+	prg  : string;
 	srkyi: string;
 	desc : string;
 	desci: string;

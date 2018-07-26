@@ -22,6 +22,7 @@ import { RemittedComponent } from './remitted/remitted.component';
 import { ProcessedComponent } from './processed/processed.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { StatementComponent } from './statement/statement.component';
+import { StaticPageComponent } from './staticpage/staticpage.component'; 
 import { ProfitComponent } from './profit/profit.component';
 import { ClaimsComponent } from './claims/claims.component';
 import { RepairsComponent } from './repairs/repairs.component';
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'app/Processed',canDeactivate: [CanDeactivateGuard], component: ProcessedComponent },
   { path: 'app/Invoices',canDeactivate: [CanDeactivateGuard], component: InvoicesComponent },
   { path: 'app/DealerStatement',canDeactivate: [CanDeactivateGuard], component: StatementComponent },
+  { path: 'app/StaticPage',canDeactivate: [CanDeactivateGuard], component: StaticPageComponent },
   { path: 'app/DealerProfit',canDeactivate: [CanDeactivateGuard], component: ProfitComponent },
   { path: 'app/Claims',canDeactivate: [CanDeactivateGuard], component: ClaimsComponent },
   { path: 'app/Repairs',canDeactivate: [CanDeactivateGuard], component: RepairsComponent },

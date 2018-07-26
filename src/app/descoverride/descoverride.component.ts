@@ -21,6 +21,7 @@ export class DescoverrideComponent implements OnInit {
 	srky = new Textfield;
 	desc = new Textfield;
 	dlr  = new Textfield;
+	prg  = new Textfield;
 	//Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -84,7 +85,8 @@ export class DescoverrideComponent implements OnInit {
   onSelect(record) {
   	this.dispAlert.default();
   	//delete this.selectedRecG;
-  	this.selectedRec.srky = record.srky;
+	this.selectedRec.srky = record.srky;
+	this.selectedRec.prg  = record.prg;
   	this.selectedRec.srkyi= record.srkyi;
   	this.selectedRec.desc = record.desc;
   	this.selectedRec.dlr  = record.dlr;
@@ -129,16 +131,19 @@ export class DescoverrideComponent implements OnInit {
   	this.validating = true;
   	this.valid = true;
   	//Reset Error Messages
-  	this.srky.message = "";
+	this.srky.message = "";
+	this.prg.message = "";  
   	this.desc.message = "";
   	this.dlr.message  = "";
   	this.dispAlert.default();
   	//Trim Field Values
   	this.srky.value = this.selectedRec.srky.trim().toUpperCase();
+  	this.prg.value  = this.selectedRec.prg.trim().toUpperCase();
   	this.dlr.value  = this.selectedRec.dlr.trim().toUpperCase();
 
   	this.selectedRec.srky = this.selectedRec.srky.trim().toUpperCase();
   	this.selectedRec.dlr  = this.selectedRec.dlr.trim().toUpperCase();
+  	this.selectedRec.prg  = this.selectedRec.prg.trim().toUpperCase();
 
   	this.desc.value = this.selectedRec.desc.trim();
 
@@ -150,7 +155,6 @@ export class DescoverrideComponent implements OnInit {
 
   loadDb(){
   	if(!this.valid) return false;
-
   	Util.showWait();
   	this.jsonService
   	.initService(this.selectedRec,Util.Url("CGICDESOVR"))
@@ -162,7 +166,7 @@ export class DescoverrideComponent implements OnInit {
   			if(this.dispAlert.status === "S"){
   				if(this.selectedRec.mode == "ADD"){
   					this.newRec.srky = this.selectedRec.srky;
-  					this.newRec.srkyi= this.selectedRec.srky.toUpperCase();
+  					this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10)+this.selectedRec.prg.toUpperCase();
   					this.newRec.desc = this.selectedRec.desc;
   					this.newRec.dlr  = this.selectedRec.dlr;
   					this.newRec.dlri = this.selectedRec.dlr.toUpperCase();
@@ -178,7 +182,7 @@ export class DescoverrideComponent implements OnInit {
   				if(this.selectedRec.mode == "SAVE"){
   					this.index = this.pagedata.overrides.findIndex(obj => obj.srkyi==this.selectedRec.srkyi && obj.dlri==this.selectedRec.dlri);
   					this.pagedata.overrides[this.index].srky = this.selectedRec.srky;
-  					this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky; 
+  					this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky.padEnd(10)+this.selectedRec.prg; 
   					this.pagedata.overrides[this.index].desc = this.selectedRec.desc; 
   					this.pagedata.overrides[this.index].dlr = this.selectedRec.dlr; 
   					this.pagedata.overrides[this.index].dlri = this.selectedRec.dlr;

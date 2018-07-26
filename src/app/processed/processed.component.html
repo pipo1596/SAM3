@@ -410,11 +410,27 @@
 						<div class="col-xs-12" *ngIf="gotrfnd">
 							<h3>Result</h3>
 							<h4 *ngIf="rfnd.err!==''" style="color:red">{{rfnd.err}}</h4>
-							<table class="table table-bordered table-striped">
+							<table *ngIf="rfnd.err ==''" class="table table-bordered table-striped">
 							
 									<tr>
 											<td style="font-weight: bold;text-align: right;width:40%;">Created On:</td>
-											<td width="50">{{dt | date:'MM/dd/yyy HH:mm:ss Z'}}</td>
+											<td width="50">{{dt | date:'MM/dd/yyy HH:mm:ss a'}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Odometer:</td>
+											<td width="50">{{rfnd.odr|number:0}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Cancel Date:</td>
+											<td width="50">{{rfnd.cdt}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Rule:</td>
+											<td width="50">{{rfnd.rul}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Return Percentage:</td>
+											<td width="50">{{rfnd.pct}}</td>
 									</tr>
 							</table>
 

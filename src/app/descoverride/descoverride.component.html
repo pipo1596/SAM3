@@ -21,7 +21,8 @@
 						<span class="errorspan2" [class.opqquezero]="srky.message===''" [class.alert-danger]="srky.erlevel==='D'" [class.validating]="validating">{{srky.message}}</span>
 					</label>
 					<div class="flat-input w100">
-						<input autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="50" (change)="onChange()">
+						<input *ngIf="PMTYPE=='Coverage'" autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="10" (change)="onChange()">
+						<input *ngIf="PMTYPE!=='Coverage'" autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="50" (change)="onChange()">
 					</div>
 					<label class="flat-input inputlabel">*Override Description
 						<span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.validating]="validating">{{desc.message}}</span>
@@ -31,6 +32,12 @@
 					</div>
 				</div>
 				<div class="col-sm-6">
+					<label class="flat-input inputlabel" *ngIf="PMTYPE=='Coverage'">Program Code
+						<span class="errorspan2" [class.opqquezero]="prg.message===''" [class.alert-danger]="prg.erlevel==='D'" [class.validating]="validating">{{prg.message}}</span>
+					</label>
+					<div class="flat-input w100" *ngIf="PMTYPE=='Coverage'">
+						<input autocomplete="new-password" style="text-transform:uppercase;" id="prg" name="prg" type="text" placeholder="Program Code" [class.required]="prg.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.prg" maxlength="50" (change)="onChange()">
+					</div>
 					<label class="flat-input inputlabel">Dealer Code
 						<span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.validating]="validating">{{dlr.message}}</span>
 					</label>
@@ -71,6 +78,7 @@
 						<thead>
 							<tr>
 								<th><b>{{PMTYPE}} Code</b></th>
+								<th *ngIf="PMTYPE=='Coverage'"><b>Program Code</b></th>
 								<th><b>Override Description</b></th>
 								<th><b>Dealer Code</b></th>
 								<th></th>
@@ -78,7 +86,8 @@
 						</thead>
 						<tbody>
 							<tr *ngFor="let ovrd of pagedata.overrides">
-								<td data-label="Program Code">{{ovrd.srky}}</td>
+								<td data-label="Code">{{ovrd.srky}}</td>
+								<td *ngIf="PMTYPE=='Coverage'" data-label="Program Code">{{ovrd.prg}}</td>
 								<td data-label="Override Description">{{ovrd.desc}}</td>
 								<td data-label="Dealer Code">{{ovrd.dlr}}</td>
 								<td data-label=""><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>

@@ -98,6 +98,7 @@ export class ProcessedComponent implements OnInit {
   		() => {
         this.gotcanc = false;
         this.gotrfnd = true;
+        this.changes = false;
         Util.hideWait();  
   		}
   	);

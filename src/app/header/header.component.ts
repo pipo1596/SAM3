@@ -2,7 +2,7 @@ import { Component, OnInit ,Input, OnDestroy} from '@angular/core';
 import { JsonService } from '../utilities/json.service';
 import { Headerdata } from './headerdata';
 import { Util } from '../utilities/util';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,19 @@ export class HeaderComponent implements OnInit,OnDestroy {
   ran:string = Util.makeid();
   
   constructor(private headService: JsonService,
-              private router: Router) { }
+              private router: Router) {  this.router.routeReuseStrategy.shouldReuseRoute = function(){
+                return false;
+             }
+            
+             this.router.events.subscribe((evt) => {
+                if (evt instanceof NavigationEnd) {
+                   // trick the Router into believing it's last link wasn't previously loaded
+                   this.router.navigated = false;
+                   // if you need to scroll back to top, here is the right place
+                   window.scrollTo(0, 0);
+                }
+            });
+             }
 
 hideAlert(){
   Util.modalid('hide','alertModal');

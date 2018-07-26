@@ -34,6 +34,7 @@ import { RemittedComponent } from './remitted/remitted.component';
 import { ProcessedComponent } from './processed/processed.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { StatementComponent } from './statement/statement.component';
+import { StaticPageComponent } from './staticpage/staticpage.component';
 import { ProfitComponent } from './profit/profit.component';
 import { ClaimsComponent } from './claims/claims.component';
 import { RepairsComponent } from './repairs/repairs.component';
@@ -66,6 +67,7 @@ enableProdMode();
     ProcessedComponent,
     InvoicesComponent,
     StatementComponent,
+    StaticPageComponent,
     ProfitComponent,
     ClaimsComponent,
     RepairsComponent,
