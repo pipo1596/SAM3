@@ -227,6 +227,7 @@ export class ProcessedComponent implements OnInit {
         this.eophn.value = this.view.ophn;
         this.email.value = this.view.mail;
         this.showc = false;
+        window.scrollTo(0, 0);
         Util.hideWait();  
   		}
   	);
