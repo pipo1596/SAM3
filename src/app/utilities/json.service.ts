@@ -25,3 +25,22 @@ export class JsonService {
   
 
 }
+@Injectable()
+export class HtmlService {
+  
+  
+  initService( Url:string): Observable<any> {
+    
+    return this.http.get(
+      Url,
+      {responseType:'text'}
+    );
+
+  }
+
+  
+
+  constructor(private http: HttpClient) { }
+  
+
+}

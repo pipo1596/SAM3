@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { enableProdMode } from '@angular/core';
-import { JsonService } from './utilities/json.service';
+import { JsonService , HtmlService } from './utilities/json.service';
 import { CanDeactivateGuard } from './utilities/confirmroute';
 import { AppRoutingModule } from './/app-routing.module';
 import { PagerService } from './_services/index';
@@ -81,6 +81,7 @@ enableProdMode();
     AppRoutingModule
   ],
   providers: [JsonService,
+              HtmlService,
               CanDeactivateGuard,
               PagerService
   ],
