@@ -32,7 +32,7 @@ export class HtmlService {
   initService( Url:string): Observable<any> {
     
     return this.http.get(
-      Url,
+      Url+'?ts='+Util.makeid(),
       {responseType:'text'}
     );
 

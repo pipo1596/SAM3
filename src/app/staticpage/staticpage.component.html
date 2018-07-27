@@ -1,9 +1,9 @@
 <app-header [headdata]="pagedata.head"></app-header>
 <section class="flat-row section-iconbox">
-	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
-		<form class="contactform style4 clearfix panel-body" method="post"  autocomplete="off">
+	<div class="container">
+		<form class="contactform style4 clearfix panel-body" id="staticpages" method="post"  autocomplete="off" (click)="expand()">
 			<div class="row white" style="min-height: 600px">
-					<div class="col-xs-12" style="margin-top:15px"><div [innerHTML]="pagehtml"></div></div>
+					<div class="col-xs-12" style="margin-top:15px"><div [innerHTML]="pagehtml | safeHtml" ></div></div>
 			</div>
 		</form>
 	</div>

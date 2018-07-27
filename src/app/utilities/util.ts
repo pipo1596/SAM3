@@ -21,6 +21,12 @@ static Url(prgrm:string):string{
     else
         return '/'+prgrm;
 }
+static UrlStatic(prgrm:string):string{
+    if (location.hostname === "localhost")
+        return "http://192.168.6.48:64005/"+prgrm;
+    else
+        return location.origin+'/'+prgrm;
+}
 //==================================================================================//
 static setIframeSrc(url){
     $('#pdfIframe').attr('src', url)
@@ -41,6 +47,11 @@ static hideWait(){
  static showWait(){  
      this.hideWait2(); 
      $(".loading").show();
+ }
+ //===================================================================================//    
+ static setFAQ(){
+    $("#staticpages .panel-body").addClass("hidden");
+    $('input[name=faq]:checked').parentsUntil('.panel').parent().find(".panel-body").removeClass("hidden");
  }
 //===================================================================================//
  static responsiveMenu(){                                                                                               
@@ -374,6 +385,12 @@ static firstErrFocus(){
     $('.validating.required').first().focus();},200);
 
 }
+//===================================================================================//
+static getparm(k){
+    var p={};
+    location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){return p[k]=v})
+    return k?p[k]:p;
+   }
 //===================================================================================//
 static modalid(mode,id){
     if(mode=="show"){

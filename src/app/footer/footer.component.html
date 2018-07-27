@@ -5,7 +5,7 @@
                 <div class="widget widget-out-link clearfix" >                        
                     <!--<h5 class="widget-title">Our Links</h5>-->                          
                     <ul class="one-half-center">                                            
-                        <li><a href="javascript:void(0)">Contact Us</a></li>  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus'}" id="contactus">Contact Us</a></li>  
                         <li><a routerLink="/app/Home">Home</a></li>                                   
                     </ul>                                                                            
                 </div>                 
@@ -13,7 +13,12 @@
             <div class="col-xs-6 reponsive-mb30">                                   
                 <div class="widget widget-out-link clearfix" style="padding-left:30%">                           
                     <ul class="one-half-center">                                            
-                        <li><a href="javascript:void(0)">Help</a></li>                                  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help'}" id="helplink">Help</a></li>                                  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'faqs'}" id="faqs">FAQ's</a></li>                                  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'whatsnew'}" id="whatsnew" class="hidden">What's New</a></li>                                  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'foradministrators'}" id="foradministrators" class="hidden">For Administrators</a></li>                                  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'forusers'}" id="forusers" class="hidden">For users</a></li>                                  
+                        <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'gettingstarted'}" id="gettingstarted" class="hidden">gettingstarted</a></li>                                  
                     </ul>                                                                            
                 </div>                 
             </div>

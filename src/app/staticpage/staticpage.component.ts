@@ -3,21 +3,26 @@ import { Router } from '@angular/router';
 import { Util } from '../utilities/util';
 import { StaticPageData } from './staticpage'; 
 import { JsonService , HtmlService} from '../utilities/json.service';
-import { TEMPLATE_DRIVEN_DIRECTIVES } from '@angular/forms';
 import { HtmlParser } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-staticpage',
   templateUrl: './staticpage.component.html'
 })
+
+
 export class StaticPageComponent implements OnInit {
 
 	pagedata = new StaticPageData;
   constructor(private jsonService: JsonService,private htmlService:HtmlService,private router: Router) { }
   pagehtml:HtmlParser;
+  pageid: string;
 
-
-
+ 
+  expand(){
+    if(this.pageid=='faqs') Util.setFAQ();
+  }
   ngOnInit() {
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
@@ -33,10 +38,11 @@ export class StaticPageComponent implements OnInit {
   	);
   }
   getHtml() {
+    this.pageid = Util.getparm('pageid');
   	this.htmlService
-  	.initService(Util.Url("/StaticPages/help.html"))
+  	.initService(Util.UrlStatic("/StaticPages/"+this.pageid+".html"))
   	.subscribe(data => this.pagehtml = data,
-  		err => { console.log(this.pagehtml);Util.responsiveMenu(); },
+  		err => { console.log(this.pagehtml);Util.responsiveMenu(); Util.hideWait();},
   		() => {
         Util.hideWait();
         console.log(this.pagehtml);
