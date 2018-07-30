@@ -88,6 +88,21 @@ setDate(e){
     if(srcEl.checked){ this.insrvc.value=this.pagedata.body.dyear +"-01-01";}
 }
 
+previous(){
+  Util.modalid("hide","newQuote");
+}
+newquote(){
+  Util.showWait();
+  this.jsonService
+    .initService({"mode":"RESET"},Util.Url("CGICQUOTE1"))
+    .subscribe(data => this.pagedata.body.models = data,
+      err => { },
+      () => {
+        this.router.navigate(['/app/Quote1']);
+        Util.hideWait();}
+    );
+}
+
 condyes(){
   this.pagedata.body.condyn = true;
   Util.modalid("hide","fucilloModal");
@@ -370,6 +385,7 @@ ngOnInit() {
             
             
            }
+          if(Util.newQuote() && this.pagedata.body.ckprgs.length >0) Util.modalid("show","newQuote");;
           Util.hideWait();
         }
        }

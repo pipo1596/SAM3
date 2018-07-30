@@ -150,5 +150,21 @@
           </div>
         </div>
       </div>
+    <div class="modal" id="newQuote" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left" id="alertTitle">Unsaved Quote</h4>
+            </div>
+            <div class="modal-body">
+              <p id="alertBody">What would you like to do with your unsaved Quote?</p>
+            </div>
+            <div class="modal-footer">
+              <button style="padding:8px 30px" type="button" class="btn btn-default" (click)="previous()" >Continue Previous</button>
+              <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="newquote()" >Start New Quote</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </section>
 <app-footer></app-footer>

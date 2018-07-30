@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'app/Authorities', canDeactivate: [CanDeactivateGuard], component: RolesComponent },
   { path: 'app/GlobalFilters', canDeactivate: [CanDeactivateGuard], component: GlobalFiltersComponent },
   { path: 'app/Quote1', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
+  { path: 'app/QuoteNew', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
   { path: 'app/Quote2', canDeactivate: [CanDeactivateGuard], component: Quote2Component },
   { path: 'app/Quote3', canDeactivate: [CanDeactivateGuard], component: Quote3Component },
   { path: 'app/Results', canDeactivate: [CanDeactivateGuard], component: Quote3Component },

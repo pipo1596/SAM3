@@ -32,7 +32,7 @@
                       <div class="flat-wrap-header">                                                                                   
                           <div class="nav-wrap clearfix">                                                                              
                               <nav id="mainnav" class="mainnav">                                                                       
-                                  <ul class="menu"> 
+                                  <ul class="menu" style="visibility: hidden"> 
                                       <li><a href="javascript:void(0)">&nbsp;</a></li>                                                                                                   
                                   </ul><!-- /.menu -->                                                                                      
                               </nav><!-- /.mainnav -->     
@@ -102,8 +102,12 @@
                                                 </ul>
                                                 </li>
                                         </ng-container>
-                                        <li><a href="javascript:void(0)">Forms</a>
+                                        <li><a href="javascript:void(0)">Support</a>
                                             <ul class="submenu">                                                 
+                                                <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus'}" id="contactus">Contact Us</a></li>
+                                                <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help'}" id="helplink">Help</a></li>                                  
+                                                <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'faqs'}" id="faqs">FAQ's</a></li>
+                                                <li class="headerli"><hr><div>Forms</div></li> 
                                                 <li><a href="./forms/Cancellation_Form_2017.pdf" target="_blank">Cancellation</a></li> 
                                                 <li><a href="./forms/Transfer_Form_2017.pdf" target="_blank">Transfer</a></li>  
                                                 <li><a href="./forms/Remittance_Register_2017.pdf" target="_blank">Remittance Register</a></li>

@@ -461,7 +461,12 @@ static  cardType(ccnum) {
     return sel_brand;
   }
 
-
+static newQuote(){
+    if (window.location.href.indexOf("QuoteNew") != -1)
+        return true;
+    else
+        return false;
+}
 //===================================================================================//
 static UrlDelay(){
    $("#viewPdf").hide();
