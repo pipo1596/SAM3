@@ -14,7 +14,16 @@ static getHead(inhead){
     if  (head !== undefined)return head;
     else return inhead;
 }
+static showWarnings(warn){
 
+    warn.forEach(element => {
+        
+        $("#waningBody").append("<br><h4 style=\"margin-bottom:0\">"+element.code+"</h4>");
+        $("#waningBody").append("<p>"+element.warn+"</p>");
+        
+    });
+
+}
 static Url(prgrm:string):string{
     if (location.hostname === "localhost")
         return "http://192.168.6.48:64005/"+prgrm;

@@ -189,5 +189,20 @@
         </div>
     </div>
     <div class="loading hidden" id="calculating" ><div class="bar"><p>Preparing quote please wait...</p></div></div>
+    <div class="modal" id="warnings" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left" id="alertTitle">Coverage Notes</h4>
+            </div>
+            <div class="modal-body">
+              <div id="waningBody"></div>
+            </div>
+            <div class="modal-footer">
+              <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="loadDb()" >OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </section>
 <app-footer></app-footer>

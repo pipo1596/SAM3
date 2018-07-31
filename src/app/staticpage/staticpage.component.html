@@ -3,7 +3,7 @@
 	<div class="container">
 		<form class="contactform style4 clearfix panel-body" id="staticpages" method="post"  autocomplete="off" (click)="expand()">
 			<div class="row white" style="min-height: 600px">
-					<div class="col-xs-12" style="margin-top:15px"><div [innerHTML]="pagehtml | safeHtml" ></div></div>
+					<div class="col-xs-12" style="margin-top:15px"><div [innerHTML]="pagehtml | safeHtml" [class.hidden]="loading" ></div></div>
 			</div>
 		</form>
 	</div>

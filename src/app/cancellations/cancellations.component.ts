@@ -5,7 +5,6 @@ import { Util } from '../utilities/util';
 import { Cancellationsdata, Row } from './cancellationsdata'; 
 import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { PagerService } from '../_services/index'
 
 
 @Component({
@@ -26,7 +25,7 @@ export class CancellationsComponent implements OnInit {
   errSet    = new Errsetter();
 	
 
-  constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
+  constructor(private jsonService: JsonService,private router: Router) { }
 
   processData(){
     this.pagedata.rows = Util.sortBy2Key(this.pagedata.rows,"dat1","ofn","D");

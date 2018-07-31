@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
 import { Remitteddata, Cont, Readnextdata } from './remitteddata'; 
-import { Textfield , Numfield} from '../utilities/textfield';
+import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { PagerService } from '../_services/index'
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { PagerService } from '../_services'
 
 
 @Component({

@@ -5,7 +5,6 @@ import { Util } from '../utilities/util';
 import { Profitdata } from './profitdata'; 
 import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { PagerService } from '../_services/index'
 
 
 @Component({
@@ -28,7 +27,7 @@ export class ProfitComponent implements OnInit {
   errSet    = new Errsetter();
 	
 
-  constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
+  constructor(private jsonService: JsonService,private router: Router) { }
 
   onChange(){
     this.validating = false;

@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
-import { Savedquotesedata, SvdQT, Readnextdata } from './savedquotesdata'; 
-import { Textfield , Numfield} from '../utilities/textfield';
+import { Savedquotesedata, Readnextdata } from './savedquotesdata'; 
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { PagerService } from '../_services/index'
+import { PagerService } from '../_services'
 
 
 @Component({

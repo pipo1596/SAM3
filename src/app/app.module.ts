@@ -7,8 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { enableProdMode } from '@angular/core';
 import { JsonService , HtmlService } from './utilities/json.service';
 import { CanDeactivateGuard } from './utilities/confirmroute';
-import { AppRoutingModule } from './/app-routing.module';
-import { PagerService } from './_services/index';
+import { AppRoutingModule } from './app-routing.module';
+import { PagerService } from './_services';
 
 import { AppComponent }     from './app.component';
 import { HeaderComponent }  from './header/header.component';
@@ -27,6 +27,7 @@ import { TaxrateComponent } from './taxrate/taxrate.component';
 import { Quote3Component } from './quote3/quote3.component';
 import { ContractComponent } from './contract/contract.component';
 import { DescoverrideComponent } from './descoverride/descoverride.component';
+import { CovwarningsComponent } from './covwarnings/covwarnings.component';
 import { SavedquotesComponent } from './savedquotes/savedquotes.component';
 import { DealermasterComponent } from './dealermaster/dealermaster.component';
 import { UnremittedComponent } from './unremitted/unremitted.component';
@@ -56,12 +57,13 @@ enableProdMode();
     GlobalFiltersComponent,
     Quote1Component,
     Quote2Component,
-    PacksComponent,
+    PacksComponent, 
     ContracttypesComponent,
     TaxrateComponent,
     Quote3Component,
     ContractComponent,
     DescoverrideComponent,
+    CovwarningsComponent,
     SavedquotesComponent,
     UnremittedComponent,
     RemittedComponent,

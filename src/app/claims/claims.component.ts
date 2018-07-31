@@ -5,7 +5,6 @@ import { Util } from '../utilities/util';
 import { Claimsdata, Row } from './claimsdata'; 
 import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { PagerService } from '../_services/index'
 
 
 @Component({
@@ -26,7 +25,7 @@ export class ClaimsComponent implements OnInit {
   errSet    = new Errsetter();
 	
 
-  constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
+  constructor(private jsonService: JsonService,private router: Router) { }
 
   processData(){
     this.pagedata.rows = Util.sortByKey(this.pagedata.rows,"cutd","D");

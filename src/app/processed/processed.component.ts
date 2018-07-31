@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
-import { Processeddata, Cont, Readnextdata } from './processeddata'; 
-import { Textfield , Numfield} from '../utilities/textfield';
+import { Processeddata } from './processeddata'; 
+import { Textfield} from '../utilities/textfield';
 import { Dispalert } from '../utilities/dispalert';
-import { PagerService } from '../_services/index'
+import { PagerService } from '../_services'
 
 
 @Component({

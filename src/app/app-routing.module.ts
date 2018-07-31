@@ -15,6 +15,7 @@ import { TaxrateComponent } from './taxrate/taxrate.component';
 import { GlobalFiltersComponent } from './globalfilters/globalfilters.component';
 import { CanDeactivateGuard } from './utilities/confirmroute';
 import { DescoverrideComponent } from './descoverride/descoverride.component';
+import { CovwarningsComponent } from './covwarnings/covwarnings.component';
 import { SavedquotesComponent } from './savedquotes/savedquotes.component';
 import { DealermasterComponent } from './dealermaster/dealermaster.component';
 import { UnremittedComponent } from './unremitted/unremitted.component';
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'app/Packs', canDeactivate: [CanDeactivateGuard], component: PacksComponent },
   { path: 'app/ContractTypes', canDeactivate: [CanDeactivateGuard], component: ContracttypesComponent },
   { path: 'app/TaxRate', canDeactivate: [CanDeactivateGuard], component: TaxrateComponent },
+  { path: 'app/CovWarnings', canDeactivate: [CanDeactivateGuard], component: CovwarningsComponent },
   { path: 'app/DescOverride/:PMTYPE',canDeactivate: [CanDeactivateGuard], component: DescoverrideComponent },
   { path: 'app/SavedQuotes',canDeactivate: [CanDeactivateGuard], component: SavedquotesComponent },
   { path: 'app/DealerMaster',canDeactivate: [CanDeactivateGuard], component: DealermasterComponent },

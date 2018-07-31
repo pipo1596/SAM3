@@ -18,6 +18,8 @@ export class StaticPageComponent implements OnInit {
   constructor(private jsonService: JsonService,private htmlService:HtmlService,private router: Router) { }
   pagehtml:HtmlParser;
   pageid: string;
+  loading: boolean = true;
+
 
  
   expand(){
@@ -42,11 +44,11 @@ export class StaticPageComponent implements OnInit {
   	this.htmlService
   	.initService(Util.UrlStatic("/StaticPages/"+this.pageid+".html"))
   	.subscribe(data => this.pagehtml = data,
-  		err => { console.log(this.pagehtml);Util.responsiveMenu(); Util.hideWait();},
+  		err => {Util.hideWait();},
   		() => {
+        this.loading = false;
         Util.hideWait();
-        console.log(this.pagehtml);
-        
+
   			}
   	);
   }

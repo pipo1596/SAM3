@@ -4,9 +4,6 @@ import { Dispalert, Errsetter } from '../utilities/dispalert';
 import { Router } from '@angular/router';
 import { Quote2data } from './quote2data';
 import { JsonService } from '../utilities/json.service';
-import { Textfield } from '../utilities/textfield';
-import { Deductibles } from '../quote3/quote3data';
-import { Coverages } from '../globalfilters/filtersdata';
 
 @Component({
   selector: 'app-quote2',
@@ -26,6 +23,8 @@ export class Quote2Component implements OnInit {
   firsttype   : number = 0;
   message:string ="";
   loading :boolean = true;
+  chkdcoverages:any;
+  warnings:any;
 
   expvehc : boolean = false;
   
@@ -60,8 +59,6 @@ export class Quote2Component implements OnInit {
         this.listoc ++;
     });
     this.firsttype = this.listvf;
-    //this.listoc = Math.round(this.listoc/3);
-    //this.listvf = Math.round(this.listvf/3);
     if(this.pagedata.body.srchg.length > 0){
       this.pagedata.body.srchg = Util.sortByKey(this.pagedata.body.srchg, "type","D");
     }
@@ -88,12 +85,6 @@ export class Quote2Component implements OnInit {
 
     this.valid  = true;
     
-    var messagec = "";
-    var messaget = "";
-    var messaged = "";
-
-    
-
     this.pagedata.body.data.forEach(parent=>{
       this.message ="";
       this.validc = false; if (parent.cov.coverages.length <=0) this.validc = true;
@@ -151,10 +142,45 @@ export class Quote2Component implements OnInit {
   //}
     });
 
-    if(!this.valid) Util.scrollStep2Err();
+    if(!this.valid) 
+      Util.scrollStep2Err();
     else 
-    Util.scrollToId('quotesteps');
-    this.loadDb();
+      Util.scrollToId('quotesteps');
+    //this.loadDb();
+    this.Warnings();
+  }
+
+  Warnings(){
+    if(!this.valid) return false;
+    this.chkdcoverages = [];
+
+    this.pagedata.body.mode = "WARN";
+
+    this.pagedata.body.data.forEach((elem) =>{
+      elem.cov.coverages.forEach((coverage) => {
+        if(coverage.check2){
+          var ckcov = {"coverage":coverage.termc.padEnd(10)+elem.prg};
+          this.chkdcoverages.push(ckcov);
+          
+        }
+      });
+    });
+    console.log(this.chkdcoverages);
+    var ckdata = {"mode":"WARN","cov":this.chkdcoverages};
+    this.jsonService
+      .initService(ckdata, Util.Url("CGICQUOTE2"))
+      .subscribe(data => this.warnings = data,
+        err => { this.dispAlert.error(), Util.hideWait(); },
+        () => {
+          if(this.warnings.length <= 0){
+            this.loadDb()
+          }else{
+            Util.showWarnings(this.warnings);
+            Util.modalid("show","warnings");
+          }
+        }
+      );
+
   }
 
   loadDb() {
