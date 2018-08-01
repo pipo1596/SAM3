@@ -188,6 +188,12 @@ export class Quote2Component implements OnInit {
     Util.showWait2();
     Util.scrollToId('quotesteps');
     this.pagedata.body.mode = "SAVE";
+    this.pagedata.body.data.forEach(element => {
+      element.cov.coverages.forEach(covelm =>{
+        covelm.desc = covelm.desc.replace(new RegExp('%', 'g'), '');
+      })
+      
+    });
 
    this.jsonService
       .initService(this.pagedata.body, Util.Url("CGICQUOTE2"))

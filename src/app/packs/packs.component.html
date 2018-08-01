@@ -190,8 +190,8 @@
                                 <td data-label="Program">{{xlate(pack.prg)}}</td>
                                 <td data-label="From">{{pack.effd | date : "MM/d/y" }}</td>
                                 <td data-label="To">{{pack.expd | date : "MM/d/y" }}</td>
-                                <td data-label="Type" *ngIf="pack.amti=='' && pack.pcti ==''">Retail</td>
-                                <td data-label="Type" *ngIf="pack.amti !=='' || pack.pcti !==''">Internal</td>
+                                <td data-label="Type" *ngIf="pack.amti==null && pack.pcti ==null">Retail</td>
+                                <td data-label="Type" *ngIf="pack.amti !==null || pack.pcti !==null">Internal</td>
                                 <td data-label="">
                                     <a href="javascript:void(0)" (click)="onSelect(pack)" class="btn btn-warning btnedit">Edit</a>
                                 </td>
