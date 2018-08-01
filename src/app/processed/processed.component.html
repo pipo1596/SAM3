@@ -142,7 +142,7 @@
 							  <a class="pull-left" style="clear: left;padding:8px;" href="javascript:void(0)" (click)="setmode('R')">Calculate Cancellation Refund</a>
 						</div>
 					  	</div>
-					    <button type="button" class="btn col-xs-3"  [class.btn-primary]="pagemode=='H'"   [class.btn-default]="pagemode!=='H'" style="padding:12px 0"  (click)="getHist()">Claims History</button>
+					    <button type="button" class="btn col-xs-3"  [class.btn-primary]="pagemode=='H' || pagemode=='CL'"   [class.btn-default]="pagemode!=='H' && pagemode!=='CL'" style="padding:12px 0"  (click)="getHist()">Claims History</button>
 					  </div>
 					  <div class="clearfix"></div>
 			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='V'">View<span *ngIf="canedit">/Edit</span> Contract Information</h2>
@@ -460,7 +460,7 @@
 										<th style="font-weight: bold">Claim Status</th>
 								</tr>
 								<tr *ngFor="let row of hist.rows">
-										<td>View...</td>
+										<td><a class="btn btn-warning btnedit" href="javascript:void(0);" (click)="viewClmm(row.clmm)">View</a></td>
 										<td>{{row.fldt}}</td>
 										<td>{{row.clmm | number:0}}</td>
 										<td>{{row.mjp1}}</td>
@@ -473,7 +473,98 @@
 				</div>
 			</div>
 			</div>
-			<!--Cancellation Section End*****************************************************************************************-->
+			<!--History Section End*****************************************************************************************-->
+
+			<!--Claims Section Begin*****************************************************************************************-->
+			<div  *ngIf="pagemode=='CL'">
+			<div class="col-md-8 col-md-offset-2" style="padding-bottom:15px">
+					<div *ngIf="clms">
+							<a href="javascript:void(0)" class="pull-right" (click)="pagemode='H'" style="font-size:16px"><i class="fa fa-backward"></i>&nbsp;Return</a>
+							<div class="clearfix"></div>
+							<table class="table table-bordered table-striped">
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Claim Number / Status</td>
+											<td width="50">{{clms.clmn}} <b>/</b> {{clms.stat}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Repair Shop Code / Name</td>
+											<td width="50">{{clms.repf}} <b>/</b> {{clms.repn}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Repair Shop Contact / Phone</td>
+											<td width="50">{{clms.repc}} <b>/</b> {{clms.repp}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Claim Mileage</td>
+											<td width="50">{{clms.clmm | number:0}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Reported Date / Time</td>
+											<td width="50">{{clms.repd}} <b>/</b> {{clms.rept}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">RO Number / Date</td>
+											<td width="50">{{clms.ron1}} <b>/</b> {{clms.rod1}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Labor Rate</td>
+											<td width="50">{{clms.labr | currency}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Tax / Supply Tax Rate</td>
+											<td width="50">{{clms.labt | number}} / {{clms.shpt | number}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Shop Manual</td>
+											<td width="50">{{clms.frm}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Authorized Number</td>
+											<td width="50">{{clms.auth}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Paid Amount</td>
+											<td width="50">{{clms.clmp | currency}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Major Problem</td>
+											<td width="50">{{clms.mjp1}}</td>
+									</tr>
+					</table>
+					
+				</div>
+			</div>
+			<div class="col-xs-12" *ngIf="clms">
+					<h4>COMPONENT INFORMATION</h4>
+					<table class="table table-bordered table-striped" style="margin:5px">
+							<tr>
+									<th style="font-weight: bold">Code</th>
+									<th style="font-weight: bold">Description</th>
+									<th style="font-weight: bold">Part #</th>
+									<th style="font-weight: bold">Part Cost</th>
+									<th style="font-weight: bold">Part Qty</th>
+									<th style="font-weight: bold">Tax Y/N</th>
+									<th style="font-weight: bold">Labour Hours</th>
+									<th style="font-weight: bold">Tax Y/N</th>
+									<th style="font-weight: bold">Total</th>
+									<th style="font-weight: bold">Status</th>
+							</tr>
+							<tr *ngFor="let row of clms.compnts">
+									<td>{{row.code}}</td>
+									<td>{{row.desc}}</td>
+									<td>{{row.prtn}}</td>
+									<td>{{row.prtc | currency}}</td>
+									<td>{{row.prtq}}</td>
+									<td>{{row.prtt}}</td>
+									<td>{{row.labt}}</td>
+									<td>{{row.ltax}}</td>
+									<td>{{row.totc | currency}}</td>
+									<td>{{row.pays}}</td>
+							</tr>
+				</table>
+			</div>
+			</div>
+			<!--History Section End*****************************************************************************************-->
 		</div>
 		</form>
 	</div>

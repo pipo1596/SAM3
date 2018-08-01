@@ -105,6 +105,12 @@ newquote(){
 
 condyes(){
   this.pagedata.body.condyn = true;
+  var idx = this.prgIndex1(this.pagedata.body.condprg[0]);
+  var plan = this.pagedata.body.pln.plans[idx];
+  var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
+  this.pagedata.body.type = plan.plnt;
+  this.pagedata.body.ckprgs.push(obj);
+  Util.checkbyid('chk'+plan.prg+plan.ratc);  
   Util.modalid("hide","fucilloModal");
 }
 condno(){
@@ -298,27 +304,26 @@ addplan(e,plan){
     var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
     if(srcEl.checked){
         this.pagedata.body.type = plan.plnt;
-        plan.typc = this.setcondtype(plan.prg);
         this.pagedata.body.ckprgs.push(obj);
     }else{
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
-      if(!this.pagedata.body.ckprgs.length){ this.pagedata.body.type =""; this.pagedata.body.typc=""}
+      if(!this.pagedata.body.ckprgs.length){ this.pagedata.body.type ="";}
     }
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");
-}
-setcondtype(prg){
-  if(!this.pagedata.body.condyn) return "";
-  if (this.pagedata.body.condprg.indexOf(prg)>=0){ this.pagedata.body.typc = 'Y'; return 'Y';}
-  else return "";
-}
-setcondtype2(prg){
-  if (this.pagedata.body.condprg.indexOf(prg)>=0){ return 'Y'; }
-  else return "";
 }
 
 prgIndex(prg,ratc){
   for (var i = 0; i < this.pagedata.body.ckprgs.length; i++) {
     if (this.pagedata.body.ckprgs[i].prg == prg && this.pagedata.body.ckprgs[i].ratc==ratc) {
+        return i;
+    }
+}
+  return -1;
+}
+
+prgIndex1(prg){
+  for (var i = 0; i < this.pagedata.body.pln.plans.length; i++) {
+    if (this.pagedata.body.pln.plans[i].prg == prg) {
         return i;
     }
 }
@@ -363,21 +368,18 @@ ngOnInit() {
           this.pagedata.body.pln.plans = Util.killDups(this.pagedata.body.pln.plans);
           this.pagedata.body.pln.plans.forEach(eachObj =>{  
             var obj = {"prg":eachObj.prg,"ratc":eachObj.ratc}; 
-            eachObj.typc = this.setcondtype2(eachObj.prg);
             if(eachObj.plnt==="")eachObj.plnt ="A";//default to Auto if blank
             if(master.findIndex(obj => obj.prg  == eachObj.prg  && 
                                        obj.ratc == eachObj.ratc && 
                                        eachObj.plnt == this.pagedata.body.type)>=0){
-            //if(master.findIndex(obj)>=0){  
               eachObj.check = true;
-              this.pagedata.body.typc = eachObj.typc;
             }else{
               eachObj.check = false;
             }
            });
            if(!this.pagedata.body.condyn){
              this.pagedata.body.pln.plans.forEach(plan => {
-              if(this.pagedata.body.condprg.indexOf(plan.prg)>=0){
+              if(this.pagedata.body.condprg.indexOf(plan.prg)>=0 && this.pagedata.body.ckprgs.length <=0){
               Util.modalid("show","fucilloModal");
               return false;
               }

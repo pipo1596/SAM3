@@ -20,6 +20,7 @@ export class PacksComponent implements OnInit {
   valid = false;
   changes = false;
   noAuth = true;
+  warnmesg:string ="";
   modebtn = "ADD";
   //Input Fields
   prg  = new  Textfield ;
@@ -185,6 +186,7 @@ export class PacksComponent implements OnInit {
     this.pctr.message = "";
     this.mino.message = "";
     this.upmi.message = "";
+    this.warnmesg = "";
 
     this.dispAlert.default();
     //Trim Field values
@@ -217,6 +219,12 @@ export class PacksComponent implements OnInit {
     if (this.amtc.value!== null && (this.amtc.value > 99999 || (this.amtc.value.toString().length > 8))){ 
       this.amtc.message = "(Too big)"; this.amtc.erlevel = "D"; this.valid = false; 
     }
+
+    //Retail Or Internal
+    if((this.amtc.value !== null || this.amtr.value !== null || this.pctr.value !==null) &&
+      (this.amti.value !== null || this.pcti.value !==null)){this.warnmesg = "(RETAIL --OR-- INTERNAL)";  this.valid = false; }
+    if(this.amtc.value === null && this.amtr.value === null && this.pctr.value ===null &&
+       this.amti.value === null && this.pcti.value ===null) {this.warnmesg = "(RETAIL --OR-- INTERNAL REQUIRED)"; this.valid = false; }
 
     if (this.pcti.value < 0){ this.pcti.message = "(invalid)"; this.pcti.erlevel = "D"; this.valid = false; }
     if (this.pcti.value!== null && (this.pcti.value > 99.99 || (this.pcti.value.toString().length > 6))){ 

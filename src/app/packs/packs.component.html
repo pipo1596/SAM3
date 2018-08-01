@@ -89,19 +89,14 @@
                     </div> 
                 </div>
                 <div class="col-sm-6">
+                    <h3  style="margin:25px 0 20px 0;color:#a94442;float:left;" [class.opqquezero]="warnmesg===''" [class.validating]="validating">{{warnmesg}}</h3> 
+                    <h3 style="margin:25px 0 20px 0;text-align:right;float:right"><u>Retail</u></h3>
+                    <div class="clearfix"></div>
                     <label class="flat-input inputlabel" style="margin-top:2px">Customer Retail Amount
                         <span class="errorspan2" [class.opqquezero]="amtc.message===''" [class.alert-danger]="amtc.erlevel==='D'"  [class.validating]="validating">{{amtc.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password" name="amtc" type="number" placeholder="Customer Retail Amount" [class.required]="amtc.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amtc" max="99999"  (change)="onChange()">
-                    </div> 
-                    
-                   
-                    <label class="flat-input inputlabel">Internal Markup $
-                        <span class="errorspan2" [class.opqquezero]="amti.message===''" [class.alert-danger]="amti.erlevel==='D'"  [class.validating]="validating">{{amti.message}}</span> 
-                    </label>
-                    <div class="flat-input w100">
-                        <input autocomplete="new-password" name="amti" type="number" placeholder="Internal Markup $" [class.required]="amti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amti" max="99999"  (change)="onChange()">
                     </div> 
                     <label class="flat-input inputlabel">Retail Markup $
                         <span class="errorspan2" [class.opqquezero]="amtr.message===''" [class.alert-danger]="amtr.erlevel==='D'"  [class.validating]="validating">{{amtr.message}}</span> 
@@ -109,17 +104,25 @@
                     <div class="flat-input w100">
                         <input autocomplete="new-password" name="amtr" type="number" placeholder="Retail Markup $" [class.required]="amtr.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amtr" max="99999"  (change)="onChange()">
                     </div> 
-                    <label class="flat-input inputlabel">Internal Markup %
-                        <span class="errorspan2" [class.opqquezero]="pcti.message===''" [class.alert-danger]="pcti.erlevel==='D'"  [class.validating]="validating">{{pcti.message}}</span> 
-                    </label>
-                    <div class="flat-input w100">
-                        <input autocomplete="new-password" name="pcti" type="number" placeholder="Internal Markup %" [class.required]="pcti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pcti" max="100" maxlength="5"  (change)="onChange()">
-                    </div>
                     <label class="flat-input inputlabel">Retail Markup %
                         <span class="errorspan2" [class.opqquezero]="pctr.message===''" [class.alert-danger]="pctr.erlevel==='D'"  [class.validating]="validating">{{pctr.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password" name="pctr" type="number" placeholder="Retail Markup %" [class.required]="pctr.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pctr" max="100" maxlength="5"  (change)="onChange()">
+                    </div>
+                    <div class="col-xs-12"><h3 style="text-align:center;margin:7px">Or</h3></div>
+                    <h3 style="margin:0;text-align:right;"><u>Internal</u></h3>
+                    <label class="flat-input inputlabel">Internal Markup $
+                        <span class="errorspan2" [class.opqquezero]="amti.message===''" [class.alert-danger]="amti.erlevel==='D'"  [class.validating]="validating">{{amti.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="amti" type="number" placeholder="Internal Markup $" [class.required]="amti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.amti" max="99999"  (change)="onChange()">
+                    </div> 
+                    <label class="flat-input inputlabel">Internal Markup %
+                        <span class="errorspan2" [class.opqquezero]="pcti.message===''" [class.alert-danger]="pcti.erlevel==='D'"  [class.validating]="validating">{{pcti.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="pcti" type="number" placeholder="Internal Markup %" [class.required]="pcti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pcti" max="100" maxlength="5"  (change)="onChange()">
                     </div>
                     <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
                     
@@ -173,6 +176,9 @@
                                 <th>
                                     <b>To</b>
                                 </th>
+                                <th>
+                                    <b>Type</b>
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -184,6 +190,8 @@
                                 <td data-label="Program">{{xlate(pack.prg)}}</td>
                                 <td data-label="From">{{pack.effd | date : "MM/d/y" }}</td>
                                 <td data-label="To">{{pack.expd | date : "MM/d/y" }}</td>
+                                <td data-label="Type" *ngIf="pack.amti=='' && pack.pcti ==''">Retail</td>
+                                <td data-label="Type" *ngIf="pack.amti !=='' || pack.pcti !==''">Internal</td>
                                 <td data-label="">
                                     <a href="javascript:void(0)" (click)="onSelect(pack)" class="btn btn-warning btnedit">Edit</a>
                                 </td>

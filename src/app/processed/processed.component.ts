@@ -42,6 +42,7 @@ export class ProcessedComponent implements OnInit {
   view : any;
   paym : any;
   hist : any;
+  clms : any;
   rfnd : any;
   canc : any;
   erScrolid :string = "";
@@ -255,6 +256,27 @@ export class ProcessedComponent implements OnInit {
   		}
   	);
     
+  }
+
+  viewClmm(clmn){
+    Util.showWait();
+    
+    
+    var obj ={"mode":"CLMN",
+              "clmn": clmn,
+              "anum": this.eanum,
+              "asuf": this.easuf
+            }
+    this.jsonService
+  	.initService(obj,Util.Url("CGICPRCNTR"))
+  	.subscribe(data => this.clms = data,
+  		err => {Util.responsiveMenu(); },
+  		() => {
+        this.pagemode = 'CL';
+        Util.hideWait();  
+  		}
+  	);
+
   }
   getPaym(){
     

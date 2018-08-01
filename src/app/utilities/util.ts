@@ -24,6 +24,10 @@ static showWarnings(warn){
     });
 
 }
+static checkbyid(id){
+    setTimeout(function(){ $("#"+id).prop("checked", true); }, 100);
+}
+
 static Url(prgrm:string):string{
     if (location.hostname === "localhost")
         return "http://192.168.6.48:64005/"+prgrm;

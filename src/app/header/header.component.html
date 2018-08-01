@@ -76,7 +76,7 @@
                                         </li> 
                                         </ng-container>
                                         <ng-container *ngFor="let main of headdata.menuOp">
-                                        <li *ngIf="main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
+                                        <li *ngIf="headdata.currdlr !=='' && main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
                                             <ul class="submenu">
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                     <li *ngIf="menu.type=='M1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
@@ -103,7 +103,7 @@
                                                 </ul>
                                                 </li>
                                         </ng-container>
-                                        <li><a href="javascript:void(0)">Support</a>
+                                        <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Support</a>
                                             <ul class="submenu">                                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus'}" id="contactus">Contact Us</a></li>
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help'}" id="helplink">Help</a></li>                                  
