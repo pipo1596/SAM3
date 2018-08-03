@@ -42,7 +42,7 @@ export class StaticPageComponent implements OnInit {
   getHtml() {
     this.pageid = Util.getparm('pageid');
   	this.htmlService
-  	.initService(Util.UrlStatic("/StaticPages/"+this.pageid+".html"))
+  	.initService(Util.UrlStatic("StaticPages/"+this.pageid+".html"))
   	.subscribe(data => this.pagehtml = data,
   		err => {Util.hideWait();},
   		() => {
