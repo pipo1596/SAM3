@@ -55,11 +55,17 @@
                             <option *ngFor="let role of pagedata.roles" [value]="role.rlno" [attr.selected]="role.rlno==selectedUser.rlno ? true : null">{{role.desc}}</option>
                         </select>
                     </span>
+                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400">Agent Code
+                        <span class="errorspan2" [class.opqquezero]="disc.message===''" [class.alert-danger]="disc.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'" [class.validating]="validating">{{disc.message}}</span> 
+                    </label>
+                    <div class="flat-input w100" [class.hidden]="!pagedata.head.as400">
+                        <input autocomplete="off"  (change)="onChange()" name="disc" type="text" placeholder="Agent Code" [class.required]="disc.value===''"  [class.validating]="validating"  [(ngModel)]="selectedUser.disc" maxlength="4">
+                    </div>
 
-                    <label class="flat-input inputlabel" *ngIf="pagedata.head.as400">*Add Dealer&nbsp;&nbsp;
+                    <label class="flat-input inputlabel hidden" *ngIf="pagedata.head.as400">*Add Dealer&nbsp;&nbsp;
                         <span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.alert-success]="dlr.erlevel==='S'" [class.validating]="dlr.message!==''">{{dlr.message}}</span> 
                     </label>
-                    <div class="flat-input w100" *ngIf="pagedata.head.as400">
+                    <div class="flat-input w100 hidden" *ngIf="pagedata.head.as400">
                      <div class="col-xs-8" style="padding-left:0">
                         <input autocomplete="off" (focus)="dealermode=true" (blur)="dealermode=false" (change)="onChange()" name="dlr" type="text" placeholder="Dealer Code"  [class.validating]="validating" [(ngModel)]="dlr.value" maxlength="50">
                     </div>

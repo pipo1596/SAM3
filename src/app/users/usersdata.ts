@@ -20,6 +20,7 @@ export  class User{
     fnam : string;
     lnam : string;
     sprs : string;
+    disc : string;
     pswd : string;  
     dlr  : [ Dlr ];
 }

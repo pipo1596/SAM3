@@ -65,6 +65,8 @@ static hideWait(){
  static setFAQ(){
     $("#staticpages .panel-body").addClass("hidden");
     $('input[name=faq]:checked').parentsUntil('.panel').parent().find(".panel-body").removeClass("hidden");
+    //$('html, body').scrollTop( $('input[name=faq]:checked').offset().top-5 );
+    setTimeout(function(){   $('html, body').animate({scrollTop: $('input[name=faq]:checked').parentsUntil('.panel').parent().offset().top-5 },200);},100);
  }
 //===================================================================================//
  static responsiveMenu(){                                                                                               

@@ -124,6 +124,7 @@ showLoc(){
     this.dealer = this.headdata.currdlr;
     if(this.dealer !== "") this.dealerGroups();
   }
+  this.headdata.loctn =  Util.sortByKey(this.headdata.loctn,"desc","A");
 }
 
 hideLoc(){
