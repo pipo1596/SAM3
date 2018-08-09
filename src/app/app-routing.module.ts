@@ -12,6 +12,7 @@ import { ContractComponent } from './contract/contract.component';
 import { PacksComponent } from './packs/packs.component';
 import { ContracttypesComponent } from './contracttypes/contracttypes.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
+import { ClaimsFormComponent } from './claimsform/claimsform.component';
 import { GlobalFiltersComponent } from './globalfilters/globalfilters.component';
 import { CanDeactivateGuard } from './utilities/confirmroute';
 import { DescoverrideComponent } from './descoverride/descoverride.component';
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'app/Packs', canDeactivate: [CanDeactivateGuard], component: PacksComponent },
   { path: 'app/ContractTypes', canDeactivate: [CanDeactivateGuard], component: ContracttypesComponent },
   { path: 'app/TaxRate', canDeactivate: [CanDeactivateGuard], component: TaxrateComponent },
+  { path: 'app/ClaimsForm', canDeactivate: [CanDeactivateGuard], component: ClaimsFormComponent },
   { path: 'app/CovWarnings', canDeactivate: [CanDeactivateGuard], component: CovwarningsComponent },
   { path: 'app/DescOverride/:PMTYPE',canDeactivate: [CanDeactivateGuard], component: DescoverrideComponent },
   { path: 'app/SavedQuotes',canDeactivate: [CanDeactivateGuard], component: SavedquotesComponent },

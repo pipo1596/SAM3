@@ -782,12 +782,10 @@ date-input-polyfill button{padding:5px;}
      display: block;
 }
  #mainnav > ul > li > a, .menu-extra li a {
-     padding: 0 25px 0px 22.5px;
+     padding: 0 15px 0px 15px;
      line-height: 60px;
 }
- #mainnav > ul > li:nth-child(4) > a {
-     padding: 0px 28px 0px 30px;
-}
+
 /* submenu */
  #mainnav ul.submenu {
      position: absolute;
@@ -2804,8 +2802,9 @@ margin:3px 0 0 3px;}
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding-top: 12px;
+        padding-top: 14px;
         padding-left:4px;
+        font-size:14px;
     }
     .lochref{
         font-weight: bold;

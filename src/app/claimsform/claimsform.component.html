@@ -1,0 +1,28 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I' || noAuth}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Claim Form</h1>
+                </div>
+            </div>
+        </div> 
+        <div class="row white">
+
+            <form  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkData()"
+                id="adduser"  autocomplete="off">
+                <div class="col-md-12">
+                    <h2>Disclaimer</h2>
+                    <p>I understand and accept that the claim information relating to the repairs needed for this subject unit are covered per the terms and conditions of the Service Contract.&nbsp;&nbsp;
+                        I further understand that approval and/or payment of any and all costs associated with this needed repair may not be made if it is determined by Interstate National Dealer Services, Inc. 
+                        that the parts/repair and/or type of failure is not covered pursuant to the Terms and Conditions of the Service Contract or for claims on invalid contracts. 
+                    </p>
+                </div>
+                
+            </form>
+            
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -24,6 +24,7 @@ import { GlobalFiltersComponent } from './globalfilters/globalfilters.component'
 import { PacksComponent } from './packs/packs.component';
 import { ContracttypesComponent } from './contracttypes/contracttypes.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
+import { ClaimsFormComponent } from './claimsform/claimsform.component';
 import { Quote3Component } from './quote3/quote3.component';
 import { ContractComponent } from './contract/contract.component';
 import { DescoverrideComponent } from './descoverride/descoverride.component';
@@ -60,6 +61,7 @@ enableProdMode();
     PacksComponent, 
     ContracttypesComponent,
     TaxrateComponent,
+    ClaimsFormComponent,
     Quote3Component,
     ContractComponent,
     DescoverrideComponent,
