@@ -9,18 +9,263 @@
             </div>
         </div> 
         <div class="row white">
-
-            <form  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkData()"
+            <!--Accept-->
+            <form *ngIf="pageview=='A'"  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkAccept()"
                 id="adduser"  autocomplete="off">
-                <div class="col-md-12">
+                <div class="col-xs-12">
                     <h2>Disclaimer</h2>
                     <p>I understand and accept that the claim information relating to the repairs needed for this subject unit are covered per the terms and conditions of the Service Contract.&nbsp;&nbsp;
                         I further understand that approval and/or payment of any and all costs associated with this needed repair may not be made if it is determined by Interstate National Dealer Services, Inc. 
                         that the parts/repair and/or type of failure is not covered pursuant to the Terms and Conditions of the Service Contract or for claims on invalid contracts. 
                     </p>
                 </div>
-                
+                <div class="col-md-6 col-md-offset-3 text-center" style="padding-top:25px;">
+                    <span style="display: inline-block">
+                        <div class="custradio"><input name="acc" type="radio" id="acc1" value="Y" [(ngModel)]="accept"><label for="acc1"></label></div>
+                        <label class="checklabel" for="acc1"><b>I Accept</b></label>
+                    </span>
+                    <span style="display: inline-block;margin-left:20px;">
+                        <div class="custradio"><input name="acc" type="radio" id="acc2" value="N" [(ngModel)]="accept"><label for="acc2"></label></div>
+                        <label class="checklabel" for="acc2"><b>I Don't Accept</b></label>
+                    </span>
+                </div>
+                <div class="col-md-6 col-md-offset-3 text-center" style="padding-top:25px;">
+                        <span class="flat-input">
+                            <button class="flat-button" id="submit" name="submit" title="Continue" type="submit">Submit&nbsp;<span class="fa fa-forward"></span></button>
+                        </span>    
+                </div>
             </form>
+            <!--Enter Claim-->
+            <form *ngIf="pageview=='C'"  class="contactform style4 clearfix panel-body"  method="post" action="javascript:void(0);" (submit)="checkData()"
+                id="adduser"  autocomplete="off">
+                <div class="col-xs-12">
+                    <p style="font-weight: bold">SHOULD YOU NEED TO FILE A CLAIM, PLEASE COMPLETE THE FOLLOWING FORM AND SUBMIT. A CLAIMS CUSTOMER SERVICE REPRESENTATIVE WILL CONTACT YOU AS SOON AS POSSIBLE.</p>
+                </div>
+                <div class="col-xs-12"><hr></div>  
+                
+                <div class="col-xs-12" style="margin:15px 0 30px 0">
+                    <span style="display: inline-block;">
+                        <div class="custradio"><input name="typer" type="radio" id="type1" value="Auto" [(ngModel)]="type"><label for="type1"></label></div>
+                            <label class="checklabel" for="type1"><b>Auto</b></label>
+                    </span>
+                    <span style="display: inline-block;margin-left:20px;">
+                        <div class="custradio"><input name="typer" type="radio" id="type2" value="RV" [(ngModel)]="type"><label for="type2"></label></div>
+                            <label class="checklabel" for="type2"><b>RV</b></label>
+                    </span>
+                    <span style="display: inline-block;margin-left:20px;">
+                        <div class="custradio"><input name="typer" type="radio" id="type3" value="Sports" [(ngModel)]="type"><label for="type3"></label></div>
+                            <label class="checklabel" for="type3"><b>Sports</b></label>
+                    </span>
+                    <span style="display: inline-block;margin-left:20px;">
+                        <div class="custradio"><input name="typer" type="radio" id="type4" value="Marine" [(ngModel)]="type"><label for="type4"></label></div>
+                            <label class="checklabel" for="type4"><b>Marine</b></label>
+                    </span>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="ctnolbl">*Contract Number
+                        <span class="errorspan2" [class.opqquezero]="ctno.message===''" [class.alert-danger]="ctno.erlevel==='D'"  [class.validating]="validating">{{ctno.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="ctno" type="text" placeholder="Contract Number" [class.required]="ctno.message!==''"  [class.validating]="validating"  [(ngModel)]="ctno.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel"  id="cnamlbl">*Contract Holder Name
+                        <span class="errorspan2" [class.opqquezero]="cnam.message===''" [class.alert-danger]="cnam.erlevel==='D'"  [class.validating]="validating">{{cnam.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="cnam" type="text" placeholder="Contract Holder Name" [class.required]="cnam.message!==''"  [class.validating]="validating"  [(ngModel)]="cnam.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="phonlbl">*Contract Holder Phone
+                        <span class="errorspan2" [class.opqquezero]="phon.message===''" [class.alert-danger]="phon.erlevel==='D'"  [class.validating]="validating">{{phon.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="phon" type="text" placeholder="Contract Holder Phone"  (keyup)="formatPhone(phon)" [class.required]="phon.message!==''"  [class.validating]="validating"  [(ngModel)]="phon.value" maxlength="14"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="reprlbl">*Repair Facility Name
+                        <span class="errorspan2" [class.opqquezero]="repr.message===''" [class.alert-danger]="repr.erlevel==='D'"  [class.validating]="validating">{{repr.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="repr" type="text" placeholder="Repoair Facility Name" [class.required]="repr.message!==''"  [class.validating]="validating"  [(ngModel)]="repr.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="remllbl">*Repair Facility Email
+                        <span class="errorspan2" [class.opqquezero]="reml.message===''" [class.alert-danger]="reml.erlevel==='D'"  [class.validating]="validating">{{reml.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="reml" type="text" placeholder="Repoair Facility Email" [class.required]="reml.message!==''"  [class.validating]="validating"  [(ngModel)]="reml.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="rcntlbl">*Repair Facility Contact Person Name
+                        <span class="errorspan2" [class.opqquezero]="rcnt.message===''" [class.alert-danger]="rcnt.erlevel==='D'"  [class.validating]="validating">{{rcnt.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="rcnt" type="text" placeholder="Repair Facility Contact Person Name" [class.required]="rcnt.message!==''"  [class.validating]="validating"  [(ngModel)]="rcnt.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="rphnlbl">*Repair Facility Phone
+                        <span class="errorspan2" [class.opqquezero]="rphn.message===''" [class.alert-danger]="rphn.erlevel==='D'"  [class.validating]="validating">{{rphn.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="rphn" type="text" placeholder="Repair Facility Phone" (keyup)="formatPhone(rphn)"  [class.required]="rphn.message!==''"  [class.validating]="validating"  [(ngModel)]="rphn.value" maxlength="14"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="rextlbl">Repair Facility Phone Ext.
+                        <span class="errorspan2" [class.opqquezero]="rext.message===''" [class.alert-danger]="rext.erlevel==='D'"  [class.validating]="validating">{{rext.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="rext" type="text" placeholder="Repair Facility Phone Ext." [class.required]="rext.message!==''"  [class.validating]="validating"  [(ngModel)]="rext.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="rfaxlbl">Repair Facility Fax
+                        <span class="errorspan2" [class.opqquezero]="rfax.message===''" [class.alert-danger]="rfax.erlevel==='D'"  [class.validating]="validating">{{rfax.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="rfax" type="text" placeholder="Repair Facility Fax"  (keyup)="formatPhone(rfax)"  [class.required]="rfax.message!==''"  [class.validating]="validating"  [(ngModel)]="rfax.value" maxlength="14"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="yearlbl">*Unit Year
+                        <span class="errorspan2" [class.opqquezero]="year.message===''" [class.alert-danger]="year.erlevel==='D'"  [class.validating]="validating">{{year.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="year" type="text" placeholder="Unit Year" [class.required]="year.message!==''"  [class.validating]="validating"  [(ngModel)]="year.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="makelbl">*Unit Make
+                        <span class="errorspan2" [class.opqquezero]="make.message===''" [class.alert-danger]="make.erlevel==='D'"  [class.validating]="validating">{{make.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="make" type="text" placeholder="Unit Make" [class.required]="make.message!==''"  [class.validating]="validating"  [(ngModel)]="make.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="modllbl" >*Unit Model
+                        <span class="errorspan2" [class.opqquezero]="modl.message===''" [class.alert-danger]="modl.erlevel==='D'"  [class.validating]="validating">{{modl.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password"name="modl" type="text" placeholder="Unit Model" [class.required]="modl.message!==''"  [class.validating]="validating"  [(ngModel)]="modl.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="idntlbl">*Unit Identification Number
+                        <span class="errorspan2" [class.opqquezero]="idnt.message===''" [class.alert-danger]="idnt.erlevel==='D'"  [class.validating]="validating">{{idnt.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="idnt" type="text" placeholder="Unit Identification Number" [class.required]="idnt.message!==''"  [class.validating]="validating"  [(ngModel)]="idnt.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="odomlbl">Unit's Current Odometer  -- <span style="color:#2196F3">(If Applicable)</span>
+                        <span class="errorspan2" [class.opqquezero]="odom.message===''" [class.alert-danger]="odom.erlevel==='D'"  [class.validating]="validating">{{odom.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="odom" type="text" placeholder="Unit's Current Odometer" [class.required]="odom.message!==''"  [class.validating]="validating"  [(ngModel)]="odom.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <label class="flat-input inputlabel" id="complbl">*Complaint
+                        <span class="errorspan2" [class.opqquezero]="comp.message===''" [class.alert-danger]="comp.erlevel==='D'"  [class.validating]="validating">{{comp.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <textarea autocomplete="new-password"  style="max-height:100px;color:black;margin-bottom: 10px;" name="comp" [class.required]="comp.message!==''"  [class.validating]="validating"  [(ngModel)]="comp.value" maxlength="512"  (change)="onChange()"></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <label class="flat-input inputlabel" id="causlbl">*Cause of Complaint/Cause of Failure
+                        <span class="errorspan2" [class.opqquezero]="caus.message===''" [class.alert-danger]="caus.erlevel==='D'"  [class.validating]="validating">{{caus.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <textarea autocomplete="new-password" style="max-height:100px;color:black;margin-bottom: 10px;" name="caus" [class.required]="caus.message!==''"  [class.validating]="validating"  [(ngModel)]="caus.value" maxlength="512"  (change)="onChange()"></textarea>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <label class="flat-input inputlabel" id="recmlbl">Recommended Correction/Repairs (Please Submit Part#'s / Part Description)
+                        <span class="errorspan2" [class.opqquezero]="recm.message===''" [class.alert-danger]="recm.erlevel==='D'"  [class.validating]="validating">{{recm.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <textarea autocomplete="new-password" style="max-height:100px;color:black;margin-bottom: 10px;" name="recm" [class.required]="recm.message!==''"  [class.validating]="validating"  [(ngModel)]="recm.value" maxlength="512"  (change)="onChange()"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3><u>Estimated Cost</u></h3>
+                    <label class="flat-input inputlabel" id="partlbl">Part $
+                        <span class="errorspan2" [class.opqquezero]="part.message===''" [class.alert-danger]="part.erlevel==='D'"  [class.validating]="validating">{{part.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="part" type="text" placeholder="Part $" [class.required]="part.message!==''"  [class.validating]="validating"  [(ngModel)]="part.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="labrlbl">Labor $
+                        <span class="errorspan2" [class.opqquezero]="labr.message===''" [class.alert-danger]="labr.erlevel==='D'"  [class.validating]="validating">{{labr.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="labr" type="text" placeholder="Labor $" [class.required]="labr.message!==''"  [class.validating]="validating"  [(ngModel)]="labr.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="taxlbl">Tax $
+                        <span class="errorspan2" [class.opqquezero]="tax.message===''" [class.alert-danger]="tax.erlevel==='D'"  [class.validating]="validating">{{tax.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="tax" type="text" placeholder="Tax $" [class.required]="tax.message!==''"  [class.validating]="validating"  [(ngModel)]="tax.value" maxlength="100"  (change)="onChange()">
+                    </div>
+                </div>
+                <div class="col-xs-12" id="cfaxlbl">
+                        <h3><u>Please contact me with Claim status via:</u> <span class="errorspan2" [class.opqquezero]="ctmessage===''" [class.alert-danger]="cterlevel==='D'"  [class.validating]="validating">{{ctmessage}}</span> </h3>
+                        <div class="col-xs-3 ">
+                                <span style="display: inline-block;">
+                                        <div class="custcheck"><input name="cfax1" type="checkbox" id="cfax" value="FAX"  [(ngModel)]="cfax"><label for="cfax"></label></div>
+                                            <label class="checklabel" for="cfax"><b>FAX</b></label>
+                                    </span>
+                        </div>
+                        <div class="col-xs-3 ">
+                                <span style="display: inline-block;">
+                                        <div class="custcheck"><input name="ceml1" type="checkbox" id="ceml" value="EMAIL" [(ngModel)]="ceml"><label for="ceml"></label></div>
+                                            <label class="checklabel" for="ceml"><b>Email</b></label>
+                                    </span>
+                        </div>
+                        <div class="col-xs-3 ">
+                                <span style="display: inline-block;">
+                                        <div class="custcheck"><input name="cphn1" type="checkbox" id="cphn" value="PHONE" [(ngModel)]="cphn"><label for="cphn"></label></div>
+                                            <label class="checklabel" for="cphn"><b>Phone</b></label>
+                                    </span>
+                        </div>
+                        <div class="col-xs-3 ">
+                                <span style="display: inline-block;">
+                                            <label class="checklabel"><a href="javascript:void(0)" (click)="allThree()"><b><u>All Three</u></b></a></label>
+                                    </span>
+                        </div>
+                </div>
+                
+                
+                
+                <div class="col-md-12" style="padding-top:25px;">
+                           
+                        <span class="flat-input pull-right">
+                            <button class="flat-button" id="submit" name="submit" title="Continue" type="submit">Submit&nbsp;<span class="fa fa-forward"></span></button>
+                        </span> 
+                        <span class="flat-input pull-right" style="margin-right:15px">
+                                <button class="flat-button" id="reset" name="reset" title="Continue"(click)="Reset()" type="button">Reset</button>
+                            </span>    
+                </div>
+            </form>
+
             
         </div>
     </div>
