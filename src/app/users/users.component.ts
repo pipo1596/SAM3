@@ -43,6 +43,7 @@ export class UsersComponent implements OnInit {
   pswd = new  Textfield ;
   sprs = new  Textfield ;
   disc = new  Textfield ;
+  slcd = new  Textfield ;
   dlr = new  Textfield ;
 
   dispAlert = new Dispalert();
@@ -59,6 +60,7 @@ export class UsersComponent implements OnInit {
     "lnam":"",
     "sprs":"",
     "disc":"",
+    "slcd":"",
     "pswd":"",
     "dlr":[{"dlri":"","desc":""}]
   }; 
@@ -72,6 +74,7 @@ export class UsersComponent implements OnInit {
     "lnam":"",
     "sprs":"",
     "disc":"",
+    "slcd":"",
     "pswd":"",
     "dlr" :[{"dlri":"","desc":""}]
   };  
@@ -177,6 +180,7 @@ onSelect(user: User): void {
   this.selectedUser.lnam = user.lnam;
   this.selectedUser.sprs = user.sprs;
   this.selectedUser.disc = user.disc;
+  this.selectedUser.slcd = user.slcd;
   this.selectedUser.dlr = user.dlr;
   this.selectedUser.pswd = "";
   this.dlr.erlevel ="";
@@ -214,6 +218,7 @@ addUserInit(){
     "lnam":"",
     "sprs":"",
     "disc":"",
+    "slcd":"",
     "pswd":"",
     "dlr" :[{"dlri":"","desc":""}]
   };  
@@ -285,6 +290,7 @@ cancel(){
     "lnam":"",
     "sprs":"",
     "disc":"",
+    "slcd":"",
     "pswd":"",
     "dlr" :[{"dlri":"","desc":""}]
   };  
@@ -314,6 +320,7 @@ checkUser(){
     this.lnam.message  = "";
     this.sprs.message  = "";
     this.disc.message  = "";
+    this.slcd.message  = "";
     this.pswdc.message = "";
     this.pswd.message  = "";
     this.dispAlert.default();
@@ -326,6 +333,7 @@ checkUser(){
     this.lnam.value  = this.selectedUser.lnam.trim();
     this.sprs.value  = this.selectedUser.sprs.trim();
     this.disc.value  = this.selectedUser.disc.trim();
+    this.slcd.value  = this.selectedUser.slcd.trim();
     this.pswdc.value = this.pswd2.trim();
     this.pswd.value  = this.pswd1.trim();
 
@@ -365,6 +373,7 @@ checkUser(){
               "lnam":this.selectedUser.lnam,
               "sprs":this.selectedUser.sprs,
               "disc":this.selectedUser.disc,
+              "slcd":this.selectedUser.slcd,
               "pswd":"",
               "dlr": this.selectedUser.dlr
             });
@@ -386,6 +395,7 @@ checkUser(){
             this.selectedUserG.lnam = this.selectedUser.lnam;
             this.selectedUserG.sprs = this.selectedUser.sprs;
             this.selectedUserG.disc = this.selectedUser.disc;
+            this.selectedUserG.slcd = this.selectedUser.slcd;
             this.selectedUserG.pswd = "";
             this.selectedUserG.dlr = this.selectedUser.dlr;
             setTimeout(() => {

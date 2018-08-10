@@ -21,6 +21,7 @@ export  class User{
     lnam : string;
     sprs : string;
     disc : string;
+    slcd : string;
     pswd : string;  
     dlr  : [ Dlr ];
 }

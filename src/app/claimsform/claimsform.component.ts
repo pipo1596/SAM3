@@ -69,6 +69,61 @@ export class ClaimsFormComponent implements OnInit {
     if(this.erScrolid=='')
       this.erScrolid = id + 'lbl';
   }
+
+  Reset(){
+    if(confirm("Clear All Fields?")){
+    //Reset Error Messages
+    this.ctno.message   = "";
+    this.cnam.message   = "";
+    this.phon.message   = "";
+    this.repr.message   = "";
+    this.reml.message   = "";
+    this.rcnt.message   = "";
+    this.rphn.message   = "";
+    this.year.message   = "";
+    this.rfax.message   = "";
+    this.make.message   = "";
+    this.modl.message   = "";
+    this.idnt.message   = "";
+    this.comp.message   = "";
+    this.caus.message   = "";
+    this.part.message   = "";
+    this.labr.message   = "";
+    this.tax.message    = "";
+    this.odom.message   = "";
+
+    this.ctno.value     = "";
+    this.cnam.value     = "";
+    this.phon.value     = "";
+    this.rext.value     = "";
+    this.rfax.value     = "";
+    this.repr.value     = "";
+    this.reml.value     = "";
+    this.rcnt.value     = "";
+    this.rphn.value     = "";
+    this.year.value     = "";
+    this.make.value     = "";
+    this.modl.value     = "";
+    this.idnt.value     = "";
+    this.comp.value     = "";
+    this.caus.value     = "";
+    this.part.value     = "";
+    this.labr.value     = "";
+    this.tax.value      = "";
+    this.odom.value     = "";
+    this.recm.value     = "";
+
+    this.cfax = false;
+    this.ceml = false;
+    this.cphn = false;
+
+    this.type = 'Auto';
+    Util.showWait();
+    Util.hideWait();
+    Util.scrollToId("ctnolbl");
+    }
+
+  }
   
   checkData(){
     this.validating = true;
@@ -107,6 +162,9 @@ export class ClaimsFormComponent implements OnInit {
     this.part.value     = this.part.value.trim();
     this.labr.value     = this.labr.value.trim();
     this.tax.value      = this.tax.value.trim();
+    this.rfax.value     = this.rfax.value.trim();
+    this.odom.value     = this.odom.value.trim();
+    this.recm.value     = this.recm.value.trim();
     //Reset Top Alert
     this.dispAlert.default();
     //Required Logic
@@ -218,8 +276,9 @@ export class ClaimsFormComponent implements OnInit {
                             if (this.dispAlert.status === "S") {
                               
                                this.changes = false; 
-                               alert("Thank you, We have received your request.")
                                this.pageview = 'A';
+                               alert("Thank you, We have received your request.")
+                               
                                this.accept = "";
                                  }
                           }

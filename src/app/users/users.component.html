@@ -59,7 +59,13 @@
                         <span class="errorspan2" [class.opqquezero]="disc.message===''" [class.alert-danger]="disc.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'" [class.validating]="validating">{{disc.message}}</span> 
                     </label>
                     <div class="flat-input w100" [class.hidden]="!pagedata.head.as400">
-                        <input autocomplete="off"  (change)="onChange()" name="disc" type="text" placeholder="Agent Code" [class.required]="disc.value===''"  [class.validating]="validating"  [(ngModel)]="selectedUser.disc" maxlength="4">
+                        <input autocomplete="off"  (change)="onChange()" name="disc" type="text" placeholder="Agent Code"   [(ngModel)]="selectedUser.disc" maxlength="4">
+                    </div>
+                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400">Salesperson Code
+                        <span class="errorspan2" [class.opqquezero]="slcd.message===''" [class.alert-danger]="slcd.erlevel==='D'" [class.alert-success]="slcd.erlevel==='S'" [class.validating]="validating">{{slcd.message}}</span> 
+                    </label>
+                    <div class="flat-input w100" [class.hidden]="!pagedata.head.as400">
+                        <input autocomplete="off"  (change)="onChange()" name="slcd" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="3">
                     </div>
 
                     <label class="flat-input inputlabel hidden" *ngIf="pagedata.head.as400">*Add Dealer&nbsp;&nbsp;
