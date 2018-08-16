@@ -30,6 +30,7 @@ export class ProcessedComponent implements OnInit {
   gotcanc = false;
   showcc = false;
   canedit = false;
+  editon  = false;
   eanum:string="";
   easuf:string="";
   pagemode:string = "L";
@@ -82,6 +83,12 @@ export class ProcessedComponent implements OnInit {
     if (this.miles.value == "") { this.miles.message = "(required)"; this.miles.erlevel = "D"; this.valid = false; }
 
     this.getRefund();
+  }
+  editMode(){
+    Util.showWait();
+    if(this.canedit) this.editon = true;
+    Util.hideWait();
+
   }
   getRefund(){
     if(!this.valid){return false;}
@@ -195,6 +202,7 @@ export class ProcessedComponent implements OnInit {
     this.showc = false;
     this.showcc = false;
     this.gotrfnd = false;
+    this.editon = false;
     Util.hideWait();
   }
   viewCont(agr){
@@ -211,7 +219,8 @@ export class ProcessedComponent implements OnInit {
   		err => {Util.responsiveMenu(); },
   		() => {
         this.pagemode = 'V';
-        if(this.view.stat !== 'Active') this.canedit = false; 
+        if(this.view.stat !== 'Active') this.canedit = false;
+        this.editon = false; 
 
         this.eoad1.message='';
         this.eoad1.message='';
@@ -279,6 +288,7 @@ export class ProcessedComponent implements OnInit {
 
   }
   getPaym(){
+    this.editon = false;
     
     Util.showWait();
     
