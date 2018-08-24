@@ -8,8 +8,9 @@ export class Headerdata{
     currloc : string ="";
     currdlr : string ="";
     as400   : boolean = false;
+    sales   : boolean = false;
     multi   : boolean = false;
-    loctn   : [ Locn ]
+    loctn   : [ Locn ];
     
 }
 

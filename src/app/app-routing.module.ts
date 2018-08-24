@@ -2,6 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgotpassword/forgotpassword.component';
 import { Login1Component } from './login1/login1.component';
 import { UsersComponent } from './users/users.component';
 import { RolesComponent } from './roles/roles.component';
@@ -33,6 +34,7 @@ import { CancellationsComponent } from './cancellations/cancellations.component'
 const routes: Routes = [
   { path: 'app/Home', component: HomeComponent },
   { path: 'app/Users', canDeactivate: [CanDeactivateGuard], component: UsersComponent },
+  { path: 'app/SalesPersons', canDeactivate: [CanDeactivateGuard], component: UsersComponent },
   { path: 'app/Authorities', canDeactivate: [CanDeactivateGuard], component: RolesComponent },
   { path: 'app/GlobalFilters', canDeactivate: [CanDeactivateGuard], component: GlobalFiltersComponent },
   { path: 'app/Quote1', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
@@ -50,6 +52,8 @@ const routes: Routes = [
   { path: 'app/SavedQuotes',canDeactivate: [CanDeactivateGuard], component: SavedquotesComponent },
   { path: 'app/DealerMaster',canDeactivate: [CanDeactivateGuard], component: DealermasterComponent },
   { path: 'app/convert',canDeactivate: [CanDeactivateGuard], component: Login1Component },
+  { path: 'app/forgotpassword',canDeactivate: [CanDeactivateGuard], component: ForgotPasswordComponent },
+  { path: 'app/resetpassword',canDeactivate: [CanDeactivateGuard], component: ForgotPasswordComponent },
   { path: 'app/Unremitted',canDeactivate: [CanDeactivateGuard], component: UnremittedComponent },
   { path: 'app/Remitted',canDeactivate: [CanDeactivateGuard], component: RemittedComponent },
   { path: 'app/Processed',canDeactivate: [CanDeactivateGuard], component: ProcessedComponent },

@@ -173,6 +173,10 @@
 										<td style="font-weight: bold;text-align: right">Full Name</td>
 										<td width="50">{{view.ofn}} {{view.oln}}</td>
 								</tr>
+								<tr *ngIf="view.cbn && view.cbn !==''">
+										<td style="font-weight: bold;text-align: right">Co-buyer Full Name</td>
+										<td width="50">{{view.cbn}}</td>
+								</tr>
 								<tr *ngIf="!editon">
 										<td style="font-weight: bold;text-align: right">Street Address</td>
 										<td width="50">{{view.oad1}}</td>

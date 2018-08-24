@@ -15,6 +15,7 @@ import { HeaderComponent }  from './header/header.component';
 import { FooterComponent }  from './footer/footer.component';
 import { LoginComponent }   from './login/login.component';
 import { Login1Component }  from './login1/login1.component';
+import { ForgotPasswordComponent }  from './forgotpassword/forgotpassword.component';
 import { HomeComponent }    from './home/home.component';
 import { UsersComponent }   from './users/users.component';
 import { RolesComponent }   from './roles/roles.component';
@@ -52,6 +53,7 @@ enableProdMode();
     FooterComponent,
     LoginComponent,
     Login1Component,
+    ForgotPasswordComponent,
     HomeComponent, 
     UsersComponent,
     RolesComponent,

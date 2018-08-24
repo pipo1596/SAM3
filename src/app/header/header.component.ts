@@ -1,6 +1,6 @@
 import { Component, OnInit ,Input, OnDestroy} from '@angular/core';
 import { JsonService } from '../utilities/json.service';
-import { Headerdata } from './headerdata';
+import { Headerdata,Locn } from './headerdata';
 import { Util } from '../utilities/util';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   @Input() headdata : Headerdata;
   modalIn:any;
   logMeOut:any;
-
+  temploctn:[Locn];
   keytime:any;
   process:boolean = false;
   dealer:string;
@@ -50,6 +50,34 @@ getVersion(){
         .subscribe(data=>this.headdata = data,
            err => {},
            () => {location.reload();});
+}
+
+dealerGroupsAles(){
+
+  //this.temploctn = this.headdata.loctn; 
+  this.process = true;
+  clearTimeout(this.keytime);
+  
+  var self = this;
+  if(this.dealer !== ""){
+  this.keytime = setTimeout(()=>{ 
+    self.temploctn = [{"dlr":"","desc":""}]; self.temploctn.pop();
+                self.headdata.loctn.forEach(loc =>{ 
+                  var toucase1 = loc.desc.toUpperCase();
+                  var toucase2 = self.dealer.toUpperCase();
+
+                  if(toucase1.indexOf(toucase2)>-1){
+                    self.temploctn.push(loc);
+                  }
+
+                });
+                self.process = false;
+                
+    }, 100);
+  }else{
+    this.temploctn = this.headdata.loctn;
+    self.process = false;
+  }
 }
 
 dealerGroups(){
@@ -125,6 +153,7 @@ showLoc(){
     if(this.dealer !== "") this.dealerGroups();
   }
   this.headdata.loctn =  Util.sortByKey(this.headdata.loctn,"desc","A");
+  this.temploctn = this.headdata.loctn;
 }
 
 hideLoc(){
@@ -135,9 +164,8 @@ hideLoc(){
 
 this.logOutTimer("I");
 this.validVersion();
-window.onbeforeunload = () => {
- //this.logOut();
-};
+Util.Usersnap();
+
 
   }
 

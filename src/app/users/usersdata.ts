@@ -1,4 +1,5 @@
 import {Headerdata} from "../header/headerdata";
+import { bodyData } from "../globalfilters/filtersdata";
 
 export class Usersdata{
     public head = new Headerdata ;
@@ -13,6 +14,7 @@ export class Role{
 
 export  class User{
     mode : string;
+    smode: boolean;
     user : string;
     useri : string;
     rlno : string;

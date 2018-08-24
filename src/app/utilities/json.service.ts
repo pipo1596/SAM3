@@ -13,7 +13,7 @@ export class JsonService {
     
     return this.http.post(
       Url,
-      JSON.stringify(data),
+      JSON.stringify(data).replace(/%/g, '%25'),
       {withCredentials:Util.Env() }
     ).pipe(map((res:Response) => res));
 

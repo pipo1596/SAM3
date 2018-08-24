@@ -13,11 +13,12 @@ import { Dispalert , Errsetter } from '../utilities/dispalert';
 })
 export class UsersComponent implements OnInit {
 
-  
+  ran:string = Util.makeid();
   validating = false;
   valid = false;
   noAuth = true;
   dealermode = false;
+  salesmode = false;
   haslow = false;
   hascap = false;
   hasnum = false;
@@ -52,6 +53,7 @@ export class UsersComponent implements OnInit {
   pagedata = new Usersdata ;
   selectedUser: User = { 
     "mode":"",
+    "smode":this.salesmode,
     "user":"",
     "useri":"",
     "rlno":"",
@@ -66,6 +68,7 @@ export class UsersComponent implements OnInit {
   }; 
   selectedUserG: User = {
     "mode":"",
+    "smode":this.salesmode,
     "user":"",
     "useri":"",
     "rlno":"",
@@ -210,6 +213,7 @@ addUserInit(){
   Util.showWait();
    this.selectedUser = {
     "mode":"ADD",
+    "smode":this.salesmode,
     "user":"",
     "useri":"",
     "rlno":"",
@@ -282,6 +286,7 @@ cancel(){
   this.validating = false;
   this.selectedUser = {
     "mode":"",
+    "smode":this.salesmode,
     "user":"",
     "useri":"",
     "rlno":"",
@@ -365,6 +370,7 @@ checkUser(){
           if(this.mode=="ADD"){
             this.pagedata.users.push({
               "mode":this.selectedUser.mode,
+              "smode":this.salesmode,
               "user":this.selectedUser.user,
               "useri":this.selectedUser.user,
               "rlno":this.selectedUser.rlno,
@@ -436,16 +442,23 @@ changePass(){
   ngOnInit() {
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
+    var xmode ="INIT";
+    if (window.location.href.indexOf("SalesPerson") > -1){this.salesmode = true;xmode='INITS';}
     this.usersService
-    .initService({"mode":"INIT"},Util.Url("CGICUSERSS"))
+    .initService({"mode":xmode},Util.Url("CGICUSERSS"))
     .subscribe(data => this.pagedata = data,
       err => { Util.responsiveMenu(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
+        
+        console.log(this.salesmode);
       //Sort By User Ascending
         this.pagedata.users =  Util.sortByKey(this.pagedata.users, "user","A");
 
-        this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'EUSERS');
+        if(this.salesmode)
+          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'EDSALESPRS');
+        else
+          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'EUSERS');
         if (this.pagedata.head.status === "O" || this.noAuth) {
           
           Util.showWait();

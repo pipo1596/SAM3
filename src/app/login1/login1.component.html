@@ -41,7 +41,7 @@
                        </span>
                        <span class="flat-input">
                         <span class="errorspan" [class.opqquezero]="npasswordc.message===''" [class.alert-danger]="npasswordc.erlevel==='D'" [class.alert-success]="npasswordc.erlevel==='S'" [class.validating]="validating">{{npasswordc.message}}</span> 
-                      <input [(ngModel)]="npasswordc.value" (keyup)="validPass()" autocomplete="new-password" name="npasswordc" id="npasswordc" [class.required]="npassword.message!==''" [class.validating]="validating" (change)="onChange()" type="password" placeholder="* Confirm New Password" max="50">
+                      <input [(ngModel)]="npasswordc.value" (keyup)="validPass()" autocomplete="new-password" name="npasswordc" id="npasswordc" [class.required]="npasswordc.message!==''" [class.validating]="validating" (change)="onChange()" type="password" placeholder="* Confirm New Password" max="50">
                      </span>
                      <div id="message" [class.hidden]="editP==='N'">
                       <h5 style="margin-bottom:5px">Password rules:</h5>

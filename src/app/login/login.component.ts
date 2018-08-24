@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.employee.value = this.employee.value.trim();
     this.password.value = this.password.value.trim();
 
-    if (this.employee.value == "") { this.employee.message = "Employee ID required."; this.employee.erlevel = "D"; this.valid = false; }
+    if (this.employee.value == "") { this.employee.message = "Email required."; this.employee.erlevel = "D"; this.valid = false; }
     if (this.password.value == "") { this.password.message = "Password required."; this.password.erlevel = "D"; this.valid = false; }
     
     

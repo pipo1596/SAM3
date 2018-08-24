@@ -18,6 +18,7 @@
                         <input [(ngModel)]="password.value" autocomplete="new-password" name="password" id="password" [class.required]="password.value===''" [class.validating]="validating" (change)="onChange()" type="password" placeholder="* Password" max="50">
                       </span>
                     </div>
+                      <span><a style="color:#337ab7;padding-top:10px;" routerLink="/app/forgotpassword"  class="pull-left" >Forgot your password?</a></span>
                       <span *ngIf="!changeP" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Log In</button></span>
                       <span *ngIf="changeP" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Update Pasword</button></span>
                     </form>                                                                              

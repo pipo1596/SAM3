@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Contractdata , VindData} from './contractdata'; 
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
+import { Data } from '../quote2/quote2data';
+import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-contract',
@@ -410,8 +412,13 @@ export class ContractComponent implements OnInit {
           err => { this.dispAlert.error(), Util.hideWait(); },
           () => {
             Util.scrollToId('quotesteps');
-            Util.UrlDelay();
-            Util.modalid('show','contractModal');
+            if(this.errSet.status !=='E'){
+              Util.UrlDelay();
+              Util.modalid('show','contractModal');
+            }else{
+              this.dispAlert.message = this.errSet.message;
+              this.dispAlert.status = this.errSet.status;
+            }
             Util.hideWait();
             });
       }, 100);

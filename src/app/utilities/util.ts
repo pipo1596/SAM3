@@ -493,5 +493,15 @@ static UrlDelay(){
             
 },2000);
 }
+
+static Usersnap(){
+    if($("#usersnap").length>0)return false;
+   var s = document.createElement("script"); 
+   s.type = "text/javascript"; 
+   s.async = true; 
+   s.id = "usersnap";
+   s.src = '//api.usersnap.com/load/69ffbd77-6919-4cd4-805b-c3777ae52ef8.js';
+   var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+}
 //===================================================================================//
 }
