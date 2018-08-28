@@ -21,32 +21,32 @@
                     <input id="mode" id="formmode" name="mode" type="hidden" [(ngModel)]="mode">
                     <input id="useri" name="useri" type="hidden" [(ngModel)]="useri">
                     <input id="editp" name="editp" type="hidden" [(ngModel)]="editP">
-                    <label class="flat-input inputlabel">*Email
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Email
                         <span class="errorspan2" [class.opqquezero]="user.message===''" [class.alert-danger]="user.erlevel==='D'" [class.alert-success]="user.erlevel==='S'" [class.validating]="validating">{{user.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()"  name="user{{ran}}" type="text" placeholder="Email"  [class.required]="user.value===''"  [class.validating]="validating" [(ngModel)]="selectedUser.user" maxlength="60">
                     </div>
-                    <label class="flat-input inputlabel">*First Name
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>First Name
                             <span class="errorspan2" [class.opqquezero]="fnam.message===''" [class.alert-danger]="fnam.erlevel==='D'" [class.alert-success]="fnam.erlevel==='S'" [class.validating]="validating">{{fnam.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="fnam{{ran}}" type="text" placeholder="First Name" [class.required]="fnam.value===''"  [class.validating]="validating" [(ngModel)]="selectedUser.fnam" maxlength="50">
                     </div>
-                    <label class="flat-input inputlabel">*Last Name
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Last Name
                         <span class="errorspan2" [class.opqquezero]="lnam.message===''" [class.alert-danger]="lnam.erlevel==='D'" [class.alert-success]="lnam.erlevel==='S'" [class.validating]="validating">{{lnam.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="lnam{{ran}}" type="text" placeholder="Last Name" [class.required]="lnam.value===''"  [class.validating]="validating" [(ngModel)]="selectedUser.lnam" maxlength="50">
                     </div>
-                    <label class="flat-input inputlabel">*Salesperson
-                            <span class="errorspan2" [class.opqquezero]="sprs.message===''" [class.alert-danger]="sprs.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'" [class.validating]="validating">{{sprs.message}}</span> 
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Salesperson
+                            <span class="errorspan2 validating" [class.opqquezero]="sprs.message===''" [class.alert-danger]="sprs.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'">{{sprs.message}}</span> 
                     </label>
                     <div class="flat-input w100">
-                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="sprs{{ran}}" type="text" placeholder="Salesperson" [class.required]="sprs.value===''"  [class.validating]="validating"  [(ngModel)]="selectedUser.sprs" maxlength="5">
+                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" (keyup)="salesvalid()" name="sprs{{ran}}" type="text" placeholder="Salesperson" [class.required]="sprs.value===''"  [class.validating]="validating"  [(ngModel)]="selectedUser.sprs" maxlength="5">
                     </div>
 
-                    <label class="flat-input inputlabel">*Authority
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Authority
                             <span class="errorspan2" [class.opqquezero]="rlno.message===''" [class.alert-danger]="rlno.erlevel==='D'" [class.alert-success]="rlno.erlevel==='S'" [class.validating]="validating">{{rlno.message}}</span> 
                     </label>
                     <span class="flat-input">
@@ -68,7 +68,7 @@
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="slcd{{ran}}" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="3">
                     </div>
 
-                    <label class="flat-input inputlabel hidden" *ngIf="pagedata.head.as400">*Add Dealer&nbsp;&nbsp;
+                    <label class="flat-input inputlabel hidden" *ngIf="pagedata.head.as400"><span class="req">*&nbsp;</span>Add Dealer&nbsp;&nbsp;
                         <span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.alert-success]="dlr.erlevel==='S'" [class.validating]="dlr.message!==''">{{dlr.message}}</span> 
                     </label>
                     <div class="flat-input w100 hidden" *ngIf="pagedata.head.as400">
@@ -91,13 +91,13 @@
                 <div class="col-sm-6">
                     
                     
-                    <label class="flat-input inputlabel">*Password &nbsp;<a href="javascript:void(0)" style="color:red" [class.hidden]="mode==='ADD'" (click)="changePass()">&nbsp;<span [class.hidden]="editP==='N'">(cancel)</span><span [class.hidden]="editP==='Y'">(change password)</span></a>
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Password &nbsp;<a href="javascript:void(0)" style="color:red" [class.hidden]="mode==='ADD'" (click)="changePass()">&nbsp;<span [class.hidden]="editP==='N'">(cancel)</span><span [class.hidden]="editP==='Y'">(change password)</span></a>
                             <span class="errorspan2" [class.opqquezero]="pswd.message===''" [class.alert-danger]="pswd.erlevel==='D'" [class.alert-success]="pswd.erlevel==='S'" [class.validating]="validating">{{pswd.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password{{ran}}" (keyup)="validPass()" (change)="onChange()" name="pswd" type="password" [disabled]="editP==='N'" placeholder="Password" [class.required]="reqpass1"  [class.validating]="validating"  [(ngModel)]="pswd1" maxlength="60">
                     </div>
-                    <label class="flat-input inputlabel">*Confirm Password
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Confirm Password
                             <span class="errorspan2" [class.opqquezero]="pswdc.message===''" [class.alert-danger]="pswdc.erlevel==='D'" [class.alert-success]="pswdc.erlevel==='S'" [class.validating]="validating">{{pswdc.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -114,6 +114,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 hidden-xs">
+                    <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} User</button>
                     </span>
@@ -127,6 +128,7 @@
                     </span>
                 </div>
                 <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} User">{{modebtn}} User</button>
                         </span>

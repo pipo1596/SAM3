@@ -17,7 +17,7 @@
           <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
 				</div>
 				<div class="col-sm-6">
-					<label class="flat-input inputlabel">*Coverage Code
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Coverage Code
 						<span class="errorspan2" [class.opqquezero]="cov.message===''" [class.alert-danger]="cov.erlevel==='D'" [class.validating]="validating">{{cov.message}}</span>
 					</label>
 					<div class="flat-input w100">
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<div class="col-xs-12">
-					<label class="flat-input inputlabel">*Warning
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Warning
 						<span class="errorspan2" [class.opqquezero]="wrn.message===''" [class.alert-danger]="wrn.erlevel==='D'" [class.validating]="validating">{{wrn.message}}</span>
 					</label>
 					<div class="flat-input w100">
@@ -42,6 +42,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-xs">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<span class="flat-input">
 						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Warning">{{modebtn}} Warning</button>
 					</span>
@@ -53,6 +54,7 @@
 					</span>
 				</div>
 				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<span class="flat-input">
 						<button name="submit" type="submit" class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} Warning">{{modebtn}} Warning</button>
 					</span>

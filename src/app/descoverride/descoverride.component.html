@@ -17,14 +17,14 @@
           <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
 				</div>
 				<div class="col-sm-6">
-					<label class="flat-input inputlabel">*{{PMTYPE}} Code
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>{{PMTYPE}} Code
 						<span class="errorspan2" [class.opqquezero]="srky.message===''" [class.alert-danger]="srky.erlevel==='D'" [class.validating]="validating">{{srky.message}}</span>
 					</label>
 					<div class="flat-input w100">
 						<input *ngIf="PMTYPE=='Coverage'" autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="10" (change)="onChange()">
 						<input *ngIf="PMTYPE!=='Coverage'" autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="50" (change)="onChange()">
 					</div>
-					<label class="flat-input inputlabel">*Override Description
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Override Description
 						<span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.validating]="validating">{{desc.message}}</span>
 					</label>
 					<div class="flat-input w100">
@@ -47,6 +47,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-xs">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<span class="flat-input">
 						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Override">{{modebtn}} Override</button>
 					</span>
@@ -58,6 +59,7 @@
 					</span>
 				</div>
 				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<span class="flat-input">
 						<button name="submit" type="submit" class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} Override">{{modebtn}} Override</button>
 					</span>

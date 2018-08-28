@@ -145,13 +145,13 @@
 										<tr *ngIf="canedit" id="eofn">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eofn.message===''">{{eofn.message}}</span> 	
-													 &nbsp;&nbsp;*First Name</td>
+													 &nbsp;&nbsp;<span class="req">*&nbsp;</span>First Name</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eofn.message !== ''" type="text"  autocomplete="new-password{{ran}}" name="eofn{{ran}}" [(ngModel)]="eofn.value"  style="margin:0;width:100%"></td>
 										</tr>
 										<tr *ngIf="canedit" id="eoln">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eoln.message===''">{{eoln.message}}</span> 	
-													&nbsp;&nbsp;*Last Name</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>Last Name</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eoln.message !== ''" type="text" autocomplete="new-password{{ran}}" name="eoln{{ran}}" [(ngModel)]="eoln.value" style="margin:0;width:100%" ></td>
 										</tr>
 										<tr *ngIf="!canedit">
@@ -161,7 +161,7 @@
 										<tr *ngIf="canedit" id="eoad1">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eoad1.message===''">{{eoad1.message}}</span> 	
-													&nbsp;&nbsp;*Street Address</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>Street Address</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eoad1.message !== ''" type="text" autocomplete="new-password{{ran}}" name="eoad1{{ran}}" [(ngModel)]="eoad1.value" style="margin:0;width:100%" ></td>
 										</tr>
 										<tr *ngIf="view.oad2!=='' && !canedit">
@@ -179,13 +179,13 @@
 										<tr *ngIf="canedit" id="eocty">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eocty.message===''">{{eocty.message}}</span>
-													&nbsp;&nbsp;*City</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>City</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eocty.message !== ''"  type="text" autocomplete="new-password{{ran}}" name="eocty{{ran}}" [(ngModel)]="eocty.value" style="margin:0;width:100%" ></td>
 										</tr>
 										<tr *ngIf="canedit" id="eost">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eost.message===''">{{eost.message}}</span>
-													&nbsp;&nbsp;*State</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>State</td>
 												<td width="50">
 													<select  [class.validating]="validating" [class.required]="eost.message !== ''"   name="eost{{ran}}" [(ngModel)]="eost.value" (change)="onChangeE()" class="form__select">
 															<option value="">Select</option>                                    
@@ -196,7 +196,7 @@
 										<tr *ngIf="canedit" id="eozip">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eozip.message===''">{{eozip.message}}</span>
-													&nbsp;&nbsp;*Zip</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>Zip</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" autocomplete="new-password{{ran}}" [class.required]="eozip.message !== ''" type="text"  name="eozip{{ran}}" [(ngModel)]="eozip.value" style="margin:0;" ></td>
 										</tr>
 										<tr *ngIf="!canedit">
@@ -206,7 +206,7 @@
 										<tr *ngIf="canedit" id="eophn">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating"  [class.opqquezero]="eophn.message===''">{{eophn.message}}</span>
-													&nbsp;&nbsp;*Telephone</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>Telephone</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" autocomplete="new-password{{ran}}" (keyup)="formatPhone(eophn)"  name="new-password{{ran}}" [class.required]="eophn.message !== ''" type="tel" maxlength="14"  [(ngModel)]="eophn.value" style="margin:0;" ></td>
 										</tr>
 										<tr *ngIf="view.mail!=='' && !canedit">
@@ -216,7 +216,7 @@
 										<tr *ngIf="canedit" id="email">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eophn.message===''">{{email.message}}</span>
-													&nbsp;&nbsp;*Email Address</td>
+													&nbsp;&nbsp;<span class="req">*&nbsp;</span>Email Address</td>
 												<td width="50"><input [class.validating]="validating" autocomplete="new-password{{ran}}" (change)="onChangeE()" [class.required]="email.message !== ''" type="text" [(ngModel)]="email.value" name="email{{ran}}" style="margin:0;width:100%;" ></td>
 										</tr>
 										<tr>
@@ -249,6 +249,7 @@
 										</tr>
 										<tr *ngIf="canedit">
 												<td colspan="2">
+													<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 													<div class="flat-input pull-right">
 														<button name="Save" type="submit"   class="flat-button" style="margin-right:10px" title="Apply">Save Changes</button>
 													</div>

@@ -32,6 +32,7 @@ export class SavedquotesComponent implements OnInit {
 	//Delete array
 	delQtid = [];
 	showDelete : boolean = false;
+	selectall : boolean = false;
   //Paging
   pager: any = {}; // pager object
   pagedItems: any[]=[""]; // paged items
@@ -47,7 +48,24 @@ export class SavedquotesComponent implements OnInit {
   salep : string="";
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
+  selectAll(){
+    this.pagedItems.forEach(quote =>{
+      quote.selected = this.selectall;
+      if(quote.selected){
+        this.delQtid.push(quote.qtid);
+        this.showDelete = true;
+        this.changes = true;
+  
+      } else {
+        this.delQtid.splice(this.delQtid.indexOf(quote.qtid),1);
+        if(this.delQtid.length === 0){
+          this.showDelete = false;
+          this.changes = false;
+        }
+      }
+    })
 
+  }
   onChange(){
   	this.changes = true;
   	this.validating = false;

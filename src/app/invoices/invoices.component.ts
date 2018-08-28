@@ -24,6 +24,7 @@ export class InvoicesComponent implements OnInit {
 	//Input Fields
 	frdt  : string="";
 	todt  : string="";
+	ivno  : string="";
 	stock : string="";
   lname : string="";
   salep : string="";
@@ -114,7 +115,10 @@ export class InvoicesComponent implements OnInit {
 			if(parseInt(temp,10) < parseInt(filtfrdt,10) || parseInt(temp,10) > parseInt(filttodt,10)){
 				this.pagedata.invoices[i].show = false;
 			}
-      
+      if(this.ivno !==""){
+        if(this.pagedata.invoices[i].ivno.indexOf(this.ivno)<0)
+        this.pagedata.invoices[i].show = false;
+      }
       
       if(this.pagedata.invoices[i].show === false){
         this.pageCount -= 1;

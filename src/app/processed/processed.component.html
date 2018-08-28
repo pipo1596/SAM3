@@ -19,11 +19,11 @@
 					<h5 class="pull-left">&nbsp;</h5>
 				</div>
 				<div class="col-md-4">
-					<label class="flat-input inputlabel">Policy/Agr #
+					<label class="flat-input inputlabel">Contract #
 						<span class="errorspan2"></span>
 					</label>
 					<div class="flat-input w100">
-						<input autocomplete="new-password{{ran}}" (change)="onChange()" name="policy{{ran}}" id="anum" type="text" placeholder="Policy/Agr #" [(ngModel)]="anum">
+						<input autocomplete="new-password{{ran}}" (change)="onChange()" name="policy{{ran}}" id="anum" type="text" placeholder="Contract #" [(ngModel)]="anum">
 					</div>
 				</div>				
 				<div class="col-md-4">
@@ -88,7 +88,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th><b>Policy/Agr #</b></th>
+								<th><b>Contract #</b></th>
 								<th><b>Suffix</b></th>
 								<th><b>Last, First Name</b></th>
 								<th><b>Last 6 of VIN</b></th>
@@ -184,7 +184,7 @@
 								<tr *ngIf="editon" id="eoad1">
 										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eoad1.message===''">{{eoad1.message}}</span> 	
-											&nbsp;&nbsp;*Street Address</td>
+											&nbsp;&nbsp;<span class="req">*&nbsp;</span>Street Address</td>
 										<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eoad1.message !== ''" type="text" autocomplete="new-password{{ran}}" name="eoad1{{ran}}" [(ngModel)]="eoad1.value" style="margin:0;width:100%" ></td>
 								</tr>
 								<tr *ngIf="view.oad2!=='' && !editon">
@@ -202,13 +202,13 @@
 								<tr *ngIf="editon" id="eocty">
 										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eocty.message===''">{{eocty.message}}</span>
-											&nbsp;&nbsp;*City</td>
+											&nbsp;&nbsp;<span class="req">*&nbsp;</span>City</td>
 										<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eocty.message !== ''"  type="text" autocomplete="new-password{{ran}}" name="eocty{{ran}}" [(ngModel)]="eocty.value" style="margin:0;width:100%" ></td>
 								</tr>
 								<tr *ngIf="editon" id="eost">
 										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eost.message===''">{{eost.message}}</span>
-											&nbsp;&nbsp;*State</td>
+											&nbsp;&nbsp;<span class="req">*&nbsp;</span>State</td>
 										<td width="50">
 											<select  [class.validating]="validating" [class.required]="eost.message !== ''"   name="eost{{ran}}" [(ngModel)]="eost.value" (change)="onChangeE()" class="form__select">
 													<option value="">Select</option>                                    
@@ -219,7 +219,7 @@
 								<tr *ngIf="editon" id="eozip">
 										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 											<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eozip.message===''">{{eozip.message}}</span>
-											&nbsp;&nbsp;*Zip</td>
+											&nbsp;&nbsp;<span class="req">*&nbsp;</span>Zip</td>
 										<td width="50"><input [class.validating]="validating" (change)="onChangeE()" autocomplete="new-password{{ran}}" [class.required]="eozip.message !== ''" type="text"  name="eozip{{ran}}" [(ngModel)]="eozip.value" style="margin:0;" ></td>
 								</tr>
 								<tr *ngIf="!editon">
@@ -229,7 +229,7 @@
 								<tr *ngIf="editon" id="eophn">
 										<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 											<span class="errorspan2 alert-danger" [class.validating]="validating"  [class.opqquezero]="eophn.message===''">{{eophn.message}}</span>
-											&nbsp;&nbsp;*Telephone</td>
+											&nbsp;&nbsp;<span class="req">*&nbsp;</span>Telephone</td>
 										<td width="50"><input [class.validating]="validating" autocomplete="new-password{{ran}}" (change)="onChangeE()" (keyup)="formatPhone(eophn)"  name="new-password{{ran}}" [class.required]="eophn.message !== ''" type="tel" maxlength="14"  [(ngModel)]="eophn.value" style="margin:0;" ></td>
 								</tr>
 								<tr *ngIf="view.mail!=='' && !editon">
@@ -282,6 +282,7 @@
 								
 					</table>
 					<div class="clearfix"></div>
+					<p class="pull-left" *ngIf="editon"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<a href="javascript:void(0)" *ngIf="editon" (click) ="checkEdit()" class="btn pull-right nextsection btn-primary"  title="Save" style="padding:10px 30px;margin: 15px 0;">
 						 Save</a>
 
@@ -397,7 +398,7 @@
 				<div *ngIf="pagemode=='R' && view.stat=='Active'">
 						<div class="col-xs-12"><p style="margin:15px 0px">Enter the current Odometer Reading and Cancellation date, Then click the calculate button:</p></div>
 						<div class="col-md-6">
-								<label class="flat-input inputlabel" id="vpdlbl">*Cancellation Date
+								<label class="flat-input inputlabel" id="vpdlbl"><span class="req">*&nbsp;</span>Cancellation Date
 									<span class="errorspan2 alert-danger" [class.opqquezero]="cdate.message===''" [class.validating]="validating">{{cdate.message}}</span> 
 								</label>    
 								<div class="flat-input w100">
@@ -405,7 +406,7 @@
 								</div>
 						</div>
 						<div class="col-md-6">
-							<label class="flat-input inputlabel">*Current Odometer
+							<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Current Odometer
 									<span class="errorspan2 alert-danger" [class.opqquezero]="miles.message===''" [class.validating]="validating">{{miles.message}}</span> 
 							</label>
 							<div class="flat-input w100" style="padding:0 5PX;">

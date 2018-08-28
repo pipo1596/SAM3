@@ -22,6 +22,7 @@ export class PacksComponent implements OnInit {
   noAuth = true;
   warnmesg:string ="";
   modebtn = "ADD";
+  sectn:string = "R";
   //Input Fields
   prg  = new  Textfield ;
   cov  = new  Textfield ;
@@ -69,6 +70,7 @@ export class PacksComponent implements OnInit {
     Util.hideWait();
     this.validating = false;
     this.changes = false;
+    this.sectn = "R";
 
     this.modebtn = "ADD";
     Util.scrollTop();
@@ -106,6 +108,7 @@ export class PacksComponent implements OnInit {
     this.selectedRec.effd = record.effd;
     this.selectedRec.expd = record.expd;
     this.selectedRec.pkno = record.pkno;
+    if(this.selectedRec.amti !==null || this.selectedRec.pcti !==null){this.sectn = "I";}else{this.sectn="R";}
 
     this.selectedRecG = record;
     this.selectedRec.mode = "SAVE";
@@ -316,6 +319,19 @@ export class PacksComponent implements OnInit {
 
       }
     );
+  }
+
+   effect(){
+    Util.showWait();
+    if(this.sectn=="R"){
+    this.selectedRec.amti = null;
+    this.selectedRec.pcti = null;
+    }else{
+    this.selectedRec.amtr = null;
+    this.selectedRec.amtc = null;
+    this.selectedRec.pctr = null;
+    }
+    Util.hideWait();
   }
 
   ngOnInit() {

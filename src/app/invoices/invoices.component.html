@@ -32,8 +32,16 @@
 						<span class="errorspan2{{ran}}"></span>
 					</label>
 					<div class="flat-input w100">
-            <input autocomplete="new-password{{ran}}" name="todate" (change)="onChange()" id="todate" type="date" placeholder="To Date" [(ngModel)]="todt">
-          </div>
+    					<input autocomplete="new-password{{ran}}" name="todate" (change)="onChange()" id="todate" type="date" placeholder="To Date" [(ngModel)]="todt">
+          			</div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Invoice #
+						<span class="errorspan2{{ran}}"></span>
+					</label>
+					<div class="flat-input w100">
+    					<input autocomplete="new-password{{ran}}" name="ivno" (change)="onChange()" id="ivno" type="text" placeholder="Invoice #" [(ngModel)]="ivno">
+          			</div>
 				</div>
 				<div class="col-md-4">
 					<label class="flat-input inputlabel">&nbsp;
@@ -62,7 +70,7 @@
 
 				<div class="col-xs-12 text-right" style="margin:10px;">
 					<span class="flat-input" style="margin:5px;">
-						<button [class.invisible]="showDelete!==true" name="submit" type="button" (click)="Transmit()" class="flat-button" style="margin-right:10px; transition: 0s;" title="Apply">Transmit Contracts to INDS</button>
+						<button [class.invisible]="showDelete!==true" name="submit" type="button" (click)="Transmit()" class="flat-button" style="margin-right:10px; transition: 0s;" title="Apply">Submit Contracts to INDS</button>
 					</span>
 				</div>
 				
@@ -73,7 +81,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th><b>Transmit to INDS</b></th>
+								<th><b>Submit to INDS</b></th>
 								<th><b>Invoice #</b></th>
 								<th><b>Invoice Date</b></th>
 								<th><b>Total Cost</b></th>
@@ -86,16 +94,13 @@
 							</tr>
 							<ng-container *ngFor="let inv of (pagedItems)">
 								<tr *ngIf="inv.show === true">
-									<td data-label="Delete" style="padding-top:0" *ngIf="inv.stat!=='T'">
+									<td data-label="Delete" style="padding-top:0">
 										<span class="flat-input-checkbox-SQ">
 											<div class="custcheck">
-												<input class="c1" name="{{inv.ivno}}"  (change)="onChange()" type="checkbox" id="{{inv.ivno}}" [checked]="inv.selected" (change)="chkInv(inv)">
+												<input class="c1" name="{{inv.ivno}}" [disabled]="inv.stat=='T'" (change)="onChange()" type="checkbox" id="{{inv.ivno}}" [checked]="inv.selected" (change)="chkInv(inv)">
 												<label for="{{inv.ivno}}"></label>
 											</div>
 										</span>
-									</td>
-									<td data-label="Delete" style="padding-top:0" *ngIf="inv.stat=='T'">
-										(Transmitted)
 									</td>
 									<td data-label="Invoice #">{{inv.ivno}}</td>	
 									<td data-label="Invoice Date">{{inv.ivdt}}</td>

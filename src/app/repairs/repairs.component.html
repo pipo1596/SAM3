@@ -33,7 +33,7 @@
 					<div class="col-xs-12" *ngIf="mode=='A'">
 					<div class="well well-sm">
 				    <div class="col-sm-6 col-xs-12" >
-							<label class="flat-input inputlabel">*Area Code 
+							<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Area Code 
 								<span class="errorspan2" [class.opqquezero]="area.message===''" [class.alert-danger]="area.erlevel==='D'" [class.validating]="validating">{{area.message}}</span> 
 							</label>
 							<div class="flat-input w100">
@@ -45,15 +45,17 @@
 								<button _ngcontent-c0="" class="flat-button" name="submita"  title="Search" type="submit">Search</button>
 							</div>
 					</div>
-					
+					<p class="pull-right"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<div class="clearfix"></div>
+					
 					</div>
+					
 					</div>
 					<!--City/State-->
 					<div class="col-xs-12" *ngIf="mode=='C'">
 					<div class="well well-sm">
 				    <div class="col-sm-6 col-xs-12" >
-							<label class="flat-input inputlabel">*City 
+							<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>City 
 								<span class="errorspan2" [class.opqquezero]="city.message===''" [class.alert-danger]="city.erlevel==='D'" [class.validating]="validating">{{city.message}}</span> 
 							</label>
 							<div class="flat-input w100">
@@ -61,7 +63,7 @@
 							</div>
 					</div>
 					<div class="col-sm-6 col-xs-12">
-							<label class="flat-input inputlabel">*State:
+							<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>State:
 								<span class="errorspan2" [class.opqquezero]="stat.message===''" [class.alert-danger]="stat.erlevel==='D'"  [class.validating]="validating">{{stat.message}}</span> 
 							</label>
 							<span class="flat-input">
@@ -78,15 +80,17 @@
 							<button _ngcontent-c0="" class="flat-button" name="submitc"  title="Search" type="submit">Search</button>
 						</div>
 					</div>
+					<p class="pull-right"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<div class="clearfix"></div>
 					</div>
+					
 					</div>
 					<!--Zip Code-->
 					
 						<div class="col-xs-12" *ngIf="mode=='Z'">
 						<div class="well well-sm">
 						<div class="col-sm-6 col-xs-12" >
-								<label class="flat-input inputlabel">*Zip Code 
+								<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Zip Code 
 									<span class="errorspan2" [class.opqquezero]="zip.message===''" [class.alert-danger]="zip.erlevel==='D'" [class.validating]="validating">{{zip.message}}</span> 
 								</label>
 								<div class="flat-input w100">
@@ -98,8 +102,10 @@
 								<button _ngcontent-c0="" class="flat-button" name="submitc"  title="Search" type="submit">Search</button>
 							</div>
 						</div>
+						<p class="pull-right"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 						<div class="clearfix"></div>
 						</div>
+						
 					</div>
 					<div class="col-xs-12"><hr></div>
 					<div class="col-xs-12" style="margin-top:15px">

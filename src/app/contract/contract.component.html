@@ -71,7 +71,7 @@
                         <span class="pull-left" style="padding:0 5PX;" *ngIf="pagedata.body.veh">{{pagedata.body.veh.insrvc}}</span>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="pagedata.body.veh && pagedata.body.veh.price ===''">
-                        <label class="flat-input inputlabel" id="vinlbl">*VIN&nbsp;<a  *ngIf="vinE==false && pagedata.body.veh.vin==''" href="javascript:void(0)" (click)="editVin()" style="color:#5a8ce6">- Edit</a>
+                        <label class="flat-input inputlabel" id="vinlbl"><span class="req">*&nbsp;</span>VIN&nbsp;<a  *ngIf="vinE==false && pagedata.body.veh.vin==''" href="javascript:void(0)" (click)="editVin()" style="color:#5a8ce6">- Edit</a>
                            
                         </label>  
                         <span class="pull-left" style="padding:0 5PX;"  *ngIf="vinE==false">{{vin.value}}</span>  
@@ -88,7 +88,7 @@
                         <span>{{pagedata.body.veh.price | currency}}&nbsp;</span>
                     </div> </div>
                 <div class="col-xs-12 col-sm-6 col-md-3">
-                        <label class="flat-input inputlabel" id="vpdlbl">*Purchase Date
+                        <label class="flat-input inputlabel" id="vpdlbl"><span class="req">*&nbsp;</span>Purchase Date
                             <span class="errorspan2" [class.opqquezero]="vpd.message===''" [class.alert-danger]="vpd.erlevel==='D'" [class.validating]="validating">{{vpd.message}}</span> 
                         </label>    
                         <div class="flat-input w100">
@@ -131,7 +131,7 @@
                 <div class="col-xs-12"><hr></div>
                 <div class="col-xs-12"><h3>Customer Information</h3></div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="stocklbl">*Stock # / Member ID 
+                    <label class="flat-input inputlabel" id="stocklbl"><span class="req">*&nbsp;</span>Stock # / Member ID 
                         <span class="errorspan2" [class.opqquezero]="stock.message===''" [class.alert-danger]="stock.erlevel==='D'" [class.validating]="validating">{{stock.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="cpdlbl">*Contract Purchase Date 
+                    <label class="flat-input inputlabel" id="cpdlbl"><span class="req">*&nbsp;</span>Contract Purchase Date 
                         <span class="errorspan2" [class.opqquezero]="cpd.message===''"  [class.alert-danger]="cpd.erlevel==='D'" [class.validating]="validating">{{cpd.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -157,7 +157,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="firstlbl">*First Name 
+                    <label class="flat-input inputlabel" id="firstlbl"><span class="req">*&nbsp;</span>First Name 
                        <span class="errorspan2" [class.opqquezero]="first.message===''" [class.alert-danger]="first.erlevel==='D'" [class.validating]="validating">{{first.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -165,7 +165,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="lastlbl">*Last Name 
+                    <label class="flat-input inputlabel" id="lastlbl"><span class="req">*&nbsp;</span>Last Name 
                        <span class="errorspan2" [class.opqquezero]="last.message===''" [class.alert-danger]="last.erlevel==='D'" [class.validating]="validating">{{last.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -173,7 +173,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="emaillbl">*Email 
+                    <label class="flat-input inputlabel" id="emaillbl"><span class="req">*&nbsp;</span>Email 
                        <span class="errorspan2" [class.opqquezero]="email.message===''" [class.alert-danger]="email.erlevel==='D'" [class.validating]="validating">{{email.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="phonelbl">*Phone 
+                    <label class="flat-input inputlabel" id="phonelbl"><span class="req">*&nbsp;</span>Phone 
                        <span class="errorspan2" [class.opqquezero]="phone.message===''" [class.alert-danger]="phone.erlevel==='D'" [class.validating]="validating">{{phone.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -189,7 +189,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="addr1lbl">*Address 1 
+                    <label class="flat-input inputlabel" id="addr1lbl"><span class="req">*&nbsp;</span>Address 1 
                        <span class="errorspan2" [class.opqquezero]="addr1.message===''" [class.alert-danger]="addr1.erlevel==='D'" [class.validating]="validating">{{addr1.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -205,7 +205,7 @@
                      </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="citylbl">*City 
+                    <label class="flat-input inputlabel" id="citylbl"><span class="req">*&nbsp;</span>City 
                         <span class="errorspan2" [class.opqquezero]="city.message===''" [class.alert-danger]="city.erlevel==='D'" [class.validating]="validating">{{city.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -214,7 +214,7 @@
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <div class="col-xs-7"  style="padding-left: 0">
-                        <label class="flat-input inputlabel" id="statelbl">*State 
+                        <label class="flat-input inputlabel" id="statelbl"><span class="req">*&nbsp;</span>State 
                             <span class="errorspan2" [class.opqquezero]="state.message===''" [class.alert-danger]="state.erlevel==='D'" [class.validating]="validating">{{state.message}}</span> 
                         </label>
                         <span class="flat-input">
@@ -224,7 +224,7 @@
                         </span>
                     </div>
                     <div class="col-xs-5" style="padding-right: 0">
-                    <label class="flat-input inputlabel" id="ziplbl">*Zip 
+                    <label class="flat-input inputlabel" id="ziplbl"><span class="req">*&nbsp;</span>Zip 
                             <span class="errorspan2" [class.opqquezero]="zip.message===''" [class.alert-danger]="zip.erlevel==='D'" [class.validating]="validating">{{zip.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -254,7 +254,7 @@
                 <ng-container *ngIf="pagedata.body.fields && pagedata.body.fields.length >0">
                 <ng-container  *ngFor="let fld of pagedata.body.fields;let j=index;">
                     <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="{{fld.name}}lbl">*{{fld.labl}} 
+                    <label class="flat-input inputlabel" id="{{fld.name}}lbl"><span class="req">*&nbsp;</span>{{fld.labl}} 
                         <span class="errorspan2" [class.opqquezero]="fld.message===''" [class.alert-danger]="fld.erlevel==='D'" [class.validating]="validating">{{fld.message}}</span> 
                     </label>
                     <div class="flat-input w100" *ngIf="fld.type == 'TEL'">
@@ -307,7 +307,7 @@
                <div style="margin:10px" id="dynamicsec">
                <div [class.ng-hide]="payment!=='C'" [class.ng-primary]="payment==='C'"  class="col-md-8 col-md-offset-2 well">
                     <div class="col-xs-12">
-                        <label class="flat-input inputlabel" id="ccnumlbl">*Card Number
+                        <label class="flat-input inputlabel" id="ccnumlbl"><span class="req">*&nbsp;</span>Card Number
                            <span class="errorspan2" [class.opqquezero]="ccnum.message===''"  [class.alert-danger]="ccnum.erlevel==='D'" [class.validating]="validating">{{ccnum.message}}</span> 
                         </label>
                         <div class="flat-input col-xs-8 col-sm-9" style="padding-left:0">
@@ -324,7 +324,7 @@
                     
                     <div class="col-xs-12">
                         <div class="col-xs-5"  style="padding-left: 0">
-                            <label class="flat-input inputlabel" id="ccexplbl">*Exp. Date 
+                            <label class="flat-input inputlabel" id="ccexplbl"><span class="req">*&nbsp;</span>Exp. Date 
                                 <span class="errorspan2" [class.opqquezero]="ccexp.message===''" [class.alert-danger]="ccexp.erlevel==='D'" [class.validating]="validating">{{ccexp.message}}</span> 
                             </label>
                             <span class="flat-input">
@@ -332,7 +332,7 @@
                             </span>
                         </div>
                         <div class="col-xs-7" style="padding-right: 0">
-                        <label class="flat-input inputlabel" id="cccvvlbl">*Security Code 
+                        <label class="flat-input inputlabel" id="cccvvlbl"><span class="req">*&nbsp;</span>Security Code 
                                 <span class="errorspan2" [class.opqquezero]="cccvv.message===''" [class.alert-danger]="cccvv.erlevel==='D'" [class.validating]="validating">{{cccvv.message}}</span> 
                             </label>
                             <div class="flat-input w100">
@@ -341,7 +341,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <label class="flat-input inputlabel" id="ccnamlbl">*Name on Card 
+                        <label class="flat-input inputlabel" id="ccnamlbl"><span class="req">*&nbsp;</span>Name on Card 
                            <span class="errorspan2" [class.opqquezero]="ccnam.message===''" [class.alert-danger]="ccnam.erlevel==='D'" [class.validating]="validating">{{ccnam.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -352,7 +352,7 @@
                </div>
                <div [class.ng-hide]="payment!=='A'" [class.ng-primary]="payment==='A'" class="col-md-8 col-md-offset-2 well">
                     <div class="col-sm-6  col-xs-12">
-                        <label class="flat-input inputlabel" id="achbanklbl">*Bank Name
+                        <label class="flat-input inputlabel" id="achbanklbl"><span class="req">*&nbsp;</span>Bank Name
                            <span class="errorspan2" [class.opqquezero]="achbank.message===''"  [class.alert-danger]="achbank.erlevel==='D'" [class.validating]="validating">{{achbank.message}}</span> 
                         </label>
                         <div class="flat-input w100" style="padding-left:0">
@@ -360,7 +360,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">
-                        <label class="flat-input inputlabel" id="achrotnlbl">*ABA Routing Number
+                        <label class="flat-input inputlabel" id="achrotnlbl"><span class="req">*&nbsp;</span>ABA Routing Number
                            <span class="errorspan2" [class.opqquezero]="achrotn.message===''" [class.alert-danger]="achrotn.erlevel==='D'" [class.validating]="validating">{{achrotn.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -369,7 +369,7 @@
                     </div>
                     
                     <div class="col-sm-6 col-xs-12">
-                        <label class="flat-input inputlabel" id="achacnolbl">*Account Number
+                        <label class="flat-input inputlabel" id="achacnolbl"><span class="req">*&nbsp;</span>Account Number
                            <span class="errorspan2" [class.opqquezero]="achacno.message===''" [class.alert-danger]="achacno.erlevel==='D'" [class.validating]="validating">{{achacno.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -377,7 +377,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12">
-                        <label class="flat-input inputlabel" id="achcheklbl">*Check Number
+                        <label class="flat-input inputlabel" id="achcheklbl"><span class="req">*&nbsp;</span>Check Number
                            <span class="errorspan2" [class.opqquezero]="achchek.message===''" [class.alert-danger]="achchek.erlevel==='D'" [class.validating]="validating">{{achchek.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -442,6 +442,7 @@
                 </div>
             </div>
                 <div class="col-xs-12" style="padding:15px;">
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <button name="submit" style="background:#f19614" type="submit" class="flat-button pull-right" id="submit" title="Continue">Continue</button>
                 </div>
                 </form>

@@ -20,5 +20,6 @@ export class Ovrd{
 		this.srky = "";
 		this.desc = "";
 		this.dlr  = "";
+		this.prg  = "";
 	}
 }

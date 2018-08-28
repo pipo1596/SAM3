@@ -18,13 +18,13 @@
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel">*Code
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Code
                         <span class="errorspan2" [class.opqquezero]="code.message===''" [class.alert-danger]="code.erlevel==='D'"  [class.validating]="validating">{{code.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password" style="text-transform: uppercase;" id="code" name="code" type="text" placeholder="Code" [class.required]="code.message !==''"  [class.validating]="validating" [(ngModel)]="selectedRec.code" maxlength="30" (change)="onChange()">
                     </div>
-                    <label class="flat-input inputlabel">*Program
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Program
                         <span class="errorspan2" [class.opqquezero]="prgm.message===''" [class.alert-danger]="prgm.erlevel==='D'"  [class.validating]="validating">{{prgm.message}}</span> 
                     </label>
                     <span class="flat-input">
@@ -35,7 +35,7 @@
                     </span>
 
                    
-                    <label class="flat-input inputlabel">*Category
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Category
                             <span class="errorspan2" [class.opqquezero]="catg.message===''" [class.alert-danger]="catg.erlevel==='D'"  [class.validating]="validating">{{catg.message}}</span> 
                     </label>
                     <span class="flat-input">
@@ -46,13 +46,13 @@
                     </span>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel">*Description
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Description
                         <span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'"  [class.validating]="validating">{{desc.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password"  name="desc" type="text" placeholder="Description" [class.required]="desc.message !==''"  [class.validating]="validating" [(ngModel)]="selectedRec.desc" maxlength="100"  (change)="onChange()">
                     </div>
-                    <label class="flat-input inputlabel">*Value
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Value
                             <span class="errorspan2" [class.opqquezero]="valu.message===''" [class.alert-danger]="valu.erlevel==='D'"  [class.validating]="validating">{{valu.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -63,6 +63,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 hidden-xs">
+                    <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Contract Type</button>
                     </span>
@@ -76,6 +77,7 @@
                     </span>
                 </div>
                 <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} User">{{modebtn}} Contract Type</button>
                         </span>

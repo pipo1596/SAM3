@@ -18,7 +18,7 @@
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel">*Program
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Program
                         <span class="errorspan2" [class.opqquezero]="prg.message===''" [class.alert-danger]="prg.erlevel==='D'"  [class.validating]="validating">{{prg.message}}</span> 
                     </label>
                     <select class="form__select w100" name="prg" [(ngModel)]="selectedRec.prg"  [class.required]="prg.message !==''"  [class.validating]="validating" (change)="newPrg('NEW')">
@@ -75,13 +75,13 @@
                                        
                     
 
-                    <label class="flat-input inputlabel">*Effective From
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Effective From
                         <span class="errorspan2" [class.opqquezero]="effd.message===''" [class.alert-danger]="effd.erlevel==='D'"  [class.validating]="validating">{{effd.message}}</span> 
                     </label>
                     <div class="flat-input w100">
                         <input autocomplete="new-password" name="effd" type="date" placeholder="Effective From" [class.required]="effd.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.effd" (change)="onChange()">
                     </div> 
-                    <label class="flat-input inputlabel">*Effective To
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Effective To
                         <span class="errorspan2" [class.opqquezero]="expd.message===''" [class.alert-danger]="expd.erlevel==='D'"  [class.validating]="validating">{{expd.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -89,9 +89,11 @@
                     </div> 
                 </div>
                 <div class="col-sm-6">
-                    <h3  style="margin:25px 0 20px 0;color:#a94442;float:left;" [class.opqquezero]="warnmesg===''" [class.validating]="validating">{{warnmesg}}</h3> 
-                    <h3 style="margin:25px 0 20px 0;text-align:right;float:right"><u>Retail</u></h3>
+                    <h3  style="margin:25px 0 20px 0;color:#a94442;float:right;" [class.opqquezero]="warnmesg===''" [class.validating]="validating">{{warnmesg}}</h3> 
+                    <h3 style="margin:25px 0 20px 0;float:left"> 
+                        <div class="custradio" style="padding: 3px 30px 0 0;"><input name="sectn" id="sectn1" value="R" type="radio" (change)="effect()" [(ngModel)]="sectn"><label for="sectn1"></label></div><label for="sectn1"><u>Retail</u></label></h3>
                     <div class="clearfix"></div>
+                    <div [class.hidden]="sectn !=='R'">
                     <label class="flat-input inputlabel" style="margin-top:2px">Customer Retail Amount
                         <span class="errorspan2" [class.opqquezero]="amtc.message===''" [class.alert-danger]="amtc.erlevel==='D'"  [class.validating]="validating">{{amtc.message}}</span> 
                     </label>
@@ -110,8 +112,13 @@
                     <div class="flat-input w100">
                         <input autocomplete="new-password" name="pctr" type="number" placeholder="Retail Markup %" [class.required]="pctr.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pctr" max="100" maxlength="5"  (change)="onChange()">
                     </div>
+                    </div>
+
                     <div class="col-xs-12"><h3 style="text-align:center;margin:7px">Or</h3></div>
-                    <h3 style="margin:0;text-align:right;"><u>Internal</u></h3>
+                    <h3 style="margin:0;">
+                        <div class="custradio" style="padding: 3px 30px 0 0;"><input name="sectn" id="sectn2" value="I" type="radio" (change)="effect()" [(ngModel)]="sectn"><label for="sectn2"></label></div><label for="sectn2"><u>Internal</u></label></h3>
+                    <div class="clearfix"></div>
+                    <div [class.hidden]="sectn!='I'">
                     <label class="flat-input inputlabel">Internal Markup $
                         <span class="errorspan2" [class.opqquezero]="amti.message===''" [class.alert-danger]="amti.erlevel==='D'"  [class.validating]="validating">{{amti.message}}</span> 
                     </label>
@@ -125,13 +132,14 @@
                         <input autocomplete="new-password" name="pcti" type="number" placeholder="Internal Markup %" [class.required]="pcti.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pcti" max="100" maxlength="5"  (change)="onChange()">
                     </div>
                     <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
-                    
+                    </div>
 
                     
                     
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 hidden-xs">
+                    <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Pack</button>
                     </span>
@@ -145,6 +153,7 @@
                     </span>
                 </div>
                 <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} User">{{modebtn}} Pack</button>
                         </span>
@@ -161,8 +170,8 @@
             </form>
             <form class="contactform style4 clearfix panel-body " method="post"  autocomplete="off" >
                 <h2 class="pull-left">Packs</h2>
-                <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="New Pack"
-                    (click)="addRecInit()" id="addnewb">New Pack</a>
+                <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="Add Pack"
+                    (click)="addRecInit()" id="addnewb">Add Pack</a>
                 <div class="p-table-responsive">
                     <table class="table">
                         <thead>

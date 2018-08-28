@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit {
   hasnum = false;
   matchp = false;
   haschr8= false;
+  validsprs = false;
   mode = "ADD";
   modebtn = "ADD";
   useri = "";
@@ -33,6 +34,7 @@ export class UsersComponent implements OnInit {
   editP = "Y";//Edit Password
   reqpass1 = false;
   index = 0;
+  pvsprs:string ="";
   changes = false;
   reqpass2 = false;
   //Input Fields
@@ -88,6 +90,30 @@ export class UsersComponent implements OnInit {
     private router: Router) { 
 
     }
+
+salesvalid(){
+  this.validsprs = false;
+  if(this.pvsprs==this.selectedUser.sprs)return;
+  this.sprs.erlevel ="";
+  this.sprs.message ="";
+  if(this.selectedUser.sprs == "")return;
+  this.pvsprs = this.selectedUser.sprs;
+  Util.showWait();
+  this.usersService
+    .initService({"mode":"SPRSV","sprs":this.selectedUser.sprs},Util.Url("CGICUSERSS"))
+    .subscribe(data => this.errSet = data,
+      err => {  },
+      () => {
+        this.sprs.erlevel = this.errSet.status;
+        this.sprs.message = this.errSet.message;
+        Util.hideWait();
+        if(this.sprs.erlevel == 'S') this.validsprs = true;
+        
+       }
+      );
+
+
+}
 
 validPass(){
   
@@ -206,6 +232,7 @@ onSelect(user: User): void {
   this.hasnum = false;
   this.matchp = false;
   this.haschr8= false;
+  this.validsprs = true;
   
 }
 
@@ -246,7 +273,7 @@ addUserInit(){
   this.hasnum = false;
   this.matchp = false;
   this.haschr8= false;
-  
+  this.validsprs = false;
 
 }
 delete(){
@@ -349,6 +376,7 @@ checkUser(){
     if (this.rlno.value == "") { this.rlno.message = "(required)"; this.rlno.erlevel = "D"; this.valid = false; }
 
     if (this.sprs.value == "") { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
+    if(this.sprs.value !=="" && !this.validsprs) { this.sprs.message = "(invalid)"; this.sprs.erlevel = "D"; this.valid = false; }
     if (this.pswd1 == "" && this.editP == "Y") { this.pswd.message = "(required)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd1 !== this.pswd2 && this.editP == "Y") { this.pswd.message = "(Passwords don't match)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd2 == "" && this.editP == "Y") { this.pswdc.message = "(required)"; this.pswdc.erlevel = "D"; this.valid = false;this.reqpass2=true; }

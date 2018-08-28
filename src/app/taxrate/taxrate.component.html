@@ -18,7 +18,7 @@
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel">*Tax Rate
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Tax Rate
                         <span class="errorspan2" [class.opqquezero]="rate.message===''" [class.alert-danger]="rate.erlevel==='D'" [class.validating]="validating">{{rate.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel">*Include in Quote?
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Include in Quote?
                         <span class="errorspan2" [class.opqquezero]="incl.message===''" [class.alert-danger]="incl.erlevel==='D'"  [class.validating]="validating">{{incl.message}}</span> 
                     </label>
                     <span class="flat-input">
@@ -38,11 +38,13 @@
                     </span>
                 </div>
                 <div class="col-md-12 hidden-xs">
+                    <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right" style="margin-right:10px" title="Update">Update</button>
                     </span>
                 </div>
                 <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block" style="margin:0" title="Update">Update</button>
                         </span>

@@ -90,21 +90,21 @@
                             <input autocomplete="new-password{{ran}}" name="vAin{{ran}}" id="vAin" type="text" placeholder="VIN" maxlength="17" (keyup)="vinCheck('S')" [(ngModel)]="vin.value" [class.required]="vin.message !==''"  [class.validating]="validating" (change)="vinCheck('S');onChange()">
                         </span>
                         <div class="text-center"><hr style="margin:10px 10px 20px 10px"></div>
-                        <label class="flat-input inputlabel">*Mileage
+                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Mileage
                             <span class="errorspan2" [class.opqquezero]="miles.message===''" [class.alert-danger]="miles.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{miles.message}}</span> 
                         </label>
                         <span class="flat-input">
                             <input autocomplete="new-password{{ran}}" name="mileage{{ran}}" id="mileage" type="number" placeholder="Mileage" [(ngModel)]="miles.value" [class.required]="miles.message !==''"  [class.validating]="validating"  (change)="onChange()">
                         </span>
                         <label class="flat-input inputlabel" *ngIf="pagedata.body.type==='R' ||
-                                                                    (pagedata.body.type==='' && pagedata.body.dtype==='R')">*Original Purchase Price
+                                                                    (pagedata.body.type==='' && pagedata.body.dtype==='R')"><span class="req">*&nbsp;</span>Original Purchase Price
                                 <span class="errorspan2" [class.opqquezero]="price.message===''" [class.alert-danger]="price.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{price.message}}</span> 
                             </label>
                             <span class="flat-input"  *ngIf="pagedata.body.type==='R' ||
                                                             (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                                 <input autocomplete="new-password{{ran}}" name="prce{{ran}}" id="prce{{ran}}" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
-                        <label class="flat-input inputlabel">*In Service Date
+                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date
                             <span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -116,7 +116,7 @@
                         </div>
                         </div>
                         <!--As Of Date-->
-                        <label class="flat-input inputlabel" *ngIf="pagedata.head.as400">*Rating Date
+                        <label class="flat-input inputlabel" *ngIf="pagedata.head.as400"><span class="req">*&nbsp;</span>Rating Date
                             <span class="errorspan2" [class.opqquezero]="asofdt.message===''" [class.alert-danger]="asofdt.erlevel==='D'" [class.validating]="validating">{{asofdt.message}}</span> 
                         </label>
                         <div class="flat-input w100" *ngIf="pagedata.head.as400">
@@ -126,6 +126,7 @@
                         <div class="col-sm-5" style="padding:0 0 0 25px">
                         </div>
                         </div>
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <span class="flat-input"><button name="submit" type="submit" class="flat-button pull-right" id="submit" title="Continue">Continue</button></span>
                   </div>
             </form>  

@@ -19,12 +19,14 @@
                          role="alert">{{dispAlert.message}}</div>
                 </div>
                 <div class="col-md-6 col-md-offset-3">
-                    <label class="flat-input inputlabel">*Authority
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Authority
                         <span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.alert-success]="desc.erlevel==='S'" [class.validating]="validating">{{desc.message}}</span> 
                     </label>
+                    
                     <div class="flat-input w100">
                         <input  (change)="onChange()" [disabled]="this.selectedRole.type=='Y'" autocomplete="new-password"  name="desc" type="text" placeholder="Authority Description" [class.required]="desc.value===''"  [class.validating]="validating" [(ngModel)]="selectedRole.desc" maxlength="50">
                     </div>
+                    <p class="text-right"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <label class="flat-input inputlabel">Access to</label>
                     <ul class="list-group">
                         <li class="list-group-item" *ngFor="let trole of selectedRole.autharr">

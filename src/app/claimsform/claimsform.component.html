@@ -53,8 +53,8 @@
                             <label class="checklabel" for="type2"><b>RV</b></label>
                     </span>
                     <span style="display: inline-block;margin-left:20px;">
-                        <div class="custradio"><input name="typer" type="radio" id="type3" value="Sports" [(ngModel)]="type"><label for="type3"></label></div>
-                            <label class="checklabel" for="type3"><b>Sports</b></label>
+                        <div class="custradio"><input name="typer" type="radio" id="type3" value="Powersport" [(ngModel)]="type"><label for="type3"></label></div>
+                            <label class="checklabel" for="type3"><b>Powersport</b></label>
                     </span>
                     <span style="display: inline-block;margin-left:20px;">
                         <div class="custradio"><input name="typer" type="radio" id="type4" value="Marine" [(ngModel)]="type"><label for="type4"></label></div>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="ctnolbl">*Contract Number
+                    <label class="flat-input inputlabel" id="ctnolbl"><span class="req">*&nbsp;</span>Contract Number
                         <span class="errorspan2" [class.opqquezero]="ctno.message===''" [class.alert-danger]="ctno.erlevel==='D'"  [class.validating]="validating">{{ctno.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel"  id="cnamlbl">*Contract Holder Name
+                    <label class="flat-input inputlabel"  id="cnamlbl"><span class="req">*&nbsp;</span>Contract Holder Name
                         <span class="errorspan2" [class.opqquezero]="cnam.message===''" [class.alert-danger]="cnam.erlevel==='D'"  [class.validating]="validating">{{cnam.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="phonlbl">*Contract Holder Phone
+                    <label class="flat-input inputlabel" id="phonlbl"><span class="req">*&nbsp;</span>Contract Holder Phone
                         <span class="errorspan2" [class.opqquezero]="phon.message===''" [class.alert-danger]="phon.erlevel==='D'"  [class.validating]="validating">{{phon.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="reprlbl">*Repair Facility Name
+                    <label class="flat-input inputlabel" id="reprlbl"><span class="req">*&nbsp;</span>Repair Facility Name
                         <span class="errorspan2" [class.opqquezero]="repr.message===''" [class.alert-danger]="repr.erlevel==='D'"  [class.validating]="validating">{{repr.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -96,7 +96,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="remllbl">*Repair Facility Email
+                    <label class="flat-input inputlabel" id="remllbl"><span class="req">*&nbsp;</span>Repair Facility Email
                         <span class="errorspan2" [class.opqquezero]="reml.message===''" [class.alert-danger]="reml.erlevel==='D'"  [class.validating]="validating">{{reml.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="rcntlbl">*Repair Facility Contact Person Name
+                    <label class="flat-input inputlabel" id="rcntlbl"><span class="req">*&nbsp;</span>Repair Facility Contact Person Name
                         <span class="errorspan2" [class.opqquezero]="rcnt.message===''" [class.alert-danger]="rcnt.erlevel==='D'"  [class.validating]="validating">{{rcnt.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="rphnlbl">*Repair Facility Phone
+                    <label class="flat-input inputlabel" id="rphnlbl"><span class="req">*&nbsp;</span>Repair Facility Phone
                         <span class="errorspan2" [class.opqquezero]="rphn.message===''" [class.alert-danger]="rphn.erlevel==='D'"  [class.validating]="validating">{{rphn.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -136,7 +136,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="yearlbl">*Unit Year
+                    <label class="flat-input inputlabel" id="yearlbl"><span class="req">*&nbsp;</span>Unit Year
                         <span class="errorspan2" [class.opqquezero]="year.message===''" [class.alert-danger]="year.erlevel==='D'"  [class.validating]="validating">{{year.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="makelbl">*Unit Make
+                    <label class="flat-input inputlabel" id="makelbl"><span class="req">*&nbsp;</span>Unit Make
                         <span class="errorspan2" [class.opqquezero]="make.message===''" [class.alert-danger]="make.erlevel==='D'"  [class.validating]="validating">{{make.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="modllbl" >*Unit Model
+                    <label class="flat-input inputlabel" id="modllbl" ><span class="req">*&nbsp;</span>Unit Model
                         <span class="errorspan2" [class.opqquezero]="modl.message===''" [class.alert-danger]="modl.erlevel==='D'"  [class.validating]="validating">{{modl.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label class="flat-input inputlabel" id="idntlbl">*Unit Identification Number
+                    <label class="flat-input inputlabel" id="idntlbl"><span class="req">*&nbsp;</span>Unit Identification Number
                         <span class="errorspan2" [class.opqquezero]="idnt.message===''" [class.alert-danger]="idnt.erlevel==='D'"  [class.validating]="validating">{{idnt.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <label class="flat-input inputlabel" id="complbl">*Complaint
+                    <label class="flat-input inputlabel" id="complbl"><span class="req">*&nbsp;</span>Complaint
                         <span class="errorspan2" [class.opqquezero]="comp.message===''" [class.alert-danger]="comp.erlevel==='D'"  [class.validating]="validating">{{comp.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <label class="flat-input inputlabel" id="causlbl">*Cause of Complaint/Cause of Failure
+                    <label class="flat-input inputlabel" id="causlbl"><span class="req">*&nbsp;</span>Cause of Complaint/Cause of Failure
                         <span class="errorspan2" [class.opqquezero]="caus.message===''" [class.alert-danger]="caus.erlevel==='D'"  [class.validating]="validating">{{caus.message}}</span> 
                     </label>
                     <div class="flat-input w100">
@@ -253,9 +253,10 @@
                         </div>
                 </div>
                 
-                
+                <div class="col-xs-12"></div>
                 
                 <div class="col-md-12" style="padding-top:25px;">
+                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                            
                         <span class="flat-input pull-right ">
                             <button class="flat-button" id="submit" name="submit" title="Continue" type="submit">Submit&nbsp;<span class="fa fa-forward"></span></button>
