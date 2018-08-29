@@ -14,8 +14,9 @@ export class HomeComponent implements OnInit {
   pagedata = new  Homedata;
   constructor(private homeService: JsonService,
     private router: Router) { }
-
+  
   ngOnInit() {
+    Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
     this.homeService
     .initService({  },Util.Url("CGICHOMES"))
@@ -30,8 +31,8 @@ export class HomeComponent implements OnInit {
             this.router.navigate(['/app/']);
           }, 100);
         }else{
-          Util.hideWait();
           Util.scrollTop();
+          Util.hideWait();
         }
 
        }

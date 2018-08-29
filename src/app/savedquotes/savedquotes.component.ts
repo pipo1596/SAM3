@@ -50,6 +50,7 @@ export class SavedquotesComponent implements OnInit {
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
   selectAll(){
     this.pagedItems.forEach(quote =>{
+      if(quote == "") return;
       quote.selected = this.selectall;
       if(quote.selected){
         this.delQtid.push(quote.qtid);
@@ -250,6 +251,8 @@ export class SavedquotesComponent implements OnInit {
   }
 
   setPage(page: number){
+    this.selectall = false;
+    this.selectAll(); 
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }

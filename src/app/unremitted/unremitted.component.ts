@@ -138,6 +138,7 @@ if(index>=0) {
   this.pagedata.contracts[index].fnam = this.eofn.value;
   this.pagedata.contracts[index].lnam = this.eoln.value;
 }
+this.changes = false;
 Util.hideWait();
 }
 );
@@ -188,6 +189,7 @@ for (var i = 0; i < numbers.length; i++) {
         this.email.value = this.view.mail;
         Util.hideWait();
         Util.scrollToId("viewtop");
+        this.changes = false;
   		}
   	);
     
@@ -227,6 +229,7 @@ for (var i = 0; i < numbers.length; i++) {
   			()=>{
           Util.hideWait();
           this.showDelete = false;
+          this.changes = false;
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
             this.setPage(this.pager.currentPage);
@@ -262,6 +265,7 @@ for (var i = 0; i < numbers.length; i++) {
   			()=>{
           Util.hideWait();
           this.showDelete = false;
+          this.changes = false;
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
             this.setPage(this.pager.currentPage);

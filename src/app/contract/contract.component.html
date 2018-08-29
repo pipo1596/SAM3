@@ -76,7 +76,7 @@
                         </label>  
                         <span class="pull-left" style="padding:0 5PX;"  *ngIf="vinE==false">{{vin.value}}</span>  
                         <div class="flat-input w100" *ngIf="vinE==true" style="position:relative">
-                            <input autocomplete="new-password{{ran}}" class="w100" (keyup)="vinCheck()"   name="vin{{ran}}" type="text"  placeholder="VIN" [class.required]="vin.message !== ''"  [class.validating]="validating"  [(ngModel)]="vin.value" maxlength="17"  style="margin-bottom:7px">
+                            <input autocomplete="new-password{{ran}}" class="w100" (keyup)="vinCheck()" (blur)="vinCheck()"   name="vin{{ran}}" type="text"  placeholder="VIN" [class.required]="vin.message !== ''"  [class.validating]="validating"  [(ngModel)]="vin.value" maxlength="17"  style="margin-bottom:7px">
                             <a routerLink="/app/Quote1" class="hidden flat-button pull-right nextsection"  title="Back" style="padding:6px 18px;position:absolute;top:2px;right:2px;">
                                 <span class="fa fa-backward"></span>&nbsp;&nbsp;Edit</a>
                         </div>

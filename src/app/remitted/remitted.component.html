@@ -89,7 +89,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th><b>Invoice #</b></th>
+								<th style="white-space: nowrap;"><b>Invoice #</b></th>
 								<th><b>Contract #</b></th>
 								<th><b>Stock #</b></th>
 								<th><b>Name</b></th>
@@ -105,7 +105,7 @@
 							</tr>
 							<ng-container *ngFor="let cont of (pagedItems)">
 								<tr *ngIf="cont.show === true">
-									<td data-label="Contract #"><a href="javascript:void(0)" (click)="viewInvo('IV'+cont.ivno)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.ivno}}</a></td>	
+									<td data-label="Contract #" style="white-space: nowrap;"><a href="javascript:void(0)" (click)="viewInvo('IV'+cont.ivno)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.ivno}}</a></td>	
 									<td data-label="Contract #"><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}</a></td>	
 									<td data-label="Stock #">{{cont.stck}}</td>
 									<td data-label="Name">{{cont.fnam}} {{cont.lnam}}</td>

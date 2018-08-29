@@ -2277,7 +2277,7 @@ date-input-polyfill button{padding:5px;}
 .dealparent{ background-color:#fff;
     background-repeat: no-repeat;
     background-image: url(/assets/images/home.jpg);
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     width: 100%;
     height: 100%;
@@ -2777,14 +2777,14 @@ margin:3px 0 0 3px;}
         }
       }
       .hidden2{display: none;}
-
+      .loccont .info-icon{ margin-left:15px;}
        .info-icon {
         float: left;
         width: 24px;
         height: 24px;
         line-height: 24px;
         text-align: center;
-        margin: 3px 8px 0px 8px;
+        margin: 3px 8px 0px 15px;
         color:#1274bb;
         margin-top:12px;
         border: 1px solid #ebebeb;
