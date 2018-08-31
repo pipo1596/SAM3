@@ -10,7 +10,7 @@
         </div> 
         <div class="row white">
             <!--Accept-->
-            <form *ngIf="pageview=='A'"  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkAccept()"
+            <form *ngIf="pageview=='A'"  class="contactform style4 clearfix panel-body" method="post" (submit)="checkAccept()"
                 id="adduser"  autocomplete="off">
                 <div class="col-xs-12">
                     <h2>Disclaimer</h2>
@@ -36,7 +36,7 @@
                 </div>
             </form>
             <!--Enter Claim-->
-            <form *ngIf="pageview=='C'"  class="contactform style4 clearfix panel-body"  method="post" action="javascript:void(0);" (submit)="checkData()"
+            <form *ngIf="pageview=='C'"  class="contactform style4 clearfix panel-body"  method="post" (submit)="checkData()"
                 id="adduser"  autocomplete="off">
                 <div class="col-xs-12">
                     <p style="font-weight: bold">SHOULD YOU NEED TO FILE A CLAIM, PLEASE COMPLETE THE FOLLOWING FORM AND SUBMIT. A CLAIMS CUSTOMER SERVICE REPRESENTATIVE WILL CONTACT YOU AS SOON AS POSSIBLE.</p>

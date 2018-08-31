@@ -10,7 +10,7 @@
 		</div>
 
 		<div class="row white">
-			<form *ngIf="selectedRec" action="javascript:void(0)" class="contactform style4 clearfix panel-body" method="post" style="display:none;" (submit)="checkData()" id="topform"  autocomplete="off">
+			<form *ngIf="selectedRec"  class="contactform style4 clearfix panel-body" method="post" style="display:none;" (submit)="checkData()" id="topform"  autocomplete="off">
 				<div class="col-md-12">
 					<h2>{{modebtn}} Override</h2>
 					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>

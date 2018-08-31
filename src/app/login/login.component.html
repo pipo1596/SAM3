@@ -4,7 +4,7 @@
   <div class="row">                                                                             
       <div class="col-md-6 col-md-offset-3 panel invisible" [ngClass]="{'visible':pagedata.head.status!=='I'}">       
                                                                        
-          <form id="Login" class="contactform style4 clearfix panel-body" action="javascript:void(0);" (submit)="checkLogin()" autocomplete="new-password">
+          <form id="Login" class="contactform style4 clearfix panel-body" (submit)="checkLogin()" autocomplete="new-password">
                       <h1>Producer Login</h1>
                       <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                       <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>

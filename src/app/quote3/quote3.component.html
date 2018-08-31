@@ -316,7 +316,7 @@
                             </div>
                     </div>
                 <div class="clearfix"></div>
-            <form  *ngIf="pagedata.body.pagemode == '3'" class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkData()" novalidate  autocomplete="off">
+            <form  *ngIf="pagedata.body.pagemode == '3'" class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()" novalidate  autocomplete="off">
                 <div class="hidden-md hidden-lg">
                     <ng-container *ngFor="let datads of pagedata.body.data">
                         <div class="well well-sm productsel" [class.hidden]="!datads.open" (click)="showLeft()">

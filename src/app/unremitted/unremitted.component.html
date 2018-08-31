@@ -141,7 +141,7 @@
 
 		</form>
 		<div class="clearfix"></div>
-		<form class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0)"  (submit)="checkEdit()" autocomplete="new-password{{ran}}" [class.hidden]="pagemode==='L'">
+		<form class="contactform style4 clearfix panel-body" method="post" (submit)="checkEdit()" autocomplete="new-password{{ran}}" [class.hidden]="pagemode==='L'">
 				<div class="row white"  id="viewtop">
 					<h2 style="margin:15px 15px 0 15px;float: left">View<span *ngIf="canedit">/Edit</span> Contract Information</h2>
 					<a href="javascript:void(0)"  (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">

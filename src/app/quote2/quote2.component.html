@@ -17,7 +17,7 @@
               </div>
         </div>
         <div class="row white" style="min-height:400px">
-                <form [class.hidden]="loading"  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);"  (submit)="checkData()" novalidate  autocomplete="off">
+                <form [class.hidden]="loading"  class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()" novalidate  autocomplete="off">
                     <div class="col-md-12">
                         <div class="alert alert-success" role="alert" 
                         [ngClass]="{'alert-success':dispAlert.status==='S',

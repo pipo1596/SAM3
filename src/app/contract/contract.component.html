@@ -10,7 +10,7 @@
             <div class="white pull-left w100 stepsblock" id="quotesteps"></div>
         </div>
         <div class="row white" style="min-height:400px">
-        <form  method="post" autocomplete="new-password" class="contactform style4" action="javascript:void(0);" (submit)="checkData()" novalidate>
+        <form  method="post" autocomplete="new-password" class="contactform style4" (submit)="checkData()" novalidate>
             <div class="col-xs-12">
                     <div class="alert alert-success" role="alert" [ngClass]="{'alert-success':dispAlert.status==='S',
                     'alert-danger':dispAlert.status==='E',

@@ -11,7 +11,7 @@
 		</div> 
 		<div class="row white">
 
-			<form  class="contactform style4 clearfix panel-body" method="post" action="javascript:void(0);" (submit)="checkData()"
+			<form  class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()"
 			id="addDealer"  autocomplete="off">
 				<div class="col-md-12">
 					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>

@@ -63,7 +63,6 @@ export class InvoicesComponent implements OnInit {
   			if(this.remtarr[i] !== undefined){
   				delArr[i]= {"value":this.remtarr[i]};
           var index = this.pagedata.invoices.findIndex(obj => obj.ivno==this.remtarr[i]);
-          console.log(index);
           this.pagedata.invoices[index].stat = 'T';
           this.pageCount -= 1;
           this.masterPgCnt -= 1;

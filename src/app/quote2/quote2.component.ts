@@ -165,7 +165,6 @@ export class Quote2Component implements OnInit {
         }
       });
     });
-    console.log(this.chkdcoverages);
     var ckdata = {"mode":"WARN","cov":this.chkdcoverages};
     this.jsonService
       .initService(ckdata, Util.Url("CGICQUOTE2"))

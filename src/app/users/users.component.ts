@@ -479,7 +479,6 @@ changePass(){
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
         
-        console.log(this.salesmode);
       //Sort By User Ascending
         this.pagedata.users =  Util.sortByKey(this.pagedata.users, "user","A");
 

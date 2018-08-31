@@ -427,7 +427,6 @@ export class ProcessedComponent implements OnInit {
   				}, 100);
   			} else {
           this.pageCount = this.pagedata.contracts.length;
-          console.log(this.pagedata.contracts);
           this.masterPgCnt = this.pageCount;
           this.setPage(1); 
           Util.hideWait();
