@@ -67,7 +67,6 @@
                                                         <li *ngIf="menu.type=='C1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
                                                 <ng-container  *ngFor="let menu of headdata.menuOp">
-                                                       <!-- <li class="headerli2" *ngIf="menu.type=='C2'"><hr></li>-->
                                                         <li class="headerfirst" *ngIf="menu.type=='C2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
                                                 </ng-container>
@@ -85,7 +84,8 @@
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='M2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
-                                                 
+                                                <li class="headerli" *ngIf="headdata.as400"><hr><div>Internal Users Only</div></li> 
+                                                <li><a *ngIf="headdata.as400" routerLink="/app/SalesPersons">Salesperson Maintenance</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/DescOverride','Program']">Program Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/DescOverride','Coverage']">Coverage Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/CovWarnings']">Coverage Warnings</a></li>

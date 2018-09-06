@@ -500,7 +500,7 @@ static Usersnap(){
    s.type = "text/javascript"; 
    s.async = true; 
    s.id = "usersnap";
-   s.src = '//api.usersnap.com/load/69ffbd77-6919-4cd4-805b-c3777ae52ef8.js';
+   s.src = '//api.usersnap.com/load/69b4adfd-ead6-4236-9866-c0b963f1a978.js';
    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
 }
 //===================================================================================//

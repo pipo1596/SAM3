@@ -104,6 +104,7 @@
 								<th><b>Contract #</b></th>
 								<th><b>Stock #</b></th>
 								<th><b>Name</b></th>
+								<th><b>Co-buyer Name</b></th>
 								<th><b>Salesperson</b></th>
 								<th><b>Date</b></th>
 								<th><b>Vehicle</b></th>
@@ -127,6 +128,7 @@
 									<td data-label="Contract #"><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}</a></td>	
 									<td data-label="Stock #">{{cont.stck}}</td>
 									<td data-label="Name">{{cont.fnam}} {{cont.lnam}}</td>
+									<td data-label="Co-buyer Name">{{cont.cfnm}} {{cont.clnm}}</td>
 									<td data-label="Salesperson">{{cont.sprs}}</td>
 									<td data-label="Date">{{cont.ctdt}}</td>
 									<td data-label="Vehicle"><span class="vinspan">{{cont.year}} {{cont.make}} {{cont.modl}}</span></td>
@@ -172,6 +174,18 @@
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="eoln.message===''">{{eoln.message}}</span> 	
 													&nbsp;&nbsp;<span class="req">*&nbsp;</span>Last Name</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="eoln.message !== ''" type="text" autocomplete="new-password{{ran}}" name="eoln{{ran}}" [(ngModel)]="eoln.value" style="margin:0;width:100%" ></td>
+										</tr>
+										<tr *ngIf="canedit" id="ecfn">
+											<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+												<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="ecfn.message===''">{{ecfn.message}}</span> 	
+												 &nbsp;&nbsp;Co-buyer First Name</td>
+											<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="ecfn.message !== ''" type="text"  autocomplete="new-password{{ran}}" name="ecfn{{ran}}" [(ngModel)]="ecfn.value"  style="margin:0;width:100%"></td>
+										</tr>
+										<tr *ngIf="canedit" id="ecln">
+											<td style="font-weight: bold;text-align: right;vertical-align: middle;">
+												<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="ecln.message===''">{{ecln.message}}</span> 	
+												&nbsp;&nbsp;Co-buyer Last Name</td>
+											<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="ecln.message !== ''" type="text" autocomplete="new-password{{ran}}" name="ecln{{ran}}" [(ngModel)]="ecln.value" style="margin:0;width:100%" ></td>
 										</tr>
 										<tr *ngIf="!canedit">
 												<td style="font-weight: bold;text-align: right">Street Address</td>

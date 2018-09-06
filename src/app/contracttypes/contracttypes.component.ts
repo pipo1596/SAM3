@@ -121,7 +121,7 @@ export class ContracttypesComponent implements OnInit {
     this.code.value  = this.selectedRec.code.trim().toUpperCase();
     this.selectedRec.code = this.selectedRec.code.trim().toUpperCase();
     if(this.valid && this.valu.value < 0){ this.valu.message = "(invalid)"; this.valu.erlevel = "D"; this.valid = false; }
-    this.valu.value = parseFloat(this.valu.value.toFixed(2));
+    if(this.valu.value!== null) this.valu.value = parseFloat(this.valu.value.toFixed(2));
     
     
     this.desc.value  = this.selectedRec.desc.trim();

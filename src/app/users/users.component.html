@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-xs-12" style="z-index:1">
                 <div class="title-section style3 left">
-                    <h1 class="title">Users Maintenance</h1>
+                    <h1 *ngIf="!salesmode" class="title">Users Maintenance</h1>
+                    <h1 *ngIf="salesmode" class="title">Salespersons Maintenance</h1>
                 </div>
             </div>
         </div> 
@@ -13,7 +14,8 @@
             <form *ngIf="selectedUser" class="contactform style4 clearfix panel-body" method="post" style="display:none"  (submit)="checkUser()"
                 id="adduser"  autocomplete="off">
                 <div class="col-md-12">
-                    <h2>{{modebtn}} User</h2>
+                    <h2 *ngIf="!salesmode" >{{modebtn}} User</h2>
+                    <h2 *ngIf="salesmode" >{{modebtn}} Salesperson</h2>
                     <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
@@ -25,7 +27,7 @@
                         <span class="errorspan2" [class.opqquezero]="user.message===''" [class.alert-danger]="user.erlevel==='D'" [class.alert-success]="user.erlevel==='S'" [class.validating]="validating">{{user.message}}</span> 
                     </label>
                     <div class="flat-input w100">
-                        <input autocomplete="new-password{{ran}}"  (change)="onChange()"  name="user{{ran}}" type="text" placeholder="Email"  [class.required]="user.value===''"  [class.validating]="validating" [(ngModel)]="selectedUser.user" maxlength="60">
+                        <input [disabled]="modebtn=='SAVE'" autocomplete="new-password{{ran}}"  (change)="onChange()"  name="user{{ran}}" type="text" placeholder="Email"  [class.required]="user.value===''"  [class.validating]="validating" [(ngModel)]="selectedUser.user" maxlength="60">
                     </div>
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>First Name
                             <span class="errorspan2" [class.opqquezero]="fnam.message===''" [class.alert-danger]="fnam.erlevel==='D'" [class.alert-success]="fnam.erlevel==='S'" [class.validating]="validating">{{fnam.message}}</span> 
@@ -39,10 +41,10 @@
                     <div class="flat-input w100">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="lnam{{ran}}" type="text" placeholder="Last Name" [class.required]="lnam.value===''"  [class.validating]="validating" [(ngModel)]="selectedUser.lnam" maxlength="50">
                     </div>
-                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Salesperson
+                    <label class="flat-input inputlabel" *ngIf="!salesmode">Salesperson
                             <span class="errorspan2 validating" [class.opqquezero]="sprs.message===''" [class.alert-danger]="sprs.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'">{{sprs.message}}</span> 
                     </label>
-                    <div class="flat-input w100">
+                    <div class="flat-input w100"  *ngIf="!salesmode">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" (keyup)="salesvalid()" name="sprs{{ran}}" type="text" placeholder="Salesperson" [class.required]="sprs.value===''"  [class.validating]="validating"  [(ngModel)]="selectedUser.sprs" maxlength="5">
                     </div>
 
@@ -56,7 +58,7 @@
                         </select>
                     </span>
                     <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode">Agent Code
-                        <span class="errorspan2" [class.opqquezero]="disc.message===''" [class.alert-danger]="disc.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'" [class.validating]="validating">{{disc.message}}</span> 
+                        <span class="errorspan2" [class.opqquezero]="disc.message===''" [class.alert-danger]="disc.erlevel==='D'" [class.alert-success]="disc.erlevel==='S'" [class.validating]="validating">{{disc.message}}</span> 
                     </label>
                     <div class="flat-input w100" [class.hidden]="!pagedata.head.as400 || !salesmode">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="disc{{ran}}" type="text" placeholder="Agent Code"   [(ngModel)]="selectedUser.disc" maxlength="4">
@@ -144,7 +146,8 @@
                 </div>
             </form>
             <form class="contactform style4 clearfix panel-body " method="post" action="./Users.html#"  autocomplete="off">
-                <h2 class="pull-left">Users</h2>
+                <h2 *ngIf="!salesmode" class="pull-left">Users</h2>
+                <h2 *ngIf="salesmode" class="pull-left">Salespersons</h2>
                 <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="Add New User"
                     (click)="addUserInit()" id="addnewb">Add New</a>
                 <div class="p-table-responsive">
@@ -160,7 +163,7 @@
                                 <th>
                                     <b>Authority</b>
                                 </th>
-                                <th>
+                                <th *ngIf="!salesmode">
                                     <b>Salesperson</b>
                                 </th>
                                 <th *ngIf="salesmode">
@@ -180,7 +183,7 @@
                                 <td data-label="Email">{{user.user}}&nbsp;</td>
                                 <td data-label="Name">{{user.lnam}} {{user.fnam}}&nbsp;</td>
                                 <td data-label="Authority">{{user.rold}}&nbsp;</td>
-                                <td data-label="Salesperson">{{user.sprs}}&nbsp;</td>
+                                <td data-label="Salesperson" *ngIf="!salesmode">{{user.sprs}}&nbsp;</td>
                                 <td *ngIf="salesmode" data-label="Agent Code">{{user.disc}}&nbsp;</td>
                                 <td *ngIf="salesmode" data-label="Salesperson Code">{{user.slcd}}&nbsp;</td>
                                 <td data-label="">

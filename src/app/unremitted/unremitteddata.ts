@@ -24,6 +24,8 @@ export class Cont {
 	anum : string;
 	fnam : string;
 	lnam : string;
+	cfnm : string;
+	clnm : string;
 	sprs : string;
 	stck : string;
 	ctdt : string;

@@ -112,6 +112,7 @@
                     <div class="flat-input w100">
                         <input autocomplete="new-password" name="pctr" type="number" placeholder="Retail Markup %" [class.required]="pctr.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.pctr" max="100" maxlength="5"  (change)="onChange()">
                     </div>
+                    <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
                     </div>
 
                     <div class="col-xs-12"><h3 style="text-align:center;margin:7px">Or</h3></div>

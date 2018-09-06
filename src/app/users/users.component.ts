@@ -201,6 +201,7 @@ removeDlr(dealer){
 }    
 onSelect(user: User): void {
   this.selectedUser.mode = "SAVE";
+  this.validating = false;
   this.selectedUser.user = user.user;
   this.selectedUser.useri = user.useri;
   this.selectedUser.rlno = user.rlno;
@@ -208,6 +209,7 @@ onSelect(user: User): void {
   this.selectedUser.fnam = user.fnam;
   this.selectedUser.lnam = user.lnam;
   this.selectedUser.sprs = user.sprs;
+  if(this.salesmode) this.selectedUser.sprs ="";
   this.selectedUser.disc = user.disc;
   this.selectedUser.slcd = user.slcd;
   this.selectedUser.dlr = user.dlr;
@@ -359,6 +361,8 @@ checkUser(){
     this.reqpass1 = false;
     this.reqpass2 = false;
     //Trim Field values
+    //switch valid 
+    this.validsprs = true;
     this.user.value  = this.selectedUser.user.trim();
     this.rlno.value  = this.selectedUser.rlno.trim();
     this.fnam.value  = this.selectedUser.fnam.trim();
@@ -374,9 +378,10 @@ checkUser(){
     if (this.fnam.value == "") { this.fnam.message = "(required)"; this.fnam.erlevel = "D"; this.valid = false; }
     if (this.lnam.value == "") { this.lnam.message = "(required)"; this.lnam.erlevel = "D"; this.valid = false; }
     if (this.rlno.value == "") { this.rlno.message = "(required)"; this.rlno.erlevel = "D"; this.valid = false; }
+    if (this.disc.value!=="" && this.slcd.value!=="") { this.disc.message = "(Agent -- OR -- Salesperson Code Allowed)"; this.disc.erlevel = "D"; this.valid = false; }
 
-    if (this.sprs.value == "") { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
-    if(this.sprs.value !=="" && !this.validsprs) { this.sprs.message = "(invalid)"; this.sprs.erlevel = "D"; this.valid = false; }
+    //if (this.sprs.value == "" &&  !this.salesmode) { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
+    //if(this.sprs.value !=="" && !this.validsprs && !this.salesmode) { this.sprs.message = "(invalid)"; this.sprs.erlevel = "D"; this.valid = false; }
     if (this.pswd1 == "" && this.editP == "Y") { this.pswd.message = "(required)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd1 !== this.pswd2 && this.editP == "Y") { this.pswd.message = "(Passwords don't match)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd2 == "" && this.editP == "Y") { this.pswdc.message = "(required)"; this.pswdc.erlevel = "D"; this.valid = false;this.reqpass2=true; }
@@ -483,7 +488,7 @@ changePass(){
         this.pagedata.users =  Util.sortByKey(this.pagedata.users, "user","A");
 
         if(this.salesmode)
-          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'EDSALESPRS');
+          this.noAuth = !this.pagedata.head.as400;
         else
           this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'EUSERS');
         if (this.pagedata.head.status === "O" || this.noAuth) {

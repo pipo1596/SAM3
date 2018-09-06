@@ -51,6 +51,8 @@ export class RemittedComponent implements OnInit {
   //Edit Input Fields
   eofn  = new Textfield
   eoln  = new Textfield
+  ecfn  = new Textfield
+  ecln  = new Textfield
   eoad1  = new Textfield
   eoad2  = new Textfield
   eocty = new Textfield
@@ -77,6 +79,8 @@ export class RemittedComponent implements OnInit {
     this.validating = true;
     this.eofn.message='';
     this.eoln.message='';
+    this.ecfn.message='';
+    this.ecln.message='';
     this.eoad1.message='';
     this.eoad2.message='';
     this.eocty.message='';
@@ -86,6 +90,8 @@ export class RemittedComponent implements OnInit {
     this.email.message='';
     this.eofn.value   = this.eofn.value.trim();
     this.eoln.value   = this.eoln.value.trim();
+    this.ecfn.value   = this.ecfn.value.trim();
+    this.ecln.value   = this.ecln.value.trim();
     this.eoad1.value  = this.eoad1.value.trim();
     this.eoad2.value  = this.eoad2.value.trim();
     this.eocty.value  = this.eocty.value.trim();
@@ -118,6 +124,8 @@ var obj ={"mode":"UPDATE",
           "ecno":  this.eecno,
           "ofn" :  this.eofn.value,
           "oln" :  this.eoln.value,
+          "cfn" :  this.ecfn.value,
+          "cln" :  this.ecln.value,
           "oad1": this.eoad1.value,
           "oad2": this.eoad2.value,
           "octy": this.eocty.value,
@@ -136,6 +144,8 @@ var index = this.pagedata.contracts.findIndex(obj => obj.ecno==this.eecno);
 if(index>=0) {
   this.pagedata.contracts[index].fnam = this.eofn.value;
   this.pagedata.contracts[index].lnam = this.eoln.value;
+  this.pagedata.contracts[index].cfnm = this.ecfn.value;
+  this.pagedata.contracts[index].clnm = this.ecln.value;
 }
 Util.hideWait();
 }
@@ -169,6 +179,8 @@ for (var i = 0; i < numbers.length; i++) {
 
         this.eofn.message='';
         this.eoln.message='';
+        this.ecfn.message='';
+        this.ecln.message='';
         this.eoad1.message='';
         this.eoad1.message='';
         this.eocty.message='';
@@ -178,6 +190,8 @@ for (var i = 0; i < numbers.length; i++) {
         this.email.message='';
         this.eofn.value  = this.view.ofn;
         this.eoln.value  = this.view.oln;
+        this.ecfn.value  = this.view.cfn;
+        this.ecln.value  = this.view.cln;
         this.eoad1.value = this.view.oad1;
         this.eoad2.value = this.view.oad2;
         this.eocty.value = this.view.octy;
@@ -276,7 +290,7 @@ for (var i = 0; i < numbers.length; i++) {
 
   viewInvo(contractID){
     Util.showWait();
-    var pdf = window.open(Util.Url("output/"+contractID+".pdf"),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    var pdf = window.open(Util.Url("output/"+contractID+".pdf?pmkey="+Math.random()),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 
     } 
