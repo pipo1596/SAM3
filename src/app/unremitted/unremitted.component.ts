@@ -457,6 +457,7 @@ for (var i = 0; i < numbers.length; i++) {
     .subscribe(data => this.readdata = data,
       err => {Util.responsiveMenu(); },
       () => {
+        this.changes = false;
         Util.responsiveMenu();
         Array.prototype.push.apply(this.pagedata.contracts,this.readdata.contracts);
         if (this.readdata.ttlpgs.lstrec === "EOF") {

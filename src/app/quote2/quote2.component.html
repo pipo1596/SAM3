@@ -157,7 +157,7 @@
                     <div class="col-xs-12" style="padding:5px 0 0 5px;">
                         <div class="col-xs-12"><div class="custcheck parentcheck"><input name="plan" id="check1i{{datads.prg+datads.ratc}}" type="checkbox" class="cparent" (change)="selectAll($event,datads.cov.coverages)"><label for="check1i{{datads.prg+datads.ratc}}"></label></div><label for="check1i{{datads.prg+datads.ratc}}"><h4 class="showh4">Coverages <span class="showspan">(Show)</span></h4></label></div>
                         <ng-container *ngFor="let coverage of datads.cov.coverages;">
-                            <div class="col-md-3 col-sm-6"   *ngIf="!coverage.check" [class.hidden]="coverage.dup">
+                            <div class="col-md-4 col-sm-6"   *ngIf="!coverage.check" [class.hidden]="coverage.dup">
                             <span class="flat-input-checkbox" ><div class="custcheck"><input name="plan" [checked]="coverage.check2" value="{{coverage.termc}}" id="check{{datads.prg+datads.ratc+coverage.termc}}" type="checkbox" class="c1" [checked]="coverage.check2" (change)="togglebox(coverage,m)"><label for="check{{datads.prg+datads.ratc+coverage.termc}}"></label></div><label class="checklabel" for="check{{datads.prg+datads.ratc+coverage.termc}}">{{coverage.desc | uppercase}}</label></span>
                             </div>
                         </ng-container>

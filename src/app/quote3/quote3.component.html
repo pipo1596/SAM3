@@ -784,6 +784,22 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="taxmodal" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Tax detected</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">I acknowledge that any applicable taxes will be added to the quote at time of contract creation.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" (click)="canceltax()" >Cancel</button>
+                  <button type="button" class="btn btn-primary" (click)="oktax()" >Ok</button>
+                </div>
+              </div>
+            </div>
+          </div>
     <div class="loading hidden" id="calculating" ><div class="bar"><p>Preparing quote please wait...</p></div></div>
 </section>
 <app-footer></app-footer>

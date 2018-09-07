@@ -75,7 +75,7 @@
                                         </li> 
                                         </ng-container>
                                         <ng-container *ngFor="let main of headdata.menuOp">
-                                        <li *ngIf="headdata.currdlr !=='' && main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
+                                        <li *ngIf="main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
                                             <ul class="submenu">
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                     <li *ngIf="menu.type=='M1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
@@ -85,6 +85,9 @@
                                                         <li *ngIf="menu.type=='M2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
                                                 <li class="headerli" *ngIf="headdata.as400"><hr><div>Internal Users Only</div></li> 
+                                                <ng-container *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='M3'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
                                                 <li><a *ngIf="headdata.as400" routerLink="/app/SalesPersons">Salesperson Maintenance</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/DescOverride','Program']">Program Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/DescOverride','Coverage']">Coverage Overrides</a></li>
@@ -198,11 +201,11 @@
         </div>
         <div class="modal-body">
             <div class="flat-input w100 text-center" *ngIf="headdata.as400">
-                <input class="pull-left" style="margin-right:15px" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  type="text" placeholder="Dealer Code" maxlength="10">
+                <input class="pull-left" style="margin-right:15px" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  type="text" placeholder="Dealer Code" maxlength="10">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
             </div>
             <div class="flat-input w100 text-center" *ngIf="headdata.sales">
-                <input class="pull-left" style="margin-right:15px" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroupsAles()"  type="text" placeholder="Dealer Code / Name" maxlength="30">
+                <input class="pull-left" style="margin-right:15px" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroupsAles()"  type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
             </div>
           <ul *ngIf="headdata.as400 && !process && headdata.loctn" style="max-height: 400px;overflow-y: scroll">

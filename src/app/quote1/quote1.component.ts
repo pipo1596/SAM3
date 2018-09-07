@@ -89,7 +89,10 @@ setDate(e){
 }
 
 previous(){
-  Util.modalid("hide","newQuote");
+  if(this.pagedata.body.step == "1"){Util.modalid("hide","newQuote");return;}
+  if(this.pagedata.body.step == "2"){this.router.navigate(['/app/Quote2']);}
+  if(this.pagedata.body.step == "3"){this.router.navigate(['/app/Quote3']);}
+  if(this.pagedata.body.step == "4"){this.router.navigate(['/app/Results']);}
 }
 newquote(){
   Util.showWait();

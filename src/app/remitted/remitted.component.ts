@@ -141,6 +141,7 @@ err => {Util.responsiveMenu(); },
 () => {
 this.pagemode = 'L'; 
 var index = this.pagedata.contracts.findIndex(obj => obj.ecno==this.eecno);
+this.changes =false;
 if(index>=0) {
   this.pagedata.contracts[index].fnam = this.eofn.value;
   this.pagedata.contracts[index].lnam = this.eoln.value;
@@ -175,6 +176,7 @@ for (var i = 0; i < numbers.length; i++) {
   	.subscribe(data => this.view = data,
   		err => {Util.responsiveMenu(); },
   		() => {
+        this.changes = false;
         this.pagemode = 'V'; 
 
         this.eofn.message='';

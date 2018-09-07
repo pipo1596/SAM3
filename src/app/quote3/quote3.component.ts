@@ -37,6 +37,8 @@ export class Quote3Component implements OnInit {
   firsttable: number = 0;
   hasQuote1:boolean = true;
   otcmode = false;
+  notaxalert = true;
+  tempcont :any;
   //Bottom Section
   validating = false;
   valid = false;
@@ -61,10 +63,18 @@ export class Quote3Component implements OnInit {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
   }
-
+  canceltax(){
+    Util.modalid("hide","taxmodal");
+  }
+  oktax(){
+    Util.modalid("hide","taxmodal");
+    this.notaxalert = false;
+    this.createCont(this.tempcont);
+  }
   createCont(cont) {
     if (cont == undefined) { Util.alertmodal("Select a coverage!", "Errors Detected"); return false; }
-
+    if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal");this.tempcont=cont; return false;}
+    this.notaxalert = true;
     Util.showWait();
     var contract: any = {};
     contract.mode = 'CONT';
@@ -116,7 +126,7 @@ export class Quote3Component implements OnInit {
     this.location.replaceState("/app/Quote3");
     setTimeout(() => {
       Util.hideWait();
-      Util.scrollToId('userinfo');
+      Util.scrollToId('quotesteps');
     }, 300);
   }
   //==================================================================================================//  

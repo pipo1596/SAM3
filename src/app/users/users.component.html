@@ -118,7 +118,8 @@
                 <div class="col-md-12 hidden-xs">
                     <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
-                        <button name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} User</button>
+                        <button *ngIf="!salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} User</button>
+                        <button *ngIf="salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Salesperson</button>
                     </span>
                     <span class="flat-input">
                         <button [class.hidden]="mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="pull-right btn-danger" style="margin-right:10px"

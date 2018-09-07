@@ -209,7 +209,15 @@ export class SavedquotesComponent implements OnInit {
   				Util.showWait();
   				this.dispAlert.default();
   				setTimeout(() => {
-  					this.router.navigate(['/app/Results']);
+            switch(this.errSet.message){
+              case("1"): this.router.navigate(['/app/Quote1']);break;
+              case("2"): this.router.navigate(['/app/Quote2']);break;
+              case("3"): this.router.navigate(['/app/Quote3']);break;
+              case("4"): this.router.navigate(['/app/Results']);break;
+              default: this.router.navigate(['/app/Quote1']);
+            }
+            
+  					
   				}, 100);
   				this.changes = false;
   			} else {

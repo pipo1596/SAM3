@@ -70,8 +70,8 @@
 			</div>
 
 			<div class="row white apply-delete-space">						
-				<div class="col-sm-6" *ngIf="pager.totalPages>1">
-					<ul *ngIf="pager.pages && pager.pages.length" class="pagination ULpageOf">
+				<div class="col-xs-6" [class.invisible]="pager.totalPages<=1">
+					<ul *ngIf="pager.pages && pager.pages.length" class="pagination ULpageOf pull-left">
 						<li [ngClass]="{disabled:pager.currentPage === 1}">
 							<a (click)="setPage(pager.currentPage - 1)">Previous</a>
 						</li>
@@ -82,6 +82,9 @@
 							<a (click)="setPage(pager.currentPage + 1)">Next</a>
 						</li>
 					</ul>
+				</div>
+				<div class="col-xs-6" [class.invisible]="pageCount<1">
+					<label class="pull-right" style="margin:15px 10px 0 0;font-weight: bold;">( {{pageCount}} - Quotes Found )</label>	
 				</div>
 
 				<div class="col-sm-6 text-right hidden-xs" style="margin-top:10px;">

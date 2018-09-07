@@ -30,6 +30,7 @@ export class bodyData{
     condyn :boolean;
     dms     : dms;
     dispdms :string;
+    step:string;
 
 }
 
