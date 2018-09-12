@@ -374,8 +374,8 @@ export class Quote3Component implements OnInit {
     setTimeout(() => {
       this.pagedata.body.mode = "SAVE";
       this.pagedata.body.tables.forEach((table) => {
-        if (table.onetime !== -1.2323 && table.onetime !== undefined)
-          table.ctrct = table.ctrct.substring(0, 50) + table.onetime.toFixed(2);
+        if (table.valu !== -1.2323 && table.valu !== undefined)
+          table.ctrct = table.ctrct.substring(0, 50)+table.valu;
       });
 
       this.pagedata.body.stock = this.stock.value;
@@ -396,6 +396,15 @@ export class Quote3Component implements OnInit {
         .subscribe(data => this.errSet = data,
           err => { this.dispAlert.error(), Util.hideWait(); },
           () => {
+
+            this.pagedata.body.tables.forEach((table) => {
+              if (table.valu !== -1.2323 && table.valu !== undefined)
+                table.ctrct = table.ctrct.substring(0, 50);
+            });
+
+
+
+
             var tb = this.pagedata.body.tables;
             this.pagedata.body.coverages.forEach(cov => {
               var p = parseInt(cov.index.substring(0, 3));
@@ -770,8 +779,8 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
-          if (table.onetime == undefined || table.onetime == -1.2323) table.onetime = parseFloat(this.cont.valu);
-          if (mode == 'D' && this.cont.catg == 'OTC') this.cont.valu = table.onetime.toFixed(2);
+          if (table.valu == undefined || table.valu == -1.2323) table.valu = parseFloat(this.cont.valu);
+          if (mode == 'D' && this.cont.catg == 'OTC') this.cont.valu = table.valu.toFixed(2);
         }
 
         table.rates.forEach((rate, i1) => {
@@ -789,14 +798,14 @@ export class Quote3Component implements OnInit {
                   switch (this.cont.catg) {
                     case "PCT":
                       unitp[0] = unitp[0] * (1 + parseFloat(this.cont.valu));
-                      table.onetime = -1.2323;
+                      table.valu = -1.2323;
                       break;
                     case "OTC":
-                      unitp[0] = unitp[0] + table.onetime;
+                      unitp[0] = unitp[0] + table.valu;
                       break;
                     default:
                       unitp[0] = unitp[0] + parseFloat(this.cont.valu);
-                      table.onetime = -1.2323;
+                      table.valu = -1.2323;
                       break;
                   }
                 }

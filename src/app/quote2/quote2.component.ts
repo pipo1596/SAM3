@@ -150,6 +150,15 @@ export class Quote2Component implements OnInit {
     this.Warnings();
   }
 
+  setCtrct(data){
+    this.pagedata.body.contracts.forEach(ctrct=>{
+      if((ctrct.prgm.padEnd(20)+ctrct.code.padEnd(30)) == data.ctrct){
+        data.catg = ctrct.catg;
+        data.valu = ctrct.valu;
+        return false;
+      }
+    });
+  }
   Warnings(){
     if(!this.valid) return false;
     this.chkdcoverages = [];
@@ -188,9 +197,7 @@ export class Quote2Component implements OnInit {
     Util.scrollToId('quotesteps');
     this.pagedata.body.mode = "SAVE";
     this.pagedata.body.data.forEach(element => {
-      element.cov.coverages.forEach(covelm =>{
-        covelm.desc = covelm.desc.replace(new RegExp('%', 'g'), '');
-      })
+      element.ctrct = element.ctrct.padEnd(50)+element.valu;
       
     });
 
@@ -264,7 +271,10 @@ export class Quote2Component implements OnInit {
       this.pagedata.body.contracts.forEach(ctrct=>{
         if(ctrct.prgm.padEnd(20) == (eachObj.prg.padEnd(10) +eachObj.ratc.padEnd(10))){
           eachObj.showct = true;
-          if(eachObj.ctrct == "") eachObj.ctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30) + ctrct.valu;
+          if(eachObj.ctrct.trim() == ""){ eachObj.ctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30);
+                                   eachObj.valu=ctrct.valu;
+                                   eachObj.catg=ctrct.catg;
+                                  }
           return false;
         }
       });

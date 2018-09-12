@@ -177,14 +177,19 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit() {
     this.resetkey ="";
     var initmode = "INIT";
+    this.viewmode = "F";
+
     if (window.location.href.indexOf("resetpassword") > -1){
       this.viewmode = "R";
       initmode = "INITR"
       this.resetkey = Util.getparm('resetkey');
     }
-    else{
-      this.viewmode = "F";
+    if (window.location.href.indexOf("activate") > -1){
+      this.viewmode = "A";
+      initmode = "INITA"
+      this.resetkey = Util.getparm('actvkey');
     }
+    
    
     setTimeout(() => { Util.focusById("employee");}, 200);
     Util.showWait();
@@ -198,7 +203,7 @@ export class ForgotPasswordComponent implements OnInit {
             this.router.navigate(['/app/Home']);
           }else{
               Util.hideWait();  
-              if(this.viewmode == "R"){
+              if(this.viewmode == "R" || this.viewmode == "A"){
               this.dispAlert.status = this.pagedata.body.status;
               this.dispAlert.message= this.pagedata.body.message;
               }

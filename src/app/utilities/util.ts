@@ -30,13 +30,13 @@ static checkbyid(id){
 
 static Url(prgrm:string):string{
     if (location.hostname === "localhost")
-        return "http://192.168.6.48:64005/"+prgrm;
+        return "http://192.168.6.47:64005/"+prgrm;
     else
         return '/'+prgrm;
 }
 static UrlStatic(prgrm:string):string{
     if (location.hostname === "localhost")
-        return "http://192.168.6.48:64005/"+prgrm;
+        return "http://192.168.6.47:64005/"+prgrm;
     else
         return location.origin+'/'+prgrm;
 }
@@ -351,6 +351,12 @@ static validemail(emal){
 //===================================================================================//
 static focusById(id){
     $("#"+id).focus();
+}
+//===================================================================================//
+static selectById(id){
+    $("#"+id).focus();
+    setTimeout(function(){ 
+        $("#"+id).select();},200);
 }
 //===================================================================================//
 static showWait2(){

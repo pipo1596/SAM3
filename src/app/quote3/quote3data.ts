@@ -41,6 +41,7 @@ export class Data{
     showct: boolean = false;
  selected : string =""; 
     ctrct :string ="";
+    valu :string="";
     catg :string ="";
     open :boolean =false;
     nup  :string = "";
@@ -74,7 +75,7 @@ export class Tabl{
     ratc:string="";
     showct: boolean = false;
     show : boolean = false;
-    onetime:number=0;
+    valu:number=0;
     catg :string ="";
     ctrct :string ="";
     nup:string="";

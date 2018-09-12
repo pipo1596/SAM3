@@ -172,15 +172,19 @@ addDealer(){
     .subscribe(data => this.dlrv = data,
       err => {  },
       () => {
-        if(this.dlrv.dlri == this.dlr.value){
+        if(this.dlrv.dlri == this.dlr.value && this.dlrv.desc !== ""){
           var index = this.selectedUser.dlr.findIndex(obj => obj.dlri==this.dlr.value);
           if(index <0) this.selectedUser.dlr.push(this.dlrv);
           this.dlr.erlevel = "S";
           this.dlr.message = "(Dealer Added)";
           this.dlr.value = "";
         }else{
-          this.dlr.erlevel = "D";
-          this.dlr.message = "(Dealer #"+this.dlr.value+" is invalid!)";
+          if(this.dlrv.dlri == "N")
+            this.dlr.message = "(Dealer #"+this.dlr.value+" is invalid!)";
+            else
+            this.dlr.message = "(Dealer is not in the same group!)";
+          
+          this.dlr.erlevel = "D";          
           this.dlr.value = "";
         }
         Util.hideWait();
@@ -378,7 +382,8 @@ checkUser(){
     if (this.fnam.value == "") { this.fnam.message = "(required)"; this.fnam.erlevel = "D"; this.valid = false; }
     if (this.lnam.value == "") { this.lnam.message = "(required)"; this.lnam.erlevel = "D"; this.valid = false; }
     if (this.rlno.value == "") { this.rlno.message = "(required)"; this.rlno.erlevel = "D"; this.valid = false; }
-    if (this.disc.value!=="" && this.slcd.value!=="") { this.disc.message = "(Agent -- OR -- Salesperson Code Allowed)"; this.disc.erlevel = "D"; this.valid = false; }
+    if (this.salesmode && this.disc.value!=="" && this.slcd.value!=="") { this.disc.message = "(Agent - OR - Salesperson Code Allowed)"; this.disc.erlevel = "D"; this.valid = false; }
+    if (this.salesmode && this.disc.value =="" && this.slcd.value =="") { this.disc.message = "(Agent - OR - Salesperson Code Required)"; this.disc.erlevel = "D"; this.valid = false; }
 
     //if (this.sprs.value == "" &&  !this.salesmode) { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
     //if(this.sprs.value !=="" && !this.validsprs && !this.salesmode) { this.sprs.message = "(invalid)"; this.sprs.erlevel = "D"; this.valid = false; }

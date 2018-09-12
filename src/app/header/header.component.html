@@ -79,7 +79,6 @@
                                             <ul class="submenu">
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                     <li *ngIf="menu.type=='M1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
-                                                    <li *ngIf="menu.type=='M1'" class="headerli2"><hr></li> 
                                                 </ng-container>
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='M2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
@@ -214,7 +213,7 @@
             </li> 
             <li *ngIf="headdata.loctn.length==0 && dealer!==''"  class=""><b>No results found!</b></li>
           </ul>
-          <ul *ngIf="headdata.sales && temploctn" style="max-height: 400px;overflow-y: scroll">
+          <ul *ngIf="temploctn && !headdata.as400" style="max-height: 400px;overflow-y: scroll">
              <li *ngFor="let loc of temploctn" >
                 <a href="javascript:void(0)" class="lochref" (click)="changeLoc(loc)">{{loc.desc}}</a>
             </li> 

@@ -31,9 +31,14 @@
                         <h3 style="margin-bottom: 0;margin-top: 10px;">New Login Credentials Required</h3>
                         <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                         <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
-                      <span class="flat-input">
+                      <div *ngIf="!created">
+                       <span class="flat-input">
                           <span class="errorspan" [class.opqquezero]="nuser.message===''" [class.alert-danger]="nuser.erlevel==='D'" [class.alert-success]="nuser.erlevel==='S'" [class.validating]="validating">{{nuser.message}}</span> 
                         <input [(ngModel)]="nuser.value" autocomplete="new-password"  name="nuser" id="nuser" [class.required]="nuser.message!==''" [class.validating]="validating" (change)="onChange()" type="text" placeholder="*Your Email" max="70">
+                       </span>
+                       <span class="flat-input">
+                          <span class="errorspan" [class.opqquezero]="nuserc.message===''" [class.alert-danger]="nuserc.erlevel==='D'" [class.alert-success]="nuser.erlevel==='S'" [class.validating]="validating">{{nuserc.message}}</span> 
+                        <input [(ngModel)]="nuserc.value" autocomplete="new-password"  name="nuserc" id="nuserc" [class.required]="nuserc.message!==''" [class.validating]="validating" (change)="onChange()" type="text" placeholder="*Confirm Your Email" max="70">
                        </span>
                       <span class="flat-input">
                           <span class="errorspan" [class.opqquezero]="npassword.message===''" [class.alert-danger]="npassword.erlevel==='D'" [class.alert-success]="npassword.erlevel==='S'" [class.validating]="validating">{{npassword.message}}</span> 
@@ -51,10 +56,11 @@
                       <p  [class.invalid]="!haschr8" [class.valid]="haschr8"  >Minimum <b>8 characters</b></p>
                       <p  [class.invalid]="!matchp"  [class.valid]="matchp"  ><b>Confirm</b> password</p>
                     </div>
-                        
+                      </div>  
                       </div>
-                      <span *ngIf="!changeP" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Log In</button></span>
-                      <span *ngIf="changeP" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Update Login</button></span>
+                      <span *ngIf="created"><a style="color:#337ab7;padding-top:10px;" routerLink="/app/login"  class="pull-left" ><< Login</a></span>
+                      <span *ngIf="!changeP && !created" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Log In</button></span>
+                      <span *ngIf="changeP && !created" class="flat-input"><button type="submit" class="flat-button pull-right"  title="Log In">Update Login</button></span>
                     </form>                                                                              
       </div>                                                                                                                                                                           
   </div>  

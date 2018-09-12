@@ -54,6 +54,7 @@ const routes: Routes = [
   { path: 'app/convert',canDeactivate: [CanDeactivateGuard], component: Login1Component },
   { path: 'app/forgotpassword',canDeactivate: [CanDeactivateGuard], component: ForgotPasswordComponent },
   { path: 'app/resetpassword',canDeactivate: [CanDeactivateGuard], component: ForgotPasswordComponent },
+  { path: 'app/activate',canDeactivate: [CanDeactivateGuard], component: ForgotPasswordComponent },
   { path: 'app/Unremitted',canDeactivate: [CanDeactivateGuard], component: UnremittedComponent },
   { path: 'app/Remitted',canDeactivate: [CanDeactivateGuard], component: RemittedComponent },
   { path: 'app/Processed',canDeactivate: [CanDeactivateGuard], component: ProcessedComponent },

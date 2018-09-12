@@ -154,7 +154,8 @@ showLoc(){
   }
   this.headdata.loctn =  Util.sortByKey(this.headdata.loctn,"desc","A");
   this.temploctn = this.headdata.loctn;
-  Util.focusById("dealersearch");
+  //Util.focusById("dealersearch");
+  Util.selectById("dealersearch");
 }
 
 hideLoc(){

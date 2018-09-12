@@ -58,30 +58,30 @@
                         <div class="clearfix"></div>
                         <h2>Vehicle Information&nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="year.erlevel==='D'" [class.validating]="validating">{{year.message}}</span></h2>
                         <span class="flat-input">
-                          <select class="form__select" name="year{{ran}}" [(ngModel)]="year.value" [class.required]="year.message!==''"  [class.validating]="validating"  (change)="yearChange()">
+                          <select class="form__select" id="yearsel" name="year{{ran}}" [(ngModel)]="year.value" [class.required]="year.message!==''"  [class.validating]="validating"  (change)="yearChange()">
                             <option value="">Select Year</option>
                             <option *ngFor="let yeard of years" [value]="yeard" [attr.selected]="yeard==year.value ? true : null">{{yeard}}</option>
                           </select>
                         </span>
                         <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
-                          <select class="form__select" name="make{{ran}}" [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating"  (change)="makeChange()" [disabled]="year.value===''">
+                          <select class="form__select" id="makesel" name="make{{ran}}" [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating"  (change)="makeChange()" [disabled]="year.value===''">
                             <option value="">Select Make</option>
                             <option *ngFor="let maked of pagedata.body.makes" [value]="maked.make" [attr.selected]="maked.make==make.value ? true : null">{{maked.desc}}</option>
                           </select>
                         </span>
                         <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
-                          <select class="form__select" name="model{{ran}}" [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating"  (change)="onChange()" [disabled]="year.value===''||make.value===''">
+                          <select class="form__select" id="modelsel" name="model{{ran}}" [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating"  (change)="onChange()" [disabled]="year.value===''||make.value===''">
                             <option value="">Select Model</option>
                             <option *ngFor="let modeld of pagedata.body.models" [value]="modeld.model" [attr.selected]="modeld.model==model.value ? true : null">{{modeld.desc}}</option>
                           </select>
                         </span>
                         <span class="flat-input" *ngIf="pagedata.body.type==='R' ||
                                                         (pagedata.body.type==='' && pagedata.body.dtype==='R')">
-                            <input autocomplete="new-password{{ran}}" name="make{{ran}}"  type="text" placeholder="Make" maxlength="17"  [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating" (change)="onChange()">
+                            <input autocomplete="new-password{{ran}}" name="make{{ran}}" id="make" type="text" placeholder="Make" maxlength="17"  [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating" (change)="onChange()">
                         </span>
                         <span class="flat-input" *ngIf="pagedata.body.type==='R' ||
                                                         (pagedata.body.type==='' && pagedata.body.dtype==='R')">
-                                <input autocomplete="new-password{{ran}}" name="model{{ran}}"  type="text" placeholder="Model" maxlength="17"  [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating" (change)="onChange()">
+                                <input autocomplete="new-password{{ran}}" name="model{{ran}}" id="model" type="text" placeholder="Model" maxlength="17"  [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating" (change)="onChange()">
                             </span>
                         <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 style="margin-bottom: 0">OR</h4></div>
                         <div><span class="errorspan2 alert-danger"  [class.hidden]="vin.erlevel==='S'" [class.validating]="vin.erlevel=='D' || validating">{{vin.message}}</span>&nbsp;
@@ -102,7 +102,7 @@
                             </label>
                             <span class="flat-input"  *ngIf="pagedata.body.type==='R' ||
                                                             (pagedata.body.type==='' && pagedata.body.dtype==='R')">
-                                <input autocomplete="new-password{{ran}}" name="prce{{ran}}" id="prce{{ran}}" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                                <input autocomplete="new-password{{ran}}" name="prce{{ran}}" id="prce" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date
                             <span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 

@@ -57,23 +57,24 @@
                             <option *ngFor="let role of pagedata.roles" [value]="role.rlno" [attr.selected]="role.rlno==selectedUser.rlno ? true : null">{{role.desc}}</option>
                         </select>
                     </span>
-                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode">Agent Code
+                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode"><span class="req">*&nbsp;</span>Agent Code
                         <span class="errorspan2" [class.opqquezero]="disc.message===''" [class.alert-danger]="disc.erlevel==='D'" [class.alert-success]="disc.erlevel==='S'" [class.validating]="validating">{{disc.message}}</span> 
                     </label>
                     <div class="flat-input w100" [class.hidden]="!pagedata.head.as400 || !salesmode">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="disc{{ran}}" type="text" placeholder="Agent Code"   [(ngModel)]="selectedUser.disc" maxlength="4">
                     </div>
-                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode">Salesperson Code
+                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode">- OR -</label>
+                    <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode"><span class="req">*&nbsp;</span>Salesperson Code
                         <span class="errorspan2" [class.opqquezero]="slcd.message===''" [class.alert-danger]="slcd.erlevel==='D'" [class.alert-success]="slcd.erlevel==='S'" [class.validating]="validating">{{slcd.message}}</span> 
                     </label>
                     <div class="flat-input w100" [class.hidden]="!pagedata.head.as400 || !salesmode">
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="slcd{{ran}}" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="3">
                     </div>
 
-                    <label class="flat-input inputlabel hidden" *ngIf="pagedata.head.as400"><span class="req">*&nbsp;</span>Add Dealer&nbsp;&nbsp;
+                    <label class="flat-input inputlabel" *ngIf="!salesmode">Add Dealer&nbsp;&nbsp;
                         <span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.alert-success]="dlr.erlevel==='S'" [class.validating]="dlr.message!==''">{{dlr.message}}</span> 
                     </label>
-                    <div class="flat-input w100 hidden" *ngIf="pagedata.head.as400">
+                    <div class="flat-input w100" *ngIf="!salesmode">
                      <div class="col-xs-8" style="padding-left:0">
                         <input autocomplete="new-password{{ran}}" (focus)="dealermode=true" (blur)="dealermode=false" (change)="onChange()" name="dlr{{ran}}" type="text" placeholder="Dealer Code"  [class.validating]="validating" [(ngModel)]="dlr.value" maxlength="50">
                     </div>

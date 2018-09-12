@@ -23,6 +23,8 @@ export class Data{
     desc :string ="";
     showct: boolean = false;
     ctrct :string ="";
+    valu :string="";
+    catg :string="";
     open :boolean =false;
     mesg :string = "";
     cov  = new Coverages;
@@ -45,6 +47,7 @@ export class Deductibles{
 }
 export class Cont{
     code :string="";
+    catg :string="";
     valu :string="";
     prgm :string="";
     desc :string="";

@@ -20,6 +20,7 @@ export class Quote1Component implements OnInit {
   valid = false;
   validvin = true;
   dmsmode = false;
+  notfoc:boolean = true;
 
   prevVin:string ="";
   ran:string = Util.makeid();
@@ -123,6 +124,7 @@ condno(){
 checkStep1(){
   if(this.dmsmode) return false;
     this.validating = true;
+    this.notfoc = true;
     this.valid = true;
     //Reset Error Messages
     this.product.message  = "";
@@ -155,27 +157,27 @@ checkStep1(){
 
     if(this.vin.value == ""){
       if (this.year.value == "") { this.year.message = "(Year required)"; this.year.erlevel = "D"; this.valid = false; }
-      if (this.valid && this.make.value == ""){this.year.message = "(Make required)";this.make.message = "R"; this.year.erlevel = "D"; this.valid = false; }
-      if (this.valid && this.model.value == ""){this.year.message = "(Model required)";this.model.message = "R"; this.year.erlevel = "D"; this.valid = false; }
+      if (this.year.message == "" && this.make.value == ""){this.year.message = "(Make required)";this.make.message = "R"; this.year.erlevel = "D"; this.valid = false; }
+      if (this.year.message == "" && this.model.value == ""){this.year.message = "(Model required)";this.model.message = "R"; this.year.erlevel = "D"; this.valid = false; }
     }else{
-      if(!this.validvin){this.vin.message = "(Invalid VIN)";this.vin.erlevel = "D";this.valid = false;}
+      if(!this.validvin){this.vin.message = "(Invalid VIN)";this.vin.erlevel = "D";this.valid = false;if(this.notfoc){ Util.focusById("vAin");this.notfoc=false;}}
     }
 
-    if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;}
+    if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
 
     //Auto
     if(this.pagedata.body.type === "A" || (this.pagedata.body.type ==="" && this.pagedata.body.dtype==="A")){      
-      if(parseInt(this.miles.value) <= 0){this.miles.message = "(Invalid)";this.miles.erlevel="D";this.valid = false;}
-      if(this.valid && this.miles.value.toString().length>7){this.miles.message = "(Too High)";this.miles.erlevel="D";this.valid = false;}
+      if(parseInt(this.miles.value) <= 0){this.miles.message = "(Invalid)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
+      if(this.valid && this.miles.value.toString().length>7){this.miles.message = "(Too High)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
     } 
     //RV
     if(this.pagedata.body.type === "R" || this.pagedata.body.type === "H"){
-      if(this.price.value == "" || this.price.value == null){this.price.message = "(Required)";this.price.erlevel="D";this.valid = false;}
-      if(parseInt(this.price.value) <= 0){this.price.message = "(Invalid)";this.price.erlevel="D";this.valid = false;}
+      if(this.price.value == "" || this.price.value == null){this.price.message = "(Required)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
+      if(parseInt(this.price.value) <= 0){this.price.message = "(Invalid)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
     }  
 
-    if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;}
-    if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;}
+    if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}}
+    if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}}
 
     if(!this.valid){Util.scrollToId('quotesteps');}
     if (this.valid){//Serve Action

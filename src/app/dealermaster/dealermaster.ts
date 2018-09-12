@@ -12,6 +12,7 @@ export class Body{
 	user : string;
 	type : string;
 	dsid : string;
+	pack : string;
 	pass : string;
 	drop :[ Drp ];
 }

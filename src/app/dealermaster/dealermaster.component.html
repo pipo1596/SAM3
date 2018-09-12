@@ -17,7 +17,7 @@
 					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
 					<div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
 				</div>
-				<div class="col-sm-6" style="margin-right:10px;">
+				<div class="col-sm-6">
 					<label class="flat-input inputlabel">DMS Mode
 						<span class="errorspan2" [class.opqquezero]="dsmd.message===''" [class.alert-danger]="dsmd.erlevel==='D'"  [class.validating]="validating">{{dsmd.message}}</span> 
 					</label>
@@ -25,6 +25,15 @@
 						<select *ngIf="pagedata.body" autocomplete="new-password" class="form__select" name="prgm" id="prgm" [class.validating]="validating"  (change)="onChangeDrop()" [(ngModel)]="dsmd.value">
 							<option value="" >Select</option>
 							<option *ngFor="let option of pagedata.body.drop" [value]="option.key" >{{option.desc}}</option>
+						</select>
+					</span>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel">Access Packs</label>
+					<span class="flat-input">
+						<select *ngIf="pagedata.body" autocomplete="new-password" class="form__select" name="pack" id="pack" [class.validating]="validating"  [(ngModel)]="pack.value">
+							<option value="Y" >Yes</option>
+							<option value="N" >No</option>
 						</select>
 					</span>
 				</div>

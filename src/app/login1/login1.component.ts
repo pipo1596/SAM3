@@ -20,6 +20,7 @@ export class Login1Component implements OnInit {
   employee = new Textfield ;
   password = new Textfield ;
   nuser = new Textfield ;
+  nuserc = new Textfield ;
   npasswordc = new Textfield ;
   npassword = new Textfield ;
   form1 = "";
@@ -34,6 +35,7 @@ export class Login1Component implements OnInit {
   hasnum = false;
   matchp = false;
   haschr8= false;
+  created:boolean = false;
 
   validPass(){
   
@@ -90,6 +92,7 @@ export class Login1Component implements OnInit {
     this.employee.value = this.employee.value.trim();
     this.password.value = this.password.value.trim();
     this.nuser.value = this.nuser.value.trim();
+    this.nuserc.value = this.nuserc.value.trim();
     this.npassword.value = this.npassword.value.trim();
     this.npasswordc.value = this.npasswordc.value.trim();
 
@@ -98,10 +101,13 @@ export class Login1Component implements OnInit {
     if (this.password.value == "") { this.password.message = "Password required."; this.password.erlevel = "D"; this.valid = false; }
     if(this.changeP){
       this.nuser.message = "";
+      this.nuserc.message = "";
       this.npassword.message = "";
       this.npasswordc.message = "";
       if (this.nuser.value == "") { this.nuser.message = "Email required."; this.nuser.erlevel = "D"; this.valid = false; }
+      if (this.nuserc.value == "") { this.nuserc.message = "Confirm your email."; this.nuserc.erlevel = "D"; this.valid = false; }
       if (this.nuser.value !== "" && !Util.validemail(this.nuser.value)){ this.nuser.message = "Invalid Email!"; this.nuser.erlevel = "D"; this.valid = false; }
+      if (this.valid && (this.nuserc.value !== this.nuser.value)){ this.nuser.message = "Emails don't match!"; this.nuser.erlevel = "D"; this.valid = false; }
       if (this.npassword.value == "") { this.npassword.message = "New Password required."; this.npassword.erlevel = "D"; this.valid = false; }
       if (this.npasswordc.value == "") { this.npasswordc.message = "Confirm Password."; this.npasswordc.erlevel = "D"; this.valid = false; }
       if (this.valid && this.npassword.value !== this.npasswordc.value) { this.npassword.message = "Passwords don't match!"; this.npassword.erlevel = "D"; this.valid = false;}
@@ -136,11 +142,11 @@ export class Login1Component implements OnInit {
             if(this.dispAlert.data=="C") {this.changeP = true;setTimeout(() => { Util.focusById("nuser");}, 200);}
             if (this.dispAlert.status === "S") {
               Util.hideWait();
-              
-              setTimeout(() => {
-                Util.showWait();   
-                this.router.navigate(['/app/Home']);
-              }, 500);
+              this.created = true;
+            //  setTimeout(() => {
+            //    Util.showWait();   
+            //    this.router.navigate(['/app/Home']);
+            //  }, 500);
             }
             else {
               Util.hideWait();
