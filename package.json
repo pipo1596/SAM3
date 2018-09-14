@@ -20,13 +20,17 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "adm-zip": "^0.4.11",
     "core-js": "^2.5.4",
+    "cryptiles": "^4.1.2",
     "date-input-polyfill": "^2.14.0",
     "hoek": "^5.0.4",
     "jquery": "^3.3.1",
+    "parsejson": "0.0.3",
     "rxjs": "^6.0.0",
     "uglify-es": "3.2.2",
     "uglifyjs-webpack-plugin": "1.1.5",
+    "url-parse": "^1.4.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
