@@ -219,7 +219,7 @@ export class DescoverrideComponent implements OnInit {
   		() => {
 			Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
-  			if (this.pagedata.head.status === "O") {
+  			if (this.pagedata.head.status === "O" || !this.pagedata.head.as400) {
   				Util.showWait();
   				setTimeout(() => {
   					Util.hideWait();

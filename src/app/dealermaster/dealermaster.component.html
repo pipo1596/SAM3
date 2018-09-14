@@ -55,8 +55,7 @@
 						<input autocomplete="new-password"  name="dsid" type="text" placeholder="DMS ID" [class.required]="dsid.message !==''"  [class.validating]="validating" [(ngModel)]="dsid.value" max="99" (change)="onChange()">
 					</div>
 				</div>
-
-				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SIS' }">
+				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value=='' }">
 					<label class="flat-input inputlabel">DMS User ID
 						<span class="errorspan2" [class.opqquezero]="user.message===''" [class.alert-danger]="user.erlevel==='D'" [class.validating]="validating">{{user.message}}</span> 
 					</label>

@@ -3,6 +3,7 @@ import { bodyData } from "../globalfilters/filtersdata";
 
 export class Usersdata{
     public head = new Headerdata ;
+    public ingrp :boolean= false;
     public users :[ User ];
     public roles :[ Role ];
 }
@@ -17,6 +18,8 @@ export  class User{
     smode: boolean;
     user : string;
     useri : string;
+    agrp : string;
+    stat : string;
     rlno : string;
     rold : string;
     fnam : string;

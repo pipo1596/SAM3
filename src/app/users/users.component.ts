@@ -40,6 +40,7 @@ export class UsersComponent implements OnInit {
   //Input Fields
   user = new  Textfield ;
   rlno = new  Textfield ;
+  stat = new  Textfield ;
   fnam = new  Textfield ;
   lnam = new  Textfield ;
   pswdc= new  Textfield ;
@@ -58,6 +59,8 @@ export class UsersComponent implements OnInit {
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "agrp":"",
+    "stat":"",
     "rlno":"",
     "rold":"",
     "fnam":"",
@@ -73,6 +76,8 @@ export class UsersComponent implements OnInit {
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "agrp":"",
+    "stat":"",
     "rlno":"",
     "rold":"",
     "fnam":"",
@@ -90,7 +95,13 @@ export class UsersComponent implements OnInit {
     private router: Router) { 
 
     }
+  toggleagrp(){
+   if( this.selectedUser.agrp == 'Y') 
+    this.selectedUser.agrp = '' ;
+   else
+    this.selectedUser.agrp = 'Y';
 
+    }
 salesvalid(){
   this.validsprs = false;
   if(this.pvsprs==this.selectedUser.sprs)return;
@@ -160,6 +171,7 @@ validPass(){
 }
 
 addDealer(){
+  if(this.selectedUser.agrp == 'Y') return;
   this.validating = false;
   if(this.dlr.value==""){
     this.dlr.erlevel = "D";
@@ -209,6 +221,8 @@ onSelect(user: User): void {
   this.selectedUser.user = user.user;
   this.selectedUser.useri = user.useri;
   this.selectedUser.rlno = user.rlno;
+  this.selectedUser.agrp = user.agrp;
+  this.selectedUser.stat = user.stat;
   this.selectedUser.rold = user.rold;
   this.selectedUser.fnam = user.fnam;
   this.selectedUser.lnam = user.lnam;
@@ -249,6 +263,8 @@ addUserInit(){
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "agrp":"",
+    "stat":"",
     "rlno":"",
     "rold":"",
     "fnam":"",
@@ -322,6 +338,8 @@ cancel(){
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "agrp":"",
+    "stat":"",
     "rlno":"",
     "rold":"",
     "fnam":"",
@@ -354,6 +372,7 @@ checkUser(){
     //Reset Error Messages
     this.user.message  = "";
     this.rlno.message  = "";
+    this.stat.message  = "";
     this.fnam.message  = "";
     this.lnam.message  = "";
     this.sprs.message  = "";
@@ -368,6 +387,7 @@ checkUser(){
     //switch valid 
     this.validsprs = true;
     this.user.value  = this.selectedUser.user.trim();
+    this.stat.value  = this.selectedUser.stat.trim();
     this.rlno.value  = this.selectedUser.rlno.trim();
     this.fnam.value  = this.selectedUser.fnam.trim();
     this.lnam.value  = this.selectedUser.lnam.trim();
@@ -395,6 +415,7 @@ checkUser(){
     Util.showWait();
     this.selectedUser.mode = this.mode;
     this.selectedUser.pswd = this.pswd1;
+    if(this.selectedUser.agrp == 'Y'){ this.selectedUser.dlr = [{"dlri":"","desc":""}]; this.selectedUser.dlr.pop();}
     this.usersService
     //.initService(Util.formdata("adduser"),Util.Url("CGICUSERSS"))
     
@@ -411,6 +432,8 @@ checkUser(){
               "smode":this.salesmode,
               "user":this.selectedUser.user,
               "useri":this.selectedUser.user,
+              "agrp":this.selectedUser.agrp,
+              "stat":this.selectedUser.stat,
               "rlno":this.selectedUser.rlno,
               "rold":Util.getSelText(this.selectedUser.rlno,this.pagedata.roles),
               "fnam":this.selectedUser.fnam,
@@ -425,7 +448,7 @@ checkUser(){
             setTimeout(() => {
               Util.showWait();   
               this.cancel();
-            }, 1000);
+            }, 300);
 
 
           }
@@ -434,6 +457,8 @@ checkUser(){
             //alert(this.index);
             this.selectedUserG.user = this.selectedUser.user;
             this.selectedUserG.rlno = this.selectedUser.rlno;
+            this.selectedUserG.agrp = this.selectedUser.agrp;
+            this.selectedUserG.stat = this.selectedUser.stat;
             this.selectedUserG.rold = Util.getSelText(this.selectedUser.rlno,this.pagedata.roles);
             this.selectedUserG.fnam = this.selectedUser.fnam;
             this.selectedUserG.lnam = this.selectedUser.lnam;
@@ -445,7 +470,7 @@ checkUser(){
             setTimeout(() => {
               Util.showWait();   
               this.cancel();
-            }, 1000);
+            }, 300);
           }
           this.changes = false;
           

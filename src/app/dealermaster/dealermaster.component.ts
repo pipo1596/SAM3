@@ -65,7 +65,6 @@ export class DealermasterComponent implements OnInit {
     Util.showWait();
     this.pagedata.body.mode = "SAVE";
     if(this.dsmd.value === "SE"){
-      this.user.value = "";
       this.pass.value = "";
     } else if(this.dsmd.value === "SIS"){
       this.type.value = "";

@@ -2273,7 +2273,8 @@ date-input-polyfill button{padding:5px;}
      -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.02);
      box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.02);
 }
-
+.usractv{background-color: #dff0d8 !important}
+.usrdsbl{background-color: #f2dede !important}
 .dealparent{ background-color:#fff;
     background-repeat: no-repeat;
     background-image: url(/assets/images/home2.jpg);
@@ -2720,7 +2721,7 @@ select:disabled{cursor: not-allowed;background-color: #eeeeee;}
 .modal.step3left h3{margin:5px 0 10px 5px;}
 .step3left .sectionlabel{background:white;}
 .step3left .sectionlabel.selected {
-    border: 2px solid #428bca;
+    box-shadow: 1px 1px #428bca;
 }
 span.req{color: #a94442;font-size: 16px;font-weight: bold;}
 .sectionlabel.active{background:white;cursor:pointer;}

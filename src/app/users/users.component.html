@@ -23,6 +23,13 @@
                     <input id="mode" id="formmode" name="mode" type="hidden" [(ngModel)]="mode">
                     <input id="useri" name="useri" type="hidden" [(ngModel)]="useri">
                     <input id="editp" name="editp" type="hidden" [(ngModel)]="editP">
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Status</label>
+                    <span class="flat-input">
+                        <select  (change)="onChange()" class="form__select" name="stat{{ran}}" id="stat" [(ngModel)]="selectedUser.stat" [class.usractv]="selectedUser.stat==''" [class.usrdsbl]="selectedUser.stat=='D'">
+                            <option value="">Active</option>
+                            <option value="D">Disabled</option>
+                        </select>
+                    </span>
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Email
                         <span class="errorspan2" [class.opqquezero]="user.message===''" [class.alert-danger]="user.erlevel==='D'" [class.alert-success]="user.erlevel==='S'" [class.validating]="validating">{{user.message}}</span> 
                     </label>
@@ -49,7 +56,7 @@
                     </div>
 
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Authority
-                            <span class="errorspan2" [class.opqquezero]="rlno.message===''" [class.alert-danger]="rlno.erlevel==='D'" [class.alert-success]="rlno.erlevel==='S'" [class.validating]="validating">{{rlno.message}}</span> 
+                        <span class="errorspan2" [class.opqquezero]="rlno.message===''" [class.alert-danger]="rlno.erlevel==='D'" [class.alert-success]="rlno.erlevel==='S'" [class.validating]="validating">{{rlno.message}}</span> 
                     </label>
                     <span class="flat-input">
                         <select  (change)="onChange()" class="form__select" name="rlno{{ran}}" id="rlno" [(ngModel)]="selectedUser.rlno" [class.required]="rlno.value===''"  [class.validating]="validating">
@@ -57,6 +64,7 @@
                             <option *ngFor="let role of pagedata.roles" [value]="role.rlno" [attr.selected]="role.rlno==selectedUser.rlno ? true : null">{{role.desc}}</option>
                         </select>
                     </span>
+                    
                     <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode"><span class="req">*&nbsp;</span>Agent Code
                         <span class="errorspan2" [class.opqquezero]="disc.message===''" [class.alert-danger]="disc.erlevel==='D'" [class.alert-success]="disc.erlevel==='S'" [class.validating]="validating">{{disc.message}}</span> 
                     </label>
@@ -71,17 +79,24 @@
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="slcd{{ran}}" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="3">
                     </div>
 
-                    <label class="flat-input inputlabel" *ngIf="!salesmode">Add Dealer&nbsp;&nbsp;
+                    <label class="flat-input inputlabel" *ngIf="!salesmode && pagedata.ingrp=='Y'">Add Dealer&nbsp;&nbsp;
                         <span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.alert-success]="dlr.erlevel==='S'" [class.validating]="dlr.message!==''">{{dlr.message}}</span> 
                     </label>
-                    <div class="flat-input w100" *ngIf="!salesmode">
-                     <div class="col-xs-8" style="padding-left:0">
-                        <input autocomplete="new-password{{ran}}" (focus)="dealermode=true" (blur)="dealermode=false" (change)="onChange()" name="dlr{{ran}}" type="text" placeholder="Dealer Code"  [class.validating]="validating" [(ngModel)]="dlr.value" maxlength="50">
+                    <div class="flat-input w100" *ngIf="!salesmode  && pagedata.ingrp=='Y'">
+                     <div class="col-xs-4" style="padding-left:0">
+                        <input autocomplete="new-password{{ran}}"  [disabled]="selectedUser.agrp=='Y'" (focus)="dealermode=true" (blur)="dealermode=false" (change)="onChange()" name="dlr{{ran}}" type="text" placeholder="Dealer Code"  [class.validating]="validating" [(ngModel)]="dlr.value" maxlength="50">
                     </div>
-                    <div class="cold-xs-4">
-                        <a href="javascript:void(0)" class="btn btn-primary" (click)="addDealer()" style="min-width:100px;padding-top:8px;height:40px;">ADD</a>
+                    <div class="col-xs-4">
+                        <a  [class.disabled]="selectedUser.agrp=='Y'" href="javascript:void(0)"  class="btn btn-primary" (click)="addDealer()" style="min-width:100px;padding-top:8px;height:40px;">ADD</a>
                     </div>
-                    <ul *ngIf="pagedata.head.as400 && selectedUser.dlr" class="w100 pull-left">
+                    <div class="col-xs-4" style="padding-top:8px">
+                            <div class="custcheck" (click)="toggleagrp()">
+                                <input name="plan"  type="checkbox"  class="cparent" (change)="selectAll()"  [checked]="selectedUser.agrp=='Y'">
+                                <label></label>
+                            </div>
+                            <label  (click)="toggleagrp()" style="cursor: pointer"><b style="margin-left:28px">Add all</b></label>
+                    </div>
+                    <ul *ngIf="pagedata.head.as400 && selectedUser.dlr" class="w100 pull-left"  [class.hidden]="selectedUser.agrp=='Y'">
                         <ng-container *ngFor="let dealer of selectedUser.dlr">
                         <li  style="padding: 5px" *ngIf="dealer.dlri !==''">
                             <a  title="remove" href="javascript:void(0)" (click)="removeDlr(dealer)"><i class="fa fa-remove" style="font-size:20px;color:red"></i></a>
@@ -92,7 +107,7 @@
                 </div>
                 </div>
                 <div class="col-sm-6">
-                    
+                   
                     
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Password &nbsp;<a href="javascript:void(0)" style="color:red" [class.hidden]="mode==='ADD'" (click)="changePass()">&nbsp;<span [class.hidden]="editP==='N'">(cancel)</span><span [class.hidden]="editP==='Y'">(change password)</span></a>
                             <span class="errorspan2" [class.opqquezero]="pswd.message===''" [class.alert-danger]="pswd.erlevel==='D'" [class.alert-success]="pswd.erlevel==='S'" [class.validating]="validating">{{pswd.message}}</span> 
@@ -116,8 +131,9 @@
                           </div>
                 </div>
                 <div class="clearfix"></div>
+                <div class="col-xs-12"><p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p></div>
+                <div class="clearfix"></div>
                 <div class="col-md-12 hidden-xs">
-                    <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
                         <button *ngIf="!salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} User</button>
                         <button *ngIf="salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Salesperson</button>
@@ -132,7 +148,6 @@
                     </span>
                 </div>
                 <div class="col-md-12 hidden-sm hidden-md hidden-lg">
-                        <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} User">{{modebtn}} User</button>
                         </span>
@@ -160,6 +175,9 @@
                                     <b>Email</b>
                                 </th>
                                 <th>
+                                    <b>Status</b>
+                                </th>
+                                <th>
                                     <b>Name</b>
                                 </th>
                                 <th>
@@ -183,6 +201,8 @@
                             </tr>
                             <tr *ngFor="let user of pagedata.users">
                                 <td data-label="Email">{{user.user}}&nbsp;</td>
+                                <td data-label="Status" *ngIf="user.stat=='D'" class="text-danger">Disabled&nbsp;</td>
+                                <td data-label="Status" *ngIf="user.stat!='D'" class="text-success">Active&nbsp;</td>
                                 <td data-label="Name">{{user.lnam}} {{user.fnam}}&nbsp;</td>
                                 <td data-label="Authority">{{user.rold}}&nbsp;</td>
                                 <td data-label="Salesperson" *ngIf="!salesmode">{{user.sprs}}&nbsp;</td>

@@ -139,7 +139,10 @@
                     
                     <div class="well well-sm sectionlabel" *ngFor="let datads of pagedata.body.data;let m = index">
                     <div class="sectiontop" (click)="toggle(datads)">
-                        <h3 class="pull-left" style="margin:8px 5px">{{datads.desc}}&nbsp;&nbsp;<span class="errorspan2 alert-danger validating" [class.hidden]="datads.mesg==''">{{datads.mesg}}</span></h3><i class="fa sectiond2 fa-caret-up" [ngClass]="{'fa-caret-up':datads.open,'fa-caret-down':!datads.open}"></i><div class="clearfix"></div>
+                        <h3 class="pull-left" style="margin:8px 5px">{{datads.desc}}&nbsp;&nbsp;<span class="errorspan2 alert-danger validating" [class.hidden]="datads.mesg==''">{{datads.mesg}}</span></h3>
+                        <i class="fa sectiond2 fa-caret-up pull-right" [ngClass]="{'fa-caret-up':datads.open,'fa-caret-down':!datads.open}"></i>
+                        <h5 class="pull-right" style="margin:13px 15px 0 0"[class.hidden]="datads.open">Click to select options</h5>
+                        <div class="clearfix"></div>
                     </div>
                     <div class="viewcont" [class.closed]="!datads.open">
                         <hr style="margin:-10px 0 20px 0">
