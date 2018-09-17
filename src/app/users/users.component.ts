@@ -207,7 +207,7 @@ addDealer(){
 
 removeDlr(dealer){
   Util.showWait();
-  var index = this.selectedUser.dlr.findIndex(obj => obj.dlri==dealer.dlr);
+  var index = this.selectedUser.dlr.findIndex(obj => obj.dlri==dealer.dlri);
   this.selectedUser.dlr.splice(index,1);
   this.dlr.erlevel = "S";
   this.dlr.message = "(Dealer removed)";
@@ -230,7 +230,7 @@ onSelect(user: User): void {
   if(this.salesmode) this.selectedUser.sprs ="";
   this.selectedUser.disc = user.disc;
   this.selectedUser.slcd = user.slcd;
-  this.selectedUser.dlr = user.dlr;
+  this.selectedUser.dlr = JSON.parse(JSON.stringify(user.dlr));
   this.selectedUser.pswd = "";
   this.dlr.erlevel ="";
   this.dlr.message ="";
