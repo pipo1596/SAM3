@@ -889,7 +889,7 @@ export class Quote3Component implements OnInit {
           Util.responsiveMenu();
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
-            //this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "desc", "prg", "A");
+            this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "desc", "prg", "A");
             this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
             this.pagedata.body.data[0].open = true;
           }
@@ -944,7 +944,7 @@ export class Quote3Component implements OnInit {
           }
           if (this.pagedata.body.data.length > 0) {
           this.pagedata.body.tables = Util.sortByKey(this.pagedata.body.tables, "desc", "A");
-          this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
+          //this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
           }
           this.nodefaultsel();
           if (window.location.href.indexOf("3") > -1)
