@@ -890,8 +890,8 @@ export class Quote3Component implements OnInit {
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
             this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "desc", "prg", "A");
-            this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
-            this.pagedata.body.data[0].open = true;
+            
+            
           }
           Util.showWait2();
           if(this.pagedata.body.veh.insrvc == ''){
@@ -942,16 +942,19 @@ export class Quote3Component implements OnInit {
             });
 
           }
-          if (this.pagedata.body.data.length > 0) {
-          this.pagedata.body.tables = Util.sortByKey(this.pagedata.body.tables, "desc", "A");
-          //this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
-          }
+          
           this.nodefaultsel();
           if (window.location.href.indexOf("3") > -1)
             this.pagedata.body.pagemode = '3';
           else
             this.pagedata.body.pagemode = 'R';
           this.loading = false;
+          if (this.pagedata.body.data.length > 0) {
+            this.pagedata.body.tables = Util.sortByKey(this.pagedata.body.tables, "desc", "A");
+            this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
+            this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
+            this.pagedata.body.data[0].open = true;
+            }
           setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
 
         }
