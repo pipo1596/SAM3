@@ -102,6 +102,7 @@ export class ContractComponent implements OnInit {
     this.prevVin = "";
   }
   vinCheck(){
+    this.vin.value = this.vin.value.toUpperCase();
     if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
       if(this.vin.value.length == 17 && this.vin.value !== this.prevVin ) {
        this.prevVin = this.vin.value; 

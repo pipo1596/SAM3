@@ -49,6 +49,7 @@ dmsOff(){
 
 vinCheck(mode){
   if(mode == 'S')  this.onChange();
+  this.vin.value = this.vin.value.toUpperCase();
   if(this.vin.erlevel=="D")this.validvin = false; 
   if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
     if(this.vin.value.length == 17 && this.vin.value !== this.prevVin ) {

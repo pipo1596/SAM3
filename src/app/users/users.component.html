@@ -79,10 +79,10 @@
                         <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="slcd{{ran}}" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="3">
                     </div>
 
-                    <label class="flat-input inputlabel" *ngIf="!salesmode && pagedata.ingrp=='Y'">Add Dealer&nbsp;&nbsp;
+                    <label class="flat-input inputlabel" *ngIf="!salesmode && pagedata.ingrp=='Y' && pagedata.head.as400 ">Add Dealer&nbsp;&nbsp;
                         <span class="errorspan2" [class.opqquezero]="dlr.message===''" [class.alert-danger]="dlr.erlevel==='D'" [class.alert-success]="dlr.erlevel==='S'" [class.validating]="dlr.message!==''">{{dlr.message}}</span> 
                     </label>
-                    <div class="flat-input w100" *ngIf="!salesmode  && pagedata.ingrp=='Y'">
+                    <div class="flat-input w100" *ngIf="!salesmode  && pagedata.ingrp=='Y' && pagedata.head.as400 ">
                      <div class="col-xs-4" style="padding-left:0">
                         <input autocomplete="new-password{{ran}}"  [disabled]="selectedUser.agrp=='Y'" (focus)="dealermode=true" (blur)="dealermode=false" (change)="onChange()" name="dlr{{ran}}" type="text" placeholder="Dealer Code"  [class.validating]="validating" [(ngModel)]="dlr.value" maxlength="50">
                     </div>
