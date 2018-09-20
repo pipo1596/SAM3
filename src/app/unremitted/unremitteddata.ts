@@ -21,6 +21,7 @@ export class Cont {
 	show : boolean;
 	iono : string;
 	ecno : string;
+	asuf : string;
 	anum : string;
 	fnam : string;
 	lnam : string;

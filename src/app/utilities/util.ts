@@ -30,7 +30,7 @@ static checkbyid(id){
 
 static Url(prgrm:string):string{
     if (location.hostname === "localhost")
-        return "http://192.168.6.47:64005/"+prgrm;
+        return "http://192.168.6.48:64005/"+prgrm;
     else
         return '/'+prgrm;
 }

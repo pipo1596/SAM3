@@ -125,7 +125,7 @@
 											</div>
 										</span>
 									</td>
-									<td data-label="Contract #"><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}</a></td>	
+									<td data-label="Contract #"><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span></a></td>	
 									<td data-label="Stock #">{{cont.stck}}</td>
 									<td data-label="Name">{{cont.fnam}} {{cont.lnam}}</td>
 									<td data-label="Co-buyer Name">{{cont.cfnm}} {{cont.clnm}}</td>
@@ -157,7 +157,7 @@
 									
 										<tr>
 												<td style="font-weight: bold;text-align: right;width:40%;">Contract Number</td>
-												<td width="50">{{view.anum}}</td>
+												<td width="50">{{view.anum}}<span *ngIf="view.asuf!==''">-{{view.asuf}}</span></td>
 										</tr>
 										<tr *ngIf="!canedit">
 												<td style="font-weight: bold;text-align: right">Full Name</td>

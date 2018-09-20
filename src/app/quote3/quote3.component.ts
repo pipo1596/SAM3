@@ -926,20 +926,7 @@ export class Quote3Component implements OnInit {
             this.hideDupCov();
 
             var tb = this.pagedata.body.tables;
-            this.pagedata.body.coverages.forEach(cov => {
-              var p = parseInt(cov.index.substring(0, 3));
-              var t = parseInt(cov.index.substring(4, 7));
-              var r = parseInt(cov.index.substring(8, 11));
-              var c = parseInt(cov.index.substring(12, 15));
-              if (tb[p] !== undefined && tb[p].rates !== undefined)
-                if (tb[p].rates[t] !== undefined)
-                  if (tb[p].rates[t].data[r] !== undefined)
-                    if (tb[p].rates[t].data[r][c] !== undefined) {
-                      tb[p].rates[t].data[r][c][2] = 1;
-                      tb[p].show = true;
-                    }
-
-            });
+            
 
           }
           
@@ -955,6 +942,20 @@ export class Quote3Component implements OnInit {
             this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
             this.pagedata.body.data[0].open = true;
             }
+            this.pagedata.body.coverages.forEach(cov => {
+              var p = parseInt(cov.index.substring(0, 3));
+              var t = parseInt(cov.index.substring(4, 7));
+              var r = parseInt(cov.index.substring(8, 11));
+              var c = parseInt(cov.index.substring(12, 15));
+              if (tb[p] !== undefined && tb[p].rates !== undefined)
+                if (tb[p].rates[t] !== undefined)
+                  if (tb[p].rates[t].data[r] !== undefined)
+                    if (tb[p].rates[t].data[r][c] !== undefined) {
+                      tb[p].rates[t].data[r][c][2] = 1;
+                      tb[p].show = true;
+                    }
+
+            });  
           setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
 
         }

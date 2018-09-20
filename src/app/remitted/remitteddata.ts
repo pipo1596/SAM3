@@ -23,6 +23,7 @@ export class Cont {
 	iono : string;
 	ecno : string;
 	anum : string;
+	asuf : string;
 	fnam : string;
 	lnam : string;
 	cfnm : string;

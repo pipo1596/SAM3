@@ -36,7 +36,7 @@
                                       <li><a href="javascript:void(0)">&nbsp;</a></li>                                                                                                   
                                   </ul><!-- /.menu -->                                                                                      
                               </nav><!-- /.mainnav -->     
-                              <div class="btn-menu">           
+                              <div class="btn-menu" [class.invisible]="headdata.status!=='I'" >           
                                   <span></span>                
                               </div><!-- //mobile menu button -->      
                           </div><!-- /.nav-wrap -->                    
@@ -129,7 +129,7 @@
                                         <li><a href="javascript:void(0)" (click)="logOut()">Log Out</a></li>                                                                                                   
                                     </ul><!-- /.menu -->                                                                                      
                                 </nav><!-- /.mainnav -->     
-                                <div class="btn-menu">           
+                                <div class="btn-menu"  [class.invisible]="headdata.status!=='I'">           
                                     <span></span>                
                                 </div><!-- //mobile menu button -->      
                             </div><!-- /.nav-wrap -->                    

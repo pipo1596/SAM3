@@ -2295,6 +2295,7 @@ date-input-polyfill button{padding:5px;}
 .agentblock{margin-top:30px}
 
 @media screen and (max-width: 767px) {
+    .dealparent{background-image:none;}
   .dealerblock p{font-size:12px;} }
 
 
