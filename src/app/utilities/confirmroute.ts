@@ -13,7 +13,7 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
 
   canDeactivate(component: CanComponentDeactivate, currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot) {
-    if (nextState.url !== '/login') {
+    if (nextState.url !== '/app/login') {
     return component.canDeactivate ? component.canDeactivate() : true;
     }
     else{

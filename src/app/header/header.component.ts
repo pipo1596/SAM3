@@ -132,7 +132,7 @@ changeLoc(locn){
       initService({"service":"LOCATN","dlr":locn.dlr},Util.Url("CGICSERVE"))
         .subscribe(data=>this.headdata = data,
            err => {},
-           () => { Util.showWait();this.router.navigate(['/login']);});
+           () => { Util.showWait();this.router.navigate(['/app/login']);});
 
 }
 
@@ -142,7 +142,7 @@ logOut(){
       initService({"service":"LOGOUT"},Util.Url("CGICSERVE"))
         .subscribe(data=>this.headdata = data,
            err => {},
-           () => { Util.showWait();this.router.navigate(['/login']);});
+           () => { Util.showWait();this.router.navigate(['/app/login']);});
 }  
 
 
