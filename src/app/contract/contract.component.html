@@ -278,8 +278,8 @@
             </ng-container>
                 <div class="col-xs-12"><hr style="margin-top:8px"></div>
                 <div class="clearfix"></div>
-                <div class="col-xs-12"><h3>Payment Information</h3></div>
-                <div class="col-md-12" style="margin-bottom:20px;margin-top:10px;">
+                <div class="col-xs-12" *ngIf="pagedata.body.contract && pagedata.body.contract.on=='Y'"><h3>Payment Information</h3></div>
+                <div class="col-md-12" *ngIf="pagedata.body.contract && pagedata.body.contract.on=='Y'" style="margin-bottom:20px;margin-top:10px;">
                     <div class="col-sm-3 col-lg-2 col-md-3" style="padding-top:3px;">
                        <h4>Paylink Options:</h4>
                     </div>

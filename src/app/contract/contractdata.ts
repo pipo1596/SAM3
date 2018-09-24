@@ -60,6 +60,7 @@ export class Cont{
       totalp : string = "";
       mthlyp : string = "";
       downpm : string = "";
+          on : string ="Y"
 }
 
 export class Vehicle{

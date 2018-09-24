@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-xs-12" style="z-index:1">
 				<div class="title-section style3 left">
-					<h1 class="title">Overrides Maintenance</h1>
+					<h1 class="title">{{PMTYPE}} Overrides</h1>
 				</div>
 			</div>
 		</div>
@@ -12,7 +12,7 @@
 		<div class="row white">
 			<form *ngIf="selectedRec"  class="contactform style4 clearfix panel-body" method="post" style="display:none;" (submit)="checkData()" id="topform"  autocomplete="off">
 				<div class="col-md-12">
-					<h2>{{modebtn}} Override</h2>
+					<h2>{{modebtn}} {{PMTYPE}} Override</h2>
 					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
           <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
 				</div>
@@ -73,7 +73,7 @@
 			</form>
 
 			<form class="contactform style4 clearfix panel-body" method="post"  autocomplete="off">
-				<h2 class="pull-left">Overrides</h2>
+				<h2 class="pull-left"> {{PMTYPE}} Overrides</h2>
 				<a href="javascript:void(0);" name="submit" class="flat-button pull-right" title="New Override" (click)="addRecInit()" id="addnewb">New Override</a>
 				<div class="p-table-responsive">
 					<table class="table">

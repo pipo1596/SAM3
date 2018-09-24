@@ -21,7 +21,7 @@ export class ContractComponent implements OnInit {
   vindata = new VindData;
   erScrolid :string = "";
 
-  payment:string ='C';
+  payment:string ='F';
   //CC fields
   cctyp : string ="U";
   ccnam  = new Textfield;

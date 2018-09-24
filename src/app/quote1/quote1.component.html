@@ -44,7 +44,7 @@
                   <div class="col-md-6">
                       
                       <div [ngClass]="{'hidden':pagedata.body.dispdms!=='Y'}">
-                        <h3 style="margin-bottom:0px">DMS RECORD # &nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="year.erlevel==='D'" [class.validating]="validating">{{year.message}}</span></h3>
+                        <h3 style="margin-bottom:0px">DMS RECORD # &nbsp;&nbsp; </h3>
                         <div class="col-xs-7" style="padding-left:0">
                             <span class="flat-input">
                                 <input autocomplete="new-password{{ran}}" name="dlno{{ran}}" (focus)="dmsOn()" (blur)="dmsOff()"   [(ngModel)]="dlno.value" type="text" placeholder="DMS RECORD #">   
