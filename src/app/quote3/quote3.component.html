@@ -580,7 +580,7 @@
                             <span class="errorspan2" [class.opqquezero]="stock.message===''" [class.alert-danger]="stock.erlevel==='D'" [class.validating]="validating">{{stock.message}}</span> 
                     </label>
                     <div class="flat-input w100">
-                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="stock{{ran}}" type="text"  placeholder="Stock # / Member ID " [class.required]="stock.message !== ''"  [class.validating]="validating"  [(ngModel)]="stock.value" maxlength="15">
+                        <input autocomplete="new-password{{ran}}" id="stock{{ran}}" (change)="onChange()" name="stock{{ran}}" type="text"  placeholder="Stock # / Member ID " [class.required]="stock.message !== ''"  [class.validating]="validating"  [(ngModel)]="stock.value" maxlength="15">
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -714,7 +714,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="well well-sm" style="background:white">
-                                <h3 class="coverage">{{element.desc}}</h3>
+                                <h3 class="coverage">{{element.desc}}&nbsp;&nbsp;&nbsp;<span class="errorspan2 alert-danger validating" *ngIf="element.selected==undefined">(Select A Coverage)</span></h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -765,17 +765,19 @@
                                         </ng-container>
                                     </tbody>
                                 </table>
-                                <div class="col-xs-12">
-                                    <span class="flat-input">
-                                        <button name="submit" style="background:#f19614" type="submit" (click)="createCont(element.selected)" class="flat-button pull-right" id="submit" title="Continue">Create Contract</button>
-                                        <button name="submit" style="margin-right:15px" type="button" (click)="mode3()" class="flat-button pull-right" id="submit" title="Edit">Edit</button>
-                                    </span>
-                                </div>
+                                
                                 <div class="clearfix"></div>
                             </div>
                             <hr>
                         </ng-container>
                     </ng-container>
+                    <div class="col-xs-12">
+                        <span class="flat-input">
+                            <button *ngIf="pagedata.body.tables.length<2" name="submit" style="background:#f19614" type="submit" (click)="createCont()" class="flat-button pull-right" id="submit" title="Continue">Create Contract</button>
+                            <button *ngIf="pagedata.body.tables.length>1" name="submit" style="background:#f19614" type="submit" (click)="createCont()" class="flat-button pull-right" id="submit" title="Continue">Create Contracts</button>
+                            <button name="submit" style="margin-right:15px" type="button" (click)="mode3()" class="flat-button pull-right" id="submit" title="Edit">Edit</button>
+                        </span>
+                    </div>
                     </div>
                     
                 </form>

@@ -44,6 +44,7 @@ export class Data{
     valu :string="";
     catg :string ="";
     open :boolean =false;
+    dflt :boolean =false;
     nup  :string = "";
     dspn :boolean = false;
     dspu :boolean = false;
@@ -75,11 +76,13 @@ export class Tabl{
     ratc:string="";
     showct: boolean = false;
     show : boolean = false;
+    dflt : boolean = false;
     valu:number=0;
     catg :string ="";
     ctrct :string ="";
     nup:string="";
     desc : string ="";
+    selected:string="";
     rates :[Rate]=[new Rate];
 }
 export class Rate{

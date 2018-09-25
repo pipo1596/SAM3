@@ -33,6 +33,7 @@ export class StaticPageComponent implements OnInit {
   	.subscribe(data => this.pagedata = data,
   		err => {Util.responsiveMenu(); },
   		() => {
+        
         Util.setHead(this.pagedata.head);
         Util.responsiveMenu();
         this.getHtml();
@@ -41,6 +42,7 @@ export class StaticPageComponent implements OnInit {
   }
   getHtml() {
     this.pageid = Util.getparm('pageid');
+    this.pagedata.head.title =decodeURI(Util.getparm('title'));
   	this.htmlService
   	.initService(Util.UrlStatic("StaticPages/"+this.pageid+".html"))
   	.subscribe(data => this.pagehtml = data,

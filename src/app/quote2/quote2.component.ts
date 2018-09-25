@@ -310,7 +310,20 @@ export class Quote2Component implements OnInit {
             Util.hideWait();
             setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
           }
-          
+          this.pagedata.body.data.forEach(parent=>{
+            if(parent.dflt){//Default Fuccillo Conditional Programs if firt time.
+              parent.cov.coverages.forEach((elem)=>{
+                elem.check2 = true;
+              })
+              parent.trm.terms.forEach((elem)=>{
+                elem.check2 = true;
+              })
+              parent.ded.deductibles.forEach((elem)=>{
+                elem.check2 = true;
+              })
+            }
+
+          });
           this.loading = false;
 
         } 

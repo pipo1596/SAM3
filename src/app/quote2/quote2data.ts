@@ -26,6 +26,7 @@ export class Data{
     valu :string="";
     catg :string="";
     open :boolean =false;
+    dflt: boolean = false;
     mesg :string = "";
     cov  = new Coverages;
     trm  = new Terms ;  

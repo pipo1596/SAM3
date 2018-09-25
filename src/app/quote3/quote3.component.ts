@@ -38,7 +38,6 @@ export class Quote3Component implements OnInit {
   hasQuote1:boolean = true;
   otcmode = false;
   notaxalert = true;
-  tempcont :any;
   //Bottom Section
   validating = false;
   valid = false;
@@ -69,38 +68,44 @@ export class Quote3Component implements OnInit {
   oktax(){
     Util.modalid("hide","taxmodal");
     this.notaxalert = false;
-    this.createCont(this.tempcont);
+    this.createCont();
   }
-  createCont(cont) {
-    if (cont == undefined) { Util.alertmodal("Select a coverage!", "Errors Detected"); return false; }
-    if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal");this.tempcont=cont; return false;}
+  createCont() {
+    var selectedall = true;
+    this.pagedata.body.tables.forEach(element => {//One of each required
+      if(element.selected==undefined ) selectedall = false;
+    });
+    if (!selectedall) { Util.alertmodal("Select a coverage for each product!", "Errors Detected"); return false; }
+    if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal"); return false;}
     this.notaxalert = true;
     Util.showWait();
     var contract: any = {};
     contract.mode = 'CONT';
-
-    var p = parseInt(cont.substring(0, 3));
-    var t = parseInt(cont.substring(4, 7));
-    var r = parseInt(cont.substring(8, 11));
-    var c = parseInt(cont.substring(12, 15));
+    this.pagedata.body.tables.forEach(cont =>{
+    var p = parseInt(cont.selected.substring(0, 3));
+    var t = parseInt(cont.selected.substring(4, 7));
+    var r = parseInt(cont.selected.substring(8, 11));
+    var c = parseInt(cont.selected.substring(12, 15));
     var tb = this.pagedata.body.tables[p];
-    contract.CCST = tb.rates[t].data[r][c][0];
-    contract.COVC = tb.rates[t].data[r][c][1];
-    contract.COV =  tb.rates[t].coverage;
-    contract.NUP =  tb.rates[t].nup;
-    contract.PRG = tb.rates[t].program;
-    contract.RATC = tb.rates[t].ratc;
-    contract.CVDS = tb.rates[t].title;
-    contract.DED =  tb.rates[t].cols[c].ded;
-    contract.CVMN = tb.rates[t].rows[r].mon;
-    contract.CVML = tb.rates[t].rows[r].mil;
+    contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
+    contract.COVC += tb.rates[t].data[r][c][1].toString().padEnd(15);
+    contract.COV +=  tb.rates[t].coverage.padEnd(10);
+    contract.NUP +=  tb.rates[t].nup.padEnd(1);
+    contract.PRG += tb.rates[t].program.padEnd(10);
+    contract.RATC += tb.rates[t].ratc.padEnd(10);
+    contract.CVDS += tb.rates[t].title.padEnd(50);
+    contract.DED +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
+    contract.CVMN += tb.rates[t].rows[r].mon.toString().padEnd(3);
+    contract.CVML += tb.rates[t].rows[r].mil.toString().padEnd(7);
+   
     contract.TXRT = this.pagedata.body.tax;
     if(this.pagedata.body.tax>0){
     var subt = (contract.CCST/(1+(contract.TXRT/100)));
-    contract.TAX  =  (contract.CCST - subt).toFixed(2);
+    contract.TAX  +=  (contract.CCST - subt).toFixed(2).toString().padEnd(15);;
     }                
-    contract.TERM = tb.rates[t].rows[r].mon+' Months / ' +
-                    this.withcommas(tb.rates[t].rows[r].mil)+' Miles'; 
+    contract.TERM += tb.rates[t].rows[r].mon+' Months / ' +
+                    this.withcommas(tb.rates[t].rows[r].mil)+' Miles'.padEnd(50);; 
+                  });
     //alert(JSON.stringify(contract)) ;
 
     this.jsonService
@@ -398,13 +403,14 @@ export class Quote3Component implements OnInit {
           () => {
 
             this.pagedata.body.tables.forEach((table) => {
+              table.show = false;
               if (table.valu !== -1.2323 && table.valu !== undefined)
                 table.ctrct = table.ctrct.substring(0, 50);
             });
 
 
 
-
+           
             var tb = this.pagedata.body.tables;
             this.pagedata.body.coverages.forEach(cov => {
               var p = parseInt(cov.index.substring(0, 3));
@@ -470,6 +476,7 @@ export class Quote3Component implements OnInit {
           if (index >= 0) {
             program.check = true;
             table.nup = this.pagedata.body.data[cov[index].indx].nup;
+            table.dflt = this.pagedata.body.data[cov[index].indx].dflt;
             table.showct = false;
             table.prgm = this.pagedata.body.data[cov[index].indx].prg;
             table.ratc = this.pagedata.body.data[cov[index].indx].ratc;
@@ -852,7 +859,7 @@ export class Quote3Component implements OnInit {
         row.toString().padEnd(4) +
         col.toString().padEnd(4)
     };
-    var lesthnfive = true;
+
     if (cov.length > 0 && srcEl.checked) {
       var count = 0;
       cov.forEach(cv => {
@@ -956,6 +963,39 @@ export class Quote3Component implements OnInit {
                     }
 
             });  
+
+            //Default Fuccillo Conditional Programs if firt time.
+            var i=0;
+            
+            this.pagedata.body.tables.forEach((elm,parent)=>{
+              if(elm.dflt){
+                elm.rates.forEach((elm1,table)=>{
+                  elm1.rows.forEach((elm2,row)=>{
+                    elm1.cols.forEach((elm3,col)=>{
+                      if(i<5){
+                      var ind = {
+                        "index": parent.toString().padEnd(4) +
+                         table.toString().padEnd(4) +
+                         row.toString().padEnd(4) +
+                         col.toString().padEnd(4)
+                        };
+                        this.pagedata.body.coverages.push(ind);
+                        this.pagedata.body.tables[parent].rates[table].data[row][col][2] = 1;
+                        i=i+1;
+                        };
+                      })
+                    })
+                })
+              }
+  
+            });
+            if(i>0 && this.pagedata.body.tables.length ==1){
+              setTimeout(() => { Util.scrollToId('userinfo');
+              Util.selectById("stock"+this.ran); }, 100);
+              return false;
+              }
+
+
           setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
 
         }
