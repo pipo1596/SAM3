@@ -43,7 +43,7 @@ export class ContractComponent implements OnInit {
   valid = false;
   months: string = "12";
   mindwn: string = "5";
-  totalp: string = "";
+  totalp: string = "0";
   mthlyp: string = "";
   downpm: string = "";
   downpmMsg: string = "";
@@ -353,8 +353,10 @@ export class ContractComponent implements OnInit {
   clearexp(){
     this.ccexp.value ='';
   }
-  viewPdf(){
-    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.errSet.data),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+  viewPdf(index){
+    alert(index + this.errSet.data + this.errSet.data.substring(index*10-1,index+9));
+
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.errSet.data.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 
     } 
@@ -374,7 +376,7 @@ export class ContractComponent implements OnInit {
     this.changes = false;
     Util.showWait();
     setTimeout(() => {
-
+      var postdata:any ={};
       this.pagedata.body.contract.mode = 'SAVE';
       this.pagedata.body.contract.vin = this.vin.value;
       this.pagedata.body.contract.vpd = this.vpd.value;
@@ -403,12 +405,12 @@ export class ContractComponent implements OnInit {
       this.pagedata.body.contract.achacno = this.achacno.value;
       this.pagedata.body.contract.achchek = this.achchek.value;
       this.pagedata.body.contract.months  = this.months;
-      this.pagedata.body.contract.totalp  = this.totalp;
       this.pagedata.body.contract.mthlyp  = this.mthlyp;
       this.pagedata.body.contract.downpm  = this.downpm;
-
+      postdata.contract = this.pagedata.body.contract;
+      postdata.fields   = this.pagedata.body.fields;
       this.jsonService
-        .initService(this.pagedata.body, Util.Url("CGICCNTRCT"))
+        .initService(postdata, Util.Url("CGICCNTRCT"))
         .subscribe(data => this.errSet = data,
           err => { this.dispAlert.error(), Util.hideWait(); },
           () => {
@@ -474,6 +476,7 @@ formatCVV() {
       .subscribe(data => this.pagedata = data,
         err => {Util.responsiveMenu();  },
         () => {Util.responsiveMenu(); 
+          this.pagedata.body.fields = Util.killDups3(this.pagedata.body.fields);
           Util.setHead(this.pagedata.head);
           this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
           this.defaultFields();
@@ -487,7 +490,9 @@ formatCVV() {
           } else {
             Util.hideWait();
             this.vinCheck();
-            this.totalp = this.pagedata.body.contract.ccst;
+            var totalpn = 0;
+            this.pagedata.body.contract.contracts.forEach(cnt =>{ totalpn += parseFloat(cnt.ccst);});
+            this.totalp = totalpn.toString();
             this.calcChng("totalp");
           }
           

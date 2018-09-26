@@ -44,17 +44,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let cont of pagedata.body.contract.contracts;">
                                             <td style="font-weight: bold">
-                                                <span>{{ pagedata.body.contract.cvds }}
-                                                <span style="color:gray" *ngIf="pagedata.body.contract.nup =='N'">- [New]</span>
-                                                <span style="color:gray" *ngIf="pagedata.body.contract.nup =='U'">- [Used]</span>
-                                                <span style="color:gray" *ngIf="pagedata.body.contract.nup =='P'">- [Program]</span></span>
+                                                <span>{{ cont.cvds }}
+                                                <span style="color:gray" *ngIf="cont.nup =='N'">- [New]</span>
+                                                <span style="color:gray" *ngIf="cont.nup =='U'">- [Used]</span>
+                                                <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span></span>
                                             </td>
-                                            <td style="font-weight: bold">{{ pagedata.body.contract.term }}</td>
-                                            <td style="font-weight: bold" *ngIf="pagedata.body.contract.ded!=='DD'">{{ pagedata.body.contract.ded | currency }}</td>
-                                            <td style="font-weight: bold" *ngIf="pagedata.body.contract.ded =='DD'">{{ pagedata.body.contract.ded }}</td>
-                                            <td style="font-weight: bold">{{ pagedata.body.contract.ccst| currency }}</td>
+                                            <td style="font-weight: bold">{{ cont.term }}</td>
+                                            <td style="font-weight: bold" *ngIf="cont.ded!=='DD'">{{ cont.ded | currency }}</td>
+                                            <td style="font-weight: bold" *ngIf="cont.ded =='DD'">{{ cont.ded }}</td>
+                                            <td style="font-weight: bold">{{ cont.ccst| currency }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="font-weight: bold;text-align:right">Total</td>
+                                        <td colspan="1" style="font-weight: bold;color:#337ab7">{{totalp | currency}}</td>
                                     </tr>
                                 </tbody>
                         </table>
@@ -457,16 +461,49 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">Success</h4>
+                  <h4 class="modal-title pull-left" id="alertTitle">Contract Successfuly Created!</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">Contract Successfuly Created!</p>
+                  <table class="table table-bordered table-striped" *ngIf="pagedata.body.contract">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <b>Coverage</b>
+                                </th>
+                                
+                                <th scope="col">
+                                    <b>Price</b>
+                                </th>
+                                <th scope="col" style="text-align: center">
+                                    <b>VIEW</b>
+                                </th>
+                            </tr>
+                        </thead>
+             <tbody>
+                            <tr *ngFor="let cont of pagedata.body.contract.contracts;let i=index;">
+                                    <td style="font-weight: bold">
+                                        <p>{{ cont.cvds }}
+                                        <span style="color:gray" *ngIf="cont.nup =='N'">- [New]</span>
+                                        <span style="color:gray" *ngIf="cont.nup =='U'">- [Used]</span>
+                                        <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span></p>
+                                        <p>{{ cont.term }}</p>
+                                        <p *ngIf="cont.ded!=='DD'"> {{ cont.ded | currency }}</p>
+                                        <p *ngIf="cont.ded =='DD'"> {{ cont.ded }}</p>
+                                    </td>
+                                    <td style="font-weight: bold">{{ cont.ccst| currency }}</td>
+                                    <td style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="viewPdf(i)"  class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td colspan="1" style="font-weight: bold;text-align:right">Total</td>
+                                <td colspan="2" style="font-weight: bold;color:#337ab7;text-align: left">{{totalp | currency}}</td>
+                            </tr>
+                        </tbody>
+         </table>
                 </div>
                 <div class="modal-footer">
+
                   <a class="btn btn-default" routerLink="/app/Home" >Done</a>
-                  <a class="btn btn-info" routerLink="/app/Results" >Start a New Quote</a>
-                  <a class="btn btn-primary" id="viewPdf" href="javascript:void(0)" (click)="viewPdf()" >View Contract</a>
-                  <div id="waitPdf" class="loader2 pull-right" style="margin:0 25px"></div>
+                  <a class="btn btn-primary" routerLink="/app/Results" >Start a New Quote</a>
                 </div>
               </div>
             </div>

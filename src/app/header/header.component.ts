@@ -132,7 +132,7 @@ changeLoc(locn){
       initService({"service":"LOCATN","dlr":locn.dlr},Util.Url("CGICSERVE"))
         .subscribe(data=>this.headdata = data,
            err => {},
-           () => { Util.showWait();this.router.navigate(['/app/login']);});
+           () => { Util.showWait();this.router.navigate(['/app/Home']);});
 
 }
 

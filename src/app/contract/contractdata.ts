@@ -17,19 +17,21 @@ export class bodyData{
 
 export class Cont{
         mode : string = "";
-        ratc : string = "";
-         prg : string = "";
-         cov : string = "";
-         cvds: string = "";
-         ded : string = "";
-        cvmn : string = "";
-        cvml : string = "";
-        term : string = "";
-         nup : string = "";
+        //Single contract
+        contracts : [Single];
+        // prg : string = "";
+        // cov : string = "";
+        // cvds: string = "";
+        // ded : string = "";
+        //cvmn : string = "";
+        //cvml : string = "";
+        //term : string = "";
+        // nup : string = "";
+        // tax : string = "";
+        //ccst : string = "";
+        //covc : string = "";
+        //End Single Contract
         txrt : string = "";
-         tax : string = "";
-        ccst : string = "";
-        covc : string = "";
        stock : string = "";
        first : string = "";
         last : string = "";
@@ -109,6 +111,20 @@ export class Field{
        value : string="" ;
      message : string = "" ;
      erlevel : string = "" ;
+}
+export class Single{
+    ratc : string = "";
+    prg : string = "";
+    cov : string = "";
+    cvds: string = "";
+    ded : string = "";
+   cvmn : string = "";
+   cvml : string = "";
+   term : string = "";
+    nup : string = "";
+    tax : string = "";
+   ccst : string = "";
+   covc : string = "";
 }
 
 export class Drp{

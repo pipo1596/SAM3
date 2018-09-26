@@ -299,6 +299,15 @@ $.each(array, function(i, el){
 return unique;
 }
 //===================================================================================//
+static killDups3(array){
+var unique : [any] =[{}];
+unique.pop();
+$.each(array, function(i, el){
+    if(unique.findIndex(el => el.name == array[i].name ) === -1) unique.push(el);
+});
+return unique;
+}
+//===================================================================================//
 static sortByKey(array, key,dir) {
     return array.sort(function(a, b) {
         var x = a[key]; var y = b[key];
