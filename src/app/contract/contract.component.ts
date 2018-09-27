@@ -354,7 +354,6 @@ export class ContractComponent implements OnInit {
     this.ccexp.value ='';
   }
   viewPdf(index){
-    alert(index + this.errSet.data + this.errSet.data.substring(index*10-1,index+9));
 
     var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.errSet.data.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	

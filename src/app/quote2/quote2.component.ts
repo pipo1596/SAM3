@@ -52,6 +52,7 @@ export class Quote2Component implements OnInit {
   }
   
   hideDupCov(){
+    var allclosed = true;
     this.pagedata.body.srchg.forEach(elem =>{
       if(elem.type === "VF")
         this.listvf ++;
@@ -64,9 +65,11 @@ export class Quote2Component implements OnInit {
     }
     if(this.pagedata.body.data.length > 0){
     this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc","A");
-    this.pagedata.body.data[0].open = true;
+    
+    //  this.pagedata.body.data[0].open = true;
     }
     this.pagedata.body.data.forEach((elem) =>{
+    if(allclosed && !elem.dflt) {elem.open = true;allclosed = false;}
     elem.cov.coverages =  Util.sortByKey(elem.cov.coverages, "desc","A");
     var prvdesc ="";
     elem.cov.coverages.forEach((coverage) => {

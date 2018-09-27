@@ -4,7 +4,7 @@
         <div class="dealparent">                                                                             
            <img src="assets/images/welcome1.png" >
            <h1 style="margin:5px 20px">Welcome {{this.pagedata.head.fnam}} {{this.pagedata.head.lnam}}!</h1>
-           <div class="dealerblock" *ngIf="this.pagedata.home.name !== ''">
+           <div class="dealerblock" *ngIf="this.pagedata.home.name">
               
               <h3>{{this.pagedata.home.name}}</h3>
               <p>{{this.pagedata.home.add1}}</p>

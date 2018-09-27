@@ -21,7 +21,7 @@
                     <span class="flat-input">
                         <select class="form__select w100" name="ratecard" [(ngModel)]="pagedata.body.ratc" (change)="newCard($event)">
                          <ng-container *ngFor="let card of pagedata.body.drop.ratecards">
-                          <option   [value]="card.card.padEnd(10)+card.termp" [attr.termp]="card.termp" >{{card.desc | uppercase}}</option>
+                          <option   [value]="card.termp.padEnd(10)+card.card" [attr.termp]="card.termp" >{{card.desc | uppercase}}</option>
                         </ng-container>
                         </select> 
                     </span>
