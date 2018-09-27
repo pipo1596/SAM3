@@ -69,7 +69,7 @@ export class Quote2Component implements OnInit {
     //  this.pagedata.body.data[0].open = true;
     }
     this.pagedata.body.data.forEach((elem) =>{
-    if(allclosed && !elem.dflt) {elem.open = true;allclosed = false;}
+    //if(allclosed && !elem.dflt) {elem.open = true;allclosed = false;}
     elem.cov.coverages =  Util.sortByKey(elem.cov.coverages, "desc","A");
     var prvdesc ="";
     elem.cov.coverages.forEach((coverage) => {
@@ -81,9 +81,10 @@ export class Quote2Component implements OnInit {
     }
     });
   });
+  
   }
 
-  checkData() {
+  checkData(mode) {
     this.dispAlert.default();
 
     this.valid  = true;
@@ -116,6 +117,7 @@ export class Quote2Component implements OnInit {
       if (allexcl) this.validd = true;
 //if(this.valid){
     if(!this.validc || !this.validt || !this.validd){ 
+      if(mode == 'S'){
       this.message ="( Select a ";
        
       if(!this.validc) this.message += "Coverage";    
@@ -124,13 +126,14 @@ export class Quote2Component implements OnInit {
       
       this.message += ' )';
              
-
+        
       if(this.valid){
       this.errSet.status = "E";
       this.errSet.message = "Below selections required!";
       //this.dispAlert.setMessage(this.errSet);
       }
       this.valid=false;
+    }
       parent.open = true;
       //Util.scrollToId('quotesteps');
       parent.mesg = this.message;
@@ -145,12 +148,12 @@ export class Quote2Component implements OnInit {
   //}
     });
 
-    if(!this.valid) 
+    if(!this.valid && mode=='S') 
       Util.scrollStep2Err();
     else 
       Util.scrollToId('quotesteps');
     //this.loadDb();
-    this.Warnings();
+    if(mode=='S')this.Warnings();
   }
 
   setCtrct(data){
@@ -327,6 +330,7 @@ export class Quote2Component implements OnInit {
             }
 
           });
+          this.checkData('L');
           this.loading = false;
 
         } 
