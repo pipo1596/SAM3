@@ -113,7 +113,7 @@
 						</thead>
 						<tbody>
 							<tr *ngIf="pagedItems.length <1">
-								<td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Saved Quotes To List----</h4></td>                        
+								<td colspan="9"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Saved Quotes To List----</h4></td>                        
 							</tr>
 							<ng-container *ngFor="let cont of (pagedItems)">
 								<tr *ngIf="cont.show === true">

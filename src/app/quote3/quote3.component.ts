@@ -389,7 +389,7 @@ export class Quote3Component implements OnInit {
   //==================================================================================================//
   loadDb() {
     if (!this.valid){Util.scrollToId('userinfo'); return false;}
-    Util.showWait2();
+    Util.showWait2('');
     this.applySurch("D");
     setTimeout(() => {
       this.pagedata.body.mode = "SAVE";
@@ -900,7 +900,7 @@ export class Quote3Component implements OnInit {
   //==================================================================================================//  
   ngOnInit() {
     this.pagedata.head.status = "I";
-    Util.showWait2();
+    Util.showWait2('');
     this.pagedata.head = Util.getHead(this.pagedata.head);
     this.jsonService
       .initService({ "mode": "INIT" }, Util.Url("CGICQUOTE3"))
@@ -915,7 +915,7 @@ export class Quote3Component implements OnInit {
             
             
           }
-          Util.showWait2();
+          Util.showWait2('');
           if(this.pagedata.body.veh.insrvc == ''){
             Util.hideWait2();
               this.router.navigate(['/app/Quote1']);

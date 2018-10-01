@@ -61,7 +61,7 @@ dealerGroupsAles(){
   var self = this;
   if(this.dealer !== ""){
   this.keytime = setTimeout(()=>{ 
-    self.temploctn = [{"dlr":"","desc":""}]; self.temploctn.pop();
+    self.temploctn = [{"stat":"","dlr":"","desc":""}]; self.temploctn.pop();
                 self.headdata.loctn.forEach(loc =>{ 
                   var toucase1 = loc.desc.toUpperCase();
                   var toucase2 = self.dealer.toUpperCase();
@@ -76,14 +76,14 @@ dealerGroupsAles(){
     }, 100);
   }else{
     this.temploctn = this.headdata.loctn;
-    self.process = false;
+    self.process = false; 
   }
 }
 
 dealerGroups(){
   if(this.process || this.dealer == this.dealerp){ return false; }
 
-  this.headdata.loctn = [{"dlr":"","desc":""}]
+  this.headdata.loctn = [{"stat":"","dlr":"","desc":""}]
   this.process = true;
   clearTimeout(this.keytime);
   var self = this;

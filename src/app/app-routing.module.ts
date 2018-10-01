@@ -24,6 +24,8 @@ import { UnremittedComponent } from './unremitted/unremitted.component';
 import { RemittedComponent } from './remitted/remitted.component';
 import { ProcessedComponent } from './processed/processed.component';
 import { InvoicesComponent } from './invoices/invoices.component';
+import { LegacyinvoicesComponent } from './legacyinvoices/legacyinvoices.component';
+import { MigrationComponent } from './migration/migration.component';
 import { StatementComponent } from './statement/statement.component';
 import { StaticPageComponent } from './staticpage/staticpage.component'; 
 import { ProfitComponent } from './profit/profit.component';
@@ -59,6 +61,8 @@ const routes: Routes = [
   { path: 'app/Remitted',canDeactivate: [CanDeactivateGuard], component: RemittedComponent },
   { path: 'app/Processed',canDeactivate: [CanDeactivateGuard], component: ProcessedComponent },
   { path: 'app/Invoices',canDeactivate: [CanDeactivateGuard], component: InvoicesComponent },
+  { path: 'app/LegacyInvoices',canDeactivate: [CanDeactivateGuard], component: LegacyinvoicesComponent },
+  { path: 'app/Migration',canDeactivate: [CanDeactivateGuard], component: MigrationComponent },
   { path: 'app/DealerStatement',canDeactivate: [CanDeactivateGuard], component: StatementComponent },
   { path: 'app/StaticPage',canDeactivate: [CanDeactivateGuard], component: StaticPageComponent },
   { path: 'app/DealerProfit',canDeactivate: [CanDeactivateGuard], component: ProfitComponent },

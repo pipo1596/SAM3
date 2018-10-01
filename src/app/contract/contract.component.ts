@@ -7,6 +7,7 @@ import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
 import { Data } from '../quote2/quote2data';
 import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-contract',
@@ -33,6 +34,8 @@ export class ContractComponent implements OnInit {
   achrotn  = new Textfield;
   achacno  = new Textfield;
   achchek  = new Textfield;
+  tries : number = 0;
+  ionos : string ="";
 
   vinE:boolean = true;
   validvin:boolean = false;
@@ -355,7 +358,7 @@ export class ContractComponent implements OnInit {
   }
   viewPdf(index){
 
-    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.errSet.data.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 
     } 
@@ -373,7 +376,7 @@ export class ContractComponent implements OnInit {
   loadDb() {
     if (!this.valid){ Util.scrollToId(this.erScrolid);Util.firstErrFocus(); return false;}
     this.changes = false;
-    Util.showWait();
+    Util.showWait2('<p>Creating Contracts Please Wait...</p>');
     setTimeout(() => {
       var postdata:any ={};
       this.pagedata.body.contract.mode = 'SAVE';
@@ -415,15 +418,39 @@ export class ContractComponent implements OnInit {
           () => {
             Util.scrollToId('quotesteps');
             if(this.errSet.status !=='E'){
-              Util.UrlDelay();
-              Util.modalid('show','contractModal');
+              this.tries = 0;
+              this.ionos = this.errSet.data;
+              this.UrlDelay();
             }else{
               this.dispAlert.message = this.errSet.message;
               this.dispAlert.status = this.errSet.status;
+              Util.hideWait();
             }
-            Util.hideWait();
+            
             });
       }, 100);
+  }
+
+  UrlDelay(){
+
+    this.tries += 1;
+    this.jsonService
+      .initService({ "mode": "IONOS" ,"ionos":this.ionos}, Util.Url("CGICCNTRCT"))
+      .subscribe(data => this.errSet = data,
+        err => {Util.hideWait();  },
+        () => {
+          if(this.errSet.status == 'S'){Util.hideWait();Util.modalid('show','contractModal');return;}
+          if(this.tries <15 )
+            setTimeout(() => { this.UrlDelay(); }, 1000);
+          else{
+            Util.modalid('show','contractModal');
+            Util.hideWait();
+            return;
+          }
+
+          
+        });
+
   }
 
   onChange() {
@@ -480,11 +507,14 @@ formatCVV() {
           this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
           this.defaultFields();
           setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
-          if (this.pagedata.head.status === "O") {
+          if (this.pagedata.head.status === "O" || this.pagedata.body.contract.contracts.length<1) { 
             Util.showWait();
             setTimeout(() => {
               Util.hideWait();
-              this.router.navigate(['/app']);
+              if(this.pagedata.body.contract.contracts.length<1)
+                this.router.navigate(['/app/Home']);
+              else
+                this.router.navigate(['/app']);
             }, 100);
           } else {
             Util.hideWait();

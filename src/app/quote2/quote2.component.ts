@@ -199,7 +199,7 @@ export class Quote2Component implements OnInit {
 
   loadDb() {
     if(!this.valid) return false;
-    Util.showWait2();
+    Util.showWait2('');
     Util.scrollToId('quotesteps');
     this.pagedata.body.mode = "SAVE";
     this.pagedata.body.data.forEach(element => {

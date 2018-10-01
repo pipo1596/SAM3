@@ -1,0 +1,53 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Dealer Migration</h1>
+				</div>
+			</div>
+		</div>
+
+		<form class="contactform style4 clearfix panel-body" method="post"  (submit)="checkdata()" autocomplete="off">
+			
+
+			
+			<div class="row white" style="min-height: 600px;padding-top: 10px">
+					<div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
+							<h5>Dealer Migration includes dealer employees user ID and Legacy Invoices</h5>
+										<input class="pull-left" style="margin-right:15px" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  type="text" placeholder="Dealer Code" maxlength="10">
+										<div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
+					</div>
+					<div class="col-md-10 col-md-offset-1">
+								  <table *ngIf="!process && pagedata.loc  && pagedata.loc.length >0 " class="col-xs-12">
+									  <tr>
+										  <th><b>Dealer</b></th>
+										  <th><b>Status</b></th>
+										  <th></th>
+									  </tr>
+									  <tr *ngFor="let loc of pagedata.loc">
+										  <td style="padding:10px 0;width:50%"><span style="font-weight: bold">{{loc.desc}}</span></td>
+										  <td style="padding:10px 0;width:20%">
+											<span *ngIf="loc.stat =='P'" style="background:#dc3545;padding:5px;font-weight: bold;color:white;">Processing</span>
+											<span *ngIf="loc.stat =='C'" class="bg-success" style="color:white;background:#28a745;padding:5px;font-weight: bold">Completed</span>
+											<span *ngIf="loc.stat ==''"  class="bg-secondary" style="background:gainsboro;padding:5px;font-weight: bold">Not Started</span>
+										  </td>
+										  <td style="padding:10px 0;width:30%">&nbsp;
+											  <button *ngIf="loc.stat!=='P'" type="button" class="btn btn-primary" (click)="import(loc)" >Import Data</button>
+										  </td>
+
+									  </tr>
+								  </table>
+								  <ul *ngIf="!process && pagedata.loc  && pagedata.loc.length<=0 && dealer!==''">
+										<li><b>No results found!</b></li>
+								  </ul>
+								  
+					</div>
+				</div>		
+		</form>
+	</div>
+</section>
+
+<app-footer></app-footer>

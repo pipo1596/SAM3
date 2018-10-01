@@ -368,8 +368,10 @@ static selectById(id){
         $("#"+id).select();},200);
 }
 //===================================================================================//
-static showWait2(){
+static showWait2(message){
+    message = message || '<p>Preparing quote please wait...</p>';
     this.hideWait();
+    $("#calculating .bar").html(message);
     $("#calculating").removeClass("hidden");
     $("#calculating").show();
 }
@@ -498,16 +500,7 @@ static newQuote(){
         return false;
 }
 //===================================================================================//
-static UrlDelay(){
-   $("#viewPdf").hide();
-   $("#waitPdf").show();
-   setTimeout(function(){ 
 
-                $("#viewPdf").show();
-                $("#waitPdf").hide();
-            
-},2000);
-}
 
 static Usersnap(){
     if($("#usersnap").length>0)return false;
