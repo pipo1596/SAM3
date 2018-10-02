@@ -437,7 +437,7 @@
                         <input name="valu{{p}}" (focus)="otcOn()" (blur)="otcOff()" type="number" [class.hidden]="element.catg !== 'OTC'" [(ngModel)]="element.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:right;padding-left:8px;-webkit-text-security: disc;">
                         <select class="form__select pull-right" name="year{{element.rates[0].program+element.rates[0].ratc}}" [(ngModel)]="element.ctrct" style="margin-bottom:3px;width:60%;" (change)="applySurch('C')">
                             <ng-container *ngFor="let cont of pagedata.body.contracts">
-                                <option  *ngIf="cont.prgm.padEnd(20) == element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)" [value]=" element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)+cont.code.padEnd(30)" [attr.selected]="element.ctrct==(cont.prgm.padEnd(20) + cont.code.padEnd(30)) ? true : null">{{cont.desc}}</option>
+                                <option  *ngIf="cont.prgm.padEnd(20) == element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)" [value]=" element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)+cont.code.padEnd(30)">{{cont.desc}}</option>
                             </ng-container>
                         </select>
                             
@@ -714,7 +714,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="well well-sm" style="background:white">
-                                <h3 class="coverage">{{element.desc}}&nbsp;&nbsp;&nbsp;<span class="errorspan2 alert-danger validating" *ngIf="element.selected==undefined">(Select A Coverage)</span></h3>
+                                <h3 class="coverage">{{element.desc}}&nbsp;&nbsp;&nbsp;</h3>
                                 <table class="table">
                                     <thead>
                                         <tr>

@@ -151,7 +151,7 @@
                             <h4 style="margin:2px 0;">Contract Type</h4>
                             <select class="form__select w100" name="year{{datads.prg+datads.ratc}}" [(ngModel)]="datads.ctrct" (change)="setCtrct(datads)" style="margin-bottom:3px;float:left;width:60%">
                                 <ng-container *ngFor="let cont of pagedata.body.contracts">
-                                    <option  *ngIf="cont.prgm.padEnd(20) == datads.prg.padEnd(10) +datads.ratc.padEnd(10)" [value]="datads.prg.padEnd(10) + datads.ratc.padEnd(10) + cont.code.padEnd(30)" [attr.selected]="datads.ctrct== (cont.prgm.padEnd(20) +cont.code.padEnd(30)) ? true : null">{{cont.desc}}</option>
+                                    <option  *ngIf="cont.prgm.padEnd(20) == datads.prg.padEnd(10) +datads.ratc.padEnd(10)" [value]="datads.prg.padEnd(10) + datads.ratc.padEnd(10) + cont.code.padEnd(30)" >{{cont.desc}}</option>
                                 </ng-container>
                             </select> 
                             <input name="onetime{{p}}" type="number"   [class.hidden]="datads.catg !== 'OTC'" [(ngModel)]="datads.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:left;padding-left:8px;-webkit-text-security: disc;">

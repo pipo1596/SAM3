@@ -71,11 +71,11 @@ export class Quote3Component implements OnInit {
     this.createCont();
   }
   createCont() {
-    var selectedall = true;
+    var selectedone = false;
     this.pagedata.body.tables.forEach(element => {//One of each required
-      if(element.selected==undefined && element.show && element.rates.length>0) selectedall = false;
+      if(element.selected !==undefined && element.show && element.rates.length>0) selectedone = true;
     });
-    if (!selectedall) { Util.alertmodal("Select a coverage for each product!", "Errors Detected"); return false; }
+    if (!selectedone) { Util.alertmodal("No coverages selected!", "Errors Detected"); return false; }
     if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal"); return false;}
     this.notaxalert = true;
     Util.showWait();
@@ -797,7 +797,7 @@ export class Quote3Component implements OnInit {
 
     this.pagedata.body.tables.forEach((table, i0) => {
       if (table.rates !== undefined && table.prgm !== undefined && table.ctrct !== undefined) {
-        var ic = this.pagedata.body.contracts.findIndex(obj => (obj.code.trim() == table.ctrct.substring(20, 30).trim()));
+        var ic = this.pagedata.body.contracts.findIndex(obj => (obj.code.trim() == table.ctrct.substring(20).trim()));
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
@@ -939,8 +939,15 @@ export class Quote3Component implements OnInit {
             this.dispAlert.default();
 
             this.pagedata.body.tables.forEach(table => {
-              if (table.rates !== undefined)
+              if (table.rates !== undefined){
                 table.rates = Util.sortBy2Key(table.rates, "title", "program", "A");
+                var ic = this.pagedata.body.contracts.findIndex(obj => (obj.prgm.trim() == table.rates[0].program.padEnd(10) +table.rates[0].ratc.trim()));
+        if (ic > -1) {
+          this.cont = this.pagedata.body.contracts[ic];
+          table.catg = this.cont.catg;
+          if (table.valu == undefined) table.valu = parseFloat(this.cont.valu);
+        }
+      }
 
             });
             this.defaultCheck("I");
