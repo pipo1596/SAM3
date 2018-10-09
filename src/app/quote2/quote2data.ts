@@ -68,5 +68,8 @@ export class Vehicle{
     insrvc: string="";
     price : string="";
     vin   : string="";
+    rvtype: string="";
+    engtyp: string="";
+    mfgw  : string="";
 
 }

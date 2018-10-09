@@ -78,6 +78,9 @@ export class Vehicle{
      mmil : number = 0 ;
      pmth : number = 0 ;
      pmil : number = 0 ;
+    rvtype: string="";
+    engtyp: string="";
+    mfgw  : string="";
 }
 
 export class State{

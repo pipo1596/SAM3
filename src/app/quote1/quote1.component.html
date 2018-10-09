@@ -83,18 +83,68 @@
                                                         (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                                 <input autocomplete="new-password{{ran}}" name="model{{ran}}" id="model" type="text" placeholder="Model" maxlength="17"  [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating" (change)="onChange()">
                             </span>
+                        
                         <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 style="margin-bottom: 0">OR</h4></div>
+                        <div class="text-center" *ngIf="pagedata.body.type==='R' || (pagedata.body.type==='' && pagedata.body.dtype==='R')">
+                          <hr style="margin:0 0 15px 0">
+                          <div class="col-xs-3 text-left">
+                              <div class="custradio"><input name="rvtype" id="rvtype1" value="M" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype" ><label for="rvtype1"></label></div>
+                              <label class="checklabel" style="font-weight: bold;" for="rvtype1">RV</label> 
+                          </div>
+                          <div class="col-xs-5 text-left">
+                              <div class="custradio"><input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype"><label for="rvtype2"></label></div>
+                              <label class="checklabel" style="font-weight: bold;" for="rvtype2">Travel Trailer</label>
+                          </div>
+                          <div class="col-xs-4 text-left">
+                              <div class="custradio"><input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype"><label for="rvtype3"></label></div>
+                              <label class="checklabel" style="font-weight: bold;" for="rvtype3">Pop-Up</label>
+                          </div>
+                        </div>
+                        
                         <div><span class="errorspan2 alert-danger"  [class.hidden]="vin.erlevel==='S'" [class.validating]="vin.erlevel=='D' || validating">{{vin.message}}</span>&nbsp;
                             <span class="errorspan2 alert-success"  [class.hidden]="vin.erlevel==='D'" [class.validating]="vin.erlevel=='S'">{{vin.message}}</span>&nbsp;</div>
-                        <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
+                        <span class="flat-input">
                             <input autocomplete="new-password{{ran}}" name="vAin{{ran}}" id="vAin" type="text" placeholder="VIN" maxlength="17" (keyup)="vinCheck('S')" [(ngModel)]="vin.value" [class.required]="vin.message !==''"  [class.validating]="validating" (change)="vinCheck('S');onChange()">
                         </span>
                         <div class="text-center"><hr style="margin:10px 10px 20px 10px"></div>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Mileage
+                        <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' && rvmode"><span class="req">*&nbsp;</span>Mileage
                             <span class="errorspan2" [class.opqquezero]="miles.message===''" [class.alert-danger]="miles.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{miles.message}}</span> 
                         </label>
-                        <span class="flat-input">
+                        <span class="flat-input" [class.hidden]="rvtype!=='M' && rvmode">
                             <input autocomplete="new-password{{ran}}" name="mileage{{ran}}" id="mileage" type="number" placeholder="Mileage" [(ngModel)]="miles.value" [class.required]="miles.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                        </span>
+                        <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' || !rvmode"><span class="req">*&nbsp;</span>Engine Type
+                            <span class="errorspan2" [class.opqquezero]="engtyp.message===''" [class.alert-danger]="engtyp.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{engtyp.message}}</span> 
+                        </label>
+                        <span class="flat-input" [class.hidden]="rvtype!=='M' || !rvmode" >
+                        <select class="form__select" name="engtyp" id="engtyp" [(ngModel)]="engtyp.value" [class.required]="engtyp.message !==''"  (change)="rvchange()" [class.validating]="validating"  (change)="onChange()">
+                          <option value="" [attr.selected]="engtyp.value=='' ? true : null">Select</option>
+                          <option value="Gas"  [attr.selected]="engtyp.value=='Gas'">Gas</option>
+                          <option value="Front Diesel"  [attr.selected]="engtyp.value=='Front Diesel'">Front Diesel</option>
+                          <option value="Rear Diesel"  [attr.selected]="engtyp.value=='Rear Diesel'">Rear Diesel</option>
+                        </select>
+                        </span>
+                        <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' || !rvmode || engtyp.value ==''"><span class="req">*&nbsp;</span>Manufacturer's Warranty
+                          <span class="errorspan2" [class.opqquezero]="mfgw.message===''" id="mfgw" [class.alert-danger]="mfgw.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{mfgw.message}}</span> 
+                      </label>
+                        <span class="flat-input" [class.hidden]="rvtype!=='M' || !rvmode || engtyp.value ==''">
+                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb" *ngIf="engtyp.value=='Rear Diesel'">
+                                <div class="custradio"><input name="mfgw" id="mfgw0" value="Less than 5 years" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw0"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw0">Less than 5 years</label> 
+                            </div>
+                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb" *ngIf="engtyp.value=='Gas' || engtyp.value=='Front Diesel'">
+                                <div class="custradio"><input name="mfgw" id="mfgw1" value="36 Months / 36,000" type="radio"   [(ngModel)]="mfgw.value" ><label for="mfgw1"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw1">36 Months / 36,000</label> 
+                            </div>
+                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb" *ngIf="engtyp.value=='Front Diesel' || engtyp.value=='Rear Diesel'">
+                                <div class="custradio"><input name="mfgw" id="mfgw2" value="5 years / 100,000" type="radio"   [(ngModel)]="mfgw.value" ><label for="mfgw2"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw2">5 years / 100,000</label> 
+                            </div>
+                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb" *ngIf="engtyp.value=='Rear Diesel'">
+                                <div class="custradio"><input name="mfgw" id="mfgw3" value="7 years / 100,000" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw3"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw3">7 years / 100,000</label> 
+                            </div>
+                            <hr style="margin:0">
                         </span>
                         <label class="flat-input inputlabel" *ngIf="pagedata.body.type==='R' ||
                                                                     (pagedata.body.type==='' && pagedata.body.dtype==='R')"><span class="req">*&nbsp;</span>Original Purchase Price

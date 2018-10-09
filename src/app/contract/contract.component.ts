@@ -107,6 +107,16 @@ export class ContractComponent implements OnInit {
   vinCheck(){
     this.vin.value = this.vin.value.toUpperCase();
     if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
+    if(this.pagedata.body.veh.price!==""){
+      if(this.vin.value.length == 17){
+        Util.showWait();
+        this.validvin = true;
+        this.vinE = false;
+        
+      }
+      Util.hideWait();
+      return false;
+    }
       if(this.vin.value.length == 17 && this.vin.value !== this.prevVin ) {
        this.prevVin = this.vin.value; 
     Util.showWait();
@@ -270,7 +280,7 @@ export class ContractComponent implements OnInit {
                                               this.pagedata.body.veh.make+" "+
                                               this.pagedata.body.veh.model+"! )"; this.vin.erlevel = "D"; this.valid = false; this.erscrol('vin');}
     if (this.vpd.value == "") { this.vpd.message = "(required)"; this.vpd.erlevel = "D"; this.valid = false; this.erscrol('vpd');}
-    if(this.validvin && this.vindata.vfmatch !='Y'){
+    if(this.validvin && this.vindata.vfmatch !='Y'&& this.pagedata.body.veh.price ==""){
       this.valid = false;
       this.changes = false;
       this.erscrol('vin');

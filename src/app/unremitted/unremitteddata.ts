@@ -19,7 +19,9 @@ export class State{
 
 export class Cont {
 	show : boolean;
-	iono : string;
+	ionov : string;
+	ionoc : string;
+	ionoz : string;
 	ecno : string;
 	asuf : string;
 	anum : string;

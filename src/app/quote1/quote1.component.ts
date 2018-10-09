@@ -20,6 +20,7 @@ export class Quote1Component implements OnInit {
   valid = false;
   validvin = true;
   dmsmode = false;
+  rvmode = false;
   notfoc:boolean = true;
 
   prevVin:string ="";
@@ -36,9 +37,18 @@ export class Quote1Component implements OnInit {
   model  = new Textfield;
   vin    = new Textfield;
   miles  = new Textfield;
+  engtyp = new Textfield;
+  mfgw = new Textfield;
   price  = new Textfield;
   insrvc = new Textfield;
   asofdt = new Textfield;
+  rvtype:string ="";
+  rvchange(){
+    Util.showWait();
+    this.mfgw.value = "";
+    this.miles.value = "";
+    Util.hideWait();
+  }
 
 dmsOn(){
   this.dmsmode = true;
@@ -52,9 +62,14 @@ vinCheck(mode){
   this.vin.value = this.vin.value.toUpperCase();
   if(this.vin.erlevel=="D")this.validvin = false; 
   if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
+  if(this.vin.value.length == 17){
+    if( this.pagedata.body.type ==="R" || this.pagedata.body.type ==="H" ){this.validvin = true; return true;}
+    if( this.pagedata.body.type==='' && this.pagedata.body.dtype==='R'){this.validvin = true; return true;}
+    if( this.pagedata.body.type==='' && this.pagedata.body.dtype==='H'){this.validvin = true; return true;}
+  }
     if(this.vin.value.length == 17 && this.vin.value !== this.prevVin ) {
      this.prevVin = this.vin.value; 
-  if( this.pagedata.body.type ==="R" || this.pagedata.body.type ==="H" ){ return false;}
+  
   Util.showWait();
   this.pagedata.body.mode ="VIN";
   this.pagedata.body.vin = this.vin.value;
@@ -134,6 +149,8 @@ checkStep1(){
     this.make.message     = "";
     this.model.message    = "";
     this.vin.message      = "";
+    this.engtyp.message  = "";
+    this.mfgw.message  = "";
     this.miles.message    = "";
     this.price.message    = "";
     this.insrvc.message   = "";
@@ -147,32 +164,38 @@ checkStep1(){
     this.make.value     = this.make.value.trim();
     this.model.value    = this.model.value.trim();
     this.vin.value      = this.vin.value.trim();
+    this.engtyp.value  = this.engtyp.value.trim();
+    this.mfgw.value  = this.mfgw.value.trim();
     this.insrvc.value   = this.insrvc.value.trim();
     this.asofdt.value   = this.asofdt.value.trim();
 
     if(this.pagedata.body.ckprgs.length<1) { this.product.message = "(Select One)"; this.product.erlevel = "D"; this.valid = false; }
-
-    if(this.vin.value !=="" && (this.year.value!=="" || this.make.value !=="" || this.model.value !=="")){
-      this.vin.message = "(Year/Make/Model OR VIN)";this.vin.erlevel = "D"; this.valid =false;
+    if(!this.rvmode){
+      if(this.vin.value !=="" && (this.year.value!=="" || this.make.value !=="" || this.model.value !=="")){
+        this.vin.message = "(Year/Make/Model OR VIN)";this.vin.erlevel = "D"; this.valid =false;
+      }
     }
 
-    if(this.vin.value == ""){
+    if(this.vin.value == "" || this.rvmode){
       if (this.year.value == "") { this.year.message = "(Year required)"; this.year.erlevel = "D"; this.valid = false; }
       if (this.year.message == "" && this.make.value == ""){this.year.message = "(Make required)";this.make.message = "R"; this.year.erlevel = "D"; this.valid = false; }
       if (this.year.message == "" && this.model.value == ""){this.year.message = "(Model required)";this.model.message = "R"; this.year.erlevel = "D"; this.valid = false; }
+      if(this.vin.value !== "" && !this.validvin){this.vin.message = "(Invalid VIN)";this.vin.erlevel = "D";this.valid = false;if(this.notfoc){ Util.focusById("vAin");this.notfoc=false;}}
     }else{
       if(!this.validvin){this.vin.message = "(Invalid VIN)";this.vin.erlevel = "D";this.valid = false;if(this.notfoc){ Util.focusById("vAin");this.notfoc=false;}}
     }
-
-    if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
-
+    if(!this.rvmode || this.rvtype == "M"){
+      if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
+      if(this.rvtype == "M" && this.engtyp.value == "" ){this.engtyp.message = "(Required)";this.engtyp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("engtyp");this.notfoc=false;}}
+      if(this.rvtype == "M" && this.mfgw.value == ""  ){this.mfgw.message = "(Required)";this.mfgw.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mfgw");this.notfoc=false;}}
+    }
     //Auto
     if(this.pagedata.body.type === "A" || (this.pagedata.body.type ==="" && this.pagedata.body.dtype==="A")){      
       if(parseInt(this.miles.value) <= 0){this.miles.message = "(Invalid)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
       if(this.valid && this.miles.value.toString().length>7){this.miles.message = "(Too High)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
     } 
     //RV
-    if(this.pagedata.body.type === "R" || this.pagedata.body.type === "H"){
+    if(this.rvmode){
       if(this.price.value == "" || this.price.value == null){this.price.message = "(Required)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
       if(parseInt(this.price.value) <= 0){this.price.message = "(Invalid)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
     }  
@@ -187,6 +210,9 @@ checkStep1(){
       this.pagedata.body.make    = this.make.value;
       this.pagedata.body.model   = this.model.value;
       this.pagedata.body.vin     = this.vin.value;
+      this.pagedata.body.engtyp = this.engtyp.value;
+      this.pagedata.body.mfgw = this.mfgw.value;
+      this.pagedata.body.rvtype  = this.rvtype;
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
       this.pagedata.body.insrvc  = this.insrvc.value;
@@ -304,17 +330,21 @@ makeChange(){
 }
 
 addplan(e,plan){
+    this.rvmode = false;
     var srcEl = e.srcElement || e.target;
     this.changes = true; 
     this.onChange();
     var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
     if(srcEl.checked){
         this.pagedata.body.type = plan.plnt;
+        
         this.pagedata.body.ckprgs.push(obj);
     }else{
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
       if(!this.pagedata.body.ckprgs.length){ this.pagedata.body.type ="";}
     }
+    if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
+    if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");
 }
 
@@ -349,6 +379,8 @@ ngOnInit() {
       err => {Util.responsiveMenu(); Util.hideWait(); },
       () => {Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
+        if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
+        if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
       //Sort By User Ascending
         if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'QUOTE1')) {
           setTimeout(() => {
@@ -364,6 +396,10 @@ ngOnInit() {
           this.make.value = this.pagedata.body.make;
           this.model.value = this.pagedata.body.model;
           this.vin.value = this.pagedata.body.vin;
+          this.rvtype = this.pagedata.body.rvtype;
+          this.engtyp.value = this.pagedata.body.engtyp;
+          this.mfgw.value = this.pagedata.body.mfgw;
+          if(this.rvmode && this.rvtype == "") this.rvtype = "M";
           this.vinCheck('S');
           this.changes = false;
           this.miles.value = this.pagedata.body.miles;

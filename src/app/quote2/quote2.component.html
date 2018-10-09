@@ -61,13 +61,31 @@
                                                     </td>
                                                     <td class="text-left">{{pagedata.body.veh.model}}</td>
                                                 </tr>
-                                                <tr>
+                                                <tr *ngIf="pagedata.body.veh.rvtype !==''">
+                                                        <td class="text-right">
+                                                            <b>RV Type:</b>
+                                                        </td>
+                                                        <td class="text-left">{{pagedata.body.veh.rvtype}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.miles !==''">
                                                     <td class="text-right">
                                                         <b>Mileage:</b>
                                                     </td>
                                                     <td class="text-left">{{pagedata.body.veh.miles}}</td>
                                                 </tr>
-                                                <tr *ngIf="pagedata.body.veh.price ==''">
+                                                <tr *ngIf="pagedata.body.veh.engtyp !==''">
+                                                        <td class="text-right">
+                                                            <b>Engine Type:</b>
+                                                        </td>
+                                                        <td class="text-left">{{pagedata.body.veh.engtyp}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.mfgw !==''">
+                                                        <td class="text-right">
+                                                            <b>Manufacturer's Warranty:</b>
+                                                        </td>
+                                                        <td class="text-left">{{pagedata.body.veh.mfgw}}</td>
+                                                </tr>
+                                                <tr>
                                                     <td class="text-right">
                                                         <b>VIN:</b>
                                                     </td>
@@ -99,7 +117,7 @@
                         <div class="col-sm-4" *ngIf="schg.type =='VF'">
                                 <span class="flat-input-checkbox" >
                                     <div class="custcheck" >
-                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" [disabled]="this.pagedata.body.veh.vin!='n/a'">
+                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" [disabled]="this.pagedata.body.veh.vin!='n/a' && pagedata.body.veh.price ==''">
                                         <label (click)="toggleschg(schg)"></label>
                                     </div>
                                     <label class="checklabel"(click)="toggleschg(schg)">{{schg.desc}}</label>

@@ -109,12 +109,17 @@
 									<td data-label="Contract #" style="white-space: nowrap;"><a href="javascript:void(0)" (click)="viewInvo('IV'+cont.ivno)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.ivno}}</a></td>	
 									<td data-label="Contract #"><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span></a></td>	
 									<td data-label="Stock #">{{cont.stck}}</td>
-									<td data-label="Name">{{cont.fnam}} {{cont.lnam}}</td>
-									<td data-label="Co-buyer Name">{{cont.cfnm}} {{cont.clnm}}</td>
+									<td data-label="Name"><div style="max-width: 200px">{{cont.fnam}} {{cont.lnam}}</div></td>
+									<td data-label="Co-buyer Name"><div style="max-width: 200px">&nbsp;{{cont.cfnm}} {{cont.clnm}}</div></td>
 									<td data-label="Salesperson">{{cont.sprs}}</td>
 									<td data-label="Date">{{cont.ctdt}}</td>
 									<td data-label="Vehicle"><span class="vinspan">{{cont.year}} {{cont.make}} {{cont.modl}}</span></td>
-									<td data-label="View"><a href="javascript:void(0);" (click)="viewCont(cont.iono)" style="background:dimgrey" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;pdf</a></td>
+									<td data-label="View">
+											<a href="javascript:void(0);" *ngIf="cont.ionov!==''" (click)="viewCont(cont.ionov)" style="background:dimgrey;margin:3px;float:right;clear: right;width:70px" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;VSC</a>
+											<a href="javascript:void(0);" *ngIf="cont.ionoc!==''" (click)="viewCont(cont.ionoc)" style="margin:3px;float:right;clear: right;width:70px;" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;CAP</a>
+											<a href="javascript:void(0);" *ngIf="cont.ionoz!==''" (click)="viewCont(cont.ionoz)" style="background:black;margin:3px;float:right;clear: right;width:70px;" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a>
+											<div clas="clearfix"></div>
+										</td>
 								</tr>
 							</ng-container>
 						</tbody>

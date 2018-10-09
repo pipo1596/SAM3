@@ -47,45 +47,63 @@
                                 <table class="table table-striped" style="margin-bottom:0">
                                     <tbody>
                                         <tr>
-                                            <td class="text-right" style="width:40%">
+                                            <td class="text-right" style="width:50%">
                                                 <b>Year:</b>
                                             </td>
-                                            <td class="text-left" style="width:60%">{{pagedata.body.veh.year}}
+                                            <td class="text-left" style="width:50%">{{pagedata.body.veh.year}}
                                                 <div class="pull-right" *ngIf="hasQuote1">
                                                     <a  routerLink="/app/Quote1" class="flat-button pull-right nextsection" section="2" id="submit" title="Edit" style="padding:2px 8px">Edit</a>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-right">
-                                                <b>Make:</b>
-                                            </td>
-                                            <td class="text-left">{{pagedata.body.veh.make}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right">
-                                                <b>Model:</b>
-                                            </td>
-                                            <td class="text-left">{{pagedata.body.veh.model}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-right">
-                                                <b>Mileage:</b>
-                                            </td>
-                                            <td class="text-left">{{pagedata.body.veh.miles}}</td>
-                                        </tr>
-                                        <tr *ngIf="pagedata.body.veh.price ==''">
-                                            <td class="text-right">
-                                                <b>VIN:</b>
-                                            </td>
-                                            <td class="text-left">{{pagedata.body.veh.vin}}</td>
-                                        </tr>
-                                        <tr *ngIf="pagedata.body.veh.price !==''">
-                                            <td class="text-right">
-                                                <b>Purchase Price:</b>
-                                            </td>
-                                            <td class="text-left">{{pagedata.body.veh.price | currency}}</td>
-                                        </tr>
+                                                <td class="text-right">
+                                                    <b>Make:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.make}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right">
+                                                    <b>Model:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.model}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.rvtype !==''">
+                                                    <td class="text-right">
+                                                        <b>RV Type:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.rvtype}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.miles !==''">
+                                                <td class="text-right">
+                                                    <b>Mileage:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.miles}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.engtyp !==''">
+                                                    <td class="text-right">
+                                                        <b>Engine Type:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.engtyp}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.mfgw !==''">
+                                                    <td class="text-right">
+                                                        <b>Manufacturer's Warranty:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.mfgw}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right">
+                                                    <b>VIN:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.vin}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.price !==''">
+                                                <td class="text-right">
+                                                    <b>Purchase Price:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.price | currency}}</td>
+                                            </tr>
                                         <tr>
                                             <td class="text-right">
                                                 <b>In-Service:</b>
@@ -193,41 +211,59 @@
                                     <table class="table table-striped" style="margin-bottom:0">
                                         <tbody>
                                             <tr>
-                                                <td class="text-right" style="width:40%">
+                                                <td class="text-right" style="width:50%">
                                                     <b>Year:</b>
                                                 </td>
-                                                <td class="text-left" style="width:60%">{{pagedata.body.veh.year}}</td>
+                                                <td class="text-left" style="width:50%">{{pagedata.body.veh.year}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right">
-                                                    <b>Make:</b>
-                                                </td>
-                                                <td class="text-left">{{pagedata.body.veh.make}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right">
-                                                    <b>Model:</b>
-                                                </td>
-                                                <td class="text-left">{{pagedata.body.veh.model}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right">
-                                                    <b>Mileage:</b>
-                                                </td>
-                                                <td class="text-left">{{pagedata.body.veh.miles}}</td>
-                                            </tr>
-                                            <tr *ngIf="pagedata.body.veh.price =='' && pagedata.body.veh.vin !== 'n/a'">
-                                                <td class="text-right">
-                                                    <b>VIN:</b>
-                                                </td>
-                                                <td class="text-left">{{pagedata.body.veh.vin}}</td>
-                                            </tr>
-                                            <tr *ngIf="pagedata.body.veh.price !==''">
-                                                <td class="text-right">
-                                                    <b>Purchase Price:</b>
-                                                </td>
-                                                <td class="text-left">{{pagedata.body.veh.price | currency}}</td>
-                                            </tr>
+                                                    <td class="text-right">
+                                                        <b>Make:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.make}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <b>Model:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.model}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.rvtype !==''">
+                                                        <td class="text-right">
+                                                            <b>RV Type:</b>
+                                                        </td>
+                                                        <td class="text-left">{{pagedata.body.veh.rvtype}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.miles !==''">
+                                                    <td class="text-right">
+                                                        <b>Mileage:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.miles}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.engtyp !==''">
+                                                        <td class="text-right">
+                                                            <b>Engine Type:</b>
+                                                        </td>
+                                                        <td class="text-left">{{pagedata.body.veh.engtyp}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.mfgw !==''">
+                                                        <td class="text-right">
+                                                            <b>Manufacturer's Warranty:</b>
+                                                        </td>
+                                                        <td class="text-left">{{pagedata.body.veh.mfgw}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right">
+                                                        <b>VIN:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.vin}}</td>
+                                                </tr>
+                                                <tr *ngIf="pagedata.body.veh.price !==''">
+                                                    <td class="text-right">
+                                                        <b>Purchase Price:</b>
+                                                    </td>
+                                                    <td class="text-left">{{pagedata.body.veh.price | currency}}</td>
+                                                </tr>
                                             <tr>
                                                 <td class="text-right">
                                                     <b>In-Service:</b>
@@ -278,10 +314,10 @@
                                                     <td class="text-left">{{pagedata.body.qtid}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-right" style="width:40%">
+                                                    <td class="text-right" style="width:50%">
                                                         <b>Stock #/Member ID:</b>
                                                     </td>
-                                                    <td class="text-left" style="width:60%">{{pagedata.body.stock}}</td>
+                                                    <td class="text-left" style="width:50%">{{pagedata.body.stock}}</td>
                                                 </tr>
                                                 
                                                 <tr>
