@@ -750,7 +750,7 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="well well-sm" style="background:white">
-                                <h3 class="coverage">{{element.desc}}&nbsp;&nbsp;&nbsp;</h3>
+                                <h3 class="coverage">{{element.desc}}&nbsp;&nbsp;<span class="pull-right">({{element.lob}})&nbsp;</span></h3>
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -799,6 +799,14 @@
                                             </ng-container>
 
                                         </ng-container>
+                                        <tr>
+                                            <td colspan="4" style="background: aliceblue"></td>
+                                            <td class="text-center"  style="background: aliceblue">
+                                                <a href="javascript:void(0)" (click)="clearsel(element)" style="color:#428bca"><b>Deselect</b></a>
+                                                
+
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 

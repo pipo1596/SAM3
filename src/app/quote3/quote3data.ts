@@ -38,6 +38,7 @@ export class Data{
     prg  :string ="";
     ratc :string ="";
     desc :string ="";
+    lob  :string ="";
     showct: boolean = false;
  selected : string =""; 
     ctrct :string ="";
@@ -82,6 +83,7 @@ export class Tabl{
     ctrct :string ="";
     nup:string="";
     desc : string ="";
+    lob : string ="";
     selected:string="";
     rates :[Rate]=[new Rate];
 }

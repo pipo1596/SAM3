@@ -65,6 +65,11 @@ export class Quote3Component implements OnInit {
   canceltax(){
     Util.modalid("hide","taxmodal");
   }
+  clearsel(obj1){
+    Util.showWait();
+    obj1.selected = "";
+    Util.hideWait();
+  }
   oktax(){
     Util.modalid("hide","taxmodal");
     this.notaxalert = false;
@@ -72,10 +77,20 @@ export class Quote3Component implements OnInit {
   }
   createCont() {
     var selectedone = false;
+    var arrlob =[];
     this.pagedata.body.tables.forEach(element => {//One of each required
-      if(element.selected !==undefined && element.show && element.rates.length>0) selectedone = true;
+      
+      if(element.selected !==undefined && element.selected !=="" && element.show && element.rates.length>0) 
+      {selectedone = true;
+        if(arrlob.indexOf(element.lob)<0){arrlob.push(element.lob)}
+      }
     });
     if (!selectedone) { Util.alertmodal("No coverages selected!", "Errors Detected"); return false; }
+    //Multiple LOB!!
+    if(arrlob.length>1){
+      arrlob.join(", ")
+      Util.alertmodal(arrlob.join(", ")+" Selected! please select one program LOB.", "Errors Detected"); return false;
+    }
     if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal"); return false;}
     this.notaxalert = true;
     Util.showWait();
@@ -95,7 +110,7 @@ export class Quote3Component implements OnInit {
     contract.TERM ='';
 
     this.pagedata.body.tables.forEach(cont =>{
-    if(cont.selected!==undefined){
+    if(cont.selected!==undefined && cont.selected!==""){
     var p = parseInt(cont.selected.substring(0, 3));
     var t = parseInt(cont.selected.substring(4, 7));
     var r = parseInt(cont.selected.substring(8, 11));
@@ -567,6 +582,7 @@ export class Quote3Component implements OnInit {
             });
           });
           table.desc = this.xlateprg(program.program, program.ratc);
+          table.lob = this.xlatelob(program.program, program.ratc);
         });
       }
     });
@@ -849,6 +865,15 @@ export class Quote3Component implements OnInit {
       }
     });
     if (mode == 'C') Util.hideWait();
+  }
+  //==================================================================================================//  
+  xlatelob(prg, ratc) {
+    if (this.pagedata.body.data === undefined) return "";
+    var index = this.pagedata.body.data.findIndex(obj => (obj.prg == prg && obj.ratc == ratc));
+
+    if (index >= 0) return this.pagedata.body.data[index].lob;
+    else return "";
+
   }
   //==================================================================================================//  
   xlateprg(prg, ratc) {
