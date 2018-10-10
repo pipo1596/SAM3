@@ -102,13 +102,13 @@
 							<tr>
 								<th><b>Remit/Void</b></th>
 								<th><b>Contract #</b></th>
-								<th><b>Stock #</b></th>
+								<th nowrap><b>Stock #</b></th>
 								<th><b>Name</b></th>
-								<th><b>Co-buyer Name</b></th>
+								<th nowrap><b>Co-buyer</b></th>
 								<th><b>Salesperson</b></th>
 								<th><b>Date</b></th>
 								<th><b>Vehicle</b></th>
-								<th><b style="padding-left:8px;">View</b></th>
+								<th style="min-width: 170px;"><b style="padding-left:8px;">View</b></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -126,16 +126,18 @@
 										</span>
 									</td>
 									<td data-label="Contract #" nowrap><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span></a></td>	
-									<td data-label="Stock #">{{cont.stck}}</td>
+									<td nowrap data-label="Stock #">{{cont.stck}}</td>
 									<td data-label="Name"><div style="max-width: 200px">{{cont.fnam}} {{cont.lnam}}</div></td>
-									<td data-label="Co-buyer Name"><div style="max-width: 200px">&nbsp;{{cont.cfnm}} {{cont.clnm}}</div></td>
+									<td nowrap data-label="Co-buyer"><div style="max-width: 200px">&nbsp;{{cont.cfnm}} {{cont.clnm}}</div></td>
 									<td data-label="Salesperson">&nbsp;{{cont.sprs}}</td>
 									<td data-label="Date">&nbsp;{{cont.ctdt}}</td>
 									<td data-label="Vehicle"><span class="vinspan">{{cont.year}} {{cont.make}} {{cont.modl}}</span></td>
 									<td data-label="View">
-										<a href="javascript:void(0);" *ngIf="cont.ionov!==''" (click)="viewCont(cont.ionov)" style="background:dimgrey;margin:3px;float: right;clear: right;width:70px" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;VSC</a>
-										<a href="javascript:void(0);" *ngIf="cont.ionoc!==''" (click)="viewCont(cont.ionoc)" style="margin:3px;float: right;clear: right;width:70px" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;CAP</a>
-										<a href="javascript:void(0);" *ngIf="cont.ionoz!==''" (click)="viewCont(cont.ionoz)" style="background:black;margin:3px;float: right;clear: right;width:70px" class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a>
+										<table class="pull-right">
+											<td><a href="javascript:void(0);" [class.invisible]="cont.ionov===''" (click)="viewCont(cont.ionov)" style="margin:1px;float: right;width:48px" class="btn btn-primary btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;VSC</a></td>
+											<td><a href="javascript:void(0);" [class.invisible]="cont.ionoc===''" (click)="viewCont(cont.ionoc)" style="margin:1px;float: right;width:48px" class="btn btn-warning btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;CAP</a></td>
+											<td><a href="javascript:void(0);" [class.invisible]="cont.ionoz===''" (click)="viewCont(cont.ionoz)" style="margin:1px;float: right;width:48px" class="btn btn-info btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a></td>
+										</table>
 										<div class="clearfix"></div>
 									</td>
 								</tr>

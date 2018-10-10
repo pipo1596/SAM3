@@ -117,7 +117,7 @@
                             <span class="errorspan2" [class.opqquezero]="engtyp.message===''" [class.alert-danger]="engtyp.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{engtyp.message}}</span> 
                         </label>
                         <span class="flat-input" [class.hidden]="rvtype!=='M' || !rvmode" >
-                        <select class="form__select" name="engtyp" id="engtyp" [(ngModel)]="engtyp.value" [class.required]="engtyp.message !==''"  (change)="rvchange()" [class.validating]="validating"  (change)="onChange()">
+                        <select class="form__select" name="engtyp" id="engtyp" [(ngModel)]="engtyp.value" [class.required]="engtyp.message !==''"  (change)="rvchange2()" [class.validating]="validating"  (change)="onChange()">
                           <option value="" [attr.selected]="engtyp.value=='' ? true : null">Select</option>
                           <option value="Gas"  [attr.selected]="engtyp.value=='Gas'">Gas</option>
                           <option value="Front Diesel"  [attr.selected]="engtyp.value=='Front Diesel'">Front Diesel</option>

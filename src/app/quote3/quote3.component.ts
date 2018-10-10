@@ -77,19 +77,42 @@ export class Quote3Component implements OnInit {
   }
   createCont() {
     var selectedone = false;
+    var selectedmult = false;
     var arrlob =[];
     this.pagedata.body.tables.forEach(element => {//One of each required
       
       if(element.selected !==undefined && element.selected !=="" && element.show && element.rates.length>0) 
-      {selectedone = true;
-        if(arrlob.indexOf(element.lob)<0){arrlob.push(element.lob)}
+      { selectedone = true;
+        if(arrlob.indexOf(element.lob)>-1){selectedmult = true;}
+        arrlob.push(element.lob)
+        
       }
     });
     if (!selectedone) { Util.alertmodal("No coverages selected!", "Errors Detected"); return false; }
     //Multiple LOB!!
-    if(arrlob.length>1){
-      arrlob.join(", ")
-      Util.alertmodal(arrlob.join(", ")+" Selected! please select one program LOB.", "Errors Detected"); return false;
+    if(selectedmult){
+      var errmsg ="";
+      var arrlob2 = [];
+      var arrcnt =[];
+      //load count
+      for(var i=0; i < arrlob.length; i++){
+        if(arrlob2.indexOf(arrlob[i])<0){
+          arrlob2.push(arrlob[i]);
+          arrcnt.push(1);
+        }else{
+          arrcnt[arrlob2.indexOf(arrlob[i])] = arrcnt[arrlob2.indexOf(arrlob[i])]+1; 
+        }
+      }
+      //Error Message
+      for(var i=0; i < arrcnt.length; i++){
+        if(arrcnt[i]>1){
+          errmsg = errmsg+"Multiple ["+arrlob2[i]+"] ("+arrcnt[i]+") Selected, please select one of each Line of Business.<br>";
+        }
+
+      }
+
+
+      Util.alertmodal(errmsg, "Errors Detected"); return false;
     }
     if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal"); return false;}
     this.notaxalert = true;

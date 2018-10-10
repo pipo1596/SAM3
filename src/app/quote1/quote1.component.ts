@@ -43,9 +43,15 @@ export class Quote1Component implements OnInit {
   insrvc = new Textfield;
   asofdt = new Textfield;
   rvtype:string ="";
+  rvchange2(){
+    Util.showWait();
+    this.mfgw.value = "";
+    Util.hideWait();
+  }
   rvchange(){
     Util.showWait();
     this.mfgw.value = "";
+    this.engtyp.value ="";
     this.miles.value = "";
     Util.hideWait();
   }
