@@ -58,6 +58,7 @@ export class Srchg{
     code :string="";
     cost :string="";
     desc :string="";
+    lock :boolean =false;
     chek :boolean =false;
 }
 export class Vehicle{

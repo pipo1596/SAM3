@@ -30,6 +30,7 @@ export class bodyData{
     models  :[model];
     makes   :[make];
     condprg :[any];
+    engine :[ENGTYP];
     condyn :boolean;
     dms     : dms;
     dispdms :string;
@@ -49,6 +50,10 @@ export class model{
 
 export class make{
     make  :string;
+    desc  :string;
+}
+export class ENGTYP{
+    key  :string;
     desc  :string;
 }
 

@@ -117,7 +117,7 @@
                         <div class="col-sm-4" *ngIf="schg.type =='VF'">
                                 <span class="flat-input-checkbox" >
                                     <div class="custcheck" >
-                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" [disabled]="this.pagedata.body.veh.vin!='n/a' && pagedata.body.veh.price ==''">
+                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" [disabled]="(this.pagedata.body.veh.vin!='n/a' && pagedata.body.veh.price =='')||schg.lock">
                                         <label (click)="toggleschg(schg)"></label>
                                     </div>
                                     <label class="checklabel"(click)="toggleschg(schg)">{{schg.desc}}</label>

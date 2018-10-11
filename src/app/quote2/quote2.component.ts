@@ -37,6 +37,7 @@ export class Quote2Component implements OnInit {
   }
 
   toggleschg(incheck){
+    if(incheck.lock) return;
     if(this.pagedata.body.veh.vin=='n/a' || incheck.type !='VF')
     incheck.chek = !incheck.chek;
   }
