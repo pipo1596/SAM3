@@ -201,6 +201,7 @@ for (var i = 0; i < numbers.length; i++) {
         this.eozip.value = this.view.ozip;
         this.eophn.value = this.view.ophn;
         this.email.value = this.view.mail;
+        Util.scrollToId("viewtop");
         Util.hideWait();
   		}
   	);

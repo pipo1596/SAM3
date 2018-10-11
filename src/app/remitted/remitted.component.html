@@ -97,7 +97,7 @@
 								<th><b>Salesperson</b></th>
 								<th><b>Date</b></th>
 								<th><b>Vehicle</b></th>
-								<th><b style="padding-left:8px;">View</b></th>
+								<th class="text-center"><b>View</b></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -109,19 +109,17 @@
 									<td nowrap data-label="Invoice #" style="white-space: nowrap;"><a href="javascript:void(0)" (click)="viewInvo('IV'+cont.ivno)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.ivno}}</a></td>	
 									<td nowrap data-label="Contract #"><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span></a></td>	
 									<td data-label="Stock #">{{cont.stck}}</td>
-									<td data-label="Name"><div style="max-width: 200px">{{cont.fnam}} {{cont.lnam}}</div></td>
-									<td data-label="Co-buyer"><div style="max-width: 200px">&nbsp;{{cont.cfnm}} {{cont.clnm}}</div></td>
+									<td data-label="Name"><div style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;">{{cont.fnam}} {{cont.lnam}}</div></td>
+									<td data-label="Co-buyer"><div style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;">{{cont.cfnm}} {{cont.clnm}}</div></td>
 									<td data-label="Salesperson">{{cont.sprs}}</td>
 									<td data-label="Date">{{cont.ctdt}}</td>
-									<td data-label="Vehicle"><span class="vinspan">{{cont.year}} {{cont.make}} {{cont.modl}}</span></td>
+									<td data-label="Vehicle"><span class="vinspan">{{cont.year}}<br>{{cont.make}}<br>{{cont.modl}}</span></td>
 									<td data-label="View">
-											<table class="pull-right">
-													<td><a href="javascript:void(0);" [class.invisible]="cont.ionov===''" (click)="viewCont(cont.ionov)" style="margin:1px;float: right;width:48px" class="btn btn-primary btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;VSC</a></td>
-													<td><a href="javascript:void(0);" [class.invisible]="cont.ionoc===''" (click)="viewCont(cont.ionoc)" style="margin:1px;float: right;width:48px" class="btn btn-warning btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;CAP</a></td>
-													<td><a href="javascript:void(0);" [class.invisible]="cont.ionoz===''" (click)="viewCont(cont.ionoz)" style="margin:1px;float: right;width:48px" class="btn btn-info btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a></td>
-												</table>
-											<div class="clearfix"></div>
-										</td>
+											<a href="javascript:void(0);" [class.invisible]="cont.ionov===''" (click)="viewCont(cont.ionov)" style="margin:1px;float: right;clear:right;width:48px" class="btn btn-primary btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;VSC</a> 
+											<a href="javascript:void(0);" [class.invisible]="cont.ionoc===''" (click)="viewCont(cont.ionoc)" style="margin:1px;float: right;clear:right;width:48px" class="btn btn-warning btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;CAP</a> 
+											<a href="javascript:void(0);" [class.invisible]="cont.ionoz===''" (click)="viewCont(cont.ionoz)" style="margin:1px;float: right;clear:right;width:48px" class="btn btn-info btn-xs btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a> 
+										<div class="clearfix"></div>
+									</td>
 								</tr>
 							</ng-container>
 						</tbody>
