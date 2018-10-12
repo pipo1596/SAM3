@@ -22,6 +22,7 @@ export class Data{
     ratc :string ="";
     desc :string ="";
     showct: boolean = false;
+    hasoc:boolean=false;
     ctrct :string ="";
     valu :string="";
     catg :string="";
@@ -55,6 +56,7 @@ export class Cont{
 }
 export class Srchg{
     type :string="";
+    prgm :string="";
     code :string="";
     cost :string="";
     desc :string="";

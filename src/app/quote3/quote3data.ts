@@ -96,8 +96,14 @@ export class Rate{
     surch: [string] = [""];
     check :boolean = false;
     data :[[[number]]];
+    cost :[[[number]]];
     rows :[Term];
+    ncbtiers:[ncb];
     cols :[Col];
+}
+export class ncb{
+    prof:number;
+    surc:number;
 }
 export class Term{
     mon:number;
@@ -117,8 +123,9 @@ export class Cont{
     valu :string="";
 }
 export class Srchg{
+    prgm :string="";
     code :string="";
-    type :string=""
+    type :string="";
 }
 export class State{
     code :string="";

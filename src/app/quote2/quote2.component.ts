@@ -285,6 +285,10 @@ export class Quote2Component implements OnInit {
           return false;
         }
       });
+      //has OC?
+      this.pagedata.body.srchg.forEach(schg=>{
+        if(schg.prgm == eachObj.prg) {eachObj.hasoc = true;return;}
+      });
     });
   }
 

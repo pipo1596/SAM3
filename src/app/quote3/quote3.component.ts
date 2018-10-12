@@ -849,7 +849,10 @@ export class Quote3Component implements OnInit {
 
               //Original Value
               if (mode == 'C' || mode == 'D') unitp[0] = unitp[1];
-
+              var cost = 0 ;
+              if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
+              if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>0)
+                cost+=rate.cost[i2][i3][0];
               //Contract Types
               if (table.ctrct.trim() !== "") {
 
@@ -870,16 +873,29 @@ export class Quote3Component implements OnInit {
                   }
                 }
               }
+              
+              //Surcharges
+              this.pagedata.body.srchg.forEach((surch, i4) => {
+                var srchi = rate.surch.findIndex(sch => (surch.code == sch));
+                if (srchi > -1 && surch.prgm == rate.program) {
+                  unitp[0] = unitp[0] + unitp[srchi + 3];
+                  if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
+                  if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>srchi+2)
+                  cost += rate.cost[i2][i3][srchi+3];
+                }
+              });
+              //NCB Charge
+              if(cost > 0){
+              var profit = unitp[0]-cost;
+              var ncbsurch = 0;
+              rate.ncbtiers.forEach(ncb=>{
+                if(ncb.prof <= profit && ncbsurch<ncb.surc) ncbsurch = ncb.surc;
+              })
+              unitp[0] += ncbsurch;
+              }
+
               //Taxes
               if (this.pagedata.body.tax > 0) unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
-              this.pagedata.body.srchg.forEach((surch, i4) => {
-                //Surcharges
-                var srchi = rate.surch.findIndex(sch => (surch.code == sch));
-                if (srchi > -1) {
-                  unitp[0] = unitp[0] + unitp[srchi + 3];
-                }
-
-              })
 
             });
           });
