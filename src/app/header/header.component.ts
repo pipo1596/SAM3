@@ -11,6 +11,7 @@ import { Router, NavigationEnd } from '@angular/router';
 export class HeaderComponent implements OnInit,OnDestroy {
   @Input() headdata : Headerdata;
   modalIn:any;
+  stage:boolean =false;
   logMeOut:any;
   temploctn:[Locn];
   keytime:any;
@@ -163,6 +164,9 @@ hideLoc(){
 }
   ngOnInit() {
     
+    if (window.location.href.indexOf("qa.milo") > -1) this.stage = true;
+    if (window.location.href.indexOf("192.168.6.48") > -1) this.stage = true;
+    if (window.location.href.indexOf("localhost") > -1) this.stage = true;
 
 this.logOutTimer("I");
 this.validVersion();

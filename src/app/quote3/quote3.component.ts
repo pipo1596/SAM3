@@ -534,6 +534,7 @@ export class Quote3Component implements OnInit {
             table.ratc = this.pagedata.body.data[cov[index].indx].ratc;
             table.catg = this.pagedata.body.data[cov[index].indx].catg;
             table.ctrct = this.pagedata.body.data[cov[index].indx].ctrct;
+            table.valu = parseFloat(this.pagedata.body.data[cov[index].indx].valu);
           }
           else
             program.check = false;
@@ -839,7 +840,7 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
-          if (table.valu == undefined || table.valu == -1.2323) table.valu = parseFloat(this.cont.valu);
+          if (table.valu == undefined || table.valu == -1.2323){if(this.cont.catg=='OTC') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && this.cont.catg == 'OTC') this.cont.valu = table.valu.toFixed(2);
         }
 
@@ -849,10 +850,13 @@ export class Quote3Component implements OnInit {
 
               //Original Value
               if (mode == 'C' || mode == 'D') unitp[0] = unitp[1];
+              //Cost
               var cost = 0 ;
               if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
               if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>0)
                 cost+=rate.cost[i2][i3][0];
+
+                
               //Contract Types
               if (table.ctrct.trim() !== "") {
 
@@ -866,6 +870,10 @@ export class Quote3Component implements OnInit {
                     case "OTC":
                       unitp[0] = unitp[0] + table.valu;
                       break;
+                    case "RTL":
+                      unitp[0] = parseFloat(this.cont.valu);
+                      table.valu = -1.2323;
+                      break;
                     default:
                       unitp[0] = unitp[0] + parseFloat(this.cont.valu);
                       table.valu = -1.2323;
@@ -873,7 +881,7 @@ export class Quote3Component implements OnInit {
                   }
                 }
               }
-              
+              if(this.cont.catg!=="RTL"){
               //Surcharges
               this.pagedata.body.srchg.forEach((surch, i4) => {
                 var srchi = rate.surch.findIndex(sch => (surch.code == sch));
@@ -896,7 +904,7 @@ export class Quote3Component implements OnInit {
 
               //Taxes
               if (this.pagedata.body.tax > 0) unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
-
+            }
             });
           });
         });
@@ -1000,7 +1008,7 @@ export class Quote3Component implements OnInit {
             Util.hideWait2();
 
             this.dispAlert.default();
-
+            this.defaultCheck("I");
             this.pagedata.body.tables.forEach(table => {
               if (table.rates !== undefined){
                 table.rates = Util.sortBy2Key(table.rates, "title", "program", "A");
@@ -1008,12 +1016,12 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
-          if (table.valu == undefined) table.valu = parseFloat(this.cont.valu);
+          if (table.valu == undefined && this.cont.catg =='OTC') table.valu = parseFloat(this.cont.valu);
         }
       }
 
             });
-            this.defaultCheck("I");
+            
             this.applySurch("I");
             this.hideDupCov();
 
