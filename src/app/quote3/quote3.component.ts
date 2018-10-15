@@ -6,6 +6,7 @@ import { Quote3data, Cont } from './quote3data';
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
 import { Location } from '@angular/common';
+import { indexDebugNode } from '@angular/core/src/debug/debug_node';
 
 @Component({
   selector: 'app-quote3',
@@ -26,6 +27,8 @@ export class Quote3Component implements OnInit {
   cont: Cont = { "code": "", "prgm": "", "desc": "", "catg": "", "slob": "", "valu": "0" };
 
   rightMatch: [any];
+  ncbarr:[any];
+  ncbarrv:[number];
 
   months: string = "12";
   mindwn: string = "5";
@@ -139,7 +142,8 @@ export class Quote3Component implements OnInit {
     var c = parseInt(cont.selected.substring(12, 15));
     var tb = this.pagedata.body.tables[p];
     contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
-    contract.COVC += tb.rates[t].data[r][c][1].toString().padEnd(15);
+    
+    contract.COVC += this.getCostPlus(tb.rates[t].data[r][c][1],p,t,r,c).toString().padEnd(15);
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
     contract.PRG += tb.rates[t].program.padEnd(10);
@@ -168,6 +172,17 @@ export class Quote3Component implements OnInit {
             this.router.navigate(['/app/Contract']);
 
           });
+  }
+  //==================================================================================================//
+  getCostPlus(v:number,p,t,r,c){
+    var i = this.ncbarr.indexOf(p.toString().padEnd(4)+
+                                t.toString().padEnd(4)+
+                                r.toString().padEnd(4)+
+                                c.toString().padEnd(4) );
+    if(i>-1){
+      return v+this.ncbarrv[i];
+    }
+    else return v;
   }
   //==================================================================================================//
   onChange() {
@@ -831,7 +846,8 @@ export class Quote3Component implements OnInit {
   }
   //==================================================================================================//
   applySurch(mode) {
-
+    this.ncbarr =[''];this.ncbarr.pop();
+    this.ncbarrv =[0];this.ncbarrv.pop();
     if (mode == 'C') { Util.showWait(); }
 
     this.pagedata.body.tables.forEach((table, i0) => {
@@ -893,15 +909,23 @@ export class Quote3Component implements OnInit {
                 }
               });
               //NCB Charge
+              var ncbsurch = 0;
               if(cost > 0){
               var profit = unitp[0]-cost;
-              var ncbsurch = 0;
+              
               rate.ncbtiers.forEach(ncb=>{
                 if(ncb.prof <= profit && ncbsurch<ncb.surc) ncbsurch = ncb.surc;
               })
+              
               unitp[0] += ncbsurch;
+              
               }
-
+              this.ncbarr.push(i0.toString().padEnd(4) +
+                               i1.toString().padEnd(4) +
+                               i2.toString().padEnd(4) +
+                               i3.toString().padEnd(4) 
+              );
+              this.ncbarrv.push(ncbsurch);
               //Taxes
               if (this.pagedata.body.tax > 0) unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
             }
