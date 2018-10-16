@@ -95,7 +95,7 @@ export class Rate{
     nup :string="";
     surch: [string] = [""];
     check :boolean = false;
-    data :[[[number]]];
+    data :[[number]];
     cost :[[[number]]];
     rows :[Term];
     ncbtiers:[ncb];
