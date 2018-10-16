@@ -1036,7 +1036,7 @@ export class Quote3Component implements OnInit {
             this.dispAlert.default();
             this.defaultCheck("I");
             this.pagedata.body.tables.forEach(table => {
-              if (table.rates !== undefined){
+              if (table.rates !== undefined && table.rates.length > 0){
                 table.rates = Util.sortBy2Key(table.rates, "title", "program", "A");
                 var ic = this.pagedata.body.contracts.findIndex(obj => (obj.prgm.trim() == table.rates[0].program.padEnd(10) +table.rates[0].ratc.trim()));
         if (ic > -1) {
