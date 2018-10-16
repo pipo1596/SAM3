@@ -868,6 +868,7 @@ export class Quote3Component implements OnInit {
               if (mode == 'C' || mode == 'D') unitp[0] = unitp[1];
               //Cost
               var cost = 0 ;
+              if(rate.cost !== undefined)
               if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
               if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>0)
                 cost+=rate.cost[i2][i3][0];
@@ -903,6 +904,7 @@ export class Quote3Component implements OnInit {
                 var srchi = rate.surch.findIndex(sch => (surch.code == sch));
                 if (srchi > -1 && surch.prgm == rate.program) {
                   unitp[0] = unitp[0] + unitp[srchi + 3];
+                  if(rate.cost !== undefined)
                   if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
                   if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>srchi+2)
                   cost += rate.cost[i2][i3][srchi+3];
