@@ -287,7 +287,7 @@ export class Quote2Component implements OnInit {
       });
       //has OC?
       this.pagedata.body.srchg.forEach(schg=>{
-        if(schg.prgm == eachObj.prg) {eachObj.hasoc = true;return;}
+        if(schg.prgm == eachObj.prg && schg.ratc == eachObj.ratc) {eachObj.hasoc = true;return;}
       });
     });
   }
@@ -306,7 +306,7 @@ export class Quote2Component implements OnInit {
           Util.setHead(this.pagedata.head);
           //Sort By User Ascending
           this.pagedata.body.srchg = Util.sortByKey(this.pagedata.body.srchg, "type","D");
-          this.pagedata.body.data = Util.killDups2(this.pagedata.body.data);
+          //this.pagedata.body.data = Util.killDups2(this.pagedata.body.data);
           this.hideDupCov();
           if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'QUOTE1')) {
 

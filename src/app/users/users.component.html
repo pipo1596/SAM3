@@ -52,7 +52,7 @@
                             <span class="errorspan2 validating" [class.opqquezero]="sprs.message===''" [class.alert-danger]="sprs.erlevel==='D'" [class.alert-success]="sprs.erlevel==='S'">{{sprs.message}}</span> 
                     </label>
                     <div class="flat-input w100"  *ngIf="!salesmode">
-                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" (keyup)="salesvalid()" name="sprs{{ran}}" type="text" placeholder="Salesperson" [class.required]="sprs.value===''"  [class.validating]="validating"  [(ngModel)]="selectedUser.sprs" maxlength="5">
+                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="sprs{{ran}}" type="text" placeholder="Salesperson" [class.required]="sprs.erlevel==='D'"  [class.validating]="validating"  [(ngModel)]="selectedUser.sprs" maxlength="5">
                     </div>
 
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Authority

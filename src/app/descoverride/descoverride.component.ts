@@ -19,6 +19,7 @@ export class DescoverrideComponent implements OnInit {
 	modebtn = "ADD";
 	//Input Fields
 	srky = new Textfield;
+	srky2= new Textfield;
 	desc = new Textfield;
 	dlr  = new Textfield;
 	prg  = new Textfield;
@@ -87,6 +88,7 @@ export class DescoverrideComponent implements OnInit {
   	this.dispAlert.default();
   	//delete this.selectedRecG;
 	this.selectedRec.srky = record.srky;
+	this.selectedRec.srky2 = record.srky2;
 	this.selectedRec.prg  = record.prg;
   	this.selectedRec.srkyi= record.srkyi;
   	this.selectedRec.desc = record.desc;
@@ -134,6 +136,7 @@ export class DescoverrideComponent implements OnInit {
   	this.valid = true;
   	//Reset Error Messages
 	this.srky.message = "";
+	this.srky2.message = "";
 	this.prg.message = "";  
 	this.lob.message = "";  
   	this.desc.message = "";
@@ -141,11 +144,13 @@ export class DescoverrideComponent implements OnInit {
   	this.dispAlert.default();
   	//Trim Field Values
   	this.srky.value = this.selectedRec.srky.trim().toUpperCase();
+  	this.srky2.value = this.selectedRec.srky2.trim().toUpperCase();
   	this.prg.value  = this.selectedRec.prg.trim().toUpperCase();
   	this.lob.value  = this.selectedRec.lob.trim().toUpperCase();
   	this.dlr.value  = this.selectedRec.dlr.trim().toUpperCase();
 
   	this.selectedRec.srky = this.selectedRec.srky.trim().toUpperCase();
+  	this.selectedRec.srky2 = this.selectedRec.srky2.trim().toUpperCase();
   	this.selectedRec.dlr  = this.selectedRec.dlr.trim().toUpperCase();
   	this.selectedRec.prg  = this.selectedRec.prg.trim().toUpperCase();
   	this.selectedRec.lob  = this.selectedRec.lob.trim().toUpperCase();
@@ -172,14 +177,23 @@ export class DescoverrideComponent implements OnInit {
   			if(this.dispAlert.status === "S"){
   				if(this.selectedRec.mode == "ADD"){
   					this.newRec.srky = this.selectedRec.srky;
-  					this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10)+this.selectedRec.prg.toUpperCase();
+					  this.newRec.srky2 = this.selectedRec.srky2;
+					  if(this.PMTYPE == 'Program')
+					  this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10) +
+					  					 this.selectedRec.srky2.toUpperCase().padEnd(10)+
+										   this.selectedRec.prg.toUpperCase();
+						else
+						this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10) +
+										   this.selectedRec.prg.toUpperCase();
+
   					this.newRec.desc = this.selectedRec.desc;
   					this.newRec.dlr  = this.selectedRec.dlr;
   					this.newRec.dlri = this.selectedRec.dlr.toUpperCase();
   					this.newRec.type = this.selectedRec.type.toUpperCase();
   					this.newRec.lob = this.selectedRec.lob.toUpperCase();
 
-  					this.pagedata.overrides.push(JSON.parse(JSON.stringify(this.newRec)));
+					  this.pagedata.overrides.push(JSON.parse(JSON.stringify(this.newRec)));
+					  this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
 
   					setTimeout(() => {
   						Util.showWait();
@@ -189,7 +203,15 @@ export class DescoverrideComponent implements OnInit {
   				if(this.selectedRec.mode == "SAVE"){
   					this.index = this.pagedata.overrides.findIndex(obj => obj.srkyi==this.selectedRec.srkyi && obj.dlri==this.selectedRec.dlri);
   					this.pagedata.overrides[this.index].srky = this.selectedRec.srky;
-  					this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky.padEnd(10)+this.selectedRec.prg; 
+					  this.pagedata.overrides[this.index].srky2 = this.selectedRec.srky2;
+					  if(this.PMTYPE == 'Program')
+					  this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky.padEnd(10)+
+					  											  this.selectedRec.srky2.padEnd(10)+
+																	this.selectedRec.prg; 
+					  else
+					  this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky.padEnd(10)+
+																	this.selectedRec.prg;
+  					this.pagedata.overrides[this.index].prg = this.selectedRec.prg; 
   					this.pagedata.overrides[this.index].desc = this.selectedRec.desc; 
   					this.pagedata.overrides[this.index].dlr = this.selectedRec.dlr; 
   					this.pagedata.overrides[this.index].dlri = this.selectedRec.dlr;

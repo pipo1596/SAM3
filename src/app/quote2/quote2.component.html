@@ -179,7 +179,7 @@
                     <div class="col-xs-12 well" style="background: #ffffff;" *ngIf="datads.hasoc">
                     <h4 style="margin-bottom: 5px;">Optional Coverages</h4><hr>
                     <ng-container *ngFor="let schg of pagedata.body.srchg ;let s = index">
-                        <div class="col-md-4 col-sm-6" style="padding:0" *ngIf="schg.type =='OC' && schg.prgm == datads.prg">
+                        <div class="col-md-4 col-sm-6" style="padding:0" *ngIf="schg.type =='OC' && schg.prgm == datads.prg && schg.ratc == datads.ratc">
                            
                                 <span class="flat-input-checkbox" >
                                     <div class="custcheck" >

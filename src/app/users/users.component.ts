@@ -24,7 +24,6 @@ export class UsersComponent implements OnInit {
   hasnum = false;
   matchp = false;
   haschr8= false;
-  validsprs = false;
   mode = "ADD";
   modebtn = "ADD";
   useri = "";
@@ -102,12 +101,11 @@ export class UsersComponent implements OnInit {
     this.selectedUser.agrp = 'Y';
 
     }
-salesvalid(){
-  this.validsprs = false;
-  if(this.pvsprs==this.selectedUser.sprs)return;
+salesvalid(submit){
   this.sprs.erlevel ="";
   this.sprs.message ="";
-  if(this.selectedUser.sprs == "")return;
+ 
+  if(this.selectedUser.sprs == ""){this.saveData(submit);return;}
   this.pvsprs = this.selectedUser.sprs;
   Util.showWait();
   this.usersService
@@ -115,10 +113,18 @@ salesvalid(){
     .subscribe(data => this.errSet = data,
       err => {  },
       () => {
-        this.sprs.erlevel = this.errSet.status;
-        this.sprs.message = this.errSet.message;
-        Util.hideWait();
-        if(this.sprs.erlevel == 'S') this.validsprs = true;
+        
+        
+        if(this.errSet.status == 'S'){
+           if(!submit) Util.hideWait();
+           
+           this.saveData(submit);
+        }else{
+          this.sprs.erlevel = this.errSet.status;
+          this.sprs.message = this.errSet.message;
+          Util.hideWait();
+        }
+        
         
        }
       );
@@ -234,6 +240,8 @@ onSelect(user: User): void {
   this.selectedUser.pswd = "";
   this.dlr.erlevel ="";
   this.dlr.message ="";
+  this.sprs.erlevel ="";
+  this.sprs.message ="";
   this.dlr.value ="";
   this.selectedUserG = user;
   this.pswd1 = "";
@@ -252,7 +260,6 @@ onSelect(user: User): void {
   this.hasnum = false;
   this.matchp = false;
   this.haschr8= false;
-  this.validsprs = true;
   
 }
 
@@ -295,7 +302,6 @@ addUserInit(){
   this.hasnum = false;
   this.matchp = false;
   this.haschr8= false;
-  this.validsprs = false;
 
 }
 delete(){
@@ -385,7 +391,6 @@ checkUser(){
     this.reqpass2 = false;
     //Trim Field values
     //switch valid 
-    this.validsprs = true;
     this.user.value  = this.selectedUser.user.trim();
     this.stat.value  = this.selectedUser.stat.trim();
     this.rlno.value  = this.selectedUser.rlno.trim();
@@ -406,86 +411,93 @@ checkUser(){
     if (this.salesmode && this.disc.value =="" && this.slcd.value =="") { this.disc.message = "(Agent - OR - Salesperson Code Required)"; this.disc.erlevel = "D"; this.valid = false; }
 
     //if (this.sprs.value == "" &&  !this.salesmode) { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
-    //if(this.sprs.value !=="" && !this.validsprs && !this.salesmode) { this.sprs.message = "(invalid)"; this.sprs.erlevel = "D"; this.valid = false; }
     if (this.pswd1 == "" && this.editP == "Y") { this.pswd.message = "(required)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd1 !== this.pswd2 && this.editP == "Y") { this.pswd.message = "(Passwords don't match)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd2 == "" && this.editP == "Y") { this.pswdc.message = "(required)"; this.pswdc.erlevel = "D"; this.valid = false;this.reqpass2=true; }
     if (this.pswd1 === this.pswd2 && this.pswd1 !=='' && this.editP == "Y" && !this.validPass()){ this.pswd.message = "(Password not valid)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;} 
-   if (this.valid){//Serve Action
-    Util.showWait();
-    this.selectedUser.mode = this.mode;
-    this.selectedUser.pswd = this.pswd1;
-    if(this.selectedUser.agrp == 'Y'){ this.selectedUser.dlr = [{"dlri":"","desc":""}]; this.selectedUser.dlr.pop();}
-    this.usersService
-    //.initService(Util.formdata("adduser"),Util.Url("CGICUSERSS"))
+  // if (this.valid){//Serve Action
+
+    this.salesvalid(this.valid);
+
+
+  // }
+
     
-    .initService(this.selectedUser,Util.Url("CGICUSERSS"))
-    .subscribe(data => this.errSet = data,
-      err => { this.dispAlert.error(), Util.hideWait(); },
-      () => {
-        this.dispAlert.setMessage(this.errSet);
-        if (this.dispAlert.status === "S") {
+}
 
-          if(this.mode=="ADD"){
-            this.pagedata.users.push({
-              "mode":this.selectedUser.mode,
-              "smode":this.salesmode,
-              "user":this.selectedUser.user,
-              "useri":this.selectedUser.user,
-              "agrp":this.selectedUser.agrp,
-              "stat":this.selectedUser.stat,
-              "rlno":this.selectedUser.rlno,
-              "rold":Util.getSelText(this.selectedUser.rlno,this.pagedata.roles),
-              "fnam":this.selectedUser.fnam,
-              "lnam":this.selectedUser.lnam,
-              "sprs":this.selectedUser.sprs,
-              "disc":this.selectedUser.disc,
-              "slcd":this.selectedUser.slcd,
-              "pswd":"",
-              "dlr": this.selectedUser.dlr
-            });
+saveData(submit){
+  
+  if(!submit) return;
+  Util.showWait();
+  this.selectedUser.mode = this.mode;
+  this.selectedUser.pswd = this.pswd1;
+  if(this.selectedUser.agrp == 'Y'){ this.selectedUser.dlr = [{"dlri":"","desc":""}]; this.selectedUser.dlr.pop();}
+  this.usersService
+  //.initService(Util.formdata("adduser"),Util.Url("CGICUSERSS"))
+  
+  .initService(this.selectedUser,Util.Url("CGICUSERSS"))
+  .subscribe(data => this.errSet = data,
+    err => { this.dispAlert.error(), Util.hideWait(); },
+    () => {
+      this.dispAlert.setMessage(this.errSet);
+      if (this.dispAlert.status === "S") {
 
-            setTimeout(() => {
-              Util.showWait();   
-              this.cancel();
-            }, 300);
+        if(this.mode=="ADD"){
+          this.pagedata.users.push({
+            "mode":this.selectedUser.mode,
+            "smode":this.salesmode,
+            "user":this.selectedUser.user,
+            "useri":this.selectedUser.user,
+            "agrp":this.selectedUser.agrp,
+            "stat":this.selectedUser.stat,
+            "rlno":this.selectedUser.rlno,
+            "rold":Util.getSelText(this.selectedUser.rlno,this.pagedata.roles),
+            "fnam":this.selectedUser.fnam,
+            "lnam":this.selectedUser.lnam,
+            "sprs":this.selectedUser.sprs,
+            "disc":this.selectedUser.disc,
+            "slcd":this.selectedUser.slcd,
+            "pswd":"",
+            "dlr": this.selectedUser.dlr
+          });
+
+          setTimeout(() => {
+            Util.showWait();   
+            this.cancel();
+          }, 300);
 
 
-          }
-          if(this.mode=="SAVE"){
-            //this.index = this.pagedata.users.findIndex(obj => obj.user==this.selectedUser.user);
-            //alert(this.index);
-            this.selectedUserG.user = this.selectedUser.user;
-            this.selectedUserG.rlno = this.selectedUser.rlno;
-            this.selectedUserG.agrp = this.selectedUser.agrp;
-            this.selectedUserG.stat = this.selectedUser.stat;
-            this.selectedUserG.rold = Util.getSelText(this.selectedUser.rlno,this.pagedata.roles);
-            this.selectedUserG.fnam = this.selectedUser.fnam;
-            this.selectedUserG.lnam = this.selectedUser.lnam;
-            this.selectedUserG.sprs = this.selectedUser.sprs;
-            this.selectedUserG.disc = this.selectedUser.disc;
-            this.selectedUserG.slcd = this.selectedUser.slcd;
-            this.selectedUserG.pswd = "";
-            this.selectedUserG.dlr = this.selectedUser.dlr;
-            setTimeout(() => {
-              Util.showWait();   
-              this.cancel();
-            }, 300);
-          }
-          this.changes = false;
-          
-        }else{
-          Util.hideWait();
         }
-          
-
+        if(this.mode=="SAVE"){
+          //this.index = this.pagedata.users.findIndex(obj => obj.user==this.selectedUser.user);
+          //alert(this.index);
+          this.selectedUserG.user = this.selectedUser.user;
+          this.selectedUserG.rlno = this.selectedUser.rlno;
+          this.selectedUserG.agrp = this.selectedUser.agrp;
+          this.selectedUserG.stat = this.selectedUser.stat;
+          this.selectedUserG.rold = Util.getSelText(this.selectedUser.rlno,this.pagedata.roles);
+          this.selectedUserG.fnam = this.selectedUser.fnam;
+          this.selectedUserG.lnam = this.selectedUser.lnam;
+          this.selectedUserG.sprs = this.selectedUser.sprs;
+          this.selectedUserG.disc = this.selectedUser.disc;
+          this.selectedUserG.slcd = this.selectedUser.slcd;
+          this.selectedUserG.pswd = "";
+          this.selectedUserG.dlr = this.selectedUser.dlr;
+          setTimeout(() => {
+            Util.showWait();   
+            this.cancel();
+          }, 300);
+        }
+        this.changes = false;
+        
+      }else{
+        Util.hideWait();
       }
-    );
+        
 
+    }
+  );
 
-   }
-
-    
 }
 
 onChange() {

@@ -57,6 +57,7 @@ export class Cont{
 export class Srchg{
     type :string="";
     prgm :string="";
+    ratc :string="";
     code :string="";
     cost :string="";
     desc :string="";

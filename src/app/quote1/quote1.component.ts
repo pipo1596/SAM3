@@ -131,7 +131,7 @@ newquote(){
 
 condyes(){
   this.pagedata.body.condyn = true;
-  var idx = this.prgIndex1(this.pagedata.body.condprg[0]);
+  var idx = this.prgIndex1(this.pagedata.body.condprg);
   var plan = this.pagedata.body.pln.plans[idx];
   var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
   this.pagedata.body.type = plan.plnt;
@@ -364,11 +364,13 @@ prgIndex(prg,ratc){
 }
 
 prgIndex1(prg){
+  for(var j=0;j<prg.length;j++){
   for (var i = 0; i < this.pagedata.body.pln.plans.length; i++) {
-    if (this.pagedata.body.pln.plans[i].prg == prg) {
+    if (this.pagedata.body.pln.plans[i].prg == prg[j]) {
         return i;
     }
 }
+  }
   return -1;
 }
 
@@ -413,7 +415,7 @@ ngOnInit() {
           this.insrvc.value = this.pagedata.body.insrvc;
           this.asofdt.value = this.pagedata.body.asofdt;
           var master = this.pagedata.body.ckprgs;
-          this.pagedata.body.pln.plans = Util.killDups(this.pagedata.body.pln.plans);
+          //this.pagedata.body.pln.plans = Util.killDups(this.pagedata.body.pln.plans);
           this.pagedata.body.pln.plans.forEach(eachObj =>{  
             var obj = {"prg":eachObj.prg,"ratc":eachObj.ratc}; 
             if(eachObj.plnt==="")eachObj.plnt ="A";//default to Auto if blank

@@ -12,6 +12,7 @@ export class Lob{
 export class Ovrd{
 	mode : string;
 	srky : string;
+	srky2 : string;
 	prg  : string;
 	srkyi: string;
 	desc : string;
@@ -24,6 +25,7 @@ export class Ovrd{
 	public default(mode){
 		this.mode = mode;
 		this.srky = "";
+		this.srky2 = "";
 		this.desc = "";
 		this.dlr  = "";
 		this.prg  = "";

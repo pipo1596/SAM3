@@ -122,6 +122,7 @@ export class Quote3Component implements OnInit {
     var contract: any = {};
     contract.mode = 'CONT';
     contract.CCST ='';
+    contract.XTR8 ='';
     contract.COVC ='';
     contract.COV  ='';
     contract.NUP  ='';
@@ -144,6 +145,7 @@ export class Quote3Component implements OnInit {
     contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
     
     contract.COVC += this.getCostPlus(tb.rates[t].data[r][c][1],p,t,r,c).toString().padEnd(15);
+    contract.XTR8 += this.getCostPlus(0,p,t,r,c).toString().padEnd(15);
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
     contract.PRG += tb.rates[t].program.padEnd(10);
@@ -914,11 +916,14 @@ export class Quote3Component implements OnInit {
               var ncbsurch = 0;
               if(cost > 0){
               var profit = unitp[0]-cost;
-              
+              if(profit <3000 && unitp[0]<5000){//Apply only if profit is less than 3k and retail price less than 5k.
+              var lowlimit =0;
+              rate.ncbtiers = Util.sortByKey(rate.ncbtiers,"prof","A");
               rate.ncbtiers.forEach(ncb=>{
-                if(ncb.prof <= profit && ncbsurch<ncb.surc) ncbsurch = ncb.surc;
+                if(lowlimit <= profit && profit <= ncb.prof ) ncbsurch = ncb.surc;
+                lowlimit = ncb.prof +0.01;
               })
-              
+            }
               unitp[0] += ncbsurch;
               
               }

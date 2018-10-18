@@ -24,6 +24,12 @@
 						<input *ngIf="PMTYPE=='Coverage'" autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="10" (change)="onChange()">
 						<input *ngIf="PMTYPE!=='Coverage'" autocomplete="new-password" style="text-transform:uppercase;" id="srky" name="srky" type="text" placeholder="Code" [class.required]="srky.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky" maxlength="50" (change)="onChange()">
 					</div>
+					<label class="flat-input inputlabel" *ngIf="PMTYPE=='Program'">Rate Card 
+							<span class="errorspan2" [class.opqquezero]="srky2.message===''" [class.alert-danger]="srky2.erlevel==='D'" [class.validating]="validating">{{srky2.message}}</span>
+						</label>
+						<div class="flat-input w100" *ngIf="PMTYPE=='Program'">
+							<input autocomplete="new-password" style="text-transform:uppercase;" id="srky2" name="srky2" type="text" placeholder="Rate Card" [class.required]="srky2.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky2" maxlength="10" (change)="onChange()">
+						</div>
 					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Override Description
 						<span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.validating]="validating">{{desc.message}}</span>
 					</label>
@@ -90,6 +96,7 @@
 							<tr>
 								<th><b>{{PMTYPE}} Code</b></th>
 								<th *ngIf="PMTYPE=='Coverage'"><b>Program Code</b></th>
+								<th *ngIf="PMTYPE=='Program'"><b>Rate Card</b></th>
 								<th><b>Override Description</b></th>
 								<th><b>Dealer Code</b></th>
 								<th *ngIf="PMTYPE=='Program'"><b>LOB</b></th>
@@ -100,6 +107,7 @@
 							<tr *ngFor="let ovrd of pagedata.overrides">
 								<td data-label="Code">{{ovrd.srky}}</td>
 								<td *ngIf="PMTYPE=='Coverage'" data-label="Program Code">{{ovrd.prg}}</td>
+								<td *ngIf="PMTYPE=='Program'" data-label="Rate Card">{{ovrd.srky2}}</td>
 								<td data-label="Override Description">{{ovrd.desc}}</td>
 								<td data-label="Dealer Code">{{ovrd.dlr}}</td>
 								<td data-label="LOB" *ngIf="PMTYPE=='Program'">{{ovrd.lob}}</td>
