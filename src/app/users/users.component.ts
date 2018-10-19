@@ -105,7 +105,7 @@ salesvalid(submit){
   this.sprs.erlevel ="";
   this.sprs.message ="";
  
-  if(this.selectedUser.sprs == ""){this.saveData(submit);return;}
+ // if(this.selectedUser.sprs == ""){this.saveData(submit);return;}
   this.pvsprs = this.selectedUser.sprs;
   Util.showWait();
   this.usersService
@@ -118,7 +118,7 @@ salesvalid(submit){
         if(this.errSet.status == 'S'){
            if(!submit) Util.hideWait();
            
-           this.saveData(submit);
+         //  this.saveData(submit);
         }else{
           this.sprs.erlevel = this.errSet.status;
           this.sprs.message = this.errSet.message;
@@ -415,19 +415,18 @@ checkUser(){
     if (this.pswd1 !== this.pswd2 && this.editP == "Y") { this.pswd.message = "(Passwords don't match)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd2 == "" && this.editP == "Y") { this.pswdc.message = "(required)"; this.pswdc.erlevel = "D"; this.valid = false;this.reqpass2=true; }
     if (this.pswd1 === this.pswd2 && this.pswd1 !=='' && this.editP == "Y" && !this.validPass()){ this.pswd.message = "(Password not valid)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;} 
-  // if (this.valid){//Serve Action
+   if (this.valid){//Serve Action
 
-    this.salesvalid(this.valid);
+    this.saveData();
 
 
-  // }
+   }
 
     
 }
 
-saveData(submit){
+saveData(){
   
-  if(!submit) return;
   Util.showWait();
   this.selectedUser.mode = this.mode;
   this.selectedUser.pswd = this.pswd1;

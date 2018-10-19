@@ -144,8 +144,8 @@ export class Quote3Component implements OnInit {
     var tb = this.pagedata.body.tables[p];
     contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
     
-    contract.COVC += this.getCostPlus(tb.rates[t].data[r][c][1],p,t,r,c).toString().padEnd(15);
-    contract.XTR8 += this.getCostPlus(0,p,t,r,c).toString().padEnd(15);
+    contract.COVC += tb.rates[t].data[r][c][1].toString().padEnd(15);
+    contract.XTR8 += this.getCostPlus(p,t,r,c).toString().padEnd(15);
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
     contract.PRG += tb.rates[t].program.padEnd(10);
@@ -176,15 +176,15 @@ export class Quote3Component implements OnInit {
           });
   }
   //==================================================================================================//
-  getCostPlus(v:number,p,t,r,c){
+  getCostPlus(p,t,r,c){
     var i = this.ncbarr.indexOf(p.toString().padEnd(4)+
                                 t.toString().padEnd(4)+
                                 r.toString().padEnd(4)+
                                 c.toString().padEnd(4) );
     if(i>-1){
-      return v+this.ncbarrv[i];
+      return this.ncbarrv[i];
     }
-    else return v;
+    else return 0;
   }
   //==================================================================================================//
   onChange() {
@@ -916,7 +916,7 @@ export class Quote3Component implements OnInit {
               var ncbsurch = 0;
               if(cost > 0){
               var profit = unitp[0]-cost;
-              if(profit <3000 && unitp[0]<5000){//Apply only if profit is less than 3k and retail price less than 5k.
+              if(profit <=3000 && unitp[0]<=5000){//Apply only if profit is less than 3k and retail price less than 5k.
               var lowlimit =0;
               rate.ncbtiers = Util.sortByKey(rate.ncbtiers,"prof","A");
               rate.ncbtiers.forEach(ncb=>{
