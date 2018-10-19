@@ -106,6 +106,21 @@ dealerGroups(){
 }
 
 public logOutTimer(mode){
+    if(mode=="R"){ Util.modal("hide");this.router.navigate([this.router.url]);}
+    clearTimeout(this.modalIn);
+    clearTimeout(this.logMeOut);
+    Util.hidebyid("toolate");
+    Util.showbyid("staylogin");
+
+    this.modalIn = setTimeout(()=>{ 
+        this.hideVersion();
+        this.hideAlert();
+        if(this.headdata.status === "I") { Util.modal("show");}
+        }, 1800000);
+    this.logMeOut = setTimeout(()=>{ Util.hidebyid("staylogin");Util.showbyid("toolate");}, 1820000);
+}
+
+public logOutTimerB(mode){
     if(mode=="R"){ Util.modal("hide");}
     clearTimeout(this.modalIn);
     clearTimeout(this.logMeOut);

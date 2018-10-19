@@ -151,7 +151,8 @@
           <h4 class="modal-title pull-left">Inactivity detected</h4>
         </div>
         <div class="modal-body">
-          <p>Your session is about to expire, stay Logged In?</p>
+          <p id="staylogin">Your session is about to expire, stay Logged In?</p>
+          <p id="toolate" class="hidden">Your session has expired!</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" (click)="logOutTimer('R')" >Ok</button>
