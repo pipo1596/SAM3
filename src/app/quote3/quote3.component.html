@@ -104,6 +104,24 @@
                                                 </td>
                                                 <td class="text-left">{{pagedata.body.veh.price | currency}}</td>
                                             </tr>
+                                            <tr *ngIf="pagedata.body.veh.msrp !==''">
+                                                <td class="text-right">
+                                                    <b>MSRP:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.msrp | currency}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.amfn !==''">
+                                                <td class="text-right">
+                                                    <b>Amount Financed:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.amfn | currency}}</td>
+                                            </tr>
+                                            <tr *ngIf="pagedata.body.veh.lmth !==''">
+                                                <td class="text-right">
+                                                    <b>Lease Months:</b>
+                                                </td>
+                                                <td class="text-left">{{pagedata.body.veh.lmth}}</td>
+                                            </tr>
                                         <tr>
                                             <td class="text-right">
                                                 <b>In-Service:</b>
@@ -432,7 +450,9 @@
                                         <label for="check{{datads.prg+datads.ratc+term.termm+term.miles}}"></label>
                                     </div>
                                     <label class="checklabel" for="check{{datads.prg+datads.ratc+term.termm+term.miles}}">
-                                        <span>{{term.termm}} Months</span> / {{term.miles|number:0}}</label>
+                                        <span *ngIf="datads.lobc !=='WT'"><span>{{term.termm}} Months</span> / {{term.miles|number:0}}</span>
+                                        <span *ngIf="datads.lobc  =='WT'"><span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                    </label>
                                 </span>
                             </ng-container>
                             <hr style="margin:5px 0 15px 0">
@@ -503,7 +523,8 @@
                                     <ng-container *ngFor="let row of table.rows;let r = index" >
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
-                                            <span>{{row.mon}} Months</span> / {{row.mil|number:0}}
+                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>
+                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
                                         <td *ngIf="col.check">
@@ -580,7 +601,8 @@
                                     <ng-container *ngFor="let row of table.rows;let r = index" >
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
-                                            <span>{{row.mon}} Months</span> / {{row.mil|number:0}}
+                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>
+                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
                                         <td *ngIf="col.check">
@@ -784,7 +806,9 @@
                                                             <span style="color:gray" *ngIf="table.nup =='P'">- [Program]</span></span>
                                                         </td>
                                                         <td style="font-weight: bold">
-                                                            <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</td>
+                                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>
+                                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                                        </td>
                                                         <td style="font-weight: bold" *ngIf="col.ded!=='DD'">{{ col.ded | currency}}</td>
                                                         <td style="font-weight: bold" *ngIf="col.ded =='DD'">{{ col.ded }}</td>
                                                         <td style="font-weight: bold">{{ table.data[r][c][0] | currency}}</td>

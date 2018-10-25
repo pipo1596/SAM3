@@ -39,6 +39,7 @@ export class Data{
     ratc :string ="";
     desc :string ="";
     lob  :string ="";
+    lobc :string ="";
     showct: boolean = false;
  selected : string =""; 
     ctrct :string ="";
@@ -136,8 +137,12 @@ export class Vehicle{
     make  : string="";
     model : string="";
     miles : string="";
+    lmil  : string="";
+    lmth  : string="";
     insrvc: string="";
     price : string="";
+    msrp  : string="";
+    amfn  : string="";
     vin   : string="";
     rvtype: string="";
     engtyp: string="";

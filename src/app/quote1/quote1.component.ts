@@ -21,6 +21,7 @@ export class Quote1Component implements OnInit {
   validvin = true;
   dmsmode = false;
   rvmode = false;
+  arrlob = [];
   notfoc:boolean = true;
 
   prevVin:string ="";
@@ -40,6 +41,10 @@ export class Quote1Component implements OnInit {
   engtyp = new Textfield;
   mfgw = new Textfield;
   price  = new Textfield;
+  msrp  = new Textfield;
+  amfn  = new Textfield;
+  lmil  = new Textfield;
+  lmth  = new Textfield;
   insrvc = new Textfield;
   asofdt = new Textfield;
   rvtype:string ="";
@@ -154,11 +159,15 @@ checkStep1(){
     this.year.message     = "";
     this.make.message     = "";
     this.model.message    = "";
-    this.vin.message      = "";
+    if(this.vin.value.trim()=="")this.vin.message      = "";
     this.engtyp.message  = "";
     this.mfgw.message  = "";
     this.miles.message    = "";
     this.price.message    = "";
+    this.msrp.message    = "";
+    this.amfn.message    = "";
+    this.lmil.message    = "";
+    this.lmth.message    = "";
     this.insrvc.message   = "";
     this.asofdt.message   = "";
     //Reset Top Alert
@@ -205,7 +214,24 @@ checkStep1(){
       if(this.price.value == "" || this.price.value == null){this.price.message = "(Required)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
       if(parseInt(this.price.value) <= 0){this.price.message = "(Invalid)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
     }  
-
+    //WT //Lease Mode
+    if(this.arrlob.indexOf('WT')>-1){
+      //Msrp
+      if(this.msrp.value == "" || this.msrp.value == null){this.msrp.message = "(Required)";this.msrp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("msrp");this.notfoc=false;}}
+      if(parseInt(this.msrp.value) <= 0){this.msrp.message = "(Invalid)";this.msrp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("msrp");this.notfoc=false;}}
+      //Miles
+      if(this.lmil.value == "" || this.lmil.value == null){this.lmil.message = "(Required)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
+      if(parseInt(this.lmil.value) <= 0){this.lmil.message = "(Invalid)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
+      if(this.valid && this.lmil.value.toString().length>7){this.lmil.message = "(Too High)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
+      //Months
+      if(this.lmth.value == "" || this.lmth.value == null){this.lmth.message = "(Required)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
+      if(parseInt(this.lmth.value) <= 0){this.lmth.message = "(Invalid)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
+      if(this.valid && this.lmth.value.toString().length>3){this.lmth.message = "(Too High)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
+    }
+    if(this.arrlob.indexOf('RVGAP')>-1){
+      //Amount Financed
+      if(parseInt(this.amfn.value) <= 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
+    }
     if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}}
     if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}}
 
@@ -221,6 +247,10 @@ checkStep1(){
       this.pagedata.body.rvtype  = this.rvtype;
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
+      this.pagedata.body.msrp   = this.msrp.value;
+      this.pagedata.body.amfn   = this.amfn.value;
+      this.pagedata.body.lmil   = this.lmil.value;
+      this.pagedata.body.lmth   = this.lmth.value;
       this.pagedata.body.insrvc  = this.insrvc.value;
       this.pagedata.body.asofdt  = this.asofdt.value;
       this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"prg","A");
@@ -345,9 +375,15 @@ addplan(e,plan){
         this.pagedata.body.type = plan.plnt;
         
         this.pagedata.body.ckprgs.push(obj);
+        if((plan.lob ==='WT' || plan.lob =='RVGAP') && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
     }else{
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
       if(!this.pagedata.body.ckprgs.length){ this.pagedata.body.type ="";}
+      if((plan.lob ==='WT' || plan.lob =='RVGAP')){
+      var ilob = this.arrlob.indexOf(plan.lob);
+      if (ilob > -1) { this.arrlob.splice(ilob, 1);}
+      Util.showWait();Util.hideWait();
+      }
     }
     if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
     if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
@@ -412,6 +448,10 @@ ngOnInit() {
           this.changes = false;
           this.miles.value = this.pagedata.body.miles;
           this.price.value = this.pagedata.body.price;
+          this.msrp.value = this.pagedata.body.msrp;
+          this.amfn.value = this.pagedata.body.amfn;
+          this.lmil.value = this.pagedata.body.lmil;
+          this.lmth.value = this.pagedata.body.lmth;
           this.insrvc.value = this.pagedata.body.insrvc;
           this.asofdt.value = this.pagedata.body.asofdt;
           var master = this.pagedata.body.ckprgs;
@@ -423,6 +463,7 @@ ngOnInit() {
                                        obj.ratc == eachObj.ratc && 
                                        eachObj.plnt == this.pagedata.body.type)>=0){
               eachObj.check = true;
+              if(this.arrlob.indexOf(eachObj.lob)==-1) this.arrlob.push(eachObj.lob);
             }else{
               eachObj.check = false;
             }

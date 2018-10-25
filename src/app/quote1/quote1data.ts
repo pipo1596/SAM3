@@ -24,6 +24,10 @@ export class bodyData{
     mfgw  :string ;
     miles   :string ;
     price   :string ;
+    amfn   :string ;
+    msrp   :string ;
+    lmth   :string ;
+    lmil   :string ;
     insrvc  :string ;
     asofdt  :string ;
     ckprgs :[any];

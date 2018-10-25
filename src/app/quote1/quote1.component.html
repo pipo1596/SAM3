@@ -104,7 +104,7 @@
                         <div><span class="errorspan2 alert-danger"  [class.hidden]="vin.erlevel==='S'" [class.validating]="vin.erlevel=='D' || validating">{{vin.message}}</span>&nbsp;
                             <span class="errorspan2 alert-success"  [class.hidden]="vin.erlevel==='D'" [class.validating]="vin.erlevel=='S'">{{vin.message}}</span>&nbsp;</div>
                         <span class="flat-input">
-                            <input autocomplete="new-password{{ran}}" name="vAin{{ran}}" id="vAin" type="text" placeholder="VIN" maxlength="17" (keyup)="vinCheck('S')" [(ngModel)]="vin.value" [class.required]="vin.message !==''"  [class.validating]="validating" (change)="vinCheck('S');onChange()">
+                            <input autocomplete="new-password{{ran}}" name="vAin{{ran}}" id="vAin" type="text" placeholder="VIN" maxlength="17" (keyup)="vinCheck('S')" [(ngModel)]="vin.value" [class.required]="vin.message !=='' && vin.erlevel=='D'"  [class.validating]="validating" (change)="vinCheck('S');onChange()">
                         </span>
                         <div class="text-center"><hr style="margin:10px 10px 20px 10px"></div>
                         <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' && rvmode"><span class="req">*&nbsp;</span>Mileage
@@ -152,6 +152,38 @@
                                                             (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                                 <input autocomplete="new-password{{ran}}" name="prce{{ran}}" id="prce" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
+                        <div *ngIf="arrlob.indexOf('RVGAP')>-1">
+                        <!--Financed-->
+                        <label class="flat-input inputlabel" >Amount financed 
+                                <span class="errorspan2" [class.opqquezero]="amfn.message===''" [class.alert-danger]="amfn.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{amfn.message}}</span> 
+                            </label>
+                            <span class="flat-input">
+                                <input autocomplete="new-password{{ran}}" name="amfn{{ran}}" id="amfn" type="number" placeholder="Amount financed" [(ngModel)]="amfn.value" [class.required]="amfn.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            </span>
+                        </div>
+                        <div *ngIf="arrlob.indexOf('WT')>-1">
+                        <!--MSRP-->
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>MSRP
+                                <span class="errorspan2" [class.opqquezero]="msrp.message===''" [class.alert-danger]="msrp.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{msrp.message}}</span> 
+                            </label>
+                            <span class="flat-input">
+                                <input autocomplete="new-password{{ran}}" name="msrp{{ran}}" id="msrp" type="number" placeholder="MSRP" [(ngModel)]="msrp.value" [class.required]="msrp.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            </span>
+                        <!--Lease Months-->
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Lease Months
+                                <span class="errorspan2" [class.opqquezero]="lmth.message===''" [class.alert-danger]="lmth.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{lmth.message}}</span> 
+                            </label>
+                            <span class="flat-input">
+                                <input autocomplete="new-password{{ran}}" name="lmth{{ran}}" id="lmth" type="number" placeholder="Lease Months" [(ngModel)]="lmth.value" [class.required]="lmth.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            </span>
+                        <!--Lease Miles-->
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Lease Miles
+                                <span class="errorspan2" [class.opqquezero]="lmil.message===''" [class.alert-danger]="lmil.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{lmil.message}}</span> 
+                            </label>
+                            <span class="flat-input">
+                                <input autocomplete="new-password{{ran}}" name="lmil{{ran}}" id="lmil" type="number" placeholder="Lease Miles" [(ngModel)]="lmil.value" [class.required]="lmil.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            </span>
+                        </div>
                         <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date
                             <span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
                         </label>

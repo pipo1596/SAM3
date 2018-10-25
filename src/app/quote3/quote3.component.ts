@@ -144,7 +144,7 @@ export class Quote3Component implements OnInit {
     var tb = this.pagedata.body.tables[p];
     contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
     
-    contract.COVC += tb.rates[t].data[r][c][1].toString().padEnd(15);
+    contract.COVC += Math.ceil(tb.rates[t].data[r][c][1]).toString().padEnd(15);
     contract.XTR8 += this.getCostPlus(p,t,r,c).toString().padEnd(15);
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
@@ -152,16 +152,25 @@ export class Quote3Component implements OnInit {
     contract.RATC += tb.rates[t].ratc.padEnd(10);
     contract.CVDS += tb.rates[t].title.padEnd(50);
     contract.DED +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
-    contract.CVMN += tb.rates[t].rows[r].mon.toString().padEnd(3);
-    contract.CVML += tb.rates[t].rows[r].mil.toString().padEnd(7);
+    
+    if(this.xlatelobc(contract.PRG.trim(), contract.RATC.trim())=='WT'){
+      contract.CVMN += this.pagedata.body.veh.lmth.toString().padEnd(3);
+      contract.CVML += this.pagedata.body.veh.lmil.toString().padEnd(7);
+      contract.TERM += (this.pagedata.body.veh.lmth+' Months / ' +
+                    this.withcommas(this.pagedata.body.veh.lmil)+' Miles').padEnd(50);
+    }else{
+      contract.CVMN += tb.rates[t].rows[r].mon.toString().padEnd(3);
+      contract.CVML += tb.rates[t].rows[r].mil.toString().padEnd(7);
+      contract.TERM += (tb.rates[t].rows[r].mon+' Months / ' +
+                    this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
+    }
    
     contract.TXRT = this.pagedata.body.tax;
     if(this.pagedata.body.tax>0){
     var subt = (contract.CCST/(1+(contract.TXRT/100)));
     contract.TAX  +=  (contract.CCST - subt).toFixed(2).toString().padEnd(15);
     }                
-    contract.TERM += (tb.rates[t].rows[r].mon+' Months / ' +
-                    this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
+    
   }                 
                   });
     //alert(JSON.stringify(contract)) ;
@@ -936,6 +945,7 @@ export class Quote3Component implements OnInit {
               //Taxes
               if (this.pagedata.body.tax > 0) unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
             }
+            unitp[0] = Math.ceil(unitp[0])
             });
           });
         });
@@ -949,6 +959,15 @@ export class Quote3Component implements OnInit {
     var index = this.pagedata.body.data.findIndex(obj => (obj.prg == prg && obj.ratc == ratc));
 
     if (index >= 0) return this.pagedata.body.data[index].lob;
+    else return "";
+
+  }
+  //==================================================================================================//  
+  xlatelobc(prg, ratc) {
+    if (this.pagedata.body.data === undefined) return "";
+    var index = this.pagedata.body.data.findIndex(obj => (obj.prg == prg && obj.ratc == ratc));
+
+    if (index >= 0) return this.pagedata.body.data[index].lobc;
     else return "";
 
   }

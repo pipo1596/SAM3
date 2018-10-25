@@ -20,6 +20,7 @@ contracts: [Cont];
 export class Data{
     prg  :string ="";
     ratc :string ="";
+    lobc :string ="";
     desc :string ="";
     showct: boolean = false;
     hasoc:boolean=false;
@@ -69,8 +70,12 @@ export class Vehicle{
     make  : string="";
     model : string="";
     miles : string="";
+    lmil  : string="";
+    lmth  : string="";
     insrvc: string="";
     price : string="";
+    msrp  : string="";
+    amfn  : string="";
     vin   : string="";
     rvtype: string="";
     engtyp: string="";
