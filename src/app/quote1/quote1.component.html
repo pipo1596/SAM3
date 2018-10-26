@@ -122,7 +122,7 @@
                           <option *ngFor="let eng of pagedata.body.engine" [value]="eng.key" [attr.selected]="engtyp.value==eng.key ? true : null">{{eng.desc}}</option>
                         </select>
                         </span>
-                        <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' || !rvmode || engtyp.value ==''"><span class="req">*&nbsp;</span>Manufacturer's Warranty
+                        <label class="flat-input inputlabel" [class.hidden]="!rvmode || (engtyp.value =='' && rvtype=='M')"><span class="req">*&nbsp;</span>Manufacturer's Warranty
                           <span class="errorspan2" [class.opqquezero]="mfgw.message===''" id="mfgw" [class.alert-danger]="mfgw.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{mfgw.message}}</span> 
                       </label>
                         <span class="flat-input" [class.hidden]="rvtype!=='M' || !rvmode || engtyp.value ==''">
@@ -144,6 +144,36 @@
                             </div>
                             <hr style="margin:0">
                         </span>
+                        <span class="flat-input"  *ngIf = "rvtype!=='M' && rvmode">
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw4" value="12 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw4"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw4">12 Months</label> 
+                            </div>
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw5" value="24 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw5"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw5">24 Months</label> 
+                            </div>
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw6" value="36 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw6"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw6">36 Months</label> 
+                            </div>
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw7" value="48 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw7"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw7">48 Months</label> 
+                            </div>
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw8" value="60 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw8"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw8">60 Months</label> 
+                            </div>
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw9" value="72 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw9"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw9">72 Months</label> 
+                            </div>
+                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw10" value="84 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw10"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw10">84 Months</label> 
+                            </div>
+                        </span>    
                         <label class="flat-input inputlabel" *ngIf="pagedata.body.type==='R' ||
                                                                     (pagedata.body.type==='' && pagedata.body.dtype==='R')"><span class="req">*&nbsp;</span>Original Purchase Price
                                 <span class="errorspan2" [class.opqquezero]="price.message===''" [class.alert-danger]="price.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{price.message}}</span> 
@@ -154,7 +184,7 @@
                             </span>
                         <div *ngIf="arrlob.indexOf('RVGAP')>-1">
                         <!--Financed-->
-                        <label class="flat-input inputlabel" >Amount financed 
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Amount financed 
                                 <span class="errorspan2" [class.opqquezero]="amfn.message===''" [class.alert-danger]="amfn.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{amfn.message}}</span> 
                             </label>
                             <span class="flat-input">

@@ -192,6 +192,7 @@ checkStep1(){
     }
 
     if(this.vin.value == "" || this.rvmode){
+      if(this.rvmode)this.validvin = true;
       if (this.year.value == "") { this.year.message = "(Year required)"; this.year.erlevel = "D"; this.valid = false; }
       if (this.year.message == "" && this.make.value == ""){this.year.message = "(Make required)";this.make.message = "R"; this.year.erlevel = "D"; this.valid = false; }
       if (this.year.message == "" && this.model.value == ""){this.year.message = "(Model required)";this.model.message = "R"; this.year.erlevel = "D"; this.valid = false; }
@@ -202,7 +203,11 @@ checkStep1(){
     if(!this.rvmode || this.rvtype == "M"){
       if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
       if(this.rvtype == "M" && this.engtyp.value == "" ){this.engtyp.message = "(Required)";this.engtyp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("engtyp");this.notfoc=false;}}
-      if(this.rvtype == "M" && this.mfgw.value == ""  ){this.mfgw.message = "(Required)";this.mfgw.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mfgw");this.notfoc=false;}}
+      
+    }
+    //Trailer popup
+    if(this.rvmode){
+      if(this.mfgw.value == ""  ){this.mfgw.message = "(Required)";this.mfgw.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mfgw");this.notfoc=false;}}
     }
     //Auto
     if(this.pagedata.body.type === "A" || (this.pagedata.body.type ==="" && this.pagedata.body.dtype==="A")){      
@@ -230,7 +235,8 @@ checkStep1(){
     }
     if(this.arrlob.indexOf('RVGAP')>-1){
       //Amount Financed
-      if(parseInt(this.amfn.value) <= 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
+      if(this.amfn.value == null || this.amfn.value.toString() == ""){this.amfn.message = "(Required)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
+      if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
     if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}}
     if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}}
