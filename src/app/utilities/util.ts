@@ -97,7 +97,11 @@ static hideWait(){
     if(!setMenu){ 
         setMenu = true;      
     setTimeout(function(){ 
-         
+        $(window).on('scroll', function() { if(window.scrollY > 100) 
+                                                $("#totop").removeClass("hidden");
+                                            else
+                                                $("#totop").addClass("hidden");
+    });     
             
     var currMenuType = 'desktop';                                                                                         
     if ( $(window).width() < 991) {                                                   
