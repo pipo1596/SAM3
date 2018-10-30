@@ -15,7 +15,7 @@
                       </span>
                       <span class="flat-input">
                           <span class="errorspan" [class.opqquezero]="password.message===''" [class.alert-danger]="password.erlevel==='D'" [class.alert-success]="password.erlevel==='S'" [class.validating]="validating">{{password.message}}</span> 
-                        <input [(ngModel)]="password.value" autocomplete="new-password" name="password" id="password" [class.required]="password.value===''" [class.validating]="validating" (change)="onChange()" type="password" placeholder="* Password" max="50">
+                        <input [(ngModel)]="password.value" autocomplete="new-password" name="password" id="password" [class.required]="password.value===''" [class.validating]="validating" (change)="onChange()" type="password" placeholder="* Password - (Case Sensitive)" max="50">
                       </span>
                     </div>
                       <span><a style="color:#337ab7;padding-top:10px;" routerLink="/app/forgotpassword"  class="pull-left" >Forgot your password?</a></span>

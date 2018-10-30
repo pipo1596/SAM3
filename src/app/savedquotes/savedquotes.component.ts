@@ -71,7 +71,15 @@ export class SavedquotesComponent implements OnInit {
   	this.changes = true;
   	this.validating = false;
   }
+  resetf(){
+    this.stock = "";
+    this.lname = "";
+    this.salep = "";
+    this.frdt = "";
+    this.todt = "";
+    this.dateFilter();
 
+  }
   dateFilter(){
     Util.showWait();
     this.stock = this.stock.trim();
@@ -167,7 +175,7 @@ export class SavedquotesComponent implements OnInit {
   		this.jsonService
   		.initService({"mode":"DELETE","dltarr":delArr}, Util.Url("CGICSVQT"))
   		.subscribe(data => this.errSet = data,
-  			err => { this.dispAlert.error(), Util.hideWait();},
+  			err => { this.dispAlert.error(); Util.hideWait();},
   			()=>{
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
@@ -201,7 +209,7 @@ export class SavedquotesComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"VIEWQT","qtid":quoteID}, Util.Url("CGICSVQT"))
   	.subscribe(data => this.errSet = data,
-  		err => {this.dispAlert.error(), Util.hideWait();},
+  		err => {this.dispAlert.error(); Util.hideWait();},
   		() => {
   			this.dispAlert.setMessage(this.errSet);
   			if(this.errSet.status !== "S") this.dispAlert.setMessage(this.errSet);
@@ -233,7 +241,7 @@ export class SavedquotesComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICSVQT"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
@@ -281,7 +289,7 @@ export class SavedquotesComponent implements OnInit {
     this.jsonService
     .initService({"mode":"READNEXT", "qtid":anchor},Util.Url("CGICSVQT"))
     .subscribe(data => this.readdata = data,
-      err => {Util.responsiveMenu(); },
+      err => {Util.hideWait(); },
       () => {
         Util.responsiveMenu();
         Array.prototype.push.apply(this.pagedata.squotes,this.readdata.squotes);

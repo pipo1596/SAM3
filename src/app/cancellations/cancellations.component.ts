@@ -115,7 +115,7 @@ export class CancellationsComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGRPCNCELD"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

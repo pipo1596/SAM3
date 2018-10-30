@@ -107,6 +107,13 @@
                                                 </ul>
                                                 </li>
                                         </ng-container>
+                                                                                                                                                           
+                                        <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Claims</a>
+                                            <ul class="submenu">  
+                                                <li><a href="https://secured.inds.com/Dealers/webclaimentry/indsclaim_login.asp" target="_blank">Claims Entry</a></li>
+                                                <li><a [routerLink]="['/app/ClaimsForm']">Claims Form</a></li>
+                                            </ul>
+                                        </li> 
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Support</a>
                                             <ul class="submenu">                                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus'}" id="contactus">Contact Us</a></li>
@@ -122,13 +129,7 @@
                                                 <li><a href="./forms/Upgrade_Request_Form.pdf" target="_blank">Upgrade Request</a></li>
                                                 <li><a href="./forms/star_waiver_form.pdf" target="_blank">Star Waiver Form</a></li>                    
                                             </ul><!-- /.submenu --> 
-                                        </li>                                                                                                                       
-                                        <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Claims</a>
-                                            <ul class="submenu">  
-                                                <li><a href="https://secured.inds.com/Dealers/webclaimentry/indsclaim_login.asp" target="_blank">Claims Entry</a></li>
-                                                <li><a [routerLink]="['/app/ClaimsForm']">Claims Form</a></li>
-                                            </ul>
-                                        </li>                                                                                                   
+                                        </li>                                                                                                      
                                         <li><a href="javascript:void(0)" (click)="logOut()">Log Out</a></li>                                                                                                   
                                     </ul><!-- /.menu -->                                                                                      
                                 </nav><!-- /.mainnav -->     

@@ -73,7 +73,15 @@ export class RemittedComponent implements OnInit {
     this.validating = false;
     this.dispAlert.default();
   }
+  resetf(){
+    this.stock = "";
+    this.lname = "";
+    this.salep = "";
+    this.frdt = "";
+    this.todt = "";
+    this.dateFilter();
 
+  }
   checkEdit(){
     this.valid = true;
     this.validating = true;
@@ -137,7 +145,7 @@ var obj ={"mode":"UPDATE",
 this.jsonService
 .initService(obj,Util.Url("CGICRMCT"))
 .subscribe(data => this.view = data,
-err => {Util.responsiveMenu(); },
+err => {Util.hideWait(); },
 () => {
 this.pagemode = 'L'; 
 var index = this.pagedata.contracts.findIndex(obj => obj.ecno==this.eecno);
@@ -174,7 +182,7 @@ for (var i = 0; i < numbers.length; i++) {
     this.jsonService
   	.initService(obj,Util.Url("CGICRMCT"))
   	.subscribe(data => this.view = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.changes = false;
         this.pagemode = 'V'; 
@@ -324,7 +332,7 @@ for (var i = 0; i < numbers.length; i++) {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICRMCT"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
@@ -371,7 +379,7 @@ for (var i = 0; i < numbers.length; i++) {
     this.jsonService
     .initService({"mode":"READNEXT", "ecno":anchor},Util.Url("CGICRMCT"))
     .subscribe(data => this.readdata = data,
-      err => {Util.responsiveMenu(); },
+      err => {Util.hideWait(); },
       () => {
         Util.responsiveMenu();
         Array.prototype.push.apply(this.pagedata.contracts,this.readdata.contracts);

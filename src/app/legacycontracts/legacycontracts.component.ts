@@ -2,22 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
-import { Legacyinvoicesdata, Readnextdata } from './legacyinvoicesdata'; 
+import { Legacycontractsdata, Readnextdata } from './legacycontractsdata'; 
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { PagerService } from '../_services'
-import { utils } from 'protractor';
 
 
 @Component({
-  selector: 'app-legacyinvoices',
-  templateUrl: './legacyinvoices.component.html',
-  styleUrls: [ './legacyinvoices.component.css']
+  selector: 'app-legacycontracts',
+  templateUrl: './legacycontracts.component.html',
+  styleUrls: [ './legacycontracts.component.css']
 })
 
 
-export class LegacyinvoicesComponent implements OnInit {
+export class LegacycontractsComponent implements OnInit {
 
-	pagedata = new Legacyinvoicesdata;
+	pagedata = new Legacycontractsdata;
   readdata = new Readnextdata;
   ran:string = Util.makeid();
 
@@ -49,12 +48,7 @@ export class LegacyinvoicesComponent implements OnInit {
   	this.changes = true;
   	this.validating = false;
   }
-  resetf(){
-    this.frdt = "";
-    this.todt = "";
-    this.dateFilter();
 
-  }
   dateFilter(){
     Util.showWait();
     this.pageCount = this.masterPgCnt;
@@ -66,14 +60,14 @@ export class LegacyinvoicesComponent implements OnInit {
   	} 
 		var filtfrdt = this.frdt.replace(/-/g,"");
 		var filttodt = this.todt.replace(/-/g,"");
-  for(var i=0; i< this.pagedata.linvoices.length;i++){
-      this.pagedata.linvoices[i].show = true;
-			var temp = (this.pagedata.linvoices[i].ivdti);
+  for(var i=0; i< this.pagedata.lcontracts.length;i++){
+      this.pagedata.lcontracts[i].show = true;
+			var temp = (this.pagedata.lcontracts[i].datei);
 			if(parseInt(temp,10) < parseInt(filtfrdt,10) || parseInt(temp,10) > parseInt(filttodt,10)){
-				this.pagedata.linvoices[i].show = false;
+				this.pagedata.lcontracts[i].show = false;
 			}
       
-      if(this.pagedata.linvoices[i].show === false){
+      if(this.pagedata.lcontracts[i].show === false){
         this.pageCount -= 1;
       }
 		}
@@ -122,13 +116,13 @@ export class LegacyinvoicesComponent implements OnInit {
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
   	this.jsonService
-  	.initService({"mode":"INIT"},Util.Url("CGICLGINV"))
+  	.initService({"mode":"INIT"},Util.Url("CGICLGCNTR"))
   	.subscribe(data => this.pagedata = data,
   		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
-  			if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'5LEGACYINV')) {
+  			if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'5LEGACYCNT')) {
   				Util.showWait();
   				setTimeout(() => {
   					Util.hideWait();
@@ -148,6 +142,12 @@ export class LegacyinvoicesComponent implements OnInit {
   		}
   	);
   }
+  resetf(){
+    this.frdt = "";
+    this.todt = "";
+    this.dateFilter();
+
+  }
 
   setPage(page: number){
 
@@ -159,7 +159,7 @@ export class LegacyinvoicesComponent implements OnInit {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.pageCount, page, 25);
     this.dispItems =[ ];
-    this.pagedata.linvoices.forEach(sq =>{ if(sq.show) this.dispItems.push(sq)});
+    this.pagedata.lcontracts.forEach(sq =>{ if(sq.show) this.dispItems.push(sq)});
     // get current page of items
     this.pagedItems = this.dispItems.slice(this.pager.startIndex, this.pager.endIndex + 1);    
   }
@@ -169,11 +169,11 @@ export class LegacyinvoicesComponent implements OnInit {
       return;
     }
     this.jsonService
-    .initService({"mode":"READNEXT", "ivno":anchor},Util.Url("CGICLGINV"))
+    .initService({"mode":"READNEXT", "anum":anchor},Util.Url("CGICLGCNTR"))
     .subscribe(data => this.readdata = data,
       err => { Util.hideWait(); },
       () => {
-        Array.prototype.push.apply(this.pagedata.linvoices,this.readdata.linvoices);
+        Array.prototype.push.apply(this.pagedata.lcontracts,this.readdata.lcontracts);
         if (this.readdata.ttlpgs.lstrec === "EOF") {
           this.applyFiltBtn = true;
           return;

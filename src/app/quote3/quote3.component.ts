@@ -178,7 +178,7 @@ export class Quote3Component implements OnInit {
     this.jsonService
         .initService(contract, Util.Url("CGICCNTRCT"))
         .subscribe(data => this.errSet = data,
-          err => { this.dispAlert.error(), Util.hideWait(); },
+          err => { this.dispAlert.error(); Util.hideWait(); },
           () => {
             this.router.navigate(['/app/Contract']);
 
@@ -477,7 +477,7 @@ export class Quote3Component implements OnInit {
       this.jsonService
         .initService(this.pagedata.body, Util.Url("CGICQUOTE3"))
         .subscribe(data => this.errSet = data,
-          err => { this.dispAlert.error(), Util.hideWait(); },
+          err => { this.dispAlert.error(); Util.hideWait(); },
           () => {
 
             this.pagedata.body.tables.forEach((table) => {
@@ -1026,7 +1026,7 @@ export class Quote3Component implements OnInit {
     this.jsonService
       .initService({ "mode": "INIT" }, Util.Url("CGICQUOTE3"))
       .subscribe(data => this.pagedata = data,
-        err => { Util.responsiveMenu(); },
+        err => { Util.responsiveMenu(); Util.hideWait();},
         () => {
           Util.setHead(this.pagedata.head);
           Util.responsiveMenu();

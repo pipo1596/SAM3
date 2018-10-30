@@ -60,7 +60,7 @@ export class StatementComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGRPDLRSTM"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

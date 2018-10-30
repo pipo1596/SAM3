@@ -25,6 +25,7 @@ import { RemittedComponent } from './remitted/remitted.component';
 import { ProcessedComponent } from './processed/processed.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { LegacyinvoicesComponent } from './legacyinvoices/legacyinvoices.component';
+import { LegacycontractsComponent } from './legacycontracts/legacycontracts.component';
 import { MigrationComponent } from './migration/migration.component';
 import { StatementComponent } from './statement/statement.component';
 import { StaticPageComponent } from './staticpage/staticpage.component'; 
@@ -63,6 +64,7 @@ const routes: Routes = [
   { path: 'app/Processed',canDeactivate: [CanDeactivateGuard], component: ProcessedComponent },
   { path: 'app/Invoices',canDeactivate: [CanDeactivateGuard], component: InvoicesComponent },
   { path: 'app/LegacyInvoices',canDeactivate: [CanDeactivateGuard], component: LegacyinvoicesComponent },
+  { path: 'app/LegacyContracts',canDeactivate: [CanDeactivateGuard], component: LegacycontractsComponent },
   { path: 'app/Migration',canDeactivate: [CanDeactivateGuard], component: MigrationComponent },
   { path: 'app/DealerStatement',canDeactivate: [CanDeactivateGuard], component: StatementComponent },
   { path: 'app/StaticPage',canDeactivate: [CanDeactivateGuard], component: StaticPageComponent },

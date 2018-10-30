@@ -4,6 +4,7 @@ import { JsonService } from '../utilities/json.service';
 import { Util } from '../utilities/util';
 import { Migrationdata} from './migrationdata'; 
 import { Dispalert } from '../utilities/dispalert';
+import { utils } from 'protractor';
 
 @Component({
   selector: 'app-migration',
@@ -35,7 +36,7 @@ export class MigrationComponent implements OnInit {
       self.jsonService.
             initService({"service":"LISTLOC","dlr":self.dealer},Util.Url("CGICSERVE")).
             subscribe(data=>self.pagedata.loc = data,
-                 err => {},
+                 err => {Util.hideWait();},
                  () => { 
                   self.pagedata.loc = Util.sortByKey(self.pagedata.loc,"desc","A");
                   self.process = false;
@@ -52,7 +53,7 @@ export class MigrationComponent implements OnInit {
     this.jsonService
   	.initService({"mode":"MIGRATE","dlr":loc.dlr},Util.Url("CGICMIGRAT"))
   	.subscribe(data => this.dummy = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         
           Util.hideWait();
@@ -67,7 +68,7 @@ export class MigrationComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICMIGRAT"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         
         Util.setHead(this.pagedata.head);

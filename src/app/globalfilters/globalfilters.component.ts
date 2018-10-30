@@ -167,7 +167,7 @@ export class GlobalFiltersComponent implements OnInit {
     this.globalFilterService
     .initService({"mode":"INIT"},Util.Url("CGICFILTER"))
     .subscribe(data => this.pagedata = data,
-      err => {Util.responsiveMenu();  },
+      err => {Util.hideWait();  },
       () => {   
         Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);

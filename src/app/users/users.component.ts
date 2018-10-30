@@ -111,7 +111,7 @@ salesvalid(submit){
   this.usersService
     .initService({"mode":"SPRSV","sprs":this.selectedUser.sprs},Util.Url("CGICUSERSS"))
     .subscribe(data => this.errSet = data,
-      err => {  },
+      err => { Util.hideWait(); },
       () => {
         
         
@@ -188,7 +188,7 @@ addDealer(){
   this.usersService
     .initService({"mode":"DLRV","onedlr":this.dlr.value},Util.Url("CGICUSERSS"))
     .subscribe(data => this.dlrv = data,
-      err => {  },
+      err => {  Util.hideWait(); },
       () => {
         if(this.dlrv.dlri == this.dlr.value && this.dlrv.desc !== ""){
           var index = this.selectedUser.dlr.findIndex(obj => obj.dlri==this.dlr.value);
@@ -312,7 +312,7 @@ delete(){
   this.usersService
   .initService(Util.formdata("adduser"),Util.Url("CGICUSERSS")) 
   .subscribe(data => this.errSet = data,
-    err => { this.dispAlert.error(), Util.hideWait(); },
+    err => { this.dispAlert.error(); Util.hideWait(); },
     () => {
       this.dispAlert.setMessage(this.errSet);
       if (this.dispAlert.status === "S") {
@@ -436,7 +436,7 @@ saveData(){
   
   .initService(this.selectedUser,Util.Url("CGICUSERSS"))
   .subscribe(data => this.errSet = data,
-    err => { this.dispAlert.error(), Util.hideWait(); },
+    err => { this.dispAlert.error(); Util.hideWait(); },
     () => {
       this.dispAlert.setMessage(this.errSet);
       if (this.dispAlert.status === "S") {
@@ -521,7 +521,7 @@ changePass(){
     this.usersService
     .initService({"mode":xmode},Util.Url("CGICUSERSS"))
     .subscribe(data => this.pagedata = data,
-      err => { Util.responsiveMenu(); },
+      err => { Util.responsiveMenu();Util.hideWait(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
         

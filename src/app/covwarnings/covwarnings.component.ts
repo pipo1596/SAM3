@@ -106,7 +106,7 @@ export class CovwarningsComponent implements OnInit {
   		this.jsonService
   		.initService(this.selectedRec,Util.Url("CGICCOVWRN"))
   		.subscribe(data => this.errSet = data,
-  			err => { this.dispAlert.error(), Util.hideWait(); },
+  			err => { this.dispAlert.error();Util.hideWait(); },
   			() => {
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
@@ -153,7 +153,7 @@ export class CovwarningsComponent implements OnInit {
   	this.jsonService
   	.initService(this.selectedRec,Util.Url("CGICCOVWRN"))
   	.subscribe(data => this.errSet = data,
-  		err => {this.dispAlert.error(), Util.hideWait();},
+  		err => {this.dispAlert.error(); Util.hideWait();},
   		() => {
   			this.changes = false;
   			this.dispAlert.setMessage(this.errSet);
@@ -200,7 +200,7 @@ export class CovwarningsComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICCOVWRN"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
 			Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

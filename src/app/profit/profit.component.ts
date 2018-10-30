@@ -60,7 +60,7 @@ export class ProfitComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGRPDLRPRF"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

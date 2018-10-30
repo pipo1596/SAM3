@@ -177,7 +177,7 @@ export class Login1Component implements OnInit {
     this.loginService
     .initService({ "service": "INIT" },Util.Url("CGICLOGINC"))
       .subscribe(data => this.pagedata = data,
-        err => { },
+        err => { Util.hideWait();},
         () => { 
           Util.setHead(this.pagedata.head);
           if (this.pagedata.head.status === "I") {

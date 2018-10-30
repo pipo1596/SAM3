@@ -185,7 +185,7 @@ export class Quote2Component implements OnInit {
     this.jsonService
       .initService(ckdata, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.warnings = data,
-        err => { this.dispAlert.error(), Util.hideWait(); },
+        err => { this.dispAlert.error(); Util.hideWait(); },
         () => {
           if(this.warnings.length <= 0){
             this.loadDb()
@@ -211,7 +211,7 @@ export class Quote2Component implements OnInit {
    this.jsonService
       .initService(this.pagedata.body, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.errSet = data,
-        err => { this.dispAlert.error(), Util.hideWait(); },
+        err => { this.dispAlert.error(); Util.hideWait(); },
         () => {
           
           if(this.errSet.status !== "S") this.dispAlert.setMessage(this.errSet);
@@ -299,7 +299,7 @@ export class Quote2Component implements OnInit {
     this.jsonService
       .initService({ "mode": "INIT" }, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.pagedata = data,
-        err => {Util.responsiveMenu();  },
+        err => {Util.responsiveMenu(); Util.hideWait(); },
         () => {
           if(this.pagedata.body.typc){this.valid=true;this.loadDb();return false;}
           Util.responsiveMenu(); 

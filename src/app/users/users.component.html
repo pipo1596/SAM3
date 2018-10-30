@@ -5,7 +5,7 @@
             <div class="col-xs-12" style="z-index:1">
                 <div class="title-section style3 left">
                     <h1 *ngIf="!salesmode" class="title">Users Maintenance</h1>
-                    <h1 *ngIf="salesmode" class="title">Salespersons Maintenance</h1>
+                    <h1 *ngIf="salesmode" class="title">Salespersons/Agent Maintenance</h1>
                 </div>
             </div>
         </div> 
@@ -106,19 +106,19 @@
                     </ul>
                 </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" style="min-height: 100px;">
                    
                     
-                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Password &nbsp;<a href="javascript:void(0)" style="color:red" [class.hidden]="mode==='ADD'" (click)="changePass()">&nbsp;<span [class.hidden]="editP==='N'">(cancel)</span><span [class.hidden]="editP==='Y'">(change password)</span></a>
+                    <label class="flat-input inputlabel"><span class="req" >*&nbsp;</span>Password &nbsp;<a href="javascript:void(0)" style="color:red" [class.hidden]="mode==='ADD'" (click)="changePass()">&nbsp;<span [class.hidden]="editP==='N'">cancel password change &nbsp;<span class="fa fa-remove"></span></span><span [class.hidden]="editP==='Y'" class="btn btn-danger"> &nbsp;change password &nbsp;<span class="fa fa-edit"></span></span></a>
                             <span class="errorspan2" [class.opqquezero]="pswd.message===''" [class.alert-danger]="pswd.erlevel==='D'" [class.alert-success]="pswd.erlevel==='S'" [class.validating]="validating">{{pswd.message}}</span> 
                     </label>
-                    <div class="flat-input w100">
+                    <div class="flat-input w100" [class.hidden]="editP==='N'">
                         <input autocomplete="new-password{{ran}}" (keyup)="validPass()" (change)="onChange()" name="pswd" type="password" [disabled]="editP==='N'" placeholder="Password" [class.required]="reqpass1"  [class.validating]="validating"  [(ngModel)]="pswd1" maxlength="60">
                     </div>
-                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Confirm Password
+                    <label class="flat-input inputlabel" [class.hidden]="editP==='N'"><span class="req">*&nbsp;</span>Confirm Password
                             <span class="errorspan2" [class.opqquezero]="pswdc.message===''" [class.alert-danger]="pswdc.erlevel==='D'" [class.alert-success]="pswdc.erlevel==='S'" [class.validating]="validating">{{pswdc.message}}</span> 
                     </label>
-                    <div class="flat-input w100">
+                    <div class="flat-input w100" [class.hidden]="editP==='N'">
                         <input autocomplete="new-password{{ran}}" (keyup)="validPass()" (change)="onChange()" name="pswdc" [disabled]="editP==='N'" type="password" placeholder="Confirm Password" [class.required]="reqpass2"  [class.validating]="validating"  [(ngModel)]="pswd2" maxlength="60">
                     </div>
                     <div id="message" [class.hidden]="editP==='N'">

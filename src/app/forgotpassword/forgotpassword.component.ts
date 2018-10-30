@@ -196,7 +196,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.loginService
     .initService({ "mode": initmode , "resetkey":this.resetkey  },Util.Url("CGICFRGTPS"))
       .subscribe(data => this.pagedata = data,
-        err => { },
+        err => { Util.hideWait();},
         () => { 
           Util.setHead(this.pagedata.head);
           if (this.pagedata.head.status === "I") {

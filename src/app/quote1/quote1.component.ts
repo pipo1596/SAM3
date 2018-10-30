@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Quote1data } from './quote1data'; 
 import { JsonService } from '../utilities/json.service'; 
 import { Textfield } from '../utilities/textfield';
+import { utils } from 'protractor';
 
 @Component({
   selector: 'app-quote1',
@@ -112,8 +113,12 @@ vinCheck(mode){
 }
 
 setDate(e){
+    var setyear = this.pagedata.body.dyear;
+    var d = new Date();
+    var y = d.getFullYear();
+    if(parseInt(setyear) > y){setyear = y.toString()}
     var srcEl = e.srcElement || e.target;
-    if(srcEl.checked){ this.insrvc.value=this.pagedata.body.dyear +"-01-01";}
+    if(srcEl.checked){ this.insrvc.value=setyear +"-01-01";}
 }
 
 previous(){
@@ -127,7 +132,7 @@ newquote(){
   this.jsonService
     .initService({"mode":"RESET"},Util.Url("CGICQUOTE1"))
     .subscribe(data => this.pagedata.body.models = data,
-      err => { },
+      err => { Util.hideWait();},
       () => {
         this.router.navigate(['/app/Quote1']);
         Util.hideWait();}
@@ -266,7 +271,7 @@ checkStep1(){
       this.jsonService
         .initService(this.pagedata.body,Util.Url("CGICQUOTE1"))
         .subscribe(data => this.errSet = data,
-                    err => { this.dispAlert.error(), Util.hideWait(); },
+                    err => { this.dispAlert.error(); Util.hideWait(); },
                      () => {Util.scrollToId('quotesteps');
                             if(this.errSet.status !== "S") this.dispAlert.setMessage(this.errSet);
                             if (this.errSet.status === "S") {
@@ -310,7 +315,7 @@ yearChange(){
   this.jsonService
     .initService(this.pagedata.body,Util.Url("CGICQUOTE1"))
     .subscribe(data => this.pagedata.body.makes = data,
-      err => { },
+      err => {Util.hideWait(); },
       () => {Util.hideWait();}
     );
 }
@@ -333,7 +338,7 @@ importDms(){
   this.jsonService
     .initService(this.pagedata.body,Util.Url("CGICQUOTE1"))
     .subscribe(data => this.errSet = data = data,
-      err => { },
+      err => { Util.hideWait(); },
       () => {
         this.pagedata.body.dms = JSON.parse(this.errSet.data);
         this.dispAlert.setMessage(this.errSet);
@@ -366,7 +371,7 @@ makeChange(){
   this.jsonService
     .initService(this.pagedata.body,Util.Url("CGICQUOTE1"))
     .subscribe(data => this.pagedata.body.models = data,
-      err => { },
+      err => { Util.hideWait();},
       () => {Util.hideWait();}
     );
 }

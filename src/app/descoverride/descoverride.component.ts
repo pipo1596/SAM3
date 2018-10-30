@@ -115,7 +115,7 @@ export class DescoverrideComponent implements OnInit {
   		this.jsonService
   		.initService(this.selectedRec,Util.Url("CGICDESOVR"))
   		.subscribe(data => this.errSet = data,
-  			err => { this.dispAlert.error(), Util.hideWait(); },
+  			err => { this.dispAlert.error(); Util.hideWait(); },
   			() => {
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
@@ -170,7 +170,7 @@ export class DescoverrideComponent implements OnInit {
   	this.jsonService
   	.initService(this.selectedRec,Util.Url("CGICDESOVR"))
   	.subscribe(data => this.errSet = data,
-  		err => {this.dispAlert.error(), Util.hideWait();},
+  		err => {this.dispAlert.error(); Util.hideWait();},
   		() => {
   			this.changes = false;
   			this.dispAlert.setMessage(this.errSet);
@@ -247,7 +247,7 @@ export class DescoverrideComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT", "type":this.PMTYPE},Util.Url("CGICDESOVR"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
 			Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

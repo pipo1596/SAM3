@@ -65,6 +65,7 @@
 					</label>
 					<div class="flat-input w100">
 						<button name="submit" type="submit" [disabled]="applyFiltBtn === false"  class="flat-button" style="margin-right:10px" title="Apply">Apply</button>
+						<button name="submit" type="button" [disabled]="applyFiltBtn === false" (click)="resetf()"  class="flat-button" style="margin-right:10px;background: #f0ad4e;" title="Clear">Clear</button>
 					</div>
 				</div>
 			</div>
@@ -116,7 +117,7 @@
 								<td colspan="9"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Saved Quotes To List----</h4></td>                        
 							</tr>
 							<ng-container *ngFor="let cont of (pagedItems)">
-								<tr *ngIf="cont.show === true">
+								<tr *ngIf="cont.show === true" id="row{{cont.anum}}">
 									<td data-label="Delete" style="padding-top:0">
 										<span class="flat-input-checkbox-SQ">
 											<div class="custcheck">
@@ -125,7 +126,11 @@
 											</div>
 										</span>
 									</td>
-									<td data-label="Contract #" nowrap><a href="javascript:void(0)" (click)="editCont(cont)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span></a></td>	
+									<td data-label="Contract #" nowrap>
+										<a href="javascript:void(0)" tile="Edit" (click)="editCont(cont)" style="font-size:18px;color: #007bb8;"><span class="fa fa-edit"></span></a>
+										    
+											{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span>
+									</td>	
 									<td nowrap data-label="Stock #">{{cont.stck}}</td>
 									<td data-label="Name"><div style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;">{{cont.fnam}} {{cont.lnam}}</div></td>
 									<td data-label="Co-buyer"><div style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;">&nbsp;{{cont.cfnm}} {{cont.clnm}}</div></td>

@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.homeService
     .initService({  },Util.Url("CGICHOMES"))
     .subscribe(data => this.pagedata = data,
-      err => {Util.responsiveMenu();  },
+      err => {Util.hideWait();  },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
         if (this.pagedata.head.status !== "I") {

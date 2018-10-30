@@ -52,7 +52,7 @@ export class RepairsComponent implements OnInit {
       this.jsonService
         .initService(datajson, Util.Url("CGRPREPAIR"))
         .subscribe(data => this.pagedata.rows = data,
-          err => { this.dispAlert.error(), Util.hideWait(); },
+          err => { this.dispAlert.error();Util.hideWait(); },
           () => {
             Util.hideWait();
             });
@@ -116,7 +116,7 @@ export class RepairsComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGRPREPAIR"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

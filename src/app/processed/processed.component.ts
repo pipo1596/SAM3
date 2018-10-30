@@ -102,7 +102,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.rfnd = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.gotcanc = false;
         this.gotrfnd = true;
@@ -175,7 +175,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
     .initService(obj,Util.Url("CGICPRCNTR"))
     .subscribe(data => this.view = data,
-    err => {Util.responsiveMenu(); },
+    err => {Util.hideWait(); },
     () => {
     this.pagemode = 'L'; 
     
@@ -205,6 +205,15 @@ export class ProcessedComponent implements OnInit {
     this.editon = false;
     Util.hideWait();
   }
+  resetf(){
+    this.oln = "";
+    this.ofn = "";
+    this.anum = "";
+    this.asuf = "";
+    this.vin = "";
+    this.getData();
+
+  }
   viewCont(agr){
     this.eanum = agr.anum;
     this.easuf = agr.asuf;
@@ -216,7 +225,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.view = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.pagemode = 'V';
         if(this.view.stat !== 'Active') this.canedit = false;
@@ -256,7 +265,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.hist = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.pagemode = 'H';
         this.hist.rows = Util.sortByKey(this.hist.rows,"clmm","D");
@@ -279,7 +288,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.clms = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.pagemode = 'CL';
         Util.hideWait();  
@@ -301,7 +310,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.paym = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.pagemode = 'P';
         this.gotpaym = true;
@@ -323,7 +332,7 @@ export class ProcessedComponent implements OnInit {
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.canc = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.pagemode = 'C';
         this.gotcanc = true;
@@ -415,7 +424,7 @@ export class ProcessedComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICPRCNTR"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();

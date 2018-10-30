@@ -35,7 +35,9 @@ export class Pack{
           pcti : number;
           pctr : number;
           effd : string;
+          effdi: string;
           expd : string;
+          expdi: string;
           pkno : string;
 
           public default(mode){

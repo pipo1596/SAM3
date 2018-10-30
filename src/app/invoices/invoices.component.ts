@@ -51,6 +51,13 @@ export class InvoicesComponent implements OnInit {
     this.validating = false;
     this.dispAlert.default();
   }
+  resetf(){
+    this.frdt = "";
+    this.todt = "";
+    this.ivno = "";
+    this.dateFilter();
+
+  }
 
   Transmit(){
   	if(this.remtarr.length === 0){
@@ -71,7 +78,7 @@ export class InvoicesComponent implements OnInit {
   		this.jsonService
   		.initService({"mode":"TRNSM","remtarr":delArr}, Util.Url("CGICINVCES"))
   		.subscribe(data => this.errSet = data,
-  			err => { this.dispAlert.error(), Util.hideWait();},
+  			err => { this.dispAlert.error(); Util.hideWait();},
   			()=>{
           Util.hideWait();
           this.showDelete = false;
@@ -202,7 +209,7 @@ export class InvoicesComponent implements OnInit {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICINVCES"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
@@ -248,7 +255,7 @@ export class InvoicesComponent implements OnInit {
     this.jsonService
     .initService({"mode":"READNEXT", "ecno":anchor},Util.Url("CGICUNRMCT"))
     .subscribe(data => this.readdata = data,
-      err => {Util.responsiveMenu(); },
+      err => {Util.hideWait(); },
       () => {
         Util.responsiveMenu();
         Array.prototype.push.apply(this.pagedata.invoices,this.readdata.invoices);

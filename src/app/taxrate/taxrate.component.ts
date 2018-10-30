@@ -58,7 +58,7 @@ export class TaxrateComponent implements OnInit {
       this.jsonService
         .initService(this.pagedata.body,Util.Url("CGICTAXRTS"))
         .subscribe(data => this.errSet = data,
-                    err => { this.dispAlert.error(), Util.hideWait(); },
+                    err => { this.dispAlert.error(); Util.hideWait(); },
                      () => {
                             this.dispAlert.setMessage(this.errSet);
                             Util.hideWait();
@@ -78,7 +78,7 @@ export class TaxrateComponent implements OnInit {
     this.jsonService
     .initService({"mode":"INIT"},Util.Url("CGICTAXRTS"))
     .subscribe(data => this.pagedata = data,
-      err => { Util.responsiveMenu(); },
+      err => { Util.hideWait(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
         this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'TXRATE');

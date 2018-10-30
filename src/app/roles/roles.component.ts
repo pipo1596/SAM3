@@ -151,7 +151,7 @@ delete(){
   this.rolesService
   .initService(this.selectedRole,Util.Url("CGICROLESS"))
   .subscribe(data => this.errSet = data,
-    err => { this.dispAlert.error(), Util.hideWait(); },
+    err => { this.dispAlert.error(); Util.hideWait(); },
     () => {
       this.changes = false;
       this.dispAlert.setMessage(this.errSet);
@@ -176,7 +176,7 @@ delete(){
     this.rolesService
     .initService({"mode":"INIT"},Util.Url("CGICROLESS"))
     .subscribe(data => this.pagedata = data,
-      err => { Util.responsiveMenu(); },
+      err => { Util.hideWait(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
       //Sort By User Ascending

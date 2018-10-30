@@ -130,7 +130,7 @@ export class PacksComponent implements OnInit {
     this.jsonService
     .initService(this.selectedRec,Util.Url("CGICPACKSS")) 
     .subscribe(data => this.errSet = data,
-      err => { this.dispAlert.error(), Util.hideWait(); },
+      err => { this.dispAlert.error();Util.hideWait(); },
       () => {
         this.dispAlert.setMessage(this.errSet);
         if (this.dispAlert.status === "S") {
@@ -208,7 +208,17 @@ export class PacksComponent implements OnInit {
 
     if (this.prg.value  == "") { this.prg.message  = "(required)"; this.prg.erlevel  = "D"; this.valid = false; }
     if (this.effd.value == "") { this.effd.message = "(required)"; this.effd.erlevel = "D"; this.valid = false; }
+    if(this.effd.value !== this.selectedRec.effdi){//If Entry mode or if date changed!
+      if(new Date(this.effd.value+ 'T00:00') < new Date(new Date().toDateString())){
+        this.effd.message = "(Cannot be in the past)"; this.effd.erlevel = "D"; this.valid = false;
+      }
+    }
     if (this.expd.value == "") { this.expd.message = "(required)"; this.expd.erlevel = "D"; this.valid = false; }
+    if (this.effd.message == ""){
+    if(new Date(this.effd.value+ 'T00:00') > new Date(this.expd.value+ 'T00:00')){
+      this.expd.message = "(Cannot be less than effective date)"; this.expd.erlevel = "D"; this.valid = false;
+      }
+    }
     if (this.amti.value < 0){ this.amti.message = "(invalid)"; this.amti.erlevel = "D"; this.valid = false; }
     if (this.amti.value!== null && (this.amti.value > 99999 || (this.amti.value.toString().length > 8))){ 
         this.amti.message = "(Too big)"; this.amti.erlevel = "D"; this.valid = false; 
@@ -256,7 +266,7 @@ export class PacksComponent implements OnInit {
     this.jsonService
     .initService(this.selectedRec,Util.Url("CGICPACKSS"))
     .subscribe(data => this.errSet = data,
-      err => { this.dispAlert.error(), Util.hideWait(); },
+      err => { this.dispAlert.error(); Util.hideWait(); },
       () => {
         this.changes = false;
         this.dispAlert.setMessage(this.errSet);
@@ -340,7 +350,7 @@ export class PacksComponent implements OnInit {
     this.jsonService
     .initService({"mode":"INIT"},Util.Url("CGICPACKSS"))
     .subscribe(data => this.pagedata = data,
-      err => { Util.responsiveMenu(); },
+      err => { Util.hideWait(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
         this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'PACKS');

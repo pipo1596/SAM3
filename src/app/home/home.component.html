@@ -3,7 +3,7 @@
 <div class="container invisible" [ngClass]="{'visible':pagedata.head.status==='I'}">                                                                           
         <div class="dealparent">                                                                             
            <img src="assets/images/welcome1.png" >
-           <h1 style="margin:5px 20px">Welcome {{this.pagedata.head.fnam}} {{this.pagedata.head.lnam}}!</h1>
+           <h1 style="margin:5px 20px;text-transform: capitalize;">Welcome {{this.pagedata.head.fnam}}!</h1>
            <div class="dealerblock" *ngIf="this.pagedata.home.name">
               
               <h3>{{this.pagedata.home.name}}</h3>

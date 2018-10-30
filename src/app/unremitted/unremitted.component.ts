@@ -49,6 +49,7 @@ export class UnremittedComponent implements OnInit {
   canedit = false;
   eecno:string="";
   erScrolid :string = "";
+  posScrolid :string = "";
   //Edit Input Fields
   eofn  = new Textfield
   eoln  = new Textfield
@@ -138,7 +139,7 @@ var obj ={"mode":"UPDATE",
 this.jsonService
 .initService(obj,Util.Url("CGICUNRMCT"))
 .subscribe(data => this.view = data,
-err => {Util.responsiveMenu(); },
+err => {Util.hideWait(); },
 () => {
 this.pagemode = 'L'; 
 var index = this.pagedata.contracts.findIndex(obj => obj.ecno==this.eecno);
@@ -149,6 +150,7 @@ if(index>=0) {
   this.pagedata.contracts[index].clnm = this.ecln.value;
 }
 this.changes = false;
+setTimeout(() => { Util.scrollToId(this.posScrolid);},100);
 Util.hideWait();
 }
 );
@@ -175,7 +177,7 @@ for (var i = 0; i < numbers.length; i++) {
     this.jsonService
   	.initService(obj,Util.Url("CGICUNRMCT"))
   	.subscribe(data => this.view = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         this.pagemode = 'V'; 
         
@@ -203,6 +205,7 @@ for (var i = 0; i < numbers.length; i++) {
         this.email.value = this.view.mail;
         Util.hideWait();
         Util.scrollToId("viewtop");
+        this.posScrolid = "row"+this.view.anum.toString();
         this.changes = false;
   		}
   	);
@@ -218,6 +221,7 @@ for (var i = 0; i < numbers.length; i++) {
     this.pagemode = 'L';
     
     Util.hideWait();
+    setTimeout(() => { Util.scrollToId(this.posScrolid);},100);
   }
 
 
@@ -239,7 +243,7 @@ for (var i = 0; i < numbers.length; i++) {
   		this.jsonService
   		.initService({"mode":"REMITT","remtarr":delArr}, Util.Url("CGICUNRMCT"))
   		.subscribe(data => this.errSet = data,
-  			err => { this.dispAlert.error(), Util.hideWait();},
+  			err => { this.dispAlert.error(); Util.hideWait();},
   			()=>{
           Util.hideWait();
           this.showDelete = false;
@@ -275,7 +279,7 @@ for (var i = 0; i < numbers.length; i++) {
   		this.jsonService
   		.initService({"mode":"VOID","remtarr":delArr}, Util.Url("CGICUNRMCT"))
   		.subscribe(data => this.errSet = data,
-  			err => { this.dispAlert.error(), Util.hideWait();},
+  			err => { this.dispAlert.error(); Util.hideWait();},
   			()=>{
           Util.hideWait();
           this.showDelete = false;
@@ -374,7 +378,15 @@ for (var i = 0; i < numbers.length; i++) {
 		
 	}
 
+  resetf(){
+    this.stock = "";
+    this.lname = "";
+    this.salep = "";
+    this.frdt = "";
+    this.todt = "";
+    this.dateFilter();
 
+  }
 
 
 	cancel(){
@@ -408,7 +420,7 @@ for (var i = 0; i < numbers.length; i++) {
   	this.jsonService
   	.initService({"mode":"INIT"},Util.Url("CGICUNRMCT"))
   	.subscribe(data => this.pagedata = data,
-  		err => {Util.responsiveMenu(); },
+  		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
@@ -455,7 +467,7 @@ for (var i = 0; i < numbers.length; i++) {
     this.jsonService
     .initService({"mode":"READNEXT", "ecno":anchor},Util.Url("CGICUNRMCT"))
     .subscribe(data => this.readdata = data,
-      err => {Util.responsiveMenu(); },
+      err => {Util.hideWait(); },
       () => {
         this.changes = false;
         Util.responsiveMenu();

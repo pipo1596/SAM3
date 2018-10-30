@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-xs-12" style="z-index:1">
 				<div class="title-section style3 left">
-					<h1 class="title">Legacy Invoices</h1>
+					<h1 class="title">Legacy Contracts</h1>
 				</div>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 					<h5 class="pull-left">&nbsp;</h5>
 				</div>
 				<div class="col-md-4">
-					<label class="flat-input inputlabel">From Invoice Date
+					<label class="flat-input inputlabel">From Date
 						<span class="errorspan2"> </span>
 					</label>
 					<div class="flat-input w100">
@@ -28,7 +28,7 @@
           </div>
 				</div>
 				<div class="col-md-4">
-					<label class="flat-input inputlabel">To Invoice Date
+					<label class="flat-input inputlabel">To Date
 						<span class="errorspan2{{ran}}"></span>
 					</label>
 					<div class="flat-input w100">
@@ -61,7 +61,7 @@
 					</ul>
 				</div>
 				<div class="col-xs-6" [class.invisible]="pageCount<1">
-					<label class="pull-right" style="margin:15px 10px 0 0;font-weight: bold;">( {{pageCount}} - Invoices Found )</label>	
+					<label class="pull-right" style="margin:15px 10px 0 0;font-weight: bold;">( {{pageCount}} - Contracts Found )</label>	
 				</div>
 
 				
@@ -72,26 +72,23 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th class="text-center"><b>Transmitted On</b></th>
-								<th><b>Invoice #</b></th>
-								<th><b>Invoice Date</b></th>
-								<th><b>Total Cost</b></th>
+								<th><b>Contract #</b></th>
+								<th><b>Contract Date</b></th>
+								<th><b>Price</b></th>
 								<th class="text-center"><b>View</b></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr *ngIf="pagedItems.length <1">
-                               <td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Invoices To List----</h4></td>                        
+                               <td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Contracts To List----</h4></td>                        
                             </tr>
-							<ng-container *ngFor="let ivno of (pagedItems)">
-								<tr *ngIf="ivno.show === true">
-									<td class="text-center" data-label="Transmitted On">{{ivno.trdt}}</td>	
-									<td data-label="Invoice #">{{ivno.ivno}}</td>
-									<td data-label="Invoice Date">{{ivno.ivdt}}</td>
-									<td data-label="Total Cost">{{ivno.cost|currency}}</td>
+							<ng-container *ngFor="let cnt of (pagedItems)">
+								<tr *ngIf="cnt.show === true">
+									<td data-label="Contract #">{{cnt.anum}}-{{cnt.asuf}}</td>
+									<td data-label="Contract Date">{{cnt.date}}</td>
+									<td data-label="Total Cost">{{cnt.ccst|currency}}</td>
 									<td data-label="View" class="text-center">
-										<a class="btn btn-primary btnedit" target="_blank" href="http://www.inds.com/Invoice/InstrustInvoice/Invoice.aspx?DealershipNumber={{pagedata.head.currdlr}}&InvoiceNumber={{ivno.ivno}}"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
-									</td>
+										<a class="btn btn-primary btnedit" target="_blank" href="http://reports.inds.com/Auto/Decpage.asp?d={{pagedata.head.currdlr}}&n={{cnt.anum}}&s={{cnt.asuf}}"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>									</td>
 								</tr>
 							</ng-container>
 						</tbody>

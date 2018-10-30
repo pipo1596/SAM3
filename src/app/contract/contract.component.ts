@@ -424,7 +424,7 @@ export class ContractComponent implements OnInit {
       this.jsonService
         .initService(postdata, Util.Url("CGICCNTRCT"))
         .subscribe(data => this.errSet = data,
-          err => { this.dispAlert.error(), Util.hideWait(); },
+          err => { this.dispAlert.error();Util.hideWait(); },
           () => {
             Util.scrollToId('quotesteps');
             if(this.errSet.status !=='E'){
@@ -510,7 +510,7 @@ formatCVV() {
     this.jsonService
       .initService({ "mode": "INIT" }, Util.Url("CGICCNTRCT"))
       .subscribe(data => this.pagedata = data,
-        err => {Util.responsiveMenu();  },
+        err => {Util.hideWait();  },
         () => {Util.responsiveMenu(); 
           this.pagedata.body.fields = Util.killDups3(this.pagedata.body.fields);
           Util.setHead(this.pagedata.head);
