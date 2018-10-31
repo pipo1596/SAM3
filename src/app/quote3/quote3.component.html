@@ -393,6 +393,7 @@
                         <div class="sectiontop" (click)="toggle(datads)">
                             <h4 class="pull-left" style="margin:5px 0 5px 5px;max-width:83%">{{datads.desc}}</h4>
                             <i class="fa sectiond" [ngClass]="{'hidden':datads.open,'fa-caret-down':!datads.open}"></i>
+                            <i class="fa sectiond" [ngClass]="{'hidden':!datads.open,'fa-caret-up':datads.open}"></i>
                             <div class="clearfix"></div>
                         </div>
                         <div class="viewcont2" [class.closed]="!datads.open">
@@ -455,7 +456,7 @@
                                 </span>
                             </ng-container>
                             <hr style="margin:5px 0 15px 0">
-                            <div class="custcheck parentcheck"><input name="plan" id="check2i{{datads.prg+datads.ratc}}"  checked type="checkbox"  class="cparent" (change)="toggleAllD($event,'D',datads.prg,datads.ratc,m)" ><label for="check2i{{datads.prg+datads.ratc}}"></label></div><label for="check2i{{datads.prg+datads.ratc}}"><h5 class="showh4" style="margin-left:27px;">Deductibles <span class="showspan">(Select All)</span></h5></label>
+                            <div class="custcheck parentcheck"><input name="plan" id="check2i{{datads.prg+datads.ratc}}"  checked type="checkbox"  class="cparent" (change)="toggleAllD($event,'D',datads.prg,datads.ratc,m)" ><label for="check2i{{datads.prg+datads.ratc}}"></label></div><label for="check2i{{datads.prg+datads.ratc}}"><h5 class="showh4" style="margin-left:25px;">Deductibles<span class="showspan">(Select All)</span></h5></label>
 
                             <ng-container *ngFor="let deductible of datads.ded.deductibles">
                                 <span class="flat-input-checkbox" *ngIf="!deductible.check" [class.hidden]="deductible.disbl">
@@ -629,6 +630,17 @@
                     <hr *ngIf="p<(pagedata.body.tables.length-1) && firsttable!==(p+1)" style="border-top:1px solid black;">
                 </ng-container>
                 </ng-container>
+
+                </div>
+                <div class="col-xs-12" *ngIf="pagedata.head.as400">
+                    <h3>--API Requests--</h3>
+                        <ng-container *ngFor="let row of pagedata.body.tables" >
+                            <h3>Program {{row.prgm}}</h3>
+                            <h6 style="margin-bottom:0">Requested:</h6>
+                            <a href="/rest/requestrate/{{row.requested}}" class="ulink" target="_blank" style="overflow-wrap: break-word;word-break: break-all;">/rest/requestrate{{row.requested}}"</a>
+                            <h6 style="margin-bottom:0">Response:</h6>
+                            <a href="/rest/rates/requestid:{{row.rqid}}" class="ulink" target="_blank" style="overflow-wrap: break-word;word-break: break-all;">/rest/rates/requestid:{{row.rqid}}</a><br><hr>
+                        </ng-container>
 
                 </div>
                 <div class="col-xs-12"><hr id="userinfo">

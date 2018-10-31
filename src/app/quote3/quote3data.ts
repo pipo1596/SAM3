@@ -72,6 +72,8 @@ export class Deductibles{
 }
 export class Tabl{
     operation :string="";
+    rqid:string ="";
+    requested:string="";
     errorDetail:string="";
     errmsg:string="";
     prgm:string="";

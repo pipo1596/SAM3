@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Quote1data } from './quote1data'; 
 import { JsonService } from '../utilities/json.service'; 
 import { Textfield } from '../utilities/textfield';
-import { utils } from 'protractor';
+
 
 @Component({
   selector: 'app-quote1',
@@ -439,6 +439,7 @@ prgIndex1(prg){
 constructor(private jsonService: JsonService,private router: Router){}
 
 ngOnInit() {
+
   this.pagedata.head.status ="I";
   this.pagedata.body.ckprgs =[""];
   Util.showWait();

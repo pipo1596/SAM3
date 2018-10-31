@@ -45,7 +45,8 @@ import { ProfitComponent } from './profit/profit.component';
 import { ClaimsComponent } from './claims/claims.component';
 import { RepairsComponent } from './repairs/repairs.component';
 import { CancellationsComponent } from './cancellations/cancellations.component';
-import {Safe} from './_services/pager.service'
+import {Safe} from './_services/pager.service';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 enableProdMode();
@@ -92,6 +93,7 @@ enableProdMode();
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    TooltipModule,
     AppRoutingModule
   ],
   providers: [JsonService,

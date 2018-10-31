@@ -690,6 +690,7 @@ date-input-polyfill button{padding:5px;}
      margin-bottom: 0;
      height: 45px;
 }
+.infotip{color:#428bca;cursor: pointer;} 
 /* Header -------------------------------------------------------------- */
  #header {
      z-index: 999;

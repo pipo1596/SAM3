@@ -223,10 +223,11 @@ export class Quote3Component implements OnInit {
   //==================================================================================================//
   toggle(data) {
     Util.showWait();
+    var status = data.open;
     this.pagedata.body.data.forEach((element) => {
       element.open = false;
     })
-    data.open = !data.open;
+    data.open = !status;
     Util.scrollToId('step3left');
     var i = 0;
     this.pagedata.body.tables.forEach(table => {

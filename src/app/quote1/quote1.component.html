@@ -214,7 +214,7 @@
                                 <input autocomplete="new-password{{ran}}" name="lmil{{ran}}" id="lmil" type="number" placeholder="Lease Miles" [(ngModel)]="lmil.value" [class.required]="lmil.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date
+                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date&nbsp;<span class="infotip fa fa-question-circle" tooltip="In service date may affect certain coverage selections" placement="right" show-delay="200"></span>
                             <span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
                         </label>
                         <div class="flat-input w100">
