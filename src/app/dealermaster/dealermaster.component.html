@@ -17,6 +17,7 @@
 					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
 					<div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
 				</div>
+				<div class="col-xs-12"><h2>DMS</h2></div>
 				<div class="col-sm-6">
 					<label class="flat-input inputlabel">DMS Mode
 						<span class="errorspan2" [class.opqquezero]="dsmd.message===''" [class.alert-danger]="dsmd.erlevel==='D'"  [class.validating]="validating">{{dsmd.message}}</span> 
@@ -28,6 +29,41 @@
 						</select>
 					</span>
 				</div>
+				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SE' }">
+						<label class="flat-input inputlabel">DMS Type
+							<span class="errorspan2" [class.opqquezero]="type.message===''" [class.alert-danger]="type.erlevel==='D'" [class.validating]="validating">{{type.message}}</span> 
+						</label>		
+						<div class="flat-input w100">
+							<input autocomplete="new-password"  name="type" type="text" placeholder="DMS Type" [(ngModel)]="type.value" max="99" (change)="onChange()">
+						</div>
+					</div>
+	
+					<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SE' }">
+						<label class="flat-input inputlabel">DMS ID
+							<span class="errorspan2" [class.opqquezero]="dsid.message===''" [class.alert-danger]="dsid.erlevel==='D'" [class.validating]="validating">{{dsid.message}}</span> 
+						</label>
+						<div class="flat-input w100">
+							<input autocomplete="new-password"  name="dsid" type="text" placeholder="DMS ID" [class.required]="dsid.message !==''"  [class.validating]="validating" [(ngModel)]="dsid.value" max="99" (change)="onChange()">
+						</div>
+					</div>
+					<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value=='' }">
+						<label class="flat-input inputlabel">DMS User ID
+							<span class="errorspan2" [class.opqquezero]="user.message===''" [class.alert-danger]="user.erlevel==='D'" [class.validating]="validating">{{user.message}}</span> 
+						</label>
+						<div class="flat-input w100">
+							<input autocomplete="new-password"  name="user" type="text" placeholder="DMS User ID" [class.required]="user.message !==''"  [class.validating]="validating" [(ngModel)]="user.value" max="99" (change)="onChange()">
+						</div>
+					</div>
+					<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SIS' }">
+							<label class="flat-input inputlabel">DMS Password
+								<span class="errorspan2" [class.opqquezero]="pass.message===''" [class.alert-danger]="pass.erlevel==='D'" [class.validating]="validating">{{pass.message}}</span> 
+							</label>
+							<div class="flat-input w100">
+								<input autocomplete="new-password"  name="pass" type="text" placeholder="DMS Password" [class.required]="pass.message !==''"  [class.validating]="validating" [(ngModel)]="pass.value" max="99" (change)="onChange()">
+							</div>
+						</div>
+
+					<div class="col-xs-12"><hr><h2>Packs</h2></div>
 				<div class="col-sm-6">
 					<label class="flat-input inputlabel">Access Packs</label>
 					<span class="flat-input">
@@ -38,40 +74,9 @@
 					</span>
 				</div>
 
-				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SE' }">
-					<label class="flat-input inputlabel">DMS Type
-						<span class="errorspan2" [class.opqquezero]="type.message===''" [class.alert-danger]="type.erlevel==='D'" [class.validating]="validating">{{type.message}}</span> 
-					</label>		
-					<div class="flat-input w100">
-						<input autocomplete="new-password"  name="type" type="text" placeholder="DMS Type" [(ngModel)]="type.value" max="99" (change)="onChange()">
-					</div>
-				</div>
+				
 
-				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SE' }">
-					<label class="flat-input inputlabel">DMS ID
-						<span class="errorspan2" [class.opqquezero]="dsid.message===''" [class.alert-danger]="dsid.erlevel==='D'" [class.validating]="validating">{{dsid.message}}</span> 
-					</label>
-					<div class="flat-input w100">
-						<input autocomplete="new-password"  name="dsid" type="text" placeholder="DMS ID" [class.required]="dsid.message !==''"  [class.validating]="validating" [(ngModel)]="dsid.value" max="99" (change)="onChange()">
-					</div>
-				</div>
-				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value=='' }">
-					<label class="flat-input inputlabel">DMS User ID
-						<span class="errorspan2" [class.opqquezero]="user.message===''" [class.alert-danger]="user.erlevel==='D'" [class.validating]="validating">{{user.message}}</span> 
-					</label>
-					<div class="flat-input w100">
-						<input autocomplete="new-password"  name="user" type="text" placeholder="DMS User ID" [class.required]="user.message !==''"  [class.validating]="validating" [(ngModel)]="user.value" max="99" (change)="onChange()">
-					</div>
-				</div>
-
-				<div class="col-sm-6" [ngClass]="{'hidden':dsmd.value!=='SIS' }">
-					<label class="flat-input inputlabel">DMS Password
-						<span class="errorspan2" [class.opqquezero]="pass.message===''" [class.alert-danger]="pass.erlevel==='D'" [class.validating]="validating">{{pass.message}}</span> 
-					</label>
-					<div class="flat-input w100">
-						<input autocomplete="new-password"  name="pass" type="text" placeholder="DMS Password" [class.required]="pass.message !==''"  [class.validating]="validating" [(ngModel)]="pass.value" max="99" (change)="onChange()">
-					</div>
-				</div>
+				
 
 				<div class="col-xs-12">
 					<span class="flat-input">

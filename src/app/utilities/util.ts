@@ -97,7 +97,7 @@ static hideWait(){
     if(!setMenu){ 
         setMenu = true;      
     setTimeout(function(){ 
-        $(window).on('scroll', function() { if(window.scrollY > 100) 
+        $(window).on('scroll', function() { if(window.scrollY > 200) 
                                                 $("#totop").removeClass("hidden");
                                             else
                                                 $("#totop").addClass("hidden");
@@ -243,6 +243,17 @@ static scrollToId(id){
     if($("#"+id).length<1) return false;
     $('html, body').scrollTop( $("#"+id).offset().top-5 );
 
+}
+//===================================================================================//
+static scrollToIds(id){
+    
+    if($("#"+id).length<1) return false;
+    $('html, body').animate({ scrollTop: $("#"+id).offset().top-5 }, 400,"swing",
+    function(){ 
+        $('html, body').stop();
+        $("#"+id).fadeTo(100, 0.3, function() { $(this).fadeTo(500, 1.0); });
+
+       } );
 }
 //===================================================================================//
 static scrollTop(){

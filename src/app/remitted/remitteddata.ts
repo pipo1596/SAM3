@@ -25,6 +25,7 @@ export class Cont {
 	ionoz : string;
 	ecno : string;
 	anum : string;
+	lhfi : string;
 	asuf : string;
 	fnam : string;
 	lnam : string;

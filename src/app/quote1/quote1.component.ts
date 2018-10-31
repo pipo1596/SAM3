@@ -151,6 +151,21 @@ condyes(){
 }
 condno(){
   this.pagedata.body.condyn = false;
+  var idx = this.prgIndex1(this.pagedata.body.condprg);
+  var i = 0;
+  if(this.pagedata.body.pln.plans.length < 3 && this.pagedata.body.ckprgs.length < 1){
+    
+    this.pagedata.body.pln.plans.forEach(elem=>{
+      if(i!==idx){
+        var obj ={"prg":elem.prg,"ratc":elem.ratc,"desc":elem.desc}
+        this.pagedata.body.type = elem.plnt;
+        this.pagedata.body.ckprgs.push(obj);
+        Util.checkbyid('chk'+elem.prg+elem.ratc);
+        return;
+      }
+      i += 1;
+    })
+  }
   Util.modalid("hide","fucilloModal");
 }
 checkStep1(){
@@ -445,6 +460,15 @@ ngOnInit() {
         }else{
           this.pagedata.body.pln.plans.forEach(elem=>{elem.desc = elem.desc.toUpperCase();})
           this.pagedata.body.pln.plans = Util.sortByKey(this.pagedata.body.pln.plans, "desc","A");
+          if(this.pagedata.body.pln.plans.length == 1){
+            if(this.pagedata.body.ckprgs.length < 1 ){
+              var plan = this.pagedata.body.pln.plans[0];
+              var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
+              this.pagedata.body.type = plan.plnt;
+              this.pagedata.body.ckprgs.push(obj);
+              Util.checkbyid('chk'+plan.prg+plan.ratc); 
+            }
+          }
           this.rfshYears(); 
           
           this.year.value = this.pagedata.body.year;

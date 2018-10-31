@@ -351,11 +351,82 @@ export class Quote3Component implements OnInit {
       eachObj.cov.coverages.forEach(element => {
 
         if (incheck.desc == element.desc) {
+          
 
           element.check2 = status;
           this.togglebox(element, intype, inprg, inratc, indexin);
         }
       });
+    });
+  }
+  //==================================================================================================//
+  toggleAllT(e, intype, inprg, inratc, indexin) {
+
+    var srcEl = e.srcElement || e.target;
+
+    this.pagedata.body.data.forEach((eachObj) => {
+      //Trm
+      if (inprg == eachObj.prg && inratc == eachObj.ratc) {
+      eachObj.trm.terms.forEach(element => {
+        if(!element.check && !element.disbl){
+          var index = this.pagedata.body.chkdf.findIndex(obj => (
+            obj.type == 'T' &&
+            obj.miles == element.miles &&
+            obj.termm == element.termm &&
+            obj.prg == inprg &&
+            obj.ratc == inratc));
+            if (index >= 0 ) this.pagedata.body.chkdf.splice(index, 1);
+          element.check2 = !srcEl.checked;
+          this.togglebox(element, intype, inprg, inratc, indexin);
+        }
+      });
+    }
+    });
+  }
+  //==================================================================================================//
+  toggleAllD(e, intype, inprg, inratc, indexin) {
+
+    var srcEl = e.srcElement || e.target;
+
+    this.pagedata.body.data.forEach((eachObj) => {
+      if (inprg == eachObj.prg && inratc == eachObj.ratc) {
+      //Ded
+      eachObj.ded.deductibles.forEach(element => {
+        if(!element.check && !element.disbl){
+          var index = this.pagedata.body.chkdf.findIndex(obj => (
+            obj.type == 'D' &&
+            obj.ded == element.code &&
+            obj.prg == inprg &&
+            obj.ratc == inratc));
+            if (index >= 0 ) this.pagedata.body.chkdf.splice(index, 1);
+          element.check2 = !srcEl.checked;
+          this.togglebox(element, intype, inprg, inratc, indexin);
+        }
+      });
+    }
+    });
+  }
+  //==================================================================================================//
+  toggleCovAll(e, intype, inprg, inratc, indexin) {
+
+    var srcEl = e.srcElement || e.target;
+
+    this.pagedata.body.data.forEach((eachObj) => {
+      //Coverages
+      if (inprg == eachObj.prg && inratc == eachObj.ratc) {
+      eachObj.cov.coverages.forEach(element => {
+        if(!element.check && !element.disbl && !element.dup){
+          var index = this.pagedata.body.chkdf.findIndex(obj => (
+            obj.type == 'C' &&
+            obj.cov == element.termc &&
+            obj.prg == inprg &&
+            obj.ratc == inratc));
+            if (index >= 0 ) this.pagedata.body.chkdf.splice(index, 1);
+          element.check2 = !srcEl.checked;
+          this.togglebox(element, intype, inprg, inratc, indexin);
+        }
+      });
+    }
     });
   }
   //==================================================================================================//  

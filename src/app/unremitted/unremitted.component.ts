@@ -52,6 +52,7 @@ export class UnremittedComponent implements OnInit {
   posScrolid :string = "";
   //Edit Input Fields
   eofn  = new Textfield
+  lhfi  = new Textfield
   eoln  = new Textfield
   ecfn  = new Textfield
   ecln  = new Textfield
@@ -80,6 +81,7 @@ export class UnremittedComponent implements OnInit {
     this.valid = true;
     this.validating = true;
     this.eofn.message='';
+    this.lhfi.message='';
     this.eoln.message='';
     this.ecfn.message='';
     this.ecln.message='';
@@ -91,6 +93,7 @@ export class UnremittedComponent implements OnInit {
     this.eophn.message='';
     this.email.message='';
     this.eofn.value   = this.eofn.value.trim();
+    this.lhfi.value   = this.lhfi.value.trim();
     this.eoln.value   = this.eoln.value.trim();
     this.ecfn.value   = this.ecfn.value.trim();
     this.ecln.value   = this.ecln.value.trim();
@@ -125,6 +128,7 @@ Util.showWait();
 var obj ={"mode":"UPDATE",
           "ecno":  this.eecno,
           "ofn" :  this.eofn.value,
+          "lhfi" :  this.lhfi.value,
           "oln" :  this.eoln.value,
           "cfn" :  this.ecfn.value,
           "cln" :  this.ecln.value,
@@ -145,12 +149,13 @@ this.pagemode = 'L';
 var index = this.pagedata.contracts.findIndex(obj => obj.ecno==this.eecno);
 if(index>=0) {
   this.pagedata.contracts[index].fnam = this.eofn.value;
+  this.pagedata.contracts[index].lhfi = this.lhfi.value;
   this.pagedata.contracts[index].lnam = this.eoln.value;
   this.pagedata.contracts[index].cfnm = this.ecfn.value;
   this.pagedata.contracts[index].clnm = this.ecln.value;
 }
 this.changes = false;
-setTimeout(() => { Util.scrollToId(this.posScrolid);},100);
+setTimeout(() => { Util.scrollToIds(this.posScrolid);},100);
 Util.hideWait();
 }
 );
@@ -182,6 +187,7 @@ for (var i = 0; i < numbers.length; i++) {
         this.pagemode = 'V'; 
         
         this.eofn.message='';
+        this.lhfi.message='';
         this.eoln.message='';
         this.ecfn.message='';
         this.ecln.message='';
@@ -193,6 +199,7 @@ for (var i = 0; i < numbers.length; i++) {
         this.eophn.message='';
         this.email.message='';
         this.eofn.value  = this.view.ofn;
+        this.lhfi.value  = this.view.lhfi;
         this.eoln.value  = this.view.oln;
         this.ecfn.value  = this.view.cfn;
         this.ecln.value  = this.view.cln;
@@ -221,7 +228,7 @@ for (var i = 0; i < numbers.length; i++) {
     this.pagemode = 'L';
     
     Util.hideWait();
-    setTimeout(() => { Util.scrollToId(this.posScrolid);},100);
+    setTimeout(() => { Util.scrollToIds(this.posScrolid);},100);
   }
 
 

@@ -26,6 +26,7 @@ export class Cont {
 	asuf : string;
 	anum : string;
 	fnam : string;
+	lhfi : string;
 	lnam : string;
 	cfnm : string;
 	clnm : string;

@@ -237,7 +237,7 @@ export class Quote2Component implements OnInit {
     var srcEl = e.srcElement || e.target;
     this.changes = true;
     arr.forEach(function (eachObj) {
-      eachObj.check2 = e.target.checked;
+      eachObj.check2 = srcEl.checked;
     });
 
   }
@@ -332,6 +332,38 @@ export class Quote2Component implements OnInit {
               parent.ded.deductibles.forEach((elem)=>{
                 elem.check2 = true;
               })
+            }
+            else{//Default if only one in each
+              var i =0;
+              var onecov = 0,covind =[];
+              var onetrm = 0,trmind =0;
+              var oneded = 0,dedind =0;
+              //Cov
+              parent.cov.coverages.forEach((elem)=>{
+                if(!elem.check && !elem.dup) {onecov += 1;}
+                if(!elem.check){covind.push(i);}
+                i +=1;
+              });
+              if(onecov == 1) {
+                covind.forEach(ind =>{ parent.cov.coverages[ind].check2 = true;})
+              }
+              
+              //Term
+              i =0 ;
+              parent.trm.terms.forEach((elem)=>{
+                if(!elem.check) {onetrm += 1;trmind = i;}
+                i+=1;
+              });
+              if(onetrm == 1) parent.trm.terms[trmind].check2 = true;
+              //Ded
+              i = 0;
+              parent.ded.deductibles.forEach((elem)=>{
+                if(!elem.check) {oneded += 1;dedind = i;}
+                i+=1;
+              })
+              if(oneded == 1) parent.ded.deductibles[dedind].check2 = true;
+
+
             }
 
           });

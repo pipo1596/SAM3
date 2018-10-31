@@ -1,8 +1,8 @@
 <app-header [headdata]="pagedata.head"></app-header>
 <section class="flat-row section-iconbox">
 <div class="container invisible" [ngClass]="{'visible':pagedata.head.status==='I'}">                                                                           
-        <div class="dealparent">                                                                             
-           <img src="assets/images/welcome1.png" >
+        <div class="dealparent" style="padding-top:25px">                                                                             
+           <!--<img src="assets/images/welcome1.png" >-->
            <h1 style="margin:5px 20px;text-transform: capitalize;">Welcome {{this.pagedata.head.fnam}}!</h1>
            <div class="dealerblock" *ngIf="this.pagedata.home.name">
               
