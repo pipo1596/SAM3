@@ -699,7 +699,9 @@ date-input-polyfill button{padding:5px;}
      margin: 5px 0 10px 0;
 }
  .header .logo img{
-     max-height:40px;
+     max-height:30px;
+     margin-top:8px;
+     margin-left:5px;
 }
  .header.header-backgroundf61 {
      background-color: #1c0f61;
@@ -2282,7 +2284,7 @@ date-input-polyfill button{padding:5px;}
 .usrdsbl{background-color: #f2dede !important}
 .dealparent{ background-color:#fff;
     background-repeat: no-repeat;
-    background-image: url(/assets/images/home2.jpg);
+    background-image: url(/assets/images/home.PNG);  
     background-size: contain;
     background-position: right;
     width: 100%;

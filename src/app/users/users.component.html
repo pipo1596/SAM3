@@ -5,7 +5,7 @@
             <div class="col-xs-12" style="z-index:1">
                 <div class="title-section style3 left">
                     <h1 *ngIf="!salesmode" class="title">Users Maintenance</h1>
-                    <h1 *ngIf="salesmode" class="title">Salespersons/Agent Maintenance</h1>
+                    <h1 *ngIf="salesmode" class="title">Salespersons/Agents Maintenance</h1>
                 </div>
             </div>
         </div> 
@@ -15,7 +15,7 @@
                 id="adduser"  autocomplete="off">
                 <div class="col-md-12">
                     <h2 *ngIf="!salesmode" >{{modebtn}} User</h2>
-                    <h2 *ngIf="salesmode" >{{modebtn}} Salesperson</h2>
+                    <h2 *ngIf="salesmode" >{{modebtn}} Salesperson/Agent</h2>
                     <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
@@ -136,7 +136,7 @@
                 <div class="col-md-12 hidden-xs">
                     <span class="flat-input">
                         <button *ngIf="!salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} User</button>
-                        <button *ngIf="salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Salesperson</button>
+                        <button *ngIf="salesmode" name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}}</button>
                     </span>
                     <span class="flat-input">
                         <button [class.hidden]="mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="pull-right btn-danger" style="margin-right:10px"
@@ -164,7 +164,7 @@
             </form>
             <form class="contactform style4 clearfix panel-body " method="post" action="./Users.html#"  autocomplete="off">
                 <h2 *ngIf="!salesmode" class="pull-left">Users</h2>
-                <h2 *ngIf="salesmode" class="pull-left">Salespersons</h2>
+                <h2 *ngIf="salesmode" class="pull-left">Salespersons/Agents</h2>
                 <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="Add New User"
                     (click)="addUserInit()" id="addnewb">Add New</a>
                 <div class="p-table-responsive">

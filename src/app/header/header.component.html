@@ -15,10 +15,10 @@
                   <div class="col-sm-7 col-xs-7 col-md-6 col-lg-7" [ngClass]="{'col-md-6 col-lg-7':headdata.status!=='I' ,'col-md-4':headdata.status==='I'}" style="padding-right:0">
                     <div id="logo" class="logo">                     
                               <a *ngIf="headdata.status!=='I'" routerLink="/app" rel="home" class="pull-left" >                                    
-                                  <img src="/assets/images/milologo.png" alt="image">         
+                                  <img src="/assets/images/milologo2.PNG?ts=2" alt="image">         
                               </a>
                               <a *ngIf="headdata.status==='I'" routerLink="/app/Home" rel="home" class="pull-left" >                                    
-                                <img src="/assets/images/milologo.png" alt="image">         
+                                <img src="/assets/images/milologo2.PNG?ts=2" alt="image">         
                             </a> 
                             <div *ngIf="headdata.status==='I' && (headdata.multi || headdata.as400)" class="loccont" (click)="showLoc()" title="{{headdata.currloc}}">
                                 <div class="info-icon">
@@ -88,7 +88,7 @@
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='M3'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
-                                                <li><a *ngIf="headdata.as400" routerLink="/app/SalesPersons">Salesperson Maintenance</a></li>
+                                                <li><a *ngIf="headdata.as400" routerLink="/app/SalesPersons">Salespersons/Agents Maintenance</a></li>
                                                 <li><a *ngIf="headdata.as400" routerLink="/app/ProgramOverride">Program Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" routerLink="/app/CoverageOverride">Coverage Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/CovWarnings']">Coverage Warnings</a></li>
