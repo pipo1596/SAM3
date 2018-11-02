@@ -109,13 +109,13 @@
                                         </ng-container>
                                                                                                                                                            
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Claims</a>
-                                            <ul class="submenu">  
+                                            <ul class="submenu" style="width:260px;">  
                                                 <li><a href="https://secured.inds.com/Dealers/webclaimentry/indsclaim_login.asp" target="_blank">Claims Entry</a></li>
                                                 <li><a [routerLink]="['/app/ClaimsForm']">Claims Form</a></li>
                                             </ul>
                                         </li> 
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Support</a>
-                                            <ul class="submenu">                                                 
+                                            <ul class="submenu" style="width:230px;">                                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus'}" id="contactus">Contact Us</a></li>
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help'}" id="helplink">Help</a></li> 
                                                 <li><a href="https://www.interstatenational.com/milotraining/" target="_blank">Tutorials</a></li>                                 

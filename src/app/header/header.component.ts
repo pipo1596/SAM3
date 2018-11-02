@@ -193,9 +193,10 @@ Util.Usersnap();
 validVersion(){
   setTimeout(()=>{ 
     if(this.headdata.reld){
-      Util.modalid("show","vrsnModal");
+     // Util.modalid("show","vrsnModal");
+      location.reload();
     }
-    }, 2000);
+    }, 1000);
   
 }
 

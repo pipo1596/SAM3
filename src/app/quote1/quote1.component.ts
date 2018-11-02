@@ -461,15 +461,7 @@ ngOnInit() {
         }else{
           this.pagedata.body.pln.plans.forEach(elem=>{elem.desc = elem.desc.toUpperCase();})
           this.pagedata.body.pln.plans = Util.sortByKey(this.pagedata.body.pln.plans, "desc","A");
-          if(this.pagedata.body.pln.plans.length == 1){
-            if(this.pagedata.body.ckprgs.length < 1 ){
-              var plan = this.pagedata.body.pln.plans[0];
-              var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
-              this.pagedata.body.type = plan.plnt;
-              this.pagedata.body.ckprgs.push(obj);
-              Util.checkbyid('chk'+plan.prg+plan.ratc); 
-            }
-          }
+          
           this.rfshYears(); 
           
           this.year.value = this.pagedata.body.year;
@@ -514,7 +506,16 @@ ngOnInit() {
             
             
            }
-          if(Util.newQuote() && this.pagedata.body.ckprgs.length >0) Util.modalid("show","newQuote");;
+          if(Util.newQuote() && this.pagedata.body.ckprgs.length >0) Util.modalid("show","newQuote");
+          if(this.pagedata.body.pln.plans.length == 1){
+            if(this.pagedata.body.ckprgs.length < 1 ){
+              var plan = this.pagedata.body.pln.plans[0];
+              var obj ={"prg":plan.prg,"ratc":plan.ratc,"desc":plan.desc}
+              this.pagedata.body.type = plan.plnt;
+              this.pagedata.body.ckprgs.push(obj);
+              Util.checkbyid('chk'+plan.prg+plan.ratc); 
+            }
+          }
           Util.hideWait();
         }
        }
