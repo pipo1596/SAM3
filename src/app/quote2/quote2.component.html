@@ -30,7 +30,10 @@
                             <div class="well well-sm sectionlabel active">
                                 <div class="sectiontop" id="sec1" (click)="toggleVeh()">
                                     <h3 class="firsth">Vehicle Details</h3>
-                                    <span class="vehspan"style="display:inline-block;padding:6px 0px 0px 10px;"  [ngClass]="{'hidden':expvehc}" >( {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}} )</span>
+                                    <span class="vehspan"style="display:inline-block;padding:6px 0px 0px 5px;"  [ngClass]="{'hidden':expvehc}" >
+                                        ( {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}} )
+                                        &nbsp;<b>Mileage:</b>&nbsp;{{pagedata.body.veh.miles | number:0}}
+                                    </span>
                                     <i class="fa sectiond fa-minus"  [ngClass]="{'fa-minus':expvehc,'fa-plus':!expvehc}"></i>
                                     <div class="clearfix"></div>
                                 </div>

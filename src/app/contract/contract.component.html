@@ -54,7 +54,8 @@
                                             <td style="font-weight: bold">{{ cont.term }}</td>
                                             <td style="font-weight: bold" *ngIf="cont.ded!=='DD'">{{ cont.ded | currency }}</td>
                                             <td style="font-weight: bold" *ngIf="cont.ded =='DD'">{{ cont.ded }}</td>
-                                            <td style="font-weight: bold">{{ cont.ccst| currency }}</td>
+                                            <td style="font-weight: bold" *ngIf="cont.xtr7 !=='1'">{{ cont.ccst| currency }}</td>
+                                            <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" style="font-weight: bold;text-align:right">Total</td>
@@ -510,7 +511,8 @@
                                         <p *ngIf="cont.ded!=='DD'"> {{ cont.ded | currency }}</p>
                                         <p *ngIf="cont.ded =='DD'"> {{ cont.ded }}</p>
                                     </td>
-                                    <td style="font-weight: bold">{{ cont.ccst| currency }}</td>
+                                    <td style="font-weight: bold" *ngIf="cont.xtr7 !=='1'">{{ cont.ccst| currency }}</td>
+                                    <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>
                                     <td style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="viewPdf(i)"  class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a></td>
                             </tr>
                             <tr>

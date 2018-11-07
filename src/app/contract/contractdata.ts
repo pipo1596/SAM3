@@ -127,6 +127,7 @@ export class Single{
     nup : string = "";
     tax : string = "";
    ccst : string = "";
+   xtr7 : string = "";
    covc : string = "";
 }
 

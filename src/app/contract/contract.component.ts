@@ -530,7 +530,9 @@ formatCVV() {
             Util.hideWait();
             this.vinCheck();
             var totalpn = 0;
-            this.pagedata.body.contract.contracts.forEach(cnt =>{ totalpn += parseFloat(cnt.ccst);});
+            this.pagedata.body.contract.contracts.forEach(cnt =>{ 
+              if(cnt.xtr7 !=='1')  totalpn += parseFloat(cnt.ccst);
+            });
             this.totalp = totalpn.toString();
             this.calcChng("totalp");
           }

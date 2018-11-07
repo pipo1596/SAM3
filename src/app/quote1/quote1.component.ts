@@ -222,7 +222,7 @@ checkStep1(){
     }
     if(!this.rvmode || this.rvtype == "M"){
       if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
-      if(this.rvtype == "M" && this.engtyp.value == "" ){this.engtyp.message = "(Required)";this.engtyp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("engtyp");this.notfoc=false;}}
+      if(this.rvmode && this.rvtype == "M" && this.engtyp.value == "" ){this.engtyp.message = "(Required)";this.engtyp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("engtyp");this.notfoc=false;}}
       
     }
     //Trailer popup
@@ -270,7 +270,8 @@ checkStep1(){
       this.pagedata.body.vin     = this.vin.value;
       this.pagedata.body.engtyp = this.engtyp.value;
       this.pagedata.body.mfgw = this.mfgw.value;
-      this.pagedata.body.rvtype  = this.rvtype;
+      this.pagedata.body.rvtype = "";
+      if(this.rvmode) this.pagedata.body.rvtype  = this.rvtype;
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
       this.pagedata.body.msrp   = this.msrp.value;
@@ -412,6 +413,8 @@ addplan(e,plan){
       }
     }
     if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
+    if(this.rvtype == "") this.rvtype = "M";
+    if(!this.rvmode){this.engtyp.value ="";this.mfgw.value ="";this.price.value="";}
     if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");
 }
