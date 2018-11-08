@@ -501,6 +501,13 @@ formatCVV() {
       this.ccnum.value += (char[i] || '') + numbers[i];
     }
   }
+
+  //==================================================================================================//
+  dspUsed(prg){
+    if(this.pagedata.body.dspasnew.indexOf(prg)>-1) return "New";
+    else
+    return "Used";        
+  }
   
   ngOnInit() {
     this.pagedata.head.status ="I";

@@ -28,3 +28,9 @@ export class Locn{
        
 
 }
+export class Agnt{
+        agnt  : string = "";
+        desc : string = "";
+       
+
+}

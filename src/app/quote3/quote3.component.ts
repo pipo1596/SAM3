@@ -731,6 +731,12 @@ export class Quote3Component implements OnInit {
     }
   }
   //==================================================================================================//
+  dspUsed(prg){
+    if(this.pagedata.body.dspasnew.indexOf(prg)>-1) return "New";
+    else
+    return "Used";      
+  }
+  //==================================================================================================//
   hideDupCov() {
 
     this.pagedata.body.srchg.forEach(elem => {

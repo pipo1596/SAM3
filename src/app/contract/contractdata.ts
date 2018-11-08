@@ -10,6 +10,7 @@ export class bodyData{
      mode : string = "SAVE";
       veh : Vehicle;
  contract : Cont;
+ dspasnew : [string];
    states : [State];
     srchg : [Srchg];
    fields : [Field];

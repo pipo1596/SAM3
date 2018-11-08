@@ -1,6 +1,6 @@
 import { Component, OnInit ,Input, OnDestroy} from '@angular/core';
 import { JsonService } from '../utilities/json.service';
-import { Headerdata,Locn } from './headerdata';
+import { Headerdata,Locn,Agnt } from './headerdata';
 import { Util } from '../utilities/util';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -14,10 +14,16 @@ export class HeaderComponent implements OnInit,OnDestroy {
   stage:boolean =false;
   logMeOut:any;
   temploctn:[Locn];
+  tempAgnt:[Agnt];
   keytime:any;
   process:boolean = false;
+  process2:boolean = false;
+  process3:boolean = false;
+  agentlast:boolean = false;
   dealer:string;
+  agent:string="";
   dealerp:string;
+  agentp:string;
   ran:string = Util.makeid();
   
   constructor(private headService: JsonService,
@@ -104,7 +110,54 @@ dealerGroups(){
     self.dealerp = self.dealer;
     }, 400);
 }
+agentSearch(){
+  if(this.process2 || this.agent == this.agentp){ return false; }
 
+  this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];
+  this.tempAgnt = [{"agnt":"" , "desc":""}]; 
+  this.tempAgnt.pop();
+  this.process2 = true;
+  this.agentlast = false;
+  this.dealer = "";
+  clearTimeout(this.keytime);
+  var self = this;
+  this.keytime = setTimeout(()=>{ 
+    self.agentp = self.agent;
+    self.headService.
+          initService({"service":"LISTAGNT","agnt":self.agent},Util.Url("CGICSERVE")).
+          subscribe(data=>self.tempAgnt = data,
+               err => {},
+               () => { 
+                
+                self.process2 = false;
+                if(self.agent !== self.agentp){
+                  self.agentSearch();
+                }
+               });
+    self.agentp = self.agent;
+    }, 400);
+}
+setAgent(code){
+  this.process2 = true;
+  this.process3 = true;
+  this.agent = code;
+  this.agentp= "";
+  this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];
+  this.tempAgnt = [{"agnt":"" , "desc":""}]; 
+  this.tempAgnt.pop();
+  this.headService.
+          initService({"service":"AGNTDLRS","agnt":this.agent},Util.Url("CGICSERVE")).
+          subscribe(data=>this.headdata.loctn = data,
+               err => {},
+               () => { 
+                
+                this.process2 = false;
+                this.process3 = false;
+                this.agentlast = true;
+                
+               });
+  
+}
 public logOutTimer(mode){
     if(mode=="R"){ Util.modal("hide");this.router.navigate([this.router.url]);}
     clearTimeout(this.modalIn);
