@@ -109,7 +109,7 @@
 								<tr *ngIf="cont.show === true"  id="row{{cont.anum}}">
 									<td nowrap data-label="Invoice #" style="white-space: nowrap;"><a href="javascript:void(0)" (click)="viewInvo('IV'+cont.ivno)" style="text-decoration: underline;color: #007bb8;font-weight: bold;">{{cont.ivno}}</a></td>	
 									<td nowrap data-label="Contract #">
-											<a href="javascript:void(0)" tile="Edit" (click)="editCont(cont)" style="font-size:18px;color: #007bb8;"><span class="fa fa-edit"></span></a>
+											<a href="javascript:void(0)" tile="View" (click)="editCont(cont)" style="font-size:16px;color: #007bb8;"><span class="fa fa-eye"></span></a>
 										    
 											{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span>
 										

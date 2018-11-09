@@ -364,7 +364,7 @@ for (var i = 0; i < numbers.length; i++) {
           } else {
             this.applyFiltBtn = true;
           }
-          this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
+          //this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
   			}
   		}
   	);

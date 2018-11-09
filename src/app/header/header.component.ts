@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   process2:boolean = false;
   process3:boolean = false;
   agentlast:boolean = false;
+  agnfocus:boolean = false;
   dealer:string;
   agent:string="";
   dealerp:string;
@@ -86,12 +87,15 @@ dealerGroupsAles(){
     self.process = false; 
   }
 }
-
+clearagent(){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerGroups();}
+cleardealer(){this.dealer='';this.dealerp="";this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.agentSearch();}
+agnblur(){ setTimeout(()=>{ this.agnfocus = false;},300);}
 dealerGroups(){
   if(this.process || this.dealer == this.dealerp){ return false; }
 
   this.headdata.loctn = [{"stat":"","dlr":"","desc":""}]
   this.process = true;
+  this.agent = "";
   clearTimeout(this.keytime);
   var self = this;
   this.keytime = setTimeout(()=>{ 
@@ -112,7 +116,7 @@ dealerGroups(){
 }
 agentSearch(){
   if(this.process2 || this.agent == this.agentp){ return false; }
-
+  this.agnfocus = true;
   this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];
   this.tempAgnt = [{"agnt":"" , "desc":""}]; 
   this.tempAgnt.pop();

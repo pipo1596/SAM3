@@ -205,16 +205,16 @@
         </div>
         <div class="modal-body">
         
-            <div class="col-sm-6 col-xs-12" *ngIf="headdata.as400">
+            <div class="col-sm-6 col-xs-12" style="padding:0 8px;" *ngIf="headdata.as400">
                 <label class="pull-left" style="font-weight: bold;clear:left;">Dealer code / Name</label>
-                <input class="pull-left" style="margin-right:15px;width:200px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  type="text" placeholder="Dealer Code / Name" maxlength="30">
+                <input class="pull-left" style="margin-right:15px;width:200px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  (focus)="clearagent()" type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
             </div>
             <div class="col-sm-6 col-xs-12" *ngIf="headdata.as400">
                 <label  class="pull-left" style="font-weight: bold;clear:left;">Agent</label>
-                <input  class="pull-left" style="margin-right:15px;width:200px;clear:left;" [disabled]="process3" id="agentsearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="agent" (keyup)="agentSearch()" (focus)="agentSearch()"  type="text" placeholder="Agent" maxlength="30">
+                <input  class="pull-left" style="margin-right:15px;width:200px;clear:left;" [disabled]="process3" id="agentsearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="agent" (keyup)="agentSearch()" (focus)="cleardealer()" (blur)="agnblur()" type="text" placeholder="Agent" maxlength="30">
                 <div *ngIf="process2" class="loader2 pull-left" style="margin-top:5px"></div>
-                <ul class="dropdown-menu list-group-striped" style="display: block;min-width:200px;max-height:240px;overflow-y:scroll;margin-left:16px;margin-top:-25px;" *ngIf="tempAgnt && tempAgnt.length>0" >
+                <ul class="dropdown-menu list-group-striped" style="display: block;min-width:200px;max-height:240px;overflow-y:scroll;margin-left:16px;margin-top:-25px;" *ngIf="agnfocus && tempAgnt && tempAgnt.length>0" >
                         <li *ngFor="let agent of tempAgnt" >
                                 <a href="javascript:void(0)" style="color:#1274bb" (click)="setAgent(agent.agnt)" title="{{agent.desc}}">
                                         <i class="fa fa-check-square" style="font-size: 16px;color:gray;"></i>&nbsp;
@@ -224,7 +224,7 @@
                     </ul>
             </div>
             <div class="clearfix"></div>
-            <div class="flat-input w100 text-center" *ngIf="headdata.sales">
+            <div class="flat-input w100 text-center" style="padding:0 8px;" *ngIf="headdata.sales">
                     <label  class="pull-left" style="font-weight: bold;">Dealer code / Name</label>
                 <input class="pull-left" style="margin-right:15px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroupsAles()"  type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
@@ -234,13 +234,13 @@
              <li *ngFor="let loc of headdata.loctn" >
                 <a href="javascript:void(0)" class="lochref" (click)="changeLoc(loc)">{{loc.desc}}</a>
             </li> 
-            <li *ngIf="headdata.loctn.length==0 && (dealer!=='' || agentlast)"  class=""><b>No results found!</b></li>
+            <li *ngIf="headdata.loctn.length==0 && (dealer!=='' || agentlast)"  style="padding: 0 10px"><b>No results found!</b></li>
           </ul>
           <ul *ngIf="temploctn && !headdata.as400" style="max-height: 400px;overflow-y: scroll">
              <li *ngFor="let loc of temploctn" >
                 <a href="javascript:void(0)" class="lochref" (click)="changeLoc(loc)">{{loc.desc}}</a>
             </li> 
-            <li *ngIf="temploctn.length==0 && dealer!==''"  class=""><b>No results found!</b></li>
+            <li *ngIf="temploctn.length==0 && dealer!==''"  style="padding:0 10px"><b>No results found!</b></li>
           </ul>
           
         </div>
