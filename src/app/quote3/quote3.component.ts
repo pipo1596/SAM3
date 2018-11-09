@@ -715,6 +715,10 @@ export class Quote3Component implements OnInit {
         if (table.prgm !== undefined && table.ratc !== undefined) {
           if (ctrct.prgm.padEnd(20) == table.prgm.padEnd(10) + table.ratc.padEnd(10)) {
             table.showct = true;
+            if(table.ctrct.trim() == ""){ table.ctrct = table.prgm.padEnd(10) + table.ratc.padEnd(10) + ctrct.code.padEnd(30);
+              table.valu= parseFloat(ctrct.valu);
+              table.catg=ctrct.catg;
+             }
             return false;
           }
         }
