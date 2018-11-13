@@ -15,6 +15,7 @@ import { indexDebugNode } from '@angular/core/src/debug/debug_node';
 export class Quote3Component implements OnInit {
 
   changes = false;
+  datanotsored :any;
   dispAlert = new Dispalert();
   errSet = new Errsetter();
   pagedata = new Quote3data();
@@ -625,14 +626,14 @@ export class Quote3Component implements OnInit {
             obj.ratc == program.ratc));
           if (index >= 0) {
             program.check = true;
-            table.nup = this.pagedata.body.data[cov[index].indx].nup;
-            table.dflt = this.pagedata.body.data[cov[index].indx].dflt;
+            table.nup = this.datanotsored[cov[index].indx].nup;
+            table.dflt = this.datanotsored[cov[index].indx].dflt;
             table.showct = false;
-            table.prgm = this.pagedata.body.data[cov[index].indx].prg;
-            table.ratc = this.pagedata.body.data[cov[index].indx].ratc;
-            table.catg = this.pagedata.body.data[cov[index].indx].catg;
-            table.ctrct = this.pagedata.body.data[cov[index].indx].ctrct;
-            table.valu = parseFloat(this.pagedata.body.data[cov[index].indx].valu);
+            table.prgm = this.datanotsored[cov[index].indx].prg;
+            table.ratc = this.datanotsored[cov[index].indx].ratc;
+            table.catg = this.datanotsored[cov[index].indx].catg;
+            table.ctrct = this.datanotsored[cov[index].indx].ctrct;
+            table.valu = parseFloat(this.datanotsored[cov[index].indx].valu);
           }
           else
             program.check = false;
@@ -1114,6 +1115,7 @@ export class Quote3Component implements OnInit {
           Util.responsiveMenu();
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
+            this.datanotsored = this.pagedata.body.data;
             this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "desc", "prg", "A");
             
             
@@ -1141,6 +1143,7 @@ export class Quote3Component implements OnInit {
 
             this.dispAlert.default();
             this.defaultCheck("I");
+            
             this.pagedata.body.tables.forEach(table => {
               if (table.rates !== undefined && table.rates.length > 0){
                 table.rates = Util.sortBy2Key(table.rates, "title", "program", "A");
@@ -1220,7 +1223,7 @@ export class Quote3Component implements OnInit {
               return false;
               }
 
-
+              this.defaultCheck("C");
           setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
 
         }
