@@ -5,9 +5,6 @@ import { Router } from '@angular/router';
 import { Contractdata , VindData} from './contractdata'; 
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
-import { Data } from '../quote2/quote2data';
-import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
-import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-contract',
@@ -68,7 +65,9 @@ export class ContractComponent implements OnInit {
   city = new Textfield;
   state = new Textfield;
   zip = new Textfield;
-  
+  Requote(){
+    this.router.navigate(['/app/Quote1']);
+  }
   //==================================================================================================//
   effect(){
     Util.showWait();
@@ -379,8 +378,8 @@ export class ContractComponent implements OnInit {
   hidePdf(){
     Util.modalid('hide','contractModal')
   }
-  hideVF(){
-    Util.modalid('hide','VFMismatchModal')
+  hidemdl(id){
+    Util.modalid('hide',id)
   }
 
   loadDb() {
@@ -427,11 +426,26 @@ export class ContractComponent implements OnInit {
           err => { this.dispAlert.error();Util.hideWait(); },
           () => {
             Util.scrollToId('quotesteps');
-            if(this.errSet.status !=='E'){
+            //Success
+            if(this.errSet.status =='S'){
               this.tries = 0;
               this.ionos = this.errSet.data;
               this.UrlDelay();
-            }else{
+            }
+            //Date Updated (Carfax)
+            if(this.errSet.status =='D'){
+              Util.hideWait();
+              this.pagedata.body.veh.insrvc = this.errSet.data;
+              Util.modalid('show','carfaxdate');
+            }
+            //Date mismatch Requote (Carfax)
+            if(this.errSet.status =='Q'){
+              Util.hideWait();
+              this.pagedata.body.veh.insrvc = this.errSet.data;
+              Util.modalid('show','carfaxrequote');
+            }
+            //Missing Forms
+            if(this.errSet.status =='E'){
               this.dispAlert.message = this.errSet.message;
               this.dispAlert.status = this.errSet.status;
               Util.hideWait();
@@ -503,10 +517,24 @@ formatCVV() {
   }
 
   //==================================================================================================//
-  dspUsed(prg){
-    if(this.pagedata.body.dspasnew.indexOf(prg)>-1) return "New";
-    else
-    return "Used";        
+  
+  dspNup(prg,nup){
+    if(this.pagedata.body.dspasnew.indexOf(prg)>-1 && this.pagedata.body.dnup !=='' ){
+      //If no Auto/Rv selected Eligibility will be populated from step 1 Or set on load from first Auto/Rv plan
+        switch (this.pagedata.body.dnup){
+          case "U": return "Used";
+          case "N": return "New";
+      }
+      
+      
+    }
+    else{
+      switch (nup){
+        case "U": return "Used";
+        case "N": return "New";
+      }
+    }
+       
   }
   
   ngOnInit() {

@@ -11,6 +11,7 @@ export class bodyData{
     dtype   :string ;
     dtypc   :string ;
     dyear   :string ;
+    dnup    :string ;
     type    :string ;
     typc    :string ;
     pln    = new plans ;

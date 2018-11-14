@@ -47,8 +47,8 @@
                                     <tr *ngFor="let cont of pagedata.body.contract.contracts;">
                                             <td style="font-weight: bold">
                                                 <span>{{ cont.cvds }}
-                                                <span style="color:gray" *ngIf="cont.nup =='N'">- [New]</span>
-                                                <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspUsed(cont.prg)}}]</span>
+                                                <span style="color:gray" *ngIf="cont.nup =='N'">- [{{dspNup(cont.prg,'N')}}]</span>
+                                                <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspNup(cont.prg,'U')}}]</span>
                                                 <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span></span>
                                             </td>
                                             <td style="font-weight: bold">{{ cont.term }}</td>
@@ -505,8 +505,8 @@
                             <tr *ngFor="let cont of pagedata.body.contract.contracts;let i=index;">
                                     <td style="font-weight: bold">
                                         <p>{{ cont.cvds }}
-                                        <span style="color:gray" *ngIf="cont.nup =='N'">- [New]</span>
-                                        <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspUsed(cont.prg)}}]</span>
+                                        <span style="color:gray" *ngIf="cont.nup =='N'">- [{{dspNup(cont.prg,'N')}}]</span>
+                                        <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspNup(cont.prg,'U')}}]</span>
                                         <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span></p>
                                         <p>{{ cont.term }}</p>
                                         <p *ngIf="cont.ded!=='DD'"> {{ cont.ded | currency }}</p>
@@ -543,7 +543,37 @@
                   </p>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" (click)="hideVF()" type="button">OK</button>
+                  <button class="btn btn-primary" (click)="hidemdl('VFMismatchModal')" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="carfaxdate" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Carfax Date change</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">In Service Date updated to {{errSet.data}}.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="hidemdl('carfaxdate');checkData();" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="carfaxrequote" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Carfax Date change</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Carfax Date changed to {{errSet.data}}, Click OK to Re-quote this vehicle.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="hidemdl('carfaxrequote');Requote();" type="button">OK</button>
                 </div>
               </div>
             </div>

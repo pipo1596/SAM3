@@ -107,6 +107,16 @@
                             <input autocomplete="new-password{{ran}}" name="vAin{{ran}}" id="vAin" type="text" placeholder="VIN" maxlength="17" (keyup)="vinCheck('S')" [(ngModel)]="vin.value" [class.required]="vin.message !=='' && vin.erlevel=='D'"  [class.validating]="validating" (change)="vinCheck('S');onChange()">
                         </span>
                         <div class="text-center"><hr style="margin:10px 10px 20px 10px"></div>
+                        <label class="flat-input inputlabel" *ngIf="neednew"><span class="req">*&nbsp;</span>Eligibility    
+                            <span class="errorspan2" [class.opqquezero]="dnup.message===''" [class.alert-danger]="dnup.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{dnup.message}}</span> 
+                        </label>
+                        <span class="flat-input" *ngIf="neednew">
+                          <select class="form__select" id="dnup" name="dnup{{ran}}" [(ngModel)]="dnup.value" [class.required]="dnup.message!==''"  [class.validating]="validating">
+                            <option value="">Select</option>
+                            <option value="N">New</option>
+                            <option value="U">Used</option>
+                          </select>
+                        </span>
                         <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' && rvmode"><span class="req">*&nbsp;</span>Mileage
                             <span class="errorspan2" [class.opqquezero]="miles.message===''" [class.alert-danger]="miles.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{miles.message}}</span> 
                         </label>

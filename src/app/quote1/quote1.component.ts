@@ -23,6 +23,9 @@ export class Quote1Component implements OnInit {
   dmsmode = false;
   rvmode = false;
   arrlob = [];
+  arrlobAll = [];
+  arrdspn = [];
+  neednew:boolean = false;
   notfoc:boolean = true;
 
   prevVin:string ="";
@@ -34,6 +37,7 @@ export class Quote1Component implements OnInit {
 
   product= new Textfield; 
   year   = new Textfield;
+  dnup   = new Textfield;
   dlno   = new Textfield;
   make   = new Textfield;
   model  = new Textfield;
@@ -177,6 +181,7 @@ checkStep1(){
     this.product.message  = "";
     this.dlno.message     = "";
     this.year.message     = "";
+    this.dnup.message     = "";
     this.make.message     = "";
     this.model.message    = "";
     if(this.vin.value.trim()=="")this.vin.message      = "";
@@ -197,6 +202,7 @@ checkStep1(){
     this.year.value     = this.year.value.trim();
     this.dlno.value      = "";
     this.make.value     = this.make.value.trim();
+    this.dnup.value     = this.dnup.value.trim();
     this.model.value    = this.model.value.trim();
     this.vin.value      = this.vin.value.trim();
     this.engtyp.value  = this.engtyp.value.trim();
@@ -224,6 +230,9 @@ checkStep1(){
       if(this.miles.value == "" || this.miles.value == null){this.miles.message = "(Required)";this.miles.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("mileage");this.notfoc=false;}}
       if(this.rvmode && this.rvtype == "M" && this.engtyp.value == "" ){this.engtyp.message = "(Required)";this.engtyp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("engtyp");this.notfoc=false;}}
       
+    }
+    if(this.neednew){
+      if(this.dnup.value == "" ){this.dnup.message = "(Required)";this.dnup.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("dnup");this.notfoc=false;}} 
     }
     //Trailer popup
     if(this.rvmode){
@@ -268,6 +277,7 @@ checkStep1(){
       this.pagedata.body.make    = this.make.value;
       this.pagedata.body.model   = this.model.value;
       this.pagedata.body.vin     = this.vin.value;
+      this.pagedata.body.dnup    = this.dnup.value;
       this.pagedata.body.engtyp = this.engtyp.value;
       this.pagedata.body.mfgw = this.mfgw.value;
       this.pagedata.body.rvtype = "";
@@ -402,16 +412,29 @@ addplan(e,plan){
         this.pagedata.body.type = plan.plnt;
         
         this.pagedata.body.ckprgs.push(obj);
+        if(plan.dspasn == "Y") this.arrdspn.push("Y");
+        if(this.arrlob.indexOf(plan.lob)==-1)this.arrlobAll.push(plan.lob);
         if((plan.lob ==='WT' || plan.lob =='RVGAP') && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
     }else{
+      if(plan.dspasn == "Y") this.arrdspn.pop();
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
       if(!this.pagedata.body.ckprgs.length){ this.pagedata.body.type ="";}
+
+      var iloball = this.arrlobAll.indexOf(plan.lob);
+      if (iloball > -1) { this.arrlobAll.splice(iloball, 1);}
+
       if((plan.lob ==='WT' || plan.lob =='RVGAP')){
       var ilob = this.arrlob.indexOf(plan.lob);
       if (ilob > -1) { this.arrlob.splice(ilob, 1);}
+      
       Util.showWait();Util.hideWait();
       }
     }
+    //Collect New / Used if Dsp as new and no RV/AUTO LOB selected.
+    if(this.arrlobAll.indexOf("AUTO")<0 && this.arrlobAll.indexOf("RV")<0 &&  this.arrdspn.length > 0 && this.pagedata.body.ckprgs.length>0){
+      if(!this.neednew){Util.showWait();Util.hideWait();this.dnup.value="";} this.neednew = true;}
+      else{if(this.neednew){Util.showWait();Util.hideWait();this.dnup.value="";}this.neednew = false;}
+
     if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
     if(this.rvtype == "") this.rvtype = "M";
     if(!this.rvmode){this.engtyp.value ="";this.mfgw.value ="";this.price.value="";}
@@ -468,6 +491,7 @@ ngOnInit() {
           this.rfshYears(); 
           
           this.year.value = this.pagedata.body.year;
+          this.dnup.value = this.pagedata.body.dnup;
           this.make.value = this.pagedata.body.make;
           this.model.value = this.pagedata.body.model;
           this.vin.value = this.pagedata.body.vin;
@@ -494,11 +518,16 @@ ngOnInit() {
                                        obj.ratc == eachObj.ratc && 
                                        eachObj.plnt == this.pagedata.body.type)>=0){
               eachObj.check = true;
+              if(eachObj.dspasn == "Y") this.arrdspn.push("Y");
               if(this.arrlob.indexOf(eachObj.lob)==-1) this.arrlob.push(eachObj.lob);
+              if(this.arrlobAll.indexOf(eachObj.lob)==-1) this.arrlobAll.push(eachObj.lob);
             }else{
               eachObj.check = false;
+              if(eachObj.dspasn == "Y") this.arrdspn.pop();
             }
            });
+           //Collect New/Used
+           if(this.arrlobAll.indexOf("AUTO")<0 && this.arrlobAll.indexOf("RV")<0 &&  this.arrdspn.length > 0){ this.neednew = true;this.dnup.value="";}
            if(!this.pagedata.body.condyn){
              this.pagedata.body.pln.plans.forEach(plan => {
               if(this.pagedata.body.condprg.indexOf(plan.prg)>=0 && this.pagedata.body.ckprgs.length <=0){

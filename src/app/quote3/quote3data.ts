@@ -17,6 +17,7 @@ contracts : [Cont];
   tables : [Tabl];
   states : [State];
      veh : Vehicle;
+     dnup : String;
     dspasnew: [string]; 
      tax : number = 0 ;
     code : string = "";

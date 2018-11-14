@@ -409,7 +409,7 @@
                                         <input name="eligibility{{datads.prg+datads.ratc}}" (change)="eligibility(m)" [(ngModel)]="datads.nup" value="N" id="nupN{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='N' ? true : false" >
                                         <label for="nupN{{datads.prg+datads.ratc}}"></label>
                                     </div>
-                                    <label class="checklabel" for="nupN{{datads.prg+datads.ratc}}">New</label>
+                                    <label class="checklabel" for="nupN{{datads.prg+datads.ratc}}">{{dspNup(datads.prg,'N')}}</label>
                                 </span>
                             <!--Used-->
                                 <span class="flat-input-checkbox" *ngIf="datads.dspu">
@@ -417,7 +417,7 @@
                                         <input name="eligibility{{datads.prg+datads.ratc}}"  (change)="eligibility(m)" [(ngModel)]="datads.nup" value="U" id="nupU{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='U' ? true : false" >
                                         <label for="nupU{{datads.prg+datads.ratc}}"></label>
                                     </div>
-                                    <label class="checklabel" for="nupU{{datads.prg+datads.ratc}}">{{dspUsed(datads.prg)}}</label>
+                                    <label class="checklabel" for="nupU{{datads.prg+datads.ratc}}">{{dspNup(datads.prg,'U')}}</label>
                                 </span>
                             <!--Program-->
                                 <span class="flat-input-checkbox" *ngIf="datads.dspp">
@@ -506,8 +506,8 @@
                     <div class="clearfix"></div>
                     <ng-container *ngFor="let table of element.rates;let t = index">
                         <div class="well well-sm" style="background:white" *ngIf="table.check && table.nup === element.nup">
-                            <h3 class="coverage">{{table.title}}   <span class="pull-right" style="color:gray" *ngIf="table.nup =='N'">(New)</span>
-                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspUsed(element.prgm)}})</span>
+                            <h3 class="coverage">{{table.title}}   <span class="pull-right" style="color:gray" *ngIf="table.nup =='N'">({{dspNup(element.prgm,'N')}})</span>
+                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspNup(element.prgm,'U')}})</span>
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span></h3>
                             <table class="table">
                                 <thead>
@@ -584,8 +584,8 @@
                     <div class="clearfix"></div>
                     <ng-container *ngFor="let table of element.rates;let t = index">
                         <div class="well well-sm" style="background:white" *ngIf="table.check && table.nup === element.nup">
-                            <h3 class="coverage">{{table.title}}   <span class="pull-right" style="color:gray" *ngIf="table.nup =='N'">(New)</span>
-                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspUsed(element.prgm)}})</span>
+                            <h3 class="coverage">{{table.title}}   <span class="pull-right" style="color:gray" *ngIf="table.nup =='N'">({{dspNup(element.prgm,'N')}})</span>
+                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspNup(element.prgm,'U')}})</span>
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span></h3>
                             <table class="table">
                                 <thead>
@@ -816,8 +816,8 @@
                                                     <tr *ngIf="table.data[r][c]!==undefined && table.data[r][c][2]==1">
                                                         <td style="font-weight: bold">
                                                             <span>{{table.title}}
-                                                            <span style="color:gray" *ngIf="table.nup =='N'">- [New]</span>
-                                                            <span style="color:gray" *ngIf="table.nup =='U'">- [{{dspUsed(element.prgm)}}]</span>
+                                                            <span style="color:gray" *ngIf="table.nup =='N'">- [{{dspNup(element.prgm,'N')}}]</span>
+                                                            <span style="color:gray" *ngIf="table.nup =='U'">- [{{dspNup(element.prgm,'U')}}]</span>
                                                             <span style="color:gray" *ngIf="table.nup =='P'">- [Program]</span></span>
                                                         </td>
                                                         <td style="font-weight: bold">

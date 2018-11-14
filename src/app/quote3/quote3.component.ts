@@ -6,7 +6,6 @@ import { Quote3data, Cont } from './quote3data';
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
 import { Location } from '@angular/common';
-import { indexDebugNode } from '@angular/core/src/debug/debug_node';
 
 @Component({
   selector: 'app-quote3',
@@ -135,6 +134,7 @@ export class Quote3Component implements OnInit {
     contract.CVML ='';
     contract.TAX  ='';
     contract.TERM ='';
+    contract.DNUP = this.pagedata.body.dnup;
 
     this.pagedata.body.tables.forEach(cont =>{
     if(cont.selected!==undefined && cont.selected!==""){
@@ -736,10 +736,23 @@ export class Quote3Component implements OnInit {
     }
   }
   //==================================================================================================//
-  dspUsed(prg){
-    if(this.pagedata.body.dspasnew.indexOf(prg)>-1) return "New";
-    else
-    return "Used";      
+  dspNup(prg,nup){
+    if(this.pagedata.body.dspasnew.indexOf(prg)>-1 && this.pagedata.body.dnup !=='' ){
+      //If no Auto/Rv selected Eligibility will be populated from step 1 Or set on load from first Auto/Rv plan
+        switch (this.pagedata.body.dnup){
+          case "U": return "Used";
+          case "N": return "New";
+      }
+      
+      
+    }
+    else{
+      switch (nup){
+        case "U": return "Used";
+        case "N": return "New";
+      }
+    }
+       
   }
   //==================================================================================================//
   hideDupCov() {
@@ -773,6 +786,12 @@ export class Quote3Component implements OnInit {
               prvdesc = coverage.desc;
             }
           }
+          //First NUP from AUTO/RV Lob
+          if(elem.lob == "AUTO" || elem.lob == "RV"){
+            if(this.pagedata.body.dnup==""){
+              this.pagedata.body.dnup = coverage.nup;
+            }
+          }
         }
       });
       //U
@@ -786,6 +805,12 @@ export class Quote3Component implements OnInit {
 
             if (!coverage.disbl) {
               prvdesc = coverage.desc;
+            }
+          }
+          //First NUP from AUTO/RV Lob
+          if(elem.lob == "AUTO" || elem.lob == "RV"){
+            if(this.pagedata.body.dnup==""){
+              this.pagedata.body.dnup = coverage.nup;
             }
           }
         }

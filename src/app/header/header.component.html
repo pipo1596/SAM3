@@ -89,6 +89,7 @@
                                                         <li *ngIf="menu.type=='M3'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
                                                 <li><a *ngIf="headdata.as400" routerLink="/app/SalesPersons">Salespersons/Agents Maintenance</a></li>
+                                                <li><a *ngIf="headdata.as400" routerLink="/app/UniversalFilters">Universal Filters</a></li>
                                                 <li><a *ngIf="headdata.as400" routerLink="/app/ProgramOverride">Program Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" routerLink="/app/CoverageOverride">Coverage Overrides</a></li>
                                                 <li><a *ngIf="headdata.as400" [routerLink]="['/app/CovWarnings']">Coverage Warnings</a></li>
@@ -205,10 +206,23 @@
         </div>
         <div class="modal-body">
         
-            <div class=" col-xs-12" style="padding:0 8px;" *ngIf="headdata.as400">
+            <div class="col-sm-6 col-xs-12" style="padding:0 8px;" *ngIf="headdata.as400">
                 <label class="pull-left" style="font-weight: bold;clear:left;">Dealer code / Name</label>
                 <input class="pull-left" style="margin-right:15px;width:200px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  (focus)="clearagent()" type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
+            </div>
+            <div class="col-sm-6 col-xs-12" *ngIf="headdata.as400">
+                <label  class="pull-left" style="font-weight: bold;clear:left;">Agent</label>
+                <input  class="pull-left" style="margin-right:15px;width:200px;clear:left;" [disabled]="process3" id="agentsearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="agent" (keyup)="agentSearch()" (focus)="cleardealer()" (blur)="agnblur()" type="text" placeholder="Agent" maxlength="30">
+                <div *ngIf="process2" class="loader2 pull-left" style="margin-top:5px"></div>
+                <ul class="dropdown-menu list-group-striped" style="display: block;min-width:200px;max-height:240px;overflow-y:scroll;margin-left:16px;margin-top:-25px;" *ngIf="agnfocus && tempAgnt && tempAgnt.length>0" >
+                        <li *ngFor="let agent of tempAgnt" >
+                                <a href="javascript:void(0)" style="color:#1274bb" (click)="setAgent(agent.agnt)" title="{{agent.desc}}">
+                                        <i class="fa fa-check-square" style="font-size: 16px;color:gray;"></i>&nbsp;
+                                    {{agent.desc}}
+                                </a>
+                            </li> 
+                    </ul>
             </div>
             <div class="clearfix"></div>
             <div class="flat-input w100 text-center" style="padding:0 8px;" *ngIf="headdata.sales">
