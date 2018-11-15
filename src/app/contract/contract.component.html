@@ -552,10 +552,10 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">Carfax Date change</h4>
+                  <h4 class="modal-title pull-left" id="alertTitle">In Service Date Change</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">In Service Date updated to {{errSet.data}}.</p>
+                  <p id="alertBody">In service date has been updated from {{pvinsrvc}} to {{errSet.data}}.</p>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-primary" (click)="hidemdl('carfaxdate');checkData();" type="button">OK</button>
@@ -567,10 +567,10 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">Carfax Date change</h4>
+                  <h4 class="modal-title pull-left" id="alertTitle">In Service Date Change</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">Carfax Date changed to {{errSet.data}}, Click OK to Re-quote this vehicle.</p>
+                  <p id="alertBody">In service date has been updated from {{pvinsrvc}} to {{errSet.data}}. Eligibility for this vehicle has changed. Click OK to re-quote this vehicle.</p>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-primary" (click)="hidemdl('carfaxrequote');Requote();" type="button">OK</button>

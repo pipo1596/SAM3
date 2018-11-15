@@ -18,6 +18,7 @@ export class ContractComponent implements OnInit {
   pagedata = new Contractdata();
   vindata = new VindData;
   erScrolid :string = "";
+  pvinsrvc:string = ""
 
   payment:string ='F';
   //CC fields
@@ -571,6 +572,7 @@ formatCVV() {
             this.totalp = totalpn.toString();
             this.calcChng("totalp");
           }
+          this.pvinsrvc = this.pagedata.body.veh.insrvc;
           
 
         }

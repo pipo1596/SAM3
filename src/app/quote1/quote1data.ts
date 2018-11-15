@@ -31,6 +31,7 @@ export class bodyData{
     lmil   :string ;
     insrvc  :string ;
     asofdt  :string ;
+    requot  :boolean ;
     ckprgs :[any];
     models  :[model];
     makes   :[make];

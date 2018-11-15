@@ -34,7 +34,7 @@
             <div class="col-xs-12"><hr></div>
             <div class="col-xs-12" style="padding: 15px 0 0 0">
                         <div class="col-xs-12"><div class="custcheck parentcheck"><input name="plan" id="check1i" type="checkbox" class="cparent" (change)="selectAll($event,'C')"  [checked]="coveragesAll" [(ngModel)]="coveragesAll"><label for="check1i"></label></div><label for="check1i"><h5 class="showh4">Exclude the following Coverages</h5></label></div>
-                        <ng-container *ngFor="let coverage of pagedata.body.cov.coverages">
+                        <ng-container *ngFor="let coverage of pagedata.body.cov.coveragesf">
                             <div class="col-md-3 col-sm-6"  [class.hidden]="coverage.dup">
                             <span class="flat-input-checkbox "><div class="custcheck"><input name="plan" value="{{coverage.termc}}" id="check{{coverage.termc}}" type="checkbox" class="c1"  [checked]="coverage.check" (change)="addfilt($event,'C','')"><label for="check{{coverage.termc}}"></label></div><label class="checklabel" for="check{{coverage.termc}}">{{coverage.desc | uppercase}}</label></span>
                             </div>

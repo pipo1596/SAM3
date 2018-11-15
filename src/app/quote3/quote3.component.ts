@@ -123,6 +123,7 @@ export class Quote3Component implements OnInit {
     contract.mode = 'CONT';
     contract.CCST ='';
     contract.XTR8 ='';
+    contract.XTR9 ='';
     contract.COVC ='';
     contract.COV  ='';
     contract.NUP  ='';
@@ -147,6 +148,7 @@ export class Quote3Component implements OnInit {
     
     contract.COVC += Math.ceil(tb.rates[t].data[r][c][1]).toString().padEnd(15);
     contract.XTR8 += this.getCostPlus(p,t,r,c).toString().padEnd(15);
+    contract.XTR9 += this.dspNupCode(tb.rates[t].program,tb.rates[t].nup).toString().padEnd(1);
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
     contract.PRG += tb.rates[t].program.padEnd(10);
@@ -716,7 +718,7 @@ export class Quote3Component implements OnInit {
         if (table.prgm !== undefined && table.ratc !== undefined) {
           if (ctrct.prgm.padEnd(20) == table.prgm.padEnd(10) + table.ratc.padEnd(10)) {
             table.showct = true;
-            if(table.ctrct.trim() == ""){ table.ctrct = table.prgm.padEnd(10) + table.ratc.padEnd(10) + ctrct.code.padEnd(30);
+            if(table.ctrct  && table.ctrct.trim() == ""){ table.ctrct = table.prgm.padEnd(10) + table.ratc.padEnd(10) + ctrct.code.padEnd(30);
               table.valu= parseFloat(ctrct.valu);
               table.catg=ctrct.catg;
              }
@@ -751,6 +753,20 @@ export class Quote3Component implements OnInit {
         case "U": return "Used";
         case "N": return "New";
       }
+    }
+       
+  }
+  //==================================================================================================//
+  dspNupCode(prg,nup){
+    if(this.pagedata.body.dspasnew.indexOf(prg)>-1 && this.pagedata.body.dnup !=='' && this.pagedata.body.dnup !== nup ){
+      //If no Auto/Rv selected Eligibility will be populated from step 1 Or set on load from first Auto/Rv plan
+        if (this.pagedata.body.dnup == 'N') 
+          return '1';
+        else
+          return '2';
+    }
+    else{
+      return '0';
     }
        
   }

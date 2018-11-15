@@ -2662,6 +2662,10 @@ date-input-polyfill button{padding:5px;}
 }
 
  .form__select::-ms-expand{display:none}
+ .contactform.style4 .flat-input input:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
 .contactform.style4 .calculator .flat-input input, .contactform.style4 .calculator .flat-input select{margin-bottom:5px;}
 .coverage{padding:10px;background:ghostwhite;}
 table .labelprice{font-weight:normal;margin-left:30px;}

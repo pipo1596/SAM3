@@ -36,7 +36,7 @@ export class GlobalFiltersComponent implements OnInit {
 
     switch(type) {
       case "C":
-         this.pagedata.body.cov.coverages.forEach(function(eachObj){     
+         this.pagedata.body.cov.coveragesf.forEach(function(eachObj){     
           eachObj.check = e.target.checked;
          });
         break;
@@ -60,7 +60,7 @@ export class GlobalFiltersComponent implements OnInit {
     var index = -1;
     switch(type) {
       case "C":
-        index =  this.pagedata.body.cov.coverages.findIndex(obj => obj.termc==srcEl.defaultValue);  
+        index =  this.pagedata.body.cov.coveragesf.findIndex(obj => obj.termc==srcEl.defaultValue);  
         break;
       case "T": 
         index =  this.pagedata.body.trm.terms.findIndex(obj => (obj.termm==srcEl.defaultValue && obj.miles==miles)); 
@@ -74,9 +74,9 @@ export class GlobalFiltersComponent implements OnInit {
       
       switch(type) {
         case "C":
-          this.pagedata.body.cov.coverages[index].check = true;
-          var desc = this.pagedata.body.cov.coverages[index].desc;
-          this.pagedata.body.cov.coverages.forEach((elem) =>{
+          this.pagedata.body.cov.coveragesf[index].check = true;
+          var desc = this.pagedata.body.cov.coveragesf[index].desc;
+          this.pagedata.body.cov.coveragesf.forEach((elem) =>{
             if(elem.desc == desc) elem.check = true;
           });
           break;
@@ -92,9 +92,9 @@ export class GlobalFiltersComponent implements OnInit {
     else{
       switch(type) {
         case "C":
-          this.pagedata.body.cov.coverages[index].check = false;
-          var desc = this.pagedata.body.cov.coverages[index].desc;
-          this.pagedata.body.cov.coverages.forEach((elem) =>{
+          this.pagedata.body.cov.coveragesf[index].check = false;
+          var desc = this.pagedata.body.cov.coveragesf[index].desc;
+          this.pagedata.body.cov.coveragesf.forEach((elem) =>{
             if(elem.desc == desc) elem.check = false;
           });
           break;
@@ -137,8 +137,8 @@ export class GlobalFiltersComponent implements OnInit {
 
   hideDupCov(){
     var prvdesc ="";
-    this.pagedata.body.cov.coverages =  Util.sortByKey(this.pagedata.body.cov.coverages, "desc","A");
-    this.pagedata.body.cov.coverages.forEach((coverage) => {
+    this.pagedata.body.cov.coveragesf =  Util.sortByKey(this.pagedata.body.cov.coveragesf, "desc","A");
+    this.pagedata.body.cov.coveragesf.forEach((coverage) => {
       if(prvdesc == coverage.desc){
         coverage.dup = true;
       }

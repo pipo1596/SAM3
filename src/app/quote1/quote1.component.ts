@@ -75,6 +75,7 @@ dmsOff(){
 
 vinCheck(mode){
   if(mode == 'S')  this.onChange();
+  if(mode == 'S') this.pagedata.body.requot = false;
   this.vin.value = this.vin.value.toUpperCase();
   if(this.vin.erlevel=="D")this.validvin = false; 
   if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
@@ -327,6 +328,7 @@ onChange() {
 yearChange(){
   
   this.onChange();
+  this.pagedata.body.requot = false;
   this.pagedata.body.dyear = this.year.value;
   if( this.pagedata.body.type ==="R" || this.pagedata.body.type ==="H" ){ return false;}
   Util.showWait();
@@ -349,6 +351,7 @@ yearChange(){
 importDms(){
   Util.showWait();
   this.onChange();
+  this.pagedata.body.requot = false;
   this.pagedata.body.mode ="DMS";
   this.pagedata.body.dlno = this.dlno.value;
   this.year.value = "";
@@ -413,7 +416,7 @@ addplan(e,plan){
         
         this.pagedata.body.ckprgs.push(obj);
         if(plan.dspasn == "Y") this.arrdspn.push("Y");
-        if(this.arrlob.indexOf(plan.lob)==-1)this.arrlobAll.push(plan.lob);
+        this.arrlobAll.push(plan.lob);
         if((plan.lob ==='WT' || plan.lob =='RVGAP') && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
     }else{
       if(plan.dspasn == "Y") this.arrdspn.pop();
@@ -487,6 +490,7 @@ ngOnInit() {
         }else{
           this.pagedata.body.pln.plans.forEach(elem=>{elem.desc = elem.desc.toUpperCase();})
           this.pagedata.body.pln.plans = Util.sortByKey(this.pagedata.body.pln.plans, "desc","A");
+          //this.pagedata.body.pln.plans = Util.sortBy2Key(this.pagedata.body.pln.plans, "plnt","desc","A");
           
           this.rfshYears(); 
           
@@ -499,7 +503,9 @@ ngOnInit() {
           this.engtyp.value = this.pagedata.body.engtyp;
           this.mfgw.value = this.pagedata.body.mfgw;
           if(this.rvmode && this.rvtype == "") this.rvtype = "M";
+          var tempr = this.pagedata.body.requot;
           this.vinCheck('S');
+          this.pagedata.body.requot = tempr;
           this.changes = false;
           this.miles.value = this.pagedata.body.miles;
           this.price.value = this.pagedata.body.price;
@@ -520,14 +526,14 @@ ngOnInit() {
               eachObj.check = true;
               if(eachObj.dspasn == "Y") this.arrdspn.push("Y");
               if(this.arrlob.indexOf(eachObj.lob)==-1) this.arrlob.push(eachObj.lob);
-              if(this.arrlobAll.indexOf(eachObj.lob)==-1) this.arrlobAll.push(eachObj.lob);
+              this.arrlobAll.push(eachObj.lob);
             }else{
               eachObj.check = false;
-              if(eachObj.dspasn == "Y") this.arrdspn.pop();
+             // if(eachObj.dspasn == "Y") this.arrdspn.pop();
             }
            });
            //Collect New/Used
-           if(this.arrlobAll.indexOf("AUTO")<0 && this.arrlobAll.indexOf("RV")<0 &&  this.arrdspn.length > 0){ this.neednew = true;this.dnup.value="";}
+           if(this.arrlobAll.indexOf("AUTO")<0 && this.arrlobAll.indexOf("RV")<0 &&  this.arrdspn.length > 0){ this.neednew = true;}
            if(!this.pagedata.body.condyn){
              this.pagedata.body.pln.plans.forEach(plan => {
               if(this.pagedata.body.condprg.indexOf(plan.prg)>=0 && this.pagedata.body.ckprgs.length <=0){

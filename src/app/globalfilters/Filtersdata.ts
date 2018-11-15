@@ -21,7 +21,7 @@ export class RateCards{
 }
 export class Coverages{
     operation :string="";
-    coverages :[any]; 
+    coveragesf :[any]; 
 }
 
 export class Terms{
