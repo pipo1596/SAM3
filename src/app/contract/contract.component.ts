@@ -19,6 +19,7 @@ export class ContractComponent implements OnInit {
   vindata = new VindData;
   erScrolid :string = "";
   pvinsrvc:string = ""
+  dsplhfi:boolean = true;
 
   payment:string ='F';
   //CC fields
@@ -574,7 +575,7 @@ formatCVV() {
           }
           this.pvinsrvc = this.pagedata.body.veh.insrvc;
           
-
+          if(this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'))>-1) this.dsplhfi = false;
         }
       );
   }

@@ -286,7 +286,9 @@ checkStep1(){
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
       this.pagedata.body.msrp   = this.msrp.value;
+      
       this.pagedata.body.amfn   = this.amfn.value;
+      if(this.amfn.value == null || this.amfn.value.toString() == "")  this.pagedata.body.amfn ="";
       this.pagedata.body.lmil   = this.lmil.value;
       this.pagedata.body.lmth   = this.lmth.value;
       this.pagedata.body.insrvc  = this.insrvc.value;

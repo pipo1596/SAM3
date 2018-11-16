@@ -163,8 +163,8 @@
                         <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="stock{{ran}}" type="text"  placeholder="Stock # / Member ID " [class.required]="stock.message !== ''"  [class.validating]="validating"  [(ngModel)]="stock.value" maxlength="15" style="margin-bottom:7px">
                     </div>
                 </div>
-                <div class="clearfix"></div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="clearfix"  *ngIf="dsplhfi"></div>
+                <div class="col-sm-6 col-xs-12" *ngIf="dsplhfi">
                     <label class="flat-input inputlabel" id="lhiflbl">Lien Holder Name 
                         <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
                     </label>
