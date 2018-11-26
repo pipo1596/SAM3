@@ -11,4 +11,11 @@
 <body>
   <app-root></app-root>
 </body>
+<script>
+  if (typeof(Storage) !== "undefined") {
+      // Store once per tab!
+      if( !sessionStorage.getItem("tabid"))
+    sessionStorage.setItem("tabid", Math.floor(Math.random() * 100000));	
+    console.log(sessionStorage.getItem("tabid"));}
+  </script>
 </html>

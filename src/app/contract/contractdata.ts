@@ -19,6 +19,7 @@ export class bodyData{
 
 export class Cont{
         mode : string = "";
+        tabid : string;
         //Single contract
         contracts : [Single];
         // prg : string = "";

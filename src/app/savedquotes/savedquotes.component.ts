@@ -173,7 +173,7 @@ export class SavedquotesComponent implements OnInit {
   			}
   		}
   		this.jsonService
-  		.initService({"mode":"DELETE","dltarr":delArr}, Util.Url("CGICSVQT"))
+  		.initService({"mode":"DELETE","dltarr":delArr,"tabid": sessionStorage.getItem("tabid")}, Util.Url("CGICSVQT"))
   		.subscribe(data => this.errSet = data,
   			err => { this.dispAlert.error(); Util.hideWait();},
   			()=>{
@@ -207,7 +207,7 @@ export class SavedquotesComponent implements OnInit {
   viewQt(quoteID){
   	Util.showWait();
   	this.jsonService
-  	.initService({"mode":"VIEWQT","qtid":quoteID}, Util.Url("CGICSVQT"))
+  	.initService({"mode":"VIEWQT","qtid":quoteID,"tabid": sessionStorage.getItem("tabid")}, Util.Url("CGICSVQT"))
   	.subscribe(data => this.errSet = data,
   		err => {this.dispAlert.error(); Util.hideWait();},
   		() => {
@@ -239,7 +239,7 @@ export class SavedquotesComponent implements OnInit {
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
   	this.jsonService
-  	.initService({"mode":"INIT"},Util.Url("CGICSVQT"))
+  	.initService({"mode":"INIT","tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSVQT"))
   	.subscribe(data => this.pagedata = data,
   		err => {Util.hideWait(); },
   		() => {
@@ -287,7 +287,7 @@ export class SavedquotesComponent implements OnInit {
       return;
     }
     this.jsonService
-    .initService({"mode":"READNEXT", "qtid":anchor},Util.Url("CGICSVQT"))
+    .initService({"mode":"READNEXT", "qtid":anchor,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSVQT"))
     .subscribe(data => this.readdata = data,
       err => {Util.hideWait(); },
       () => {

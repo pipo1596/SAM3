@@ -3,11 +3,8 @@ import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { Util } from '../utilities/util';
 import { JsonService } from '../utilities/json.service';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
 import { Logindata } from './logindata';
-import { utils } from 'protractor';
 
 
 @Component({
@@ -45,7 +42,8 @@ export class LoginComponent implements OnInit {
       var jsonObj = {
         service: "LOGIN",
         employee: this.employee.value,
-        password: this.password.value
+        password: this.password.value,
+        tabid : sessionStorage.getItem("tabid")
       }
       this.form1 = JSON.stringify(jsonObj);
 
@@ -90,7 +88,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => { Util.focusById("employee");}, 200);
     Util.showWait();
     this.loginService
-    .initService({ "service": "INIT" },Util.Url("CGICLOGINS"))
+    .initService({ "service": "INIT","tabid": sessionStorage.getItem("tabid") },Util.Url("CGICLOGINS"))
       .subscribe(data => this.pagedata = data,
         err => { },
         () => { 

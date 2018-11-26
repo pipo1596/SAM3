@@ -54,7 +54,7 @@ getVersion(){
   Util.showWait();
         this.
       headService.
-      initService({"service":"UPDV"},Util.Url("CGICSERVE"))
+      initService({"service":"UPDV","tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE"))
         .subscribe(data=>this.headdata = data,
            err => {},
            () => {location.reload();});
@@ -101,7 +101,7 @@ dealerGroups(){
   this.keytime = setTimeout(()=>{ 
     self.dealerp = self.dealer;
     self.headService.
-          initService({"service":"LISTLOC","dlr":self.dealer},Util.Url("CGICSERVE")).
+          initService({"service":"LISTLOC","dlr":self.dealer,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE")).
           subscribe(data=>self.headdata.loctn = data,
                err => {},
                () => { 
@@ -128,7 +128,7 @@ agentSearch(){
   this.keytime = setTimeout(()=>{ 
     self.agentp = self.agent;
     self.headService.
-          initService({"service":"LISTAGNT","agnt":self.agent},Util.Url("CGICSERVE")).
+          initService({"service":"LISTAGNT","agnt":self.agent,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE")).
           subscribe(data=>self.tempAgnt = data,
                err => {},
                () => { 
@@ -150,7 +150,7 @@ setAgent(code){
   this.tempAgnt = [{"agnt":"" , "desc":""}]; 
   this.tempAgnt.pop();
   this.headService.
-          initService({"service":"AGNTDLRS","agnt":this.agent},Util.Url("CGICSERVE")).
+          initService({"service":"AGNTDLRS","agnt":this.agent,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE")).
           subscribe(data=>this.headdata.loctn = data,
                err => {},
                () => { 
@@ -190,7 +190,7 @@ public logOutTimerB(mode){
     this.logMeOut = setTimeout(()=>{ 
        if(this.headdata.status === "I") {
         this.headService.
-          initService({"service":"LOGOUT"},Util.Url("CGICSERVE"))
+          initService({"service":"LOGOUT","tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE"))
             .subscribe(data=>this.headdata = data,
                err => {},
                () => { location.reload();});
@@ -202,7 +202,7 @@ public logOutTimerB(mode){
 changeLoc(locn){
   this.
     headService.
-      initService({"service":"LOCATN","dlr":locn.dlr},Util.Url("CGICSERVE"))
+      initService({"service":"LOCATN","dlr":locn.dlr,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE"))
         .subscribe(data=>this.headdata = data,
            err => {},
            () => { Util.showWait();this.router.navigate(['/app/Home']);});
@@ -212,7 +212,7 @@ changeLoc(locn){
 logOut(){ 
   this.
     headService.
-      initService({"service":"LOGOUT"},Util.Url("CGICSERVE"))
+      initService({"service":"LOGOUT","tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE"))
         .subscribe(data=>this.headdata = data,
            err => {},
            () => { Util.showWait();this.router.navigate(['/app/login']);});

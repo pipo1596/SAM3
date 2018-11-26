@@ -9,6 +9,7 @@ export class bodyData{
 
 pagemode : string = "";
     mode : string = "SAVE";
+    tabid : string ;
     data : [Data];
 coverages : [Cov];
 contracts : [Cont];

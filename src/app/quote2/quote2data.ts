@@ -8,6 +8,7 @@ export class Quote2data{
 export class bodyData{
 
     mode : string = "SAVE";
+    tabid : string;
     data : [Data];
 contracts: [Cont];
     srchg: [Srchg];

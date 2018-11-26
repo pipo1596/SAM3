@@ -34,7 +34,7 @@ export class MigrationComponent implements OnInit {
     this.keytime = setTimeout(()=>{ 
       self.dealerp = self.dealer;
       self.jsonService.
-            initService({"service":"LISTLOC","dlr":self.dealer},Util.Url("CGICSERVE")).
+            initService({"service":"LISTLOC","dlr":self.dealer,"tabid":sessionStorage.getItem("tabid")},Util.Url("CGICSERVE")).
             subscribe(data=>self.pagedata.loc = data,
                  err => {Util.hideWait();},
                  () => { 

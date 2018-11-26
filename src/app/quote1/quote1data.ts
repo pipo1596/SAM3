@@ -9,6 +9,7 @@ export class bodyData{
 
     mode    :string = "SAVE";
     dtype   :string ;
+    tabid   :string ;
     dtypc   :string ;
     dyear   :string ;
     dnup    :string ;
