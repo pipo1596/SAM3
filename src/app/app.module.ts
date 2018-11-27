@@ -23,6 +23,7 @@ import { Quote1Component }  from './quote1/quote1.component';
 import { Quote2Component }  from './quote2/quote2.component';
 import { GlobalFiltersComponent } from './globalfilters/globalfilters.component';
 import { UniversalfiltersComponent } from './universalfilters/universalfilters.component';
+import { LienholdersComponent } from './lienholders/lienholders.component';
 import { PacksComponent } from './packs/packs.component';
 import { ContracttypesComponent } from './contracttypes/contracttypes.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
@@ -64,6 +65,7 @@ enableProdMode();
     RolesComponent,
     GlobalFiltersComponent,
     UniversalfiltersComponent,
+    LienholdersComponent,
     Quote1Component,
     Quote2Component,
     PacksComponent, 

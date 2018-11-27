@@ -25,6 +25,7 @@ export class Quote2Component implements OnInit {
   loading :boolean = true;
   chkdcoverages:any;
   warnings:any;
+  covnum:number = 0;
 
   expvehc : boolean = false;
   
@@ -73,6 +74,7 @@ export class Quote2Component implements OnInit {
     //if(allclosed && !elem.dflt) {elem.open = true;allclosed = false;}
     elem.cov.coverages =  Util.sortByKey(elem.cov.coverages, "desc","A");
     var prvdesc ="";
+    this.covnum = 0;
     elem.cov.coverages.forEach((coverage) => {
       if(!coverage.check){
       if(prvdesc == coverage.desc){
@@ -80,6 +82,7 @@ export class Quote2Component implements OnInit {
       }
       prvdesc = coverage.desc;      
     }
+    coverage.clrf = this.showclrf(coverage);
     });
   });
   
@@ -198,6 +201,16 @@ export class Quote2Component implements OnInit {
 
   }
 
+  showclrf(elem){
+    if(elem.check || elem.dup) return false;
+
+    this.covnum += 1;
+    if((this.covnum % 3) == 0)
+      return true;
+    else
+      return false;   
+  }
+  
   loadDb() {
     if(!this.valid) return false;
     Util.showWait2('');
@@ -253,6 +266,7 @@ export class Quote2Component implements OnInit {
                                                                 obj.prg == eachObj.prg &&
                                                                 obj.ratc == eachObj.ratc ));
         if(index>=0) element.check2 = true;
+        
         
       });
       //Terms

@@ -16,6 +16,7 @@ import { TaxrateComponent } from './taxrate/taxrate.component';
 import { ClaimsFormComponent } from './claimsform/claimsform.component';
 import { GlobalFiltersComponent } from './globalfilters/globalfilters.component';
 import { UniversalfiltersComponent } from './universalfilters/universalfilters.component';
+import { LienholdersComponent } from './lienholders/lienholders.component'; 
 import { CanDeactivateGuard } from './utilities/confirmroute';
 import { DescoverrideComponent } from './descoverride/descoverride.component';
 import { CovwarningsComponent } from './covwarnings/covwarnings.component';
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'app/Authorities', canDeactivate: [CanDeactivateGuard], component: RolesComponent },
   { path: 'app/GlobalFilters', canDeactivate: [CanDeactivateGuard], component: GlobalFiltersComponent },
   { path: 'app/UniversalFilters', canDeactivate: [CanDeactivateGuard], component: UniversalfiltersComponent },
+  { path: 'app/GlobalLienholders', canDeactivate: [CanDeactivateGuard], component: LienholdersComponent },
   { path: 'app/Quote1', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
   { path: 'app/QuoteNew', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
   { path: 'app/Quote2', canDeactivate: [CanDeactivateGuard], component: Quote2Component },

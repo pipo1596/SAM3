@@ -306,23 +306,25 @@
                 <div class="clearfix"></div>
                 <div class="col-xs-12" *ngIf="pagedata.body.contract && pagedata.body.contract.on=='Y'"><h3>Payment Information</h3></div>
                 <div class="col-md-12" *ngIf="pagedata.body.contract && pagedata.body.contract.on=='Y'" style="margin-bottom:20px;margin-top:10px;">
-                    <div class="col-sm-3 col-lg-2 col-md-3" style="padding-top:3px;">
+                    <div class="col-sm-3 col-lg-2 col-md-3" style="padding-top:13px;">
                        <h4>Paylink Options:</h4>
                     </div>
-                    <div class="col-sm-9">
-                       <div class="col-sm-4 col-md-3" style="padding-top:3px;">
+                    <div class="col-sm-7" style="border: 1px solid #e3e3e3;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);padding:10px 0;" >
+                       <div class="col-sm-4" style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment1" value="C" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment1"></label></div>
                          <label class="checklabel" for="payment1">Credit Card</label>
                        </div>
-                       <div class="col-sm-2"  style="padding-top:3px;">
+                       <div class="col-sm-4"  style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment2" value="A" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment2"></label></div>
                          <label class="checklabel" for="payment2">ACH</label>
                        </div>
-                       <div class="col-sm-3" style="padding-right:0;padding-top: 3px;">
+                       <div class="col-sm-4" style="padding-right:0;padding-top: 3px;">
                          <div class="custradio"><input name="payment" id="payment3" value="M" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment3"></label></div>
                          <label class="checklabel" for="payment3">Monthly Bill</label>
                        </div>
-                       <div class="col-sm-3"  style="padding-top:3px;">
+                    </div>
+                    <div class="col-sm-2" style="padding:10px 0;">
+                       <div class="col-sm-12"  style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment4" value="F" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment4"></label></div>
                          <label class="checklabel" for="payment4">Full Pay</label>
                        </div>

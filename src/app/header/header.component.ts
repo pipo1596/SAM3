@@ -87,7 +87,7 @@ dealerGroupsAles(){
     self.process = false; 
   }
 }
-clearagent(){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerGroups();}
+clearagent(){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerp="";this.dealerGroups();}
 cleardealer(){this.dealer='';this.dealerp="";this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.agentSearch();}
 agnblur(){ setTimeout(()=>{ this.agnfocus = false;},300);}
 dealerGroups(){
