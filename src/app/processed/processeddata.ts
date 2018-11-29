@@ -22,6 +22,7 @@ export class Cont {
 	asuf : string;
 	vin : string;
 	yr : string;
+	dlr : string;
 	manf : string;
 }
 

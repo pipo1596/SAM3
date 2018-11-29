@@ -168,9 +168,15 @@
                     <label class="flat-input inputlabel" id="lhiflbl">Lien Holder Name 
                         <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
                     </label>
-                    <div class="flat-input w100">
-                        <input autocomplete="new-password{{ran}}"  class="w100"  (change)="onChange()" name="lhif{{ran}}" type="text"  placeholder="Lien Holder Name" [class.required]="lhfi.message !== ''"  [class.validating]="validating"  [(ngModel)]="lhfi.value" maxlength="50" style="margin-bottom:7px">
-                    </div>
+                    <span class="flat-input" *ngIf="pagedata.body.lienholders && pagedata.body.lienholders.length > 0">
+                            <select  autocomplete="new-password"  (change)="onChange()" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
+                                 <option value="">Select</option>                                    
+                                 <option *ngFor="let optn of pagedata.body.lienholders" [value]="optn.code" [attr.selected]="optn.code==lhfi.value ? true : null">{{optn.desc}}</option>
+                             </select>
+                         </span>
+                         <div class="flat-input w100" *ngIf="pagedata.body.lienholders && pagedata.body.lienholders.length == 0">
+                            <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="lhfi{{ran}}" type="text"  placeholder="Lien Holder Name " [class.required]="lhfi.message !== ''"  [class.validating]="validating"  [(ngModel)]="lhfi.value" maxlength="50" style="margin-bottom:7px">
+                        </div>
                 </div>
                 <div class="col-sm-6 col-xs-12">
                     <label class="flat-input inputlabel" id="cpdlbl"><span class="req">*&nbsp;</span>Contract Purchase Date 
@@ -305,28 +311,31 @@
                 <div class="col-xs-12"><hr style="margin-top:8px"></div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12" *ngIf="pagedata.body.contract && pagedata.body.contract.on=='Y'"><h3>Payment Information</h3></div>
+                <div class="clearfix"></div>
                 <div class="col-md-12" *ngIf="pagedata.body.contract && pagedata.body.contract.on=='Y'" style="margin-bottom:20px;margin-top:10px;">
-                    <div class="col-sm-3 col-lg-2 col-md-3" style="padding-top:13px;">
-                       <h4>Paylink Options:</h4>
+                    <div class="col-md-8" style="border: 1px solid #e3e3e3;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);padding:10px 0;">
+                    <div class="col-md-3" >
+                       <h4 style="margin-bottom:0px;white-space: nowrap;margin-top:3px">Paylink Options:</h4>
                     </div>
-                    <div class="col-sm-7" style="border: 1px solid #e3e3e3;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);padding:10px 0;" >
-                       <div class="col-sm-4" style="padding-top:3px;">
+                    <div class="col-md-9"  >
+                       <div class="col-md-4" style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment1" value="C" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment1"></label></div>
                          <label class="checklabel" for="payment1">Credit Card</label>
                        </div>
-                       <div class="col-sm-4"  style="padding-top:3px;">
+                       <div class="col-md-4"  style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment2" value="A" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment2"></label></div>
                          <label class="checklabel" for="payment2">ACH</label>
                        </div>
-                       <div class="col-sm-4" style="padding-right:0;padding-top: 3px;">
+                       <div class="col-md-4" style="padding-right:0;padding-top: 3px;">
                          <div class="custradio"><input name="payment" id="payment3" value="M" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment3"></label></div>
                          <label class="checklabel" for="payment3">Monthly Bill</label>
                        </div>
                     </div>
-                    <div class="col-sm-2" style="padding:10px 0;">
-                       <div class="col-sm-12"  style="padding-top:3px;">
+                </div>
+                    <div class="col-md-2 col-md-offset-2" style="padding:10px 0;">
+                       <div class="col-md-12"  style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment4" value="F" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment4"></label></div>
-                         <label class="checklabel" for="payment4">Full Pay</label>
+                         <label class="checklabel" for="payment4" style="font-weight: bold">Full Pay</label>
                        </div>
                     </div>
                        <div class="col-xs-12" style="padding: 5px 15px"><small>* Use "Full Pay" option when the cost will be remitted to Revolos in full by the producer *</small></div>

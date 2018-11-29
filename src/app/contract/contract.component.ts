@@ -575,6 +575,8 @@ formatCVV() {
             this.calcChng("totalp");
           }
           this.pvinsrvc = this.pagedata.body.veh.insrvc;
+          if(this.pagedata.body.lienholders && this.pagedata.body.lienholders.length > 0)
+            this.pagedata.body.lienholders = Util.sortByKey(this.pagedata.body.lienholders,"desc","A");
           
           if(this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'))>-1) this.dsplhfi = false;
         }

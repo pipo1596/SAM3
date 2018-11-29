@@ -84,6 +84,9 @@
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='M2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
+                                                <ng-container *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='M4'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
                                                 <li class="headerli" *ngIf="headdata.as400"><hr><div>Internal Users Only</div></li> 
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='M3'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
@@ -111,13 +114,13 @@
                                         </ng-container>
                                                                                                                                                            
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Claims</a>
-                                            <ul class="submenu" style="width:260px;">  
+                                            <ul class="submenu claimsmenu">  
                                                 <li><a href="https://secured.inds.com/Dealers/webclaimentry/indsclaim_login.asp" target="_blank">Claims Entry</a></li>
                                                 <li><a [routerLink]="['/app/ClaimsForm']">Claims Form</a></li>
                                             </ul>
                                         </li> 
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Support</a>
-                                            <ul class="submenu" style="width:230px;">                                                 
+                                            <ul class="submenu supportmenu">                                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus'}" id="contactus">Contact Us</a></li>
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help'}" id="helplink">Help</a></li> 
                                                 <li><a href="https://www.interstatenational.com/milotraining/" target="_blank">Tutorials</a></li>                                 

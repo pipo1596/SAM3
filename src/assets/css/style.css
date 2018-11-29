@@ -20,6 +20,8 @@
     .sub-nav{
         font-size:14px;
     }
+    .claimsmenu{width:260px !important;}
+    .supportmenu{width:230px !important;}
 }
  body {
      line-height: 1;

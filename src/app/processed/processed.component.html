@@ -91,6 +91,7 @@
 						<thead>
 							<tr>
 								<th><b>Contract #</b></th>
+								<th><b>Dealer #</b></th>
 								<th><b>Suffix</b></th>
 								<th><b>Last, First Name</b></th>
 								<th><b>Last 6 of VIN</b></th>
@@ -112,6 +113,7 @@
 									<span *ngIf="cont.rst == '4'">&nbsp;- (Expired)</span>
 									<span *ngIf="cont.rst == '5'">&nbsp;- (Denied)</span>
 									</td>	
+									<td data-label="Suffix">{{cont.dlr}}</td>
 									<td data-label="Suffix">{{cont.asuf}}</td>
 									<td data-label="Last, First Name">{{cont.oln}}, {{cont.ofn}}</td>
 									<td data-label="Last 6 of VIN">{{cont.vin}}</td>

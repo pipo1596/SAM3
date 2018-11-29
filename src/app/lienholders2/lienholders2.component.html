@@ -1,0 +1,123 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Lienholders</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="row white">
+			<form *ngIf="selectedRec"  class="contactform style4 clearfix panel-body" method="post" style="display:none;" (submit)="checkData()" id="topform"  autocomplete="off">
+				<div class="col-md-12">
+					<h2>{{modebtn}} Lienholder</h2>
+					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+          <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Lienholder Name
+						<span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validating">{{name.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password" style="text-transform:uppercase;" id="name" name="name" type="text" placeholder="Lienholder Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.name" maxlength="60" (change)="onChange()">
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
+					<span class="flat-input">
+						<button name="submit" type="submit" class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} Lienholder">{{modebtn}} Lienholder</button>
+					</span>
+					<span class="flat-input">
+						<button [class.hidden]="selectedRec.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="btn-danger btn-block" style="margin:5px 0" title="Delete">Delete</button>
+					</span>
+					<span class="flat-input">
+						<button name="submit" type="button" (click)="cancel()" class="btn-warning btn-block" style="margin:5px 0"  title="Cancel">Cancel</button>
+					</span>
+				</div>
+				<div class="col-md-12 hidden-xs">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
+					<span class="flat-input">
+						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Lienholder">{{modebtn}} Lienholder</button>
+					</span>
+					<span class="flat-input">
+						<button [class.hidden]="selectedRec.mode!=='SAVE'" name="submit" type="button" (click)="delete()" class="pull-right btn-danger" style="margin-right:10px" title="Delete">Delete</button>
+					</span>
+					<span class="flat-input">
+						<button name="submit" type="button" (click)="cancel()" class="pull-right btn-warning" style="margin-right:10px" title="Cancel">Cancel</button>
+					</span>
+				</div>
+			</form>
+
+			<form class="contactform style4 clearfix panel-body" method="post"  autocomplete="off">
+				<h2 class="pull-left">Custom Lienholders</h2>
+				
+				<span class="flat-input">
+				<button name="new" type="button" class="flat-button pull-right" title="New Lienholder" (click)="addRecInit()" id="addnewb">New Lienholder</button>
+				</span>
+				<span class="flat-input" *ngIf="boxchange">
+				<button name="save" type="button" class="btn-danger pull-right" style="margin-right: 10px" title="SAVE" (click)="saveboxes()" >SAVE</button>
+				</span>
+				<div class="p-table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><b>Lienholder</b></th>
+								<th class="text-center"><b>Edit</b></th>
+								<th class="text-right"><b>Include</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ng-container *ngFor="let ovrd of pagedata.filters">
+							<tr *ngIf="ovrd.dlr !== '*UNIVERSAL'">
+								<td data-label="Lienholder">{{ovrd.name}}</td>
+								<td data-label="Edit" class="text-center"><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
+								<td data-label="Include" class="text-right">
+									<div class="custcheck pull-right" (click)="onChangebox(ovrd)" >
+										<input [checked]="ovrd.chek" type="checkbox">
+										<label></label>
+									</div>
+									&nbsp;
+								</td>
+							</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+				<hr>
+				<h2 class="pull-left">Global Lienholders</h2>
+				<div class="p-table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><b>Lienholder</b></th>
+								<th>&nbsp;</th>
+								<th class="text-right"><b>Include</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ng-container *ngFor="let ovrd of pagedata.filters">
+							<tr *ngIf="ovrd.dlr == '*UNIVERSAL'">
+								<td data-label="Lienholder">{{ovrd.name}}</td>
+								<td data-label="" class="text-right">&nbsp;</td>
+								<td data-label="Include" class="text-right">
+										<div class="custcheck pull-right" (click)="onChangebox(ovrd)" >
+												<input [checked]="ovrd.chek" type="checkbox">
+												<label></label>
+											</div>
+											&nbsp;
+								</td>
+
+							</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</section>
+<app-footer></app-footer>

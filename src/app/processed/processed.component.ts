@@ -33,12 +33,14 @@ export class ProcessedComponent implements OnInit {
   editon  = false;
   eanum:string="";
   easuf:string="";
+  edlr:string="";
   pagemode:string = "L";
 	//Input Fields
 	ofn  : string="";
 	oln  : string="";
 	anum : string="";
   asuf : string="";
+  dlr : string="";
   vin  : string="";
   view : any;
   paym : any;
@@ -95,6 +97,7 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     var obj ={"mode":"RFND",
               "anum": this.eanum,
+              "dlr": this.edlr,
               "asuf": this.easuf,
               "miles": this.miles.value,
               "cdate": this.cdate.value
@@ -163,6 +166,7 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     var obj ={"mode":"UPDATE",
               "anum":  this.eanum,
+              "dlr":  this.edlr,
               "asuf":  this.easuf,
               "oad1": this.eoad1.value,
               "oad2": this.eoad2.value,
@@ -209,18 +213,22 @@ export class ProcessedComponent implements OnInit {
     this.oln = "";
     this.ofn = "";
     this.anum = "";
+    this.dlr = "";
     this.asuf = "";
     this.vin = "";
+    this.dlr = "";
     this.getData();
 
   }
   viewCont(agr){
     this.eanum = agr.anum;
+    this.edlr  = agr.dlr;
     this.easuf = agr.asuf;
     Util.showWait();
     var obj ={"mode":"VIEW",
               "anum": agr.anum,
-              "asuf": agr.asuf
+              "asuf": agr.asuf,
+              "dlr" : agr.dlr
             }
     this.jsonService
   	.initService(obj,Util.Url("CGICPRCNTR"))
@@ -260,6 +268,7 @@ export class ProcessedComponent implements OnInit {
     
     var obj ={"mode":"HIST",
               "anum": this.eanum,
+              "dlr" : this.edlr,
               "asuf": this.easuf
             }
     this.jsonService
@@ -283,6 +292,7 @@ export class ProcessedComponent implements OnInit {
     var obj ={"mode":"CLMN",
               "clmn": clmn,
               "anum": this.eanum,
+              "dlr": this.edlr,
               "asuf": this.easuf
             }
     this.jsonService
@@ -305,6 +315,7 @@ export class ProcessedComponent implements OnInit {
     
     var obj ={"mode":"PAYM",
               "anum": this.eanum,
+              "dlr" : this.edlr,
               "asuf": this.easuf
             }
     this.jsonService
@@ -327,6 +338,7 @@ export class ProcessedComponent implements OnInit {
     
     var obj ={"mode":"CANC",
               "anum": this.eanum,
+              "dlr": this.edlr,
               "asuf": this.easuf
             }
     this.jsonService
@@ -366,6 +378,7 @@ export class ProcessedComponent implements OnInit {
     this.oln = this.oln.trim();
     this.ofn = this.ofn.trim();
     this.anum = this.anum.trim();
+    this.dlr = this.dlr.trim();
     this.asuf = this.asuf.trim();
     this.vin = this.vin.trim();
     

@@ -15,6 +15,7 @@ export class bodyData{
    states : [State];
     srchg : [Srchg];
    fields : [Field];
+lienholders : [Drp];
 }
 
 export class Cont{

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,  NavigationEnd } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
-import { Lienholdersdata, Lienh } from './lienholdersdata';
+import { Lienholders2data, Lienh } from './lienholders2data';
 import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({
   selector: 'app-Lien',
-  templateUrl: './lienholders.component.html'
+  templateUrl: './lienholders2.component.html'
 })
-export class LienholdersComponent implements OnInit {
+export class Lienholders2Component implements OnInit {
 
-	pagedata = new Lienholdersdata;
+	pagedata = new Lienholders2data;
 	validating = false;
 	valid = false;
 	changes = false;
@@ -28,6 +28,7 @@ export class LienholdersComponent implements OnInit {
   newRec = new Lienh;	
   index : number;
   dispType : string;
+  boxchange:boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private route: ActivatedRoute) { 
   	this.router.routeReuseStrategy.shouldReuseRoute = function(){
@@ -42,12 +43,45 @@ export class LienholdersComponent implements OnInit {
 		});
   }
 
-
+  saveboxes(){
+	var jsonObj = {
+        mode: "BOXES",
+        boxes:[]
+	  };
+	  this.pagedata.filters.forEach(elem =>{ if(elem.chek){
+		
+		  jsonObj.boxes.push({lhno:elem.lhno});
+		
+		}});
+		Util.showWait();
+		this.jsonService
+		.initService(jsonObj,Util.Url("CGICLHLDRS"))
+		.subscribe(data => this.errSet = data,
+			err => { this.dispAlert.error();Util.hideWait(); },
+			() => {
+				this.dispAlert.setMessage(this.errSet);
+				if(this.dispAlert.status === "S"){
+					
+						Util.showWait();
+						this.cancel();
+						
+					
+				} else {
+					Util.hideWait();
+				}
+				this.boxchange = false;
+			})
+}
 
   onChange(){
   	this.changes = true;
   	this.validating = false;
   }
+  onChangebox(elem){
+	this.changes = true;
+	this.boxchange = true;
+	elem.chek = !elem.chek;
+}
 
 
   addRecInit(){
@@ -98,13 +132,13 @@ export class LienholdersComponent implements OnInit {
   		this.selectedRec.mode = "DELETE";
   		Util.showWait();
   		this.jsonService
-  		.initService(this.selectedRec,Util.Url("CGICGLHLDR"))
+  		.initService(this.selectedRec,Util.Url("CGICLHLDRS"))
   		.subscribe(data => this.errSet = data,
   			err => { this.dispAlert.error();Util.hideWait(); },
   			() => {
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
-  					this.pagedata.filters.splice(this.pagedata.filters.findIndex(obj => obj.namei==this.selectedRec.namei),1);
+  					this.pagedata.filters.splice(this.pagedata.filters.findIndex(obj => obj.lhno==this.selectedRec.lhno),1);
   					setTimeout(() => {
   						Util.showWait();
   						this.cancel();
@@ -133,7 +167,7 @@ export class LienholdersComponent implements OnInit {
   	if(!this.valid) return false;
   	Util.showWait();
   	this.jsonService
-  	.initService(this.selectedRec,Util.Url("CGICGLHLDR"))
+  	.initService(this.selectedRec,Util.Url("CGICLHLDRS"))
   	.subscribe(data => this.errSet = data,
   		err => {this.dispAlert.error(); Util.hideWait();},
   		() => {
@@ -142,7 +176,9 @@ export class LienholdersComponent implements OnInit {
   			if(this.dispAlert.status === "S"){
   				if(this.selectedRec.mode == "ADD"){
   					this.newRec.name = this.selectedRec.name;
-  					this.newRec.namei= this.selectedRec.name;
+					this.newRec.namei= this.selectedRec.name;
+					this.newRec.dlr = this.pagedata.head.currdlr; 
+					this.newRec.lhno = this.dispAlert.data;
 
   					this.pagedata.filters.push(JSON.parse(JSON.stringify(this.newRec)));
 
@@ -152,9 +188,10 @@ export class LienholdersComponent implements OnInit {
   					}, 300);
   				}
   				if(this.selectedRec.mode == "SAVE"){
-  					this.index = this.pagedata.filters.findIndex(obj => obj.namei==this.selectedRec.namei);
+  					this.index = this.pagedata.filters.findIndex(obj => obj.lhno==this.selectedRec.lhno);
   					this.pagedata.filters[this.index].name = this.selectedRec.name;
   					this.pagedata.filters[this.index].namei = this.selectedRec.name; 
+  					
   					setTimeout(() => {
   						Util.showWait();
   						this.cancel();
@@ -170,7 +207,7 @@ export class LienholdersComponent implements OnInit {
 
   canDeactivate() {
 
-    if(this.changes)
+    if(this.changes || this.boxchange)
       return window.confirm('Changes not saved! Discard changes?');
     return true;
 
@@ -180,13 +217,13 @@ export class LienholdersComponent implements OnInit {
 	Util.showWait();
 	this.pagedata.head = Util.getHead(this.pagedata.head);
   	this.jsonService
-  	.initService({"mode":"INIT"},Util.Url("CGICGLHLDR"))
+  	.initService({"mode":"INIT"},Util.Url("CGICLHLDRS"))
   	.subscribe(data => this.pagedata = data,
   		err => {Util.hideWait(); },
   		() => {
 			Util.setHead(this.pagedata.head);
-  			Util.responsiveMenu();
-  			if (this.pagedata.head.status === "O" || !this.pagedata.head.as400) {
+			  Util.responsiveMenu();
+  			if (this.pagedata.head.status === "O" ||  Util.noAuth(this.pagedata.head.menuOp,'LIENHOLDER')) {
   				Util.showWait();
   				setTimeout(() => {
   					Util.hideWait();
