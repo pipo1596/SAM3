@@ -169,7 +169,7 @@
                         <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
                     </label>
                     <span class="flat-input" *ngIf="pagedata.body.lienholders && pagedata.body.lienholders.length > 0">
-                            <select  autocomplete="new-password"  (change)="onChange()" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
+                            <select  autocomplete="new-password"  (change)="onChange();setlhadr();" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
                                  <option value="">Select</option>                                    
                                  <option *ngFor="let optn of pagedata.body.lienholders" [value]="optn.code" [attr.selected]="optn.code==lhfi.value ? true : null">{{optn.desc}}</option>
                              </select>
@@ -293,7 +293,14 @@
                         <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="text"  placeholder="{{fld.labl}}" (keyup)="formatPhone(fld)"[class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
                     </div>
                     <div class="flat-input w100" *ngIf="fld.type == 'TXT' || fld.type == 'NUM' || fld.type=='EML'">
-                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="text"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
+                        <input *ngIf="fld.name!=='ECLHFI' || (pagedata.body.lienholders && pagedata.body.lienholders.length < 1) || !pagedata.body.lienholders" autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="text"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
+                        
+                        <span class="flat-input" *ngIf="fld.name =='ECLHFI' && pagedata.body.lienholders && pagedata.body.lienholders.length > 0">
+                            <select  autocomplete="new-password"  (change)="onChange();setlhadr();" class="form__select w100" name="lienholder"  [(ngModel)]="fld.value" [class.required]="fld.message !==''"  [class.validating]="validating">
+                                 <option value="">Select</option>                                    
+                                 <option *ngFor="let optn of pagedata.body.lienholders" [value]="optn.code" [attr.selected]="optn.code==lhfi.value ? true : null">{{optn.desc}}</option>
+                             </select>
+                         </span>
                     </div>
                     <div class="flat-input w100" *ngIf="fld.type == 'DAT'">
                         <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="date"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">

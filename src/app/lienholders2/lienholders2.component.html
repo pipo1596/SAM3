@@ -24,6 +24,52 @@
 						<input autocomplete="new-password" style="text-transform:uppercase;" id="name" name="name" type="text" placeholder="Lienholder Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.name" maxlength="60" (change)="onChange()">
 					</div>
 				</div>
+				<div class="col-sm-6">
+                    <label class="flat-input inputlabel" id="rphnlbl">Lienholder Phone
+                        <span class="errorspan2" [class.opqquezero]="phon.message===''" [class.alert-danger]="phon.erlevel==='D'"  [class.validating]="validating">{{phon.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="phon" type="text" placeholder="Lienholer Phone" (keyup)="formatPhone(selectedRec.phon)"  [class.required]="phon.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.phon" maxlength="14"  (change)="onChange()">
+                    </div>
+                </div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel">Lienholder Address
+						<span class="errorspan2" [class.opqquezero]="adr1.message===''" [class.alert-danger]="adr1.erlevel==='D'" [class.validating]="validating">{{adr1.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password" style="text-transform:uppercase;" id="adr1" name="adr1" type="text" placeholder="Lienholder Address" [class.required]="adr1.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.adr1" maxlength="50" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel">Lienholder City
+						<span class="errorspan2" [class.opqquezero]="city.message===''" [class.alert-danger]="city.erlevel==='D'" [class.validating]="validating">{{city.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password" style="text-transform:uppercase;" id="city" name="city" type="text" placeholder="Lienholder City" [class.required]="city.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.city" maxlength="30" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-12">
+                    <div class="col-xs-7"  style="padding-left: 0">
+                        <label class="flat-input inputlabel" id="statelbl">State 
+                            <span class="errorspan2" [class.opqquezero]="sta.message===''" [class.alert-danger]="sta.erlevel==='D'" [class.validating]="validating">{{sta.message}}</span> 
+                        </label>
+                        <span class="flat-input">
+                           <select  autocomplete="new-password"  (change)="onChange()" class="form__select w100" name="state"  [(ngModel)]="selectedRec.sta" [class.required]="sta.message !==''"  [class.validating]="validating">
+								<option value="">Select</option>                                    
+								<option *ngFor="let statesl of pagedata.states" [value]="statesl.code" [attr.selected]="statesl.code==sta.value ? true : null">{{statesl.desc}}</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="col-xs-5" style="padding-right: 0">
+                    <label class="flat-input inputlabel" id="ziplbl">Zip 
+                            <span class="errorspan2" [class.opqquezero]="zip.message===''" [class.alert-danger]="zip.erlevel==='D'" [class.validating]="validating">{{zip.message}}</span> 
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()" name="zip{{ran}}" type="text"  placeholder="Zip" [class.required]="zip.message !== ''"  [class.validating]="validating"  [(ngModel)]="selectedRec.zip" maxlength="10" style="margin-bottom:7px">
+                        </div>
+                    </div>
+                    
+                </div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
 					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
@@ -65,6 +111,9 @@
 						<thead>
 							<tr>
 								<th><b>Lienholder</b></th>
+								<th><b>City</b></th>
+								<th><b>State</b></th>
+								<th><b>Phone</b></th>
 								<th class="text-center"><b>Edit</b></th>
 								<th class="text-right"><b>Include</b></th>
 							</tr>
@@ -73,6 +122,10 @@
 							<ng-container *ngFor="let ovrd of pagedata.filters">
 							<tr *ngIf="ovrd.dlr !== '*UNIVERSAL'">
 								<td data-label="Lienholder">{{ovrd.name}}</td>
+								<td data-label="City">{{ovrd.city}}</td>
+								<td data-label="State">{{ovrd.sta}}</td>
+								<td data-label="Phone">{{ovrd.phon}}</td>
+								
 								<td data-label="Edit" class="text-center"><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
 								<td data-label="Include" class="text-right">
 									<div class="custcheck pull-right" (click)="onChangebox(ovrd)" >
@@ -93,6 +146,9 @@
 						<thead>
 							<tr>
 								<th><b>Lienholder</b></th>
+								<th><b>City</b></th>
+								<th><b>State</b></th>
+								<th><b>Phone</b></th>
 								<th>&nbsp;</th>
 								<th class="text-right"><b>Include</b></th>
 							</tr>
@@ -101,6 +157,9 @@
 							<ng-container *ngFor="let ovrd of pagedata.filters">
 							<tr *ngIf="ovrd.dlr == '*UNIVERSAL'">
 								<td data-label="Lienholder">{{ovrd.name}}</td>
+								<td data-label="City">{{ovrd.city}}</td>
+								<td data-label="State">{{ovrd.sta}}</td>
+								<td data-label="Phone">{{ovrd.phon}}</td>
 								<td data-label="" class="text-right">&nbsp;</td>
 								<td data-label="Include" class="text-right">
 										<div class="custcheck pull-right" (click)="onChangebox(ovrd)" >

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Contractdata , VindData} from './contractdata'; 
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-contract',
@@ -582,7 +583,34 @@ formatCVV() {
         }
       );
   }
+  setlhadr(){
+    
+    var indexlh = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'));
+    if(indexlh > -1){
+      var lhindex = this.pagedata.body.lienholders.findIndex( obj => (obj.code == this.pagedata.body.fields[indexlh].value));
+      var block = this.pagedata.body.lienholders[lhindex];
+      Util.showWait();
+      Util.hideWait();
+      //Addr1
+      var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLAD1'));
+      if(index>-1) this.pagedata.body.fields[index].value = block.adr1;
+      //City
+      var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLCTY'));
+      if(index>-1) this.pagedata.body.fields[index].value = block.city;
+      //State
+      var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLST'));
+      if(index>-1) this.pagedata.body.fields[index].value = block.sta;
+      //Zip
+      var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLZIP'));
+      if(index>-1) this.pagedata.body.fields[index].value = block.zip;
+      //Phone
+      var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLPHN'));
+      if(index>-1) this.pagedata.body.fields[index].value = block.phon;
 
+
+    }
+
+  }
   canDeactivate() {
 
     if (this.changes)

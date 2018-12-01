@@ -15,7 +15,7 @@ export class bodyData{
    states : [State];
     srchg : [Srchg];
    fields : [Field];
-lienholders : [Drp];
+lienholders : [Lienh];
 }
 
 export class Cont{
@@ -138,4 +138,14 @@ export class Single{
 export class Drp{
     code : string = "";
     desc : string = "";
+}
+
+export class Lienh{
+	code : string;
+    desc : string;
+	adr1  : string;
+	city  : string;
+	sta   : string;
+    zip   : string;
+    phon  : string;
 }
