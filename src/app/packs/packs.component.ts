@@ -219,12 +219,12 @@ export class PacksComponent implements OnInit {
       this.expd.message = "(Cannot be less than effective date)"; this.expd.erlevel = "D"; this.valid = false;
       }
     }
-    if (this.amti.value < 0){ this.amti.message = "(invalid)"; this.amti.erlevel = "D"; this.valid = false; }
+    if (this.amti.value < 0 && !this.pagedata.head.as400){ this.amti.message = "(invalid)"; this.amti.erlevel = "D"; this.valid = false; }
     if (this.amti.value!== null && (this.amti.value > 99999 || (this.amti.value.toString().length > 8))){ 
         this.amti.message = "(Too big)"; this.amti.erlevel = "D"; this.valid = false; 
       }
 
-    if (this.amtr.value < 0){ this.amtr.message = "(invalid)"; this.amtr.erlevel = "D"; this.valid = false; }
+    if (this.amtr.value < 0 && !this.pagedata.head.as400){ this.amtr.message = "(invalid)"; this.amtr.erlevel = "D"; this.valid = false; }
     if (this.amtr.value!== null && (this.amtr.value > 99999 || (this.amtr.value.toString().length > 8))){ 
       this.amtr.message = "(Too big)"; this.amtr.erlevel = "D"; this.valid = false; 
     }
