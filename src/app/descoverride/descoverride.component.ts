@@ -24,6 +24,7 @@ export class DescoverrideComponent implements OnInit {
 	dlr  = new Textfield;
 	prg  = new Textfield;
 	lob	 = new Textfield;
+	cmpc:string = "INT";
 	//Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -50,12 +51,18 @@ export class DescoverrideComponent implements OnInit {
   }
 
 
-
+  toglelg(flag){
+	  flag.belg = !flag.belg;
+  }
   onChange(){
   	this.changes = true;
   	this.validating = false;
   }
 
+  cmpcChng(){
+	  this.cancel();
+	  this.ngOnInit();
+  }
 
   addRecInit(){
   	//delete this.selectedRecG;
@@ -96,6 +103,8 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.dlri = record.dlri;
   	this.selectedRec.type = record.type;
   	this.selectedRec.lob = record.lob;
+  	this.selectedRec.cmpc = this.cmpc;
+  	this.selectedRec.belg = record.belg;
 
   	//this.selectedRecG = record;
   	this.selectedRec.mode = "SAVE";
@@ -154,6 +163,7 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.dlr  = this.selectedRec.dlr.trim().toUpperCase();
   	this.selectedRec.prg  = this.selectedRec.prg.trim().toUpperCase();
   	this.selectedRec.lob  = this.selectedRec.lob.trim().toUpperCase();
+  	this.selectedRec.cmpc  = this.cmpc;
 
   	this.desc.value = this.selectedRec.desc.trim();
 
@@ -191,6 +201,8 @@ export class DescoverrideComponent implements OnInit {
   					this.newRec.dlri = this.selectedRec.dlr.toUpperCase();
   					this.newRec.type = this.selectedRec.type.toUpperCase();
   					this.newRec.lob = this.selectedRec.lob.toUpperCase();
+  					this.newRec.cmpc = this.cmpc;
+  					this.newRec.belg = this.selectedRec.belg;
 
 					  this.pagedata.overrides.push(JSON.parse(JSON.stringify(this.newRec)));
 					  this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
@@ -217,6 +229,8 @@ export class DescoverrideComponent implements OnInit {
   					this.pagedata.overrides[this.index].dlri = this.selectedRec.dlr;
   					this.pagedata.overrides[this.index].type = this.selectedRec.type; 
   					this.pagedata.overrides[this.index].lob = this.selectedRec.lob; 
+  					this.pagedata.overrides[this.index].cmpc = this.cmpc; 
+  					this.pagedata.overrides[this.index].belg = this.selectedRec.belg; 
   					
   					// this.selectedRecG.srky = this.selectedRec.srky;
   					// this.selectedRecG.srkyi= this.selectedRec.srky;
@@ -245,7 +259,7 @@ export class DescoverrideComponent implements OnInit {
 	Util.showWait();
 	this.pagedata.head = Util.getHead(this.pagedata.head);
   	this.jsonService
-  	.initService({"mode":"INIT", "type":this.PMTYPE},Util.Url("CGICDESOVR"))
+  	.initService({"mode":"INIT", "type":this.PMTYPE,"cmpc":this.cmpc},Util.Url("CGICDESOVR"))
   	.subscribe(data => this.pagedata = data,
   		err => {Util.hideWait(); },
   		() => {

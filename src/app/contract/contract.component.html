@@ -48,8 +48,9 @@
                                             <td style="font-weight: bold">
                                                 <span>{{ cont.cvds }}
                                                 <span style="color:gray" *ngIf="cont.nup =='N'">- [{{dspNup(cont.prg,'N')}}]</span>
+                                                <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span>
                                                 <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspNup(cont.prg,'U')}}]</span>
-                                                <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span></span>
+                                                </span>
                                             </td>
                                             <td style="font-weight: bold">{{ cont.term }}</td>
                                             <td style="font-weight: bold" *ngIf="cont.ded!=='DD'">{{ cont.ded | currency }}</td>
@@ -524,8 +525,9 @@
                                     <td style="font-weight: bold">
                                         <p>{{ cont.cvds }}
                                         <span style="color:gray" *ngIf="cont.nup =='N'">- [{{dspNup(cont.prg,'N')}}]</span>
+                                        <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span>
                                         <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspNup(cont.prg,'U')}}]</span>
-                                        <span style="color:gray" *ngIf="cont.nup =='P'">- [Program]</span></p>
+                                        </p>
                                         <p>{{ cont.term }}</p>
                                         <p *ngIf="cont.ded!=='DD'"> {{ cont.ded | currency }}</p>
                                         <p *ngIf="cont.ded =='DD'"> {{ cont.ded }}</p>

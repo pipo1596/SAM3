@@ -97,6 +97,7 @@ export class Rate{
     program  :string="";
     ratc :string="";
     coverage :string="";
+    seq :string="";
     title :string="";
     nup :string="";
     surch: [string] = [""];

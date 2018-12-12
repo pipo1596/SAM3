@@ -14,8 +14,15 @@
 <script>
   if (typeof(Storage) !== "undefined") {
       // Store once per tab!
-      if( !sessionStorage.getItem("tabid"))
+    if (!window.name) {
+        window.name = "*ukn*";
+      //if( !sessionStorage.getItem("tabid"))
     sessionStorage.setItem("tabid", Math.floor(Math.random() * 100000));	
+    }
+    if( !sessionStorage.getItem("tabid")){
+      window.name = "*ukn*";
+      sessionStorage.setItem("tabid", Math.floor(Math.random() * 100000));	
+    }
     console.log(sessionStorage.getItem("tabid"));}
   </script>
 </html>

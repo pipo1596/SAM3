@@ -2910,3 +2910,11 @@ margin:3px 0 0 3px;}
   margin:0;
   min-height: 0;
 }
+
+@font-face {
+    font-family: 'text-security-circle';
+    src: url('text-security-circle.eot');
+    src: url('text-security-circle.eot?#iefix') format('embedded-opentype'),
+        url('text-security-circle.woff2') format('woff2'),
+        url('text-security-circle.woff') format('woff');
+}

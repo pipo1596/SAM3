@@ -28,15 +28,18 @@
                     <div class="col-md-6">
                         <h2>Select A Product&nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="product.erlevel==='D'" [class.validating]="validating">{{product.message}}</span></h2>
                         
-                        <span *ngFor="let plan of pagedata.body.pln.plans">
+                        <span *ngFor="let plan of pagedata.body.pln.plans;let i = index">
+                                <hr style="margin:5px" *ngIf="plan.dlob && i>0">
+                                <h6 style="margin-top:15px;margin-bottom:5px;font-style:italic;" *ngIf="plan.dlob">{{plan.lobd}}</h6>
                         <span class="flat-input-checkbox" *ngIf="plan.desc!=='' && (pagedata.body.condyn || pagedata.body.condprg.indexOf(plan.prg)<0)">
+                            
                             <div class="custcheck">
                                <input [disabled]="(plan.plnt!==pagedata.body.type && pagedata.body.type!=='')
                                 || (pagedata.body.condyn  && pagedata.body.condprg.indexOf(plan.prg)>=0)" 
                                  [checked]="plan.check" 
                                 value="{{plan.prg+plan.ratc}}" id="chk{{plan.prg+plan.ratc}}" type="checkbox"  (change)="addplan($event,plan)">
                                 <label for="chk{{plan.prg+plan.ratc}}"></label><p style="float:left">
-                            </div><label class="checklabel" style="font-weight: bold" for="chk{{plan.prg+plan.ratc}}"><span >{{plan.desc | uppercase}}</span></label>
+                            </div><label class="checklabel" style="font-weight: bold;display:inline;" for="chk{{plan.prg+plan.ratc}}"><span >{{plan.desc | uppercase}}</span></label>
                         </span>
                         </span>
 
@@ -87,15 +90,15 @@
                         <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 style="margin-bottom: 0">OR</h4></div>
                         <div class="text-center" *ngIf="pagedata.body.type==='R' || (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                           <hr style="margin:0 0 15px 0">
-                          <div class="col-xs-3 text-left">
+                          <div class="col-sm-3 text-left">
                               <div class="custradio"><input name="rvtype" id="rvtype1" value="M" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype" ><label for="rvtype1"></label></div>
                               <label class="checklabel" style="font-weight: bold;" for="rvtype1">Motorhome</label> 
                           </div>
-                          <div class="col-xs-5 text-left">
+                          <div class="col-sm-5 text-left">
                               <div class="custradio"><input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype"><label for="rvtype2"></label></div>
                               <label class="checklabel" style="font-weight: bold;" for="rvtype2">Travel Trailer</label>
                           </div>
-                          <div class="col-xs-4 text-left">
+                          <div class="col-sm-4 text-left">
                               <div class="custradio"><input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype"><label for="rvtype3"></label></div>
                               <label class="checklabel" style="font-weight: bold;" for="rvtype3">Pop-Up</label>
                           </div>

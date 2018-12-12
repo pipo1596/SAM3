@@ -411,6 +411,14 @@
                                     </div>
                                     <label class="checklabel" for="nupN{{datads.prg+datads.ratc}}">{{dspNup(datads.prg,'N')}}</label>
                                 </span>
+                            <!--Program-->
+                            <span class="flat-input-checkbox" *ngIf="datads.dspp">
+                                <div class="custradio">
+                                    <input name="eligibility{{datads.prg+datads.ratc}}"  (change)="eligibility(m)" [(ngModel)]="datads.nup" value="P" id="nupP{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='P' ? true : false" >
+                                    <label for="nupP{{datads.prg+datads.ratc}}"></label>
+                                </div>
+                                <label class="checklabel" for="nupP{{datads.prg+datads.ratc}}">Program</label>
+                            </span>
                             <!--Used-->
                                 <span class="flat-input-checkbox" *ngIf="datads.dspu">
                                     <div class="custradio">
@@ -419,14 +427,7 @@
                                     </div>
                                     <label class="checklabel" for="nupU{{datads.prg+datads.ratc}}">{{dspNup(datads.prg,'U')}}</label>
                                 </span>
-                            <!--Program-->
-                                <span class="flat-input-checkbox" *ngIf="datads.dspp">
-                                    <div class="custradio">
-                                        <input name="eligibility{{datads.prg+datads.ratc}}"  (change)="eligibility(m)" [(ngModel)]="datads.nup" value="P" id="nupP{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='P' ? true : false" >
-                                        <label for="nupP{{datads.prg+datads.ratc}}"></label>
-                                    </div>
-                                    <label class="checklabel" for="nupP{{datads.prg+datads.ratc}}">Program</label>
-                                </span>
+                            
                             <!--Stacked-->
                             <hr style="margin:5px 0 15px 0">
 
@@ -494,7 +495,7 @@
                         <div class="text-right" *ngIf="element.rates !== undefined && element.rates.length > 0">
                         <h6 style="margin:0px">Contract Type</h6>
                         <a href="javascript:void(0)" (click)="applySurch('C')" [class.hidden]="element.catg !== 'OTC'" class="btn btn-primary" style="margin: 1px;padding: 8px;float: right;">APPLY</a>
-                        <input name="valu{{p}}" (focus)="otcOn()" (blur)="otcOff()" type="number" [class.hidden]="element.catg !== 'OTC'" [(ngModel)]="element.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:right;padding-left:8px;text-security: disc;-webkit-text-security: disc;-moz-text-security: disc;">
+                        <input name="valu{{p}}" (focus)="otcOn()" (blur)="otcOff()" type="number" [class.hidden]="element.catg !== 'OTC'" [(ngModel)]="element.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:right;padding-left:8px;text-security: disc;font-family:text-security-circle; -webkit-text-security: disc;-moz-text-security: disc;">
                         <select class="form__select pull-right" name="year{{element.rates[0].program+element.rates[0].ratc}}" [(ngModel)]="element.ctrct" style="margin-bottom:3px;width:60%;" (change)="applySurch('C')">
                             <ng-container *ngFor="let cont of pagedata.body.contracts">
                                 <option  *ngIf="cont.prgm.padEnd(20) == element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)" [value]=" element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)+cont.code.padEnd(30)">{{cont.desc}}</option>
@@ -507,8 +508,9 @@
                     <ng-container *ngFor="let table of element.rates;let t = index">
                         <div class="well well-sm" style="background:white" *ngIf="table.check && table.nup === element.nup">
                             <h3 class="coverage">{{table.title}}   <span class="pull-right" style="color:gray" *ngIf="table.nup =='N'">({{dspNup(element.prgm,'N')}})</span>
+                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span>
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspNup(element.prgm,'U')}})</span>
-                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span></h3>
+                                                                   </h3>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -572,7 +574,7 @@
                         <div class="text-right" *ngIf="element.rates !== undefined && element.rates.length > 0">
                         <h6 style="margin:0px">Contract Type</h6>
                         <a href="javascript:void(0)" (click)="applySurch('C')" [class.hidden]="element.catg !== 'OTC'" class="btn btn-primary" style="margin: 1px;padding: 8px;float: right;">APPLY</a>
-                        <input name="valu{{p}}" (focus)="otcOn()" (blur)="otcOff()" type="number" [class.hidden]="element.catg !== 'OTC'" [(ngModel)]="element.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:right;padding-left:8px;-webkit-text-security: disc;">
+                        <input name="valu{{p}}" (focus)="otcOn()" (blur)="otcOff()" type="number" [class.hidden]="element.catg !== 'OTC'" [(ngModel)]="element.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:right;padding-left:8px;font-family:text-security-circle;-webkit-text-security: disc;font-family:text-security-circle;">
                         <select class="form__select pull-right" name="year{{element.rates[0].program+element.rates[0].ratc}}" [(ngModel)]="element.ctrct" style="margin-bottom:3px;width:60%;" (change)="applySurch('C')">
                             <ng-container *ngFor="let cont of pagedata.body.contracts">
                                 <option  *ngIf="cont.prgm.padEnd(20) == element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)" [value]=" element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)+cont.code.padEnd(30)" [attr.selected]="element.ctrct==(cont.prgm.padEnd(20) + cont.code.padEnd(30)) ? true : null">{{cont.desc}}</option>
@@ -585,8 +587,9 @@
                     <ng-container *ngFor="let table of element.rates;let t = index">
                         <div class="well well-sm" style="background:white" *ngIf="table.check && table.nup === element.nup">
                             <h3 class="coverage">{{table.title}}   <span class="pull-right" style="color:gray" *ngIf="table.nup =='N'">({{dspNup(element.prgm,'N')}})</span>
+                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span>
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspNup(element.prgm,'U')}})</span>
-                                                                   <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span></h3>
+                                                                   </h3>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -817,8 +820,9 @@
                                                         <td style="font-weight: bold">
                                                             <span>{{table.title}}
                                                             <span style="color:gray" *ngIf="table.nup =='N'">- [{{dspNup(element.prgm,'N')}}]</span>
+                                                            <span style="color:gray" *ngIf="table.nup =='P'">- [Program]</span>
                                                             <span style="color:gray" *ngIf="table.nup =='U'">- [{{dspNup(element.prgm,'U')}}]</span>
-                                                            <span style="color:gray" *ngIf="table.nup =='P'">- [Program]</span></span>
+                                                            </span>
                                                         </td>
                                                         <td style="font-weight: bold">
                                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>

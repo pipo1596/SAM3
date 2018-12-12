@@ -15,6 +15,7 @@ import { ContracttypesComponent } from './contracttypes/contracttypes.component'
 import { TaxrateComponent } from './taxrate/taxrate.component';
 import { ClaimsFormComponent } from './claimsform/claimsform.component';
 import { GlobalFiltersComponent } from './globalfilters/globalfilters.component';
+import { CovsequenceComponent } from './covsequence/covsequence.component';
 import { UniversalfiltersComponent } from './universalfilters/universalfilters.component';
 import { LienholdersComponent } from './lienholders/lienholders.component'; 
 import { Lienholders2Component } from './lienholders2/lienholders2.component'; 
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'app/SalesPersons', canDeactivate: [CanDeactivateGuard], component: UsersComponent },
   { path: 'app/Authorities', canDeactivate: [CanDeactivateGuard], component: RolesComponent },
   { path: 'app/GlobalFilters', canDeactivate: [CanDeactivateGuard], component: GlobalFiltersComponent },
+  { path: 'app/CovSequence', canDeactivate: [CanDeactivateGuard], component: CovsequenceComponent },
   { path: 'app/UniversalFilters', canDeactivate: [CanDeactivateGuard], component: UniversalfiltersComponent },
   { path: 'app/GlobalLienholders', canDeactivate: [CanDeactivateGuard], component: LienholdersComponent },
   { path: 'app/Lienholders', canDeactivate: [CanDeactivateGuard], component: Lienholders2Component },

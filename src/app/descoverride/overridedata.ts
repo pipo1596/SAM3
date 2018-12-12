@@ -3,14 +3,16 @@ import {Headerdata} from "../header/headerdata";
 export class Overridedata{
     head = new Headerdata ;
 	overrides :[ Ovrd ];
-	lobs:[Lob]
+	lobs:[Drp]
+	cmpcs:[Drp]
 }
-export class Lob{
+export class Drp{
 	key : string;
 	val : string;
 }
 export class Ovrd{
 	mode : string;
+	cmpc : string;
 	srky : string;
 	srky2 : string;
 	prg  : string;
@@ -21,6 +23,7 @@ export class Ovrd{
 	dlr  : string;
 	dlri : string;
 	type : string;
+	belg : boolean;
 	
 	public default(mode){
 		this.mode = mode;
@@ -30,5 +33,6 @@ export class Ovrd{
 		this.dlr  = "";
 		this.prg  = "";
 		this.lob  = "";
+		this.belg  = false;
 	}
 }

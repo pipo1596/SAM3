@@ -73,6 +73,15 @@
 						</select>
 					</span>
 				</div>
+				<div class="col-xs-12"><hr><h2>Settings</h2></div>
+				<div class="col-sm-6">
+						<label class="flat-input inputlabel">&nbsp;</label>
+						<span class="flat-input-checkbox">
+							<div class="custcheck">
+								<input [checked]="belg" type="checkbox" name="belig">
+								<label (click)="belg =!belg"></label>
+							</div><label class="checklabel" (click)="belg =!belg" style="font-weight: bold">Only rate best eligibility</label></span>
+				</div>
 
 				
 

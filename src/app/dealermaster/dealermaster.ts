@@ -9,6 +9,7 @@ export class MasterDealerData{
 export class Body{
 	mode : string;
 	dsmd : string;
+	belg : boolean;
 	user : string;
 	type : string;
 	dsid : string;

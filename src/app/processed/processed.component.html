@@ -27,7 +27,7 @@
 					</div>
 				</div>				
 				<div class="col-md-4">
-					<label class="flat-input inputlabel">Sufix
+					<label class="flat-input inputlabel">Suffix
 						<span class="errorspan2"></span>
 					</label>
 					<div class="flat-input w100">
@@ -91,8 +91,8 @@
 						<thead>
 							<tr>
 								<th><b>Contract #</b></th>
+								<th><b>Status</b></th>
 								<th><b>Dealer #</b></th>
-								<th><b>Suffix</b></th>
 								<th><b>Last, First Name</b></th>
 								<th><b>Last 6 of VIN</b></th>
 								<th><b>Year</b></th>
@@ -106,15 +106,15 @@
 							</tr>
 							<ng-container *ngFor="let cont of (pagedItems)">
 								<tr *ngIf="cont.show">
-									<td data-label="Pol/Agr #">{{cont.anum}}
-									<span *ngIf="cont.rst == '1'" style="color:green;font-weight: bold;">&nbsp;- (Active)</span>
-									<span *ngIf="cont.rst == '2'">&nbsp;- (Cancelled)</span>
-									<span *ngIf="cont.rst == '3'">&nbsp;- (Suspended)</span>
-									<span *ngIf="cont.rst == '4'">&nbsp;- (Expired)</span>
-									<span *ngIf="cont.rst == '5'">&nbsp;- (Denied)</span>
+									<td data-label="Pol/Agr #">{{cont.anum}} - {{cont.asuf}}</td>
+									<td data-label="Status">&nbsp;
+									<span *ngIf="cont.rst == '1'" style="color:green;font-weight: bold;">Active</span>
+									<span *ngIf="cont.rst == '2'">Cancelled</span>
+									<span *ngIf="cont.rst == '3'">Suspended</span>
+									<span *ngIf="cont.rst == '4'">Expired</span>
+									<span *ngIf="cont.rst == '5'">Denied</span>
 									</td>	
-									<td data-label="Suffix">{{cont.dlr}}</td>
-									<td data-label="Suffix">{{cont.asuf}}</td>
+									<td data-label="Dealer">{{cont.dlr}}</td>
 									<td data-label="Last, First Name">{{cont.oln}}, {{cont.ofn}}</td>
 									<td data-label="Last 6 of VIN">{{cont.vin}}</td>
 									<td data-label="Year">{{cont.yr}}</td>

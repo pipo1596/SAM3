@@ -4,7 +4,13 @@
 		<div class="row">
 			<div class="col-xs-12" style="z-index:1">
 				<div class="title-section style3 left">
-					<h1 class="title">{{PMTYPE}} Overrides</h1>
+					<h1 class="title pull-left">{{PMTYPE}} Overrides</h1>
+					<div class="pull-right">
+					<label class="pull-right"><b>Company</b></label>
+					<select *ngIf="pagedata.cmpcs" autocomplete="new-password" class="form__select" name="cmpc" id="cmpc" style="width:120px;clear:right;float:right;"(change)="cmpcChng()" [(ngModel)]="cmpc">
+							<option *ngFor="let option of pagedata.cmpcs" [value]="option.key" >{{option.val}}</option>
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -59,6 +65,12 @@
 										<option *ngFor="let option of pagedata.lobs" [value]="option.key" >{{option.val}}</option>
 									</select>
 						</div>
+						<label class="flat-input inputlabel" *ngIf="PMTYPE=='Program'">&nbsp;</label>
+						<span class="flat-input-checkbox" *ngIf="PMTYPE=='Program'">
+							<div class="custcheck">
+								<input [checked]="selectedRec.belg" type="checkbox" name="belig">
+								<label (click)="toglelg(selectedRec)"></label>
+							</div><label class="checklabel" (click)="toglelg(selectedRec)" style="font-weight: bold">Only rate best eligibility</label></span>
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-xs">
@@ -94,23 +106,29 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th ><b>Company</b></th>
 								<th><b>{{PMTYPE}} Code</b></th>
 								<th *ngIf="PMTYPE=='Coverage'"><b>Program Code</b></th>
 								<th *ngIf="PMTYPE=='Program'"><b>Rate Card</b></th>
 								<th><b>Override Description</b></th>
 								<th><b>Dealer Code</b></th>
 								<th *ngIf="PMTYPE=='Program'"><b>LOB</b></th>
+								<th *ngIf="PMTYPE=='Program'"><b>Best eligibility</b></th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr *ngFor="let ovrd of pagedata.overrides">
+								<td data-label="Company">{{ovrd.cmpc}}</td>
 								<td data-label="Code">{{ovrd.srky}}</td>
-								<td *ngIf="PMTYPE=='Coverage'" data-label="Program Code">{{ovrd.prg}}</td>
-								<td *ngIf="PMTYPE=='Program'" data-label="Rate Card">{{ovrd.srky2}}</td>
-								<td data-label="Override Description">{{ovrd.desc}}</td>
-								<td data-label="Dealer Code">{{ovrd.dlr}}</td>
+								<td *ngIf="PMTYPE=='Coverage'" data-label="Program Code">&nbsp;{{ovrd.prg}}</td>
+								<td *ngIf="PMTYPE=='Program'" data-label="Rate Card">&nbsp;{{ovrd.srky2}}</td>
+								<td data-label="Override Description">&nbsp;{{ovrd.desc}}</td>
+								<td data-label="Dealer Code">&nbsp;{{ovrd.dlr}}</td>
 								<td data-label="LOB" *ngIf="PMTYPE=='Program'">{{ovrd.lob}}</td>
+								<td data-label="Best eligibility" *ngIf="PMTYPE=='Program'">
+									&nbsp;<span *ngIf="ovrd.belg">Yes</span>
+								</td>
 								<td data-label=""><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
 							</tr>
 						</tbody>

@@ -1,0 +1,81 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Coverage Sequencing</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row white">
+                <form   class="contactform style4 clearfix panel-body"  autocomplete="off">
+            <div class="col-md-8 col-md-offset-2"> 
+                <div class="col-sm-12">
+                    <div class="alert alert-success" 
+                    [ngClass]="{'alert-success':dispAlert.status==='S','alert-danger':dispAlert.status==='E','hidden':dispAlert.message===''}"
+                    role="alert">{{dispAlert.message}}</div>
+                
+                </div>
+                <div class="col-sm-8">
+                    <h3 style="margin-bottom:0">Company</h3>
+                    <span class="flat-input">
+                        <select class="form__select w100" name="cmpc" [(ngModel)]="pagedata.body.cmpc" (change)="newCmpc()">
+                         <ng-container *ngFor="let cmp of pagedata.body.comp">
+                          <option   [value]="cmp.key"  >{{cmp.val | uppercase}}</option>
+                        </ng-container>
+                        </select> 
+                    </span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-8">
+                        <h3 style="margin-bottom:0">Program</h3>
+                        <span class="flat-input">
+                            <select class="form__select w100" name="prg" [(ngModel)]="pagedata.body.prg" (change)="newPrg()">
+                            <option   value=""  >Select</option>
+                            <ng-container *ngFor="let prg of pagedata.body.prgs">
+                              <option   [value]="prg.key"  >{{prg.val | uppercase}} - {{prg.key}}</option>
+                            </ng-container>
+                            </select> 
+                        </span>
+                    </div>
+                <div class="col-sm-4">
+                        <h3 style="margin-bottom:0">&nbsp;</h3>
+                        <button  *ngIf="pagedata.body.prg && pagedata.body.prg !==''" name="submit" type="button" (click)="saveSeq()" class="btn-primary btn-block"  title="Save" style="margin:2px 0">Save</button>
+                </div>
+            </div>
+
+            <div class="col-xs-12" *ngIf="pagedata.body.cov && pagedata.body.cov.length > 0">
+                    <div class="col-sm-6 col-xs-8 col-sm-offset-2">
+                        <h3 style="margin-bottom: 0;margin-top:15px;">Coverages</h3>
+                    </div>
+                    <div class="col-sm-3 col-xs-4 text-center">
+                        <h3 style="margin-bottom: 0;margin-top:15px;">Seq</h3>
+                    </div>
+               <div class="col-xs-12"><hr style="margin-top: 5px;"></div>
+                <ng-container *ngFor="let covg of pagedata.body.cov">
+                    <div [class.hidden]="covg.lck">
+                    <div class="col-sm-6 col-xs-8 col-sm-offset-2" >
+                        <h4>{{covg.val}}</h4>   
+                    </div>
+                    <div class="col-sm-3 col-xs-4 text-center">
+                            <select class="form__select" style="width:110px;" name="seq{{covg.key}}" [disabled]="covg.lck" [(ngModel)]="covg.seq" (change)="seqChng(covg)">
+                                    <option   value=""  >Select</option>
+                                    <ng-container *ngFor="let seq of arr300">
+                                      <option   [value]="seq"  >{{seq}}</option>
+                                    </ng-container>
+                                    </select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-9 col-sm-offset-2"><hr></div>
+                </div>
+                </ng-container>
+            </div>
+
+
+            
+            </form>  
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -81,6 +81,7 @@ export class Quote3Component implements OnInit {
     var selectedone = false;
     var selectedmult = false;
     var arrlob =[];
+    this.applySurch("D");
     this.pagedata.body.tables.forEach(element => {//One of each required
       
       if(element.selected !==undefined && element.selected !=="" && element.show && element.rates.length>0) 
@@ -636,6 +637,7 @@ export class Quote3Component implements OnInit {
             table.catg = this.datanotsored[cov[index].indx].catg;
             table.ctrct = this.datanotsored[cov[index].indx].ctrct;
             table.valu = parseFloat(this.datanotsored[cov[index].indx].valu);
+            if(isNaN(table.valu)){table.valu = 0;}
           }
           else
             program.check = false;
@@ -731,8 +733,11 @@ export class Quote3Component implements OnInit {
     if (this.pagedata.body.tables.length > 0 && mode == "I") {
       
       this.pagedata.body.tables.forEach((table) => {
-        if (table.rates !== undefined)
+        if (table.rates !== undefined){
           table.rates = Util.sortBy2Key(table.rates, "title", "program", "A");
+          //12112018
+          table.rates = Util.sortBy2Key(table.rates, "seq","title","A");
+        }
       });
 
     }
@@ -785,7 +790,9 @@ export class Quote3Component implements OnInit {
     }
 
     this.pagedata.body.data.forEach((elem) => {
-      elem.cov.coverages = Util.sortByKey(elem.cov.coverages, "desc", "A");
+      //elem.cov.coverages = Util.sortByKey(elem.cov.coverages, "desc", "A");
+      //12112018
+      elem.cov.coverages = Util.sortBy2Key(elem.cov.coverages,"seq","desc","A");
 
 
       //N
@@ -991,6 +998,7 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
+          if(table.valu == null) table.valu = 0;
           if (table.valu == undefined || table.valu == -1.2323){if(this.cont.catg=='OTC') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && this.cont.catg == 'OTC') this.cont.valu = table.valu.toFixed(2);
         }
@@ -1188,6 +1196,8 @@ export class Quote3Component implements OnInit {
             this.pagedata.body.tables.forEach(table => {
               if (table.rates !== undefined && table.rates.length > 0){
                 table.rates = Util.sortBy2Key(table.rates, "title", "program", "A");
+                //12112018
+                table.rates = Util.sortBy2Key(table.rates, "seq", "title", "A");
                 var ic = this.pagedata.body.contracts.findIndex(obj => (obj.prgm.trim() == table.rates[0].program.padEnd(10) +table.rates[0].ratc.trim()));
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];

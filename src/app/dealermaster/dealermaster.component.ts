@@ -24,7 +24,8 @@ export class DealermasterComponent implements OnInit {
 	user = new Textfield;
 	type = new Textfield;
 	dsid = new Textfield;
-	pass = new Textfield;
+  pass = new Textfield;
+  belg:boolean = false;
   //Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -81,6 +82,7 @@ export class DealermasterComponent implements OnInit {
     this.pagedata.body.type = this.type.value;
     this.pagedata.body.dsid = this.dsid.value;
     this.pagedata.body.pass = this.pass.value;
+    this.pagedata.body.belg = this.belg;
 
     this.jsonService
     .initService(this.pagedata.body,Util.Url("CGICDLRMST"))
@@ -134,6 +136,7 @@ export class DealermasterComponent implements OnInit {
           this.pass.value = this.pagedata.body.pass;
           this.user.value = this.pagedata.body.user;
           this.type.value = this.pagedata.body.type;
+          this.belg       = this.pagedata.body.belg;
         }
 
        }

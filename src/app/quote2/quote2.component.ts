@@ -72,7 +72,7 @@ export class Quote2Component implements OnInit {
     }
     this.pagedata.body.data.forEach((elem) =>{
     //if(allclosed && !elem.dflt) {elem.open = true;allclosed = false;}
-    elem.cov.coverages =  Util.sortByKey(elem.cov.coverages, "desc","A");
+    elem.cov.coverages =  Util.sortBy2Key(elem.cov.coverages,"seq","desc","A");
     var prvdesc ="";
     this.covnum = 0;
     elem.cov.coverages.forEach((coverage) => {

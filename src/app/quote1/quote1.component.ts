@@ -497,7 +497,7 @@ ngOnInit() {
         }else{
           this.pagedata.body.pln.plans.forEach(elem=>{elem.desc = elem.desc.toUpperCase();})
           this.pagedata.body.pln.plans = Util.sortByKey(this.pagedata.body.pln.plans, "desc","A");
-          //this.pagedata.body.pln.plans = Util.sortBy2Key(this.pagedata.body.pln.plans, "plnt","desc","A");
+          this.pagedata.body.pln.plans = Util.sortBy2Key(this.pagedata.body.pln.plans, "plnt","lobd","A");
           
           this.rfshYears(); 
           
@@ -524,6 +524,7 @@ ngOnInit() {
           this.asofdt.value = this.pagedata.body.asofdt;
           var master = this.pagedata.body.ckprgs;
           //this.pagedata.body.pln.plans = Util.killDups(this.pagedata.body.pln.plans);
+          var pvlob ="";
           this.pagedata.body.pln.plans.forEach(eachObj =>{  
             var obj = {"prg":eachObj.prg,"ratc":eachObj.ratc}; 
             if(eachObj.plnt==="")eachObj.plnt ="A";//default to Auto if blank
@@ -538,6 +539,9 @@ ngOnInit() {
               eachObj.check = false;
              // if(eachObj.dspasn == "Y") this.arrdspn.pop();
             }
+            //Display LOB Header
+            if(pvlob =="" || pvlob !== eachObj.lobd) eachObj.dlob = true;
+            pvlob = eachObj.lobd; 
            });
            //Collect New/Used
            if(this.arrlobAll.indexOf("AUTO")<0 && this.arrlobAll.indexOf("RV")<0 &&  this.arrdspn.length > 0){ this.neednew = true;}

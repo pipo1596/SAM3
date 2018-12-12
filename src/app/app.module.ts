@@ -22,6 +22,7 @@ import { RolesComponent }   from './roles/roles.component';
 import { Quote1Component }  from './quote1/quote1.component';
 import { Quote2Component }  from './quote2/quote2.component';
 import { GlobalFiltersComponent } from './globalfilters/globalfilters.component';
+import { CovsequenceComponent } from './covsequence/covsequence.component';
 import { UniversalfiltersComponent } from './universalfilters/universalfilters.component';
 import { LienholdersComponent } from './lienholders/lienholders.component';
 import { Lienholders2Component } from './lienholders2/lienholders2.component';
@@ -65,6 +66,7 @@ enableProdMode();
     UsersComponent,
     RolesComponent,
     GlobalFiltersComponent,
+    CovsequenceComponent,
     UniversalfiltersComponent,
     LienholdersComponent,
     Lienholders2Component,
