@@ -166,11 +166,11 @@
                 </div>
                 <div class="clearfix"  *ngIf="dsplhfi"></div>
                 <div class="col-sm-6 col-xs-12" *ngIf="dsplhfi">
-                    <label class="flat-input inputlabel" id="lhiflbl">Lien Holder Name 
+                    <label class="flat-input inputlabel" id="lhiflbl">Lien Holder Name &nbsp;<a href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#2196F3"><i class="fa fa-plus"></i></a>
                         <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
                     </label>
                     <span class="flat-input" *ngIf="pagedata.body.lienholders && pagedata.body.lienholders.length > 0">
-                            <select  autocomplete="new-password"  (change)="onChange();setlhadr();" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
+                            <select  autocomplete="new-password"  (change)="onChange();setlhadr('C');" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
                                  <option value="">Select</option>                                    
                                  <option *ngFor="let optn of pagedata.body.lienholders" [value]="optn.code" [attr.selected]="optn.code==lhfi.value ? true : null">{{optn.desc}}</option>
                              </select>
@@ -288,6 +288,7 @@
                 <ng-container  *ngFor="let fld of pagedata.body.fields;let j=index;">
                     <div class="col-sm-6 col-xs-12">
                     <label class="flat-input inputlabel" id="{{fld.name}}lbl"><span class="req">*&nbsp;</span>{{fld.labl}} 
+                        &nbsp;<a *ngIf="fld.name =='ECLHFI'" href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#2196F3"><i class="fa fa-plus"></i></a>
                         <span class="errorspan2" [class.opqquezero]="fld.message===''" [class.alert-danger]="fld.erlevel==='D'" [class.validating]="validating">{{fld.message}}</span> 
                     </label>
                     <div class="flat-input w100" *ngIf="fld.type == 'TEL'">
@@ -564,6 +565,81 @@
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-primary" (click)="hidemdl('VFMismatchModal')" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <!--Create New LienHolder On The Fly-->
+    <div class="modal" id="newlienholder" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Add Lienholder</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="alert alert-success" [ngClass]="{'hidden':dispAlertlh.message==='' || dispAlertlh.status!=='S'}" role="alert">{{dispAlertlh.message}}</div>
+                        <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlertlh.message==='' || dispAlertlh.status!=='E'}" role="alert">{{dispAlertlh.message}}</div>
+                          
+                        <div class="col-sm-6">
+                                <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Lienholder Name
+                                    <span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validatinglh">{{name.message}}</span>
+                                </label>
+                                <div class="flat-input w100">
+                                    <input autocomplete="new-password" style="text-transform:uppercase;margin-bottom: 3px;width:100%" id="name" name="name" type="text" (change)="onChangelh()"  placeholder="Lienholder Name" [class.required]="name.message !==''" [class.validating]="validatinglh" [(ngModel)]="name.value" maxlength="60">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="flat-input inputlabel" id="rphnlbl">Lienholder Phone
+                                    <span class="errorspan2" [class.opqquezero]="phon.message===''" [class.alert-danger]="phon.erlevel==='D'"  [class.validating]="validatinglh">{{phon.message}}</span> 
+                                </label>
+                                <div class="flat-input w100">
+                                    <input style="margin-bottom: 3px;width:100%;" autocomplete="new-password" name="phon" type="text" placeholder="Lienholer Phone" (keyup)="formatPhone(phon)" (change)="onChangelh()" [class.required]="phon.message!==''"  [class.validating]="validatinglh"  [(ngModel)]="phon.value" maxlength="14"  >
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                    <label class="flat-input inputlabel">Lienholder Address
+                                        <span class="errorspan2" [class.opqquezero]="adr1.message===''" [class.alert-danger]="adr1.erlevel==='D'" [class.validating]="validatinglh">{{adr1.message}}</span>
+                                    </label>
+                                    <div class="flat-input w100">
+                                        <input  autocomplete="new-password" style="text-transform:uppercase;margin-bottom: 3px;width:100%" id="adr1" (change)="onChangelh()"  name="adr1" type="text" placeholder="Lienholder Address" [class.required]="adr1.message !==''" [class.validating]="validatinglh" [(ngModel)]="adr1.value" maxlength="50">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="flat-input inputlabel">Lienholder City
+                                        <span class="errorspan2" [class.opqquezero]="citylh.message===''" [class.alert-danger]="citylh.erlevel==='D'" [class.validating]="validatinglh">{{citylh.message}}</span>
+                                    </label>
+                                    <div class="flat-input w100">
+                                        <input autocomplete="new-password" style="text-transform:uppercase;margin-bottom: 3px;width:100%" id="citylh" name="citylh" (change)="onChangelh()"  type="text" placeholder="Lienholder City" [class.required]="citylh.message !==''" [class.validating]="validatinglh" [(ngModel)]="citylh.value" maxlength="30">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="flat-input inputlabel">State 
+                                        <span class="errorspan2" [class.opqquezero]="stalh.message===''" [class.alert-danger]="stalh.erlevel==='D'" [class.validating]="validatinglh">{{stalh.message}}</span> 
+                                    </label>
+                                    <span class="flat-input">
+                                        <select  autocomplete="new-password" style="margin-bottom: 3px;width:100%"  class="form__select w100" name="state" (change)="onChangelh()"   [(ngModel)]="stalh.value" [class.required]="stalh.message !==''"  [class.validating]="validatinglh">
+                                            <option value="">Select</option>                                    
+                                            <option *ngFor="let statesl of pagedata.body.states" [value]="statesl.code" [attr.selected]="statesl.code==stalh.value ? true : null">{{statesl.desc}}</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class="col-sm-6">
+                                        <label class="flat-input inputlabel">Zip 
+                                            <span class="errorspan2" [class.opqquezero]="ziplh.message===''" [class.alert-danger]="ziplh.erlevel==='D'" [class.validating]="validatinglh">{{ziplh.message}}</span> 
+                                        </label>
+                                        <div class="flat-input w100">
+                                            <input autocomplete="new-password{{ran}}" class="w100" name="ziplh{{ran}}" type="text"  placeholder="Zip"  (change)="onChangelh()" [class.required]="ziplh.message !== ''"  [class.validating]="validatinglh"  [(ngModel)]="ziplh.value" maxlength="10" style="margin-bottom: 3px;width:100%">
+                                        </div>
+                                </div>
+                                <div class="col-xs-12"><p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p></div>
+                                        
+                            <div class="clearfix"></div>
+                  
+                </div>
+                <div class="modal-footer">
+                  
+                  <button class="btn btn-warning" (click)="hidemdl('newlienholder')" type="button">CANCEL</button>
+                  <button class="btn btn-primary" (click)="addlienh()" type="button">ADD LIENHOLDER</button>
                 </div>
               </div>
             </div>

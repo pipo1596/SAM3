@@ -65,9 +65,11 @@ export class CovsequenceComponent implements OnInit {
                 Util.hideWait(); 
                 this.pagedata.body.cov = Util.sortBy2Key(this.pagedata.body.cov,"seq","val","A");
                 var pvval = "";
+                var pvseq = "";
                 this.pagedata.body.cov.forEach((coverage) => {
-                  if(pvval !=="" && pvval == coverage.val) coverage.lck = true;
+                  if(pvval !=="" && pvval == coverage.val && pvseq == coverage.seq) coverage.lck = true;
                   pvval = coverage.val;
+                  pvseq = coverage.seq;
                 });
                 this.changes = false; 
           }); 
@@ -91,10 +93,9 @@ export class CovsequenceComponent implements OnInit {
 
   ngOnInit() {
     Util.showWait();
-    var i;
-      for (i = 1; i < 299; i++) { 
-      this.arr300.push(i);
-      }
+    
+      
+      this.arr300 = 'ABCDEFGHIJKLMNOPQRSTUVWXY'.split('')
     this.pagedata.head = Util.getHead(this.pagedata.head);
     this.covsequenceService
     .initService({"mode":"INIT"},Util.Url("CGICCOVSEQ"))

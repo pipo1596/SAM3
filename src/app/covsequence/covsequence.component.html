@@ -60,9 +60,9 @@
                     </div>
                     <div class="col-sm-3 col-xs-4 text-center">
                             <select class="form__select" style="width:110px;" name="seq{{covg.key}}" [disabled]="covg.lck" [(ngModel)]="covg.seq" (change)="seqChng(covg)">
-                                    <option   value=""  >Select</option>
-                                    <ng-container *ngFor="let seq of arr300">
-                                      <option   [value]="seq"  >{{seq}}</option>
+                                    <option   value="Z"  >Select</option>
+                                    <ng-container *ngFor="let seq of arr300;let indx = index">
+                                      <option   [value]="seq"  >{{indx+1}}</option>
                                     </ng-container>
                                     </select>
                     </div>

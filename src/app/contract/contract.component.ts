@@ -15,7 +15,9 @@ export class ContractComponent implements OnInit {
 
   changes = false;
   dispAlert = new Dispalert();
+  dispAlertlh = new Dispalert();
   errSet = new Errsetter();
+  errSetlh = new Errsetter();
   pagedata = new Contractdata();
   vindata = new VindData;
   erScrolid :string = "";
@@ -34,6 +36,14 @@ export class ContractComponent implements OnInit {
   achrotn  = new Textfield;
   achacno  = new Textfield;
   achchek  = new Textfield;
+  //Lhfi Fields
+  name = new Textfield;
+  phon = new Textfield;
+  adr1 = new Textfield;
+  citylh = new Textfield;
+  stalh = new Textfield;
+  ziplh = new Textfield;
+
   tries : number = 0;
   ionos : string ="";
 
@@ -44,6 +54,9 @@ export class ContractComponent implements OnInit {
   //Bottom Section
   validating = false;
   valid = false;
+  //LH Popup
+  validatinglh = false;
+  validlh = false;
   months: string = "12";
   mindwn: string = "5";
   totalp: string = "0";
@@ -485,6 +498,10 @@ export class ContractComponent implements OnInit {
     this.validating = false;
     this.changes= true;
   }
+  onChangelh() {
+    this.validatinglh = false;
+    this.changes= true;
+  }
 
   
 formatCVV() {
@@ -583,12 +600,19 @@ formatCVV() {
         }
       );
   }
-  setlhadr(){
+  setlhadr(mode){
     
     var indexlh = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'));
     if(indexlh > -1){
+      if(this.lhfi.value !=="" && mode=="N") this.pagedata.body.fields[indexlh].value = this.lhfi.value;
       var lhindex = this.pagedata.body.lienholders.findIndex( obj => (obj.code == this.pagedata.body.fields[indexlh].value));
       var block = this.pagedata.body.lienholders[lhindex];
+    }else{
+      var lhindex = this.pagedata.body.lienholders.findIndex( obj => (obj.code == this.lhfi.value));
+      var block = this.pagedata.body.lienholders[lhindex];
+    }
+    if(block !== undefined){
+    if(indexlh > -1 || lhindex > -1 ){
       Util.showWait();
       Util.hideWait();
       //Addr1
@@ -607,10 +631,125 @@ formatCVV() {
       var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLPHN'));
       if(index>-1) this.pagedata.body.fields[index].value = block.phon;
 
+    }
+  }
 
+  }
+  newlhfi(){
+    Util.modalid('show','newlienholder');
+    if(this.pagedata.body.fields !== undefined){
+    //Name
+    var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'));
+    var ind2 = -1;
+    if(this.pagedata.body.lienholders && this.pagedata.body.lienholders.length > 0){
+      ind2 = this.pagedata.body.lienholders.findIndex(obj => (obj.code == this.pagedata.body.fields[index].value));
+    }
+    if(ind2>-1) 
+      this.name.value =  this.pagedata.body.lienholders[ind2].desc; 
+    else
+      this.name.value =  this.pagedata.body.fields[index].value; 
+    //Addr1
+    var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLAD1'));
+    if(index>-1) this.adr1.value = this.pagedata.body.fields[index].value; 
+    //City
+    var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLCTY'));
+    if(index>-1) this.citylh.value = this.pagedata.body.fields[index].value;
+    //State
+    var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLST'));
+    if(index>-1) this.stalh.value = this.pagedata.body.fields[index].value;
+    //Zip
+    var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLZIP'));
+    if(index>-1) this.ziplh.value = this.pagedata.body.fields[index].value;
+    //Phone
+    var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLPHN'));
+    if(index>-1) this.phon.value = this.pagedata.body.fields[index].value;
     }
 
   }
+  addlienh(){
+    this.validlh = true;
+    this.validatinglh = true;
+    //Reset Error Messages
+	this.name.message = "";
+	this.stalh.message = "";
+	this.adr1.message = "";
+	this.citylh.message = "";
+	this.ziplh.message = "";
+	this.phon.message = "";
+  this.dispAlertlh.default();
+  //CheckData
+  if(this.name.value == ""){ this.name.message = "(required)"; this.name.erlevel = 'D'; this.validlh = false;}
+  	if(this.adr1.value !== "" || this.citylh.value !== "" || this.stalh.value!=="" || this.ziplh.value !==""){ 
+		if(this.adr1.value == ""){ this.adr1.message = "(required)"; this.adr1.erlevel = 'D'; this.validlh = false;}
+		if(this.citylh.value == ""){ this.citylh.message = "(required)"; this.citylh.erlevel = 'D'; this.validlh = false;}
+		if(this.stalh.value == ""){ this.stalh.message = "(required)"; this.stalh.erlevel = 'D'; this.validlh = false;}
+		if(this.ziplh.value == ""){ this.ziplh.message = "(required)"; this.ziplh.erlevel = 'D'; this.validlh = false;}
+		if (this.ziplh.value !== "" && !Util.validZip(this.ziplh.value)) { this.ziplh.message = "(invalid Zip)"; this.ziplh.erlevel = "D";this.validlh = false;}
+	}	
+	if (this.phon.value !== "" && !Util.validphone(this.phon.value)) { this.phon.message = "( invalid )"; this.phon.erlevel = "D";this.validlh = false;}
+  //Add New Lienholder
+  if(this.validlh){
+    Util.showWait();
+    var newRec:any ={};
+          newRec.mode = 'ADDPLUS';
+          newRec.name = this.name.value;
+					newRec.sta  = this.stalh.value;
+  				newRec.zip  = this.ziplh.value;
+  				newRec.phon = this.phon.value;
+  				newRec.adr1 = this.adr1.value;
+  				newRec.city = this.citylh.value;
+
+  	this.jsonService
+  	.initService(newRec,Util.Url("CGICLHLDRS"))
+  	.subscribe(data => this.errSetlh = data,
+  		err => {this.dispAlertlh.error(); Util.hideWait();},
+  		() => {
+        this.dispAlertlh.message = this.errSetlh.message;
+          this.dispAlertlh.status = this.errSetlh.status;
+          this.dispAlertlh.data = this.errSetlh.data;
+        if(this.errSetlh.status == "S"){
+          
+
+          this.refreshlhfi();
+          Util.modalid('hide','newlienholder');
+          
+
+        }else{
+          Util.hideWait();
+        }
+        
+
+      })
+
+
+  }  
+}
+refreshlhfi(){
+  
+        this.lhfi.value = this.dispAlertlh.data;
+        var added:any  = {};
+
+            added.code = this.dispAlertlh.data;
+            added.desc = this.name.value.toUpperCase();
+            added.adr1 = this.adr1.value.toUpperCase();
+            added.city = this.citylh.value.toUpperCase();
+            added.sta  = this.stalh.value.toUpperCase();
+            added.phon = this.phon.value.toUpperCase();
+  					added.zip  = this.ziplh.value.toUpperCase();
+
+  					this.pagedata.body.lienholders.push(JSON.parse(JSON.stringify(added)));
+        this.setlhadr('N');
+
+        this.name.value = "";
+	      this.stalh.value = "";
+	      this.adr1.value = "";
+	      this.citylh.value = "";
+	      this.ziplh.value = "";
+        this.phon.value = "";
+        Util.hideWait();
+
+        
+}
   canDeactivate() {
 
     if (this.changes)
