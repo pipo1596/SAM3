@@ -641,12 +641,12 @@ formatCVV() {
     //Name
     var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'));
     var ind2 = -1;
-    if(this.pagedata.body.lienholders && this.pagedata.body.lienholders.length > 0){
+    if(this.pagedata.body.lienholders && this.pagedata.body.lienholders.length > 0 && index > -1){
       ind2 = this.pagedata.body.lienholders.findIndex(obj => (obj.code == this.pagedata.body.fields[index].value));
     }
-    if(ind2>-1) 
+    if(ind2>-1 ) 
       this.name.value =  this.pagedata.body.lienholders[ind2].desc; 
-    else
+    else if(index > -1)
       this.name.value =  this.pagedata.body.fields[index].value; 
     //Addr1
     var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLAD1'));
@@ -664,7 +664,7 @@ formatCVV() {
     var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLPHN'));
     if(index>-1) this.phon.value = this.pagedata.body.fields[index].value;
     }
-
+    this.dispAlertlh.default();
   }
   addlienh(){
     this.validlh = true;

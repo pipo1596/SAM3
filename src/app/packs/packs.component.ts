@@ -55,7 +55,7 @@ export class PacksComponent implements OnInit {
   }
   
   xlate(prg){
-    var index =this.pagedata.prgdrop.ratecards.findIndex(obj => obj.termp==prg.substring(0,10).trim());
+    var index =this.pagedata.prgdrop.ratecards.findIndex(obj => obj.termp==prg.substring(0,9).trim() && obj.card==prg.substring(10,20).trim());
     if(index>=0)
       return this.pagedata.prgdrop.ratecards[index].desc;
     else

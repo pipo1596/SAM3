@@ -571,6 +571,7 @@
           </div>
     <!--Create New LienHolder On The Fly-->
     <div class="modal" id="newlienholder" role="dialog" aria-hidden="true" style="display: none;">
+            <form  method="post" autocomplete="new-password" class="contactform style4" (submit)="addlienh()" novalidate>  
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -579,7 +580,7 @@
                 <div class="modal-body">
                         <div class="alert alert-success" [ngClass]="{'hidden':dispAlertlh.message==='' || dispAlertlh.status!=='S'}" role="alert">{{dispAlertlh.message}}</div>
                         <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlertlh.message==='' || dispAlertlh.status!=='E'}" role="alert">{{dispAlertlh.message}}</div>
-                          
+                        
                         <div class="col-sm-6">
                                 <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Lienholder Name
                                     <span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validatinglh">{{name.message}}</span>
@@ -632,17 +633,18 @@
                                         </div>
                                 </div>
                                 <div class="col-xs-12"><p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p></div>
-                                        
                             <div class="clearfix"></div>
                   
                 </div>
                 <div class="modal-footer">
                   
                   <button class="btn btn-warning" (click)="hidemdl('newlienholder')" type="button">CANCEL</button>
-                  <button class="btn btn-primary" (click)="addlienh()" type="button">ADD LIENHOLDER</button>
+                  <button class="btn btn-primary" type="submit">ADD LIENHOLDER</button>
+                
                 </div>
               </div>
             </div>
+        </form>
           </div>
     <div class="modal" id="carfaxdate" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog" role="document">
