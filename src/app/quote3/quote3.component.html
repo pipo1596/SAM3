@@ -406,26 +406,26 @@
                             <!--New-->
                                 <span class="flat-input-checkbox" *ngIf="datads.dspn">
                                     <div class="custradio">
-                                        <input name="eligibility{{datads.prg+datads.ratc}}" (change)="eligibility(m)" [(ngModel)]="datads.nup" value="N" id="nupN{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='N' ? true : false" >
-                                        <label for="nupN{{datads.prg+datads.ratc}}"></label>
+                                        <input name="eligibility{{datads.prg+datads.ratc}}" value="N" type="radio" [checked]="datads.nup=='N'" >
+                                        <label (click)="eligibility('N',datads)" ></label>
                                     </div>
-                                    <label class="checklabel" for="nupN{{datads.prg+datads.ratc}}">{{dspNup(datads.prg,'N')}}</label>
+                                    <label class="checklabel" (click)="eligibility('N',datads)">{{dspNup(datads.prg,'N')}}</label>
                                 </span>
                             <!--Program-->
                             <span class="flat-input-checkbox" *ngIf="datads.dspp">
                                 <div class="custradio">
-                                    <input name="eligibility{{datads.prg+datads.ratc}}"  (change)="eligibility(m)" [(ngModel)]="datads.nup" value="P" id="nupP{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='P' ? true : false" >
-                                    <label for="nupP{{datads.prg+datads.ratc}}"></label>
+                                    <input name="eligibility{{datads.prg+datads.ratc}}" value="P"  type="radio"  [checked]="datads.nup=='P'">
+                                    <label (click)="eligibility('P',datads)"></label>
                                 </div>
-                                <label class="checklabel" for="nupP{{datads.prg+datads.ratc}}">Program</label>
+                                <label class="checklabel" (click)="eligibility('P',datads)">Program</label>
                             </span>
                             <!--Used-->
                                 <span class="flat-input-checkbox" *ngIf="datads.dspu">
                                     <div class="custradio">
-                                        <input name="eligibility{{datads.prg+datads.ratc}}"  (change)="eligibility(m)" [(ngModel)]="datads.nup" value="U" id="nupU{{datads.prg+datads.ratc}}" type="radio" [checked]="datads.nup =='U' ? true : false" >
-                                        <label for="nupU{{datads.prg+datads.ratc}}"></label>
+                                        <input name="eligibility{{datads.prg+datads.ratc}}" value="U"  type="radio"  [checked]="datads.nup=='U'" >
+                                        <label (click)="eligibility('U',datads)"></label>
                                     </div>
-                                    <label class="checklabel" for="nupU{{datads.prg+datads.ratc}}">{{dspNup(datads.prg,'U')}}</label>
+                                    <label class="checklabel" (click)="eligibility('U',datads)">{{dspNup(datads.prg,'U')}}</label>
                                 </span>
                             
                             <!--Stacked-->

@@ -348,6 +348,38 @@ export class Quote3Component implements OnInit {
     Util.hideWait();
   }
   //==================================================================================================//
+  AllCov() {
+
+    this.pagedata.body.data.forEach((eachObj,i1) => {
+      //Coverages
+      eachObj.cov.coverages.forEach((element,i2) => {
+        
+            var index = this.pagedata.body.chkdf.findIndex(obj => (
+              obj.type == 'C' &&
+              obj.cov == element.termc &&
+              obj.prg == element.prgm &&
+              obj.ratc == element.ratc));
+            
+          
+    
+              if(index < 0){
+              this.pagedata.body.chkdf.push({
+                "type": 'C',
+                "prg": element.termp,
+                "ratc": element.card,
+                "cov": element.termc,
+                "ded": "",
+                "termm": "",
+                "miles": "",
+                "indx": i1,
+                "check": "T"
+              });
+    
+          }
+      });
+    });
+  }
+  //==================================================================================================//
   toggleCov(incheck, intype, inprg, inratc, indexin) {
 
     var status = incheck.check2;
@@ -602,14 +634,14 @@ export class Quote3Component implements OnInit {
     }, 100);
   }
   //==================================================================================================//
-  eligibility(index) {
-
+  eligibility(valin,varin) {
+    varin.nup = valin;
     Util.showWait();
 
     setTimeout(() => {
       this.defaultCheck("C");
       Util.hideWait();
-    }, 20);
+    }, 300);
   }
   //==================================================================================================//
   arrayToMatrix(mode) {
@@ -1162,6 +1194,7 @@ export class Quote3Component implements OnInit {
         () => {
           Util.setHead(this.pagedata.head);
           Util.responsiveMenu();
+          this.AllCov();
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
             this.datanotsored = this.pagedata.body.data;
