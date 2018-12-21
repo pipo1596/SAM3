@@ -32,6 +32,7 @@ export class RemittedComponent implements OnInit {
 	//Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
+  datesort:boolean = false;
 	
 	showDelete : boolean = false;
   //Paging
@@ -64,7 +65,16 @@ export class RemittedComponent implements OnInit {
   email = new Textfield
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
-
+  changeSort(){
+    this.datesort = !this.datesort;
+    Util.showWait();
+    if(this.datesort)
+      this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","A");
+    else
+      this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
   onChange(){
   //	this.changes = true;
     this.validating = false;

@@ -29,6 +29,7 @@ import { Lienholders2Component } from './lienholders2/lienholders2.component';
 import { PacksComponent } from './packs/packs.component';
 import { ContracttypesComponent } from './contracttypes/contracttypes.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
+import { DefaultsComponent } from './defaults/defaults.component';
 import { ClaimsFormComponent } from './claimsform/claimsform.component';
 import { Quote3Component } from './quote3/quote3.component';
 import { ContractComponent } from './contract/contract.component';
@@ -75,6 +76,7 @@ enableProdMode();
     PacksComponent, 
     ContracttypesComponent,
     TaxrateComponent,
+    DefaultsComponent,
     ClaimsFormComponent,
     Quote3Component,
     ContractComponent,

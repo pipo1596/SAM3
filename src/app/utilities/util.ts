@@ -24,6 +24,13 @@ static showWarnings(warn){
     });
 
 }
+static showParag(words){
+
+        
+        $("#waningBody").html("<p>"+words+"</p>");
+        this.modalid("show","modalqdsc");
+
+}
 static checkbyid(id){
     setTimeout(function(){ $("#"+id).prop("checked", true); }, 100);
 }

@@ -35,6 +35,8 @@ contracts : [Cont];
     city : string = "";
    state : string = "";
      zip : string = "";
+     mindwn : string = "";
+     months : string = "";
 }
 
 export class Data{

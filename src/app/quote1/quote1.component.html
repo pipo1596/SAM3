@@ -195,7 +195,7 @@
                                                             (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                                 <input autocomplete="new-password{{ran}}" name="prce{{ran}}" id="prce" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
-                        <div *ngIf="arrlob.indexOf('RVGAP')>-1">
+                        <div *ngIf="arrlob.indexOf('RVGAP')>-1 || arrlob.indexOf('RVTHEFT')>-1 || arrlob.indexOf('RVWHEEL')>-1">
                         <!--Financed-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Amount financed 
                                 <span class="errorspan2" [class.opqquezero]="amfn.message===''" [class.alert-danger]="amfn.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{amfn.message}}</span> 
@@ -228,7 +228,7 @@
                             </span>
                         </div>
                         <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date&nbsp;<span class="infotip fa fa-question-circle" tooltip="In service date may affect certain coverage selections" placement="right" show-delay="200"></span>
-                            <span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
+                            &nbsp;&nbsp;<span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
                         </label>
                         <div class="flat-input w100">
                         <div class="col-sm-7" style="padding:0">

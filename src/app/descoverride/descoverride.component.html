@@ -72,6 +72,14 @@
 								<label (click)="toglelg(selectedRec)"></label>
 							</div><label class="checklabel" (click)="toglelg(selectedRec)" style="font-weight: bold">Only rate best eligibility</label></span>
 				</div>
+				<div class="col-sm-12" *ngIf="PMTYPE=='Coverage'">
+						<label class="flat-input inputlabel">Quote Printout Description
+							<span class="errorspan2" [class.opqquezero]="qdsc.message===''" [class.alert-danger]="qdsc.erlevel==='D'" [class.validating]="validating">{{qdsc.message}}</span>
+						</label>
+						<div class="flat-input w100">
+								<textarea autocomplete="new-password"  style="max-height:100px;color:black;margin-bottom: 10px;" name="qdsc" [class.required]="qdsc.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.qdsc" maxlength="512"  (change)="onChange()"></textarea>
+						</div>
+				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-xs">
 					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
@@ -129,7 +137,9 @@
 								<td data-label="Best eligibility" *ngIf="PMTYPE=='Program'">
 									&nbsp;<span *ngIf="ovrd.belg">Yes</span>
 								</td>
-								<td data-label=""><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
+								<td data-label="">
+									<a *ngIf="PMTYPE=='Coverage'" href="javascript:void(0);" style="margin-right:8px;" (click)="showParag(ovrd)" [class.invisible]="ovrd.qdsc ==''" class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
+									<a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -138,5 +148,21 @@
 		</div>
 
 	</div>
+	<div class="modal" id="modalqdsc" role="dialog">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h4 class="modal-title pull-left" id="alertTitle">Quote Print Description</h4>
+				</div>
+				<div class="modal-body">
+				  <div id="waningBody"></div>
+				</div>
+				<div class="modal-footer">
+				  <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="closemodal()" >OK</button>
+				  <button style="padding:8px 30px" type="button" class="btn btn-warning" (click)="editfrommodal()" >EDIT</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
 </section>
 <app-footer></app-footer>

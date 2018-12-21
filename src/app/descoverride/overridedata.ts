@@ -18,6 +18,7 @@ export class Ovrd{
 	prg  : string;
 	srkyi: string;
 	desc : string;
+	qdsc : string;
 	desci: string;
 	lob  : string;
 	dlr  : string;
@@ -30,6 +31,7 @@ export class Ovrd{
 		this.srky = "";
 		this.srky2 = "";
 		this.desc = "";
+		this.qdsc = "";
 		this.dlr  = "";
 		this.prg  = "";
 		this.lob  = "";

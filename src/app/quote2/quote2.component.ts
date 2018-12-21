@@ -335,6 +335,11 @@ export class Quote2Component implements OnInit {
             Util.hideWait();
             setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
           }
+
+          var allones = true;
+          if(this.pagedata.body.srchg.length > 0) allones = false;
+          if(this.pagedata.body.chkdf.length > 0) allones = false;
+
           this.pagedata.body.data.forEach(parent=>{
             if(parent.dflt){//Default Fuccillo Conditional Programs if firt time.
               parent.cov.coverages.forEach((elem)=>{
@@ -376,11 +381,15 @@ export class Quote2Component implements OnInit {
                 i+=1;
               })
               if(oneded == 1) parent.ded.deductibles[dedind].check2 = true;
-
-
             }
 
+            if(onecov !== 1 || onetrm !== 1 || oneded !== 1){allones = false;}
           });
+
+          if(allones){
+            this.checkData('S');
+          }
+          
           this.checkData('L');
           this.loading = false;
 

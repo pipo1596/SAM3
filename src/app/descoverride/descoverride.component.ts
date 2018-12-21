@@ -21,6 +21,7 @@ export class DescoverrideComponent implements OnInit {
 	srky = new Textfield;
 	srky2= new Textfield;
 	desc = new Textfield;
+	qdsc = new Textfield;
 	dlr  = new Textfield;
 	prg  = new Textfield;
 	lob	 = new Textfield;
@@ -36,6 +37,7 @@ export class DescoverrideComponent implements OnInit {
   index : number;
   PMTYPE : string;
   dispType : string;
+  qdscel:any;
 
   constructor(private jsonService: JsonService,private router: Router, private route: ActivatedRoute) { 
   	this.router.routeReuseStrategy.shouldReuseRoute = function(){
@@ -50,7 +52,18 @@ export class DescoverrideComponent implements OnInit {
 		});
   }
 
+  showParag(el){
+	  Util.showParag(el.qdsc);
+	  this.qdscel = el;
 
+  }
+  editfrommodal(){
+	this.closemodal();  
+	this.onSelect(this.qdscel);
+  }
+  closemodal(){
+	  Util.modalid("hide","modalqdsc");
+  }
   toglelg(flag){
 	  flag.belg = !flag.belg;
   }
@@ -99,6 +112,7 @@ export class DescoverrideComponent implements OnInit {
 	this.selectedRec.prg  = record.prg;
   	this.selectedRec.srkyi= record.srkyi;
   	this.selectedRec.desc = record.desc;
+  	this.selectedRec.qdsc = record.qdsc;
   	this.selectedRec.dlr  = record.dlr;
   	this.selectedRec.dlri = record.dlri;
   	this.selectedRec.type = record.type;
@@ -149,6 +163,7 @@ export class DescoverrideComponent implements OnInit {
 	this.prg.message = "";  
 	this.lob.message = "";  
   	this.desc.message = "";
+  	this.qdsc.message = "";
   	this.dlr.message  = "";
   	this.dispAlert.default();
   	//Trim Field Values
@@ -166,6 +181,7 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.cmpc  = this.cmpc;
 
   	this.desc.value = this.selectedRec.desc.trim();
+  	this.qdsc.value = this.selectedRec.qdsc.trim();
 
   	if(this.srky.value == ""){ this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
   	if(this.desc.value == ""){ this.desc.message = "(required)"; this.desc.erlevel = 'D'; this.valid = false;}
@@ -197,6 +213,7 @@ export class DescoverrideComponent implements OnInit {
 										   this.selectedRec.prg.toUpperCase();
 
   					this.newRec.desc = this.selectedRec.desc;
+  					this.newRec.qdsc = this.selectedRec.qdsc;
   					this.newRec.dlr  = this.selectedRec.dlr;
   					this.newRec.dlri = this.selectedRec.dlr.toUpperCase();
   					this.newRec.type = this.selectedRec.type.toUpperCase();
@@ -225,6 +242,7 @@ export class DescoverrideComponent implements OnInit {
 																	this.selectedRec.prg;
   					this.pagedata.overrides[this.index].prg = this.selectedRec.prg; 
   					this.pagedata.overrides[this.index].desc = this.selectedRec.desc; 
+  					this.pagedata.overrides[this.index].qdsc = this.selectedRec.qdsc; 
   					this.pagedata.overrides[this.index].dlr = this.selectedRec.dlr; 
   					this.pagedata.overrides[this.index].dlri = this.selectedRec.dlr;
   					this.pagedata.overrides[this.index].type = this.selectedRec.type; 

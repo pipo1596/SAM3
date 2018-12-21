@@ -44,9 +44,19 @@ export class InvoicesComponent implements OnInit {
   masterPgCnt : number=0;
   //navigate away from page stop the recursive calls to build quotes
   killRecur : boolean = false;
+  datesort:boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
-
+  changeSort(){
+    this.datesort = !this.datesort;
+    Util.showWait();
+    if(this.datesort)
+      this.pagedata.invoices = Util.sortBy2Key(this.pagedata.invoices ,"ivdd","ivno","A");
+    else
+      this.pagedata.invoices = Util.sortBy2Key(this.pagedata.invoices ,"ivdd","ivno","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
   onChange(){
     this.validating = false;
     this.dispAlert.default();

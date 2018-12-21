@@ -5,6 +5,7 @@ import { Util } from '../utilities/util';
 import { Usersdata , User } from './usersdata'; 
 import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class UsersComponent implements OnInit {
   pvsprs:string ="";
   changes = false;
   reqpass2 = false;
+  canedit:boolean=true;
   //Input Fields
   user = new  Textfield ;
   rlno = new  Textfield ;
@@ -48,6 +50,8 @@ export class UsersComponent implements OnInit {
   disc = new  Textfield ;
   slcd = new  Textfield ;
   dlr = new  Textfield ;
+  dlrusr:String = "" ;
+  dlrlist:[any];
 
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -109,7 +113,7 @@ salesvalid(submit){
   this.pvsprs = this.selectedUser.sprs;
   Util.showWait();
   this.usersService
-    .initService({"mode":"SPRSV","sprs":this.selectedUser.sprs},Util.Url("CGICUSERSS"))
+    .initService({"mode":"SPRSV","sprs":this.selectedUser.sprs,"currdlr":this.dlrusr},Util.Url("CGICUSERSS"))
     .subscribe(data => this.errSet = data,
       err => { Util.hideWait(); },
       () => {
@@ -175,7 +179,25 @@ validPass(){
   }
 
 }
+getDlrGrps(){
+  var self = this.pagedata.head;
+  if(this.pagedata.head.loctn.length > 0){
+    this.dlrlist = this.pagedata.head.loctn;
+    this.dlrusr = this.pagedata.head.currdlr;
+    Util.hideWait();
 
+  }else{
+  this.usersService
+    .initService({"service":"LISTLOC","dlr":self.currdlr,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICSERVE"))
+    .subscribe(data => this.dlrlist = data,
+      err => {  Util.hideWait(); },
+      () => {
+        this.dlrusr = this.pagedata.head.currdlr;
+        Util.hideWait();
+      });
+    }
+
+}
 addDealer(){
   if(this.selectedUser.agrp == 'Y') return;
   this.validating = false;
@@ -186,7 +208,7 @@ addDealer(){
   }
   Util.showWait();
   this.usersService
-    .initService({"mode":"DLRV","onedlr":this.dlr.value},Util.Url("CGICUSERSS"))
+    .initService({"mode":"DLRV","onedlr":this.dlr.value,"currdlr":this.dlrusr},Util.Url("CGICUSERSS"))
     .subscribe(data => this.dlrv = data,
       err => {  Util.hideWait(); },
       () => {
@@ -432,7 +454,6 @@ saveData(){
   this.selectedUser.pswd = this.pswd1;
   if(this.selectedUser.agrp == 'Y'){ this.selectedUser.dlr = [{"dlri":"","desc":""}]; this.selectedUser.dlr.pop();}
   this.usersService
-  //.initService(Util.formdata("adduser"),Util.Url("CGICUSERSS"))
   
   .initService(this.selectedUser,Util.Url("CGICUSERSS"))
   .subscribe(data => this.errSet = data,
@@ -515,16 +536,17 @@ changePass(){
 
   ngOnInit() {
     Util.showWait();
+    
     this.pagedata.head = Util.getHead(this.pagedata.head);
     var xmode ="INIT";
     if (window.location.href.indexOf("SalesPerson") > -1){this.salesmode = true;xmode='INITS';}
     this.usersService
-    .initService({"mode":xmode},Util.Url("CGICUSERSS"))
+    .initService({"mode":xmode,"currdlr":this.dlrusr},Util.Url("CGICUSERSS"))
     .subscribe(data => this.pagedata = data,
       err => { Util.responsiveMenu();Util.hideWait(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
-        
+       
       //Sort By User Ascending
         this.pagedata.users =  Util.sortByKey(this.pagedata.users, "user","A");
 
@@ -540,7 +562,13 @@ changePass(){
             this.router.navigate(['/app/']);
           }, 100);
         }else{
+          if(this.dlrusr == "")
+           this.getDlrGrps();
+          else{
+          
           Util.hideWait();
+          }
+          this.canedit = (this.dlrusr == this.pagedata.head.orgdlr || !Util.noAuth(this.pagedata.head.menuOp,'XLOCEDIT') || this.pagedata.head.as400);  
         }
 
        }

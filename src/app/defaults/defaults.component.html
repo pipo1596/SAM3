@@ -1,0 +1,137 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+    <div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I' ||noAuth}">
+        <div class="row">
+            <div class="col-xs-12" style="z-index:1">
+                <div class="title-section style3 left">
+                    <h1 class="title">Dealer Default Settings</h1>
+                </div>
+            </div>
+        </div> 
+        <div class="row white">
+
+            <form  class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()"
+                id="adduser"  autocomplete="off">
+                <div class="col-md-12">
+                    <h2>Set Default Values</h2>
+                    <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+                    <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+                </div>
+                
+                <div class="col-sm-4">
+                    <label class="flat-input inputlabel">Default Eligibility
+                        <span class="errorspan2" [class.opqquezero]="ancl.message===''" [class.alert-danger]="ancl.erlevel==='D'"  [class.validating]="validating">{{ancl.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="ancl" id="ancl" [(ngModel)]="ancl.value" [class.required]="ancl.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <option value="N" [attr.selected]="ancl.value=='N' ? true : null">New</option>
+                            <option value="U" [attr.selected]="ancl.value=='U' ? true : null">Used</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="col-sm-8">
+                        <label class="flat-input inputlabel"  style="padding-left:15px;">RV Type&nbsp;</label>
+                    <div class="col-sm-3 text-left" style="padding-top:8px;">
+                        <div class="custradio"><input name="rvtype" id="rvtype1" value="" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" ><label for="rvtype1"></label></div>
+                        <label class="checklabel" style="font-weight: bold;" for="rvtype1">Motorhome</label> 
+                    </div>
+                    <div class="col-sm-5 text-left" style="padding-top:8px;">
+                        <div class="custradio"><input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value"><label for="rvtype2"></label></div>
+                        <label class="checklabel" style="font-weight: bold;" for="rvtype2">Travel Trailer</label>
+                    </div>
+                    <div class="col-sm-4 text-left" style="padding-top:8px;">
+                        <div class="custradio"><input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value"><label for="rvtype3"></label></div>
+                        <label class="checklabel" style="font-weight: bold;" for="rvtype3">Pop-Up</label>
+                    </div>
+                </div>
+                <div class="col-xs-12"><hr></div>
+                <div class="col-sm-6">
+                        <label class="flat-input inputlabel">Default Lienholder
+                            <span class="errorspan2" [class.opqquezero]="lhno.message===''" [class.alert-danger]="lhno.erlevel==='D'" [class.validating]="validating">{{lhno.message}}</span> 
+                        </label>
+                        <span class="flat-input">
+                            <select  autocomplete="new-password" class="form__select" name="lhno" id="lhno" [(ngModel)]="lhno.value" [class.required]="plnk.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                                <option value="">Select</option>
+                                <ng-container *ngFor="let optn of pagedata.body.lienholders">
+                                        <option   [value]="optn.key"  >{{optn.val}}</option>
+                                </ng-container>
+                            </select>
+                        </span>
+                    </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel">Paylink Options
+                        <span class="errorspan2" [class.opqquezero]="plnk.message===''" [class.alert-danger]="plnk.erlevel==='D'" [class.validating]="validating">{{plnk.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="plnk" id="plnk" [(ngModel)]="plnk.value" [class.required]="plnk.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Full Pay</option>
+                            <option value="A" [attr.selected]="plnk.value=='A' ? true : null">ACH</option>
+                            <option value="C" [attr.selected]="plnk.value=='C' ? true : null">Credit Card</option>
+                            <option value="M" [attr.selected]="plnk.value=='M' ? true : null">Monthly Bill</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel">Loan Type
+                        <span class="errorspan2" [class.opqquezero]="lntp.message===''" [class.alert-danger]="lntp.erlevel==='D'" [class.validating]="validating">{{lntp.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="lntp" id="lntp" [(ngModel)]="lntp.value" [class.required]="plnk.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <ng-container *ngFor="let optn of pagedata.body.lntpdrp">
+                                    <option   [value]="optn.key"  >{{optn.val}}</option>
+                            </ng-container>
+                        </select>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel">% Down
+                        <span class="errorspan2" [class.opqquezero]="perc.message===''" [class.alert-danger]="perc.erlevel==='D'" [class.validating]="validating">{{perc.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="perc" id="perc" [(ngModel)]="perc.value" [class.required]="perc.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <option value="5" [attr.selected]="mnth.value=='5' ? true : null">5</option>
+                            <option value="10" [attr.selected]="mnth.value=='10' ? true : null">10</option>
+                            <option value="20" [attr.selected]="mnth.value=='20' ? true : null">20</option>
+                            <option value="30" [attr.selected]="mnth.value=='30' ? true : null">30</option>
+                            <option value="40" [attr.selected]="mnth.value=='40' ? true : null">40</option>
+                            <!--<option value="100" [attr.selected]="mnth.value=='100' ? true : null">100</option>-->
+                        </select>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label class="flat-input inputlabel"># Months
+                        <span class="errorspan2" [class.opqquezero]="mnth.message===''" [class.alert-danger]="mnth.erlevel==='D'"  [class.validating]="validating">{{mnth.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="mnth" id="mnth" [(ngModel)]="mnth.value" [class.required]="mnth.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <option value="12" [attr.selected]="mnth.value=='12' ? true : null">12</option>
+                            <option value="15" [attr.selected]="mnth.value=='15' ? true : null">15</option>
+                            <option value="18" [attr.selected]="mnth.value=='18' ? true : null">18</option>
+                            <option value="24" [attr.selected]="mnth.value=='24' ? true : null">24</option>
+                        </select>
+                    </span>
+                </div>
+                
+                <div class="col-md-12 hidden-xs">
+                    <span class="flat-input">
+                        <button name="submit" type="submit"  class="flat-button pull-right" style="margin:10px 0" title="Update">Update</button>
+                    </span>
+                </div>
+                <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                        <span class="flat-input">
+                            <button name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">Update</button>
+                        </span>
+                    </div>
+                <div class="clearfix"></div>
+                
+            </form>
+            
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

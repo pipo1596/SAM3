@@ -19,6 +19,7 @@ export class SavedquotesComponent implements OnInit {
 	pagedata = new Savedquotesedata;
   readdata = new Readnextdata;
   ran:string = Util.makeid();
+  datesort:boolean = false;
 
 	validating = false;
 	valid = false;
@@ -48,6 +49,17 @@ export class SavedquotesComponent implements OnInit {
   salep : string="";
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
+
+  changeSort(){
+    this.datesort = !this.datesort;
+    Util.showWait();
+    if(this.datesort)
+      this.pagedata.squotes = Util.sortBy2Key(this.pagedata.squotes ,"qtdti","qtid","A");
+    else
+      this.pagedata.squotes = Util.sortBy2Key(this.pagedata.squotes ,"ctdti","qtid","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
   selectAll(){
     this.pagedItems.forEach(quote =>{
       if(quote == "") return;

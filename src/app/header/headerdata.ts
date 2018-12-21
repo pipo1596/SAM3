@@ -7,6 +7,7 @@ export class Headerdata{
     menuOp  : [Menu];
     currloc : string ="";
     currdlr : string ="";
+    orgdlr : string ="";
     as400   : boolean = false;
     sales   : boolean = false;
     multi   : boolean = false;

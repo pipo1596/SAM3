@@ -6,6 +6,7 @@ import { Quote3data, Cont } from './quote3data';
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
 import { Location } from '@angular/common';
+import { takeLast } from 'rxjs/operators';
 
 @Component({
   selector: 'app-quote3',
@@ -347,22 +348,23 @@ export class Quote3Component implements OnInit {
 
     Util.hideWait();
   }
-  //==================================================================================================//
+//==================================================================================================//
   AllCov() {
 
     this.pagedata.body.data.forEach((eachObj,i1) => {
       //Coverages
       eachObj.cov.coverages.forEach((element,i2) => {
-        
+
             var index = this.pagedata.body.chkdf.findIndex(obj => (
               obj.type == 'C' &&
               obj.cov == element.termc &&
               obj.prg == element.prgm &&
               obj.ratc == element.ratc));
-            
-          
-    
-              if(index < 0){
+
+            var index2 = this.pagedata.body.chkdf.findIndex(obj => (
+                obj.desc == element.desc && obj.type=="C"));
+
+              if(index < 0 && index2 > -1){
               this.pagedata.body.chkdf.push({
                 "type": 'C',
                 "prg": element.termp,
@@ -374,11 +376,11 @@ export class Quote3Component implements OnInit {
                 "indx": i1,
                 "check": "T"
               });
-    
+
           }
       });
     });
-  }
+  }   
   //==================================================================================================//
   toggleCov(incheck, intype, inprg, inratc, indexin) {
 
@@ -661,15 +663,19 @@ export class Quote3Component implements OnInit {
             obj.ratc == program.ratc));
           if (index >= 0) {
             program.check = true;
-            table.nup = this.datanotsored[cov[index].indx].nup;
-            table.dflt = this.datanotsored[cov[index].indx].dflt;
+            table.nup = this.pagedata.body.data[cov[index].indx].nup;
+            table.dflt = this.pagedata.body.data[cov[index].indx].dflt;
             table.showct = false;
-            table.prgm = this.datanotsored[cov[index].indx].prg;
-            table.ratc = this.datanotsored[cov[index].indx].ratc;
-            table.catg = this.datanotsored[cov[index].indx].catg;
-            table.ctrct = this.datanotsored[cov[index].indx].ctrct;
+            //table.nup = program.nup;
+            table.prgm = program.program;
+            table.ratc = program.ratc;
+            //table.prgm = this.pagedata.body.data[cov[index].indx].prg;
+            //table.ratc = this.pagedata.body.data[cov[index].indx].ratc;
+            table.catg = this.pagedata.body.data[cov[index].indx].catg;
+            table.ctrct = this.pagedata.body.data[cov[index].indx].ctrct;
             table.valu = parseFloat(this.datanotsored[cov[index].indx].valu);
             if(isNaN(table.valu)){table.valu = 0;}
+            
           }
           else
             program.check = false;
@@ -965,6 +971,8 @@ export class Quote3Component implements OnInit {
         }
 
       });
+
+
       //Terms
       eachObj.trm.terms.forEach(element => {
 
@@ -1026,7 +1034,8 @@ export class Quote3Component implements OnInit {
 
     this.pagedata.body.tables.forEach((table, i0) => {
       if (table.rates !== undefined && table.prgm !== undefined && table.ctrct !== undefined) {
-        var ic = this.pagedata.body.contracts.findIndex(obj => (obj.code.trim() == table.ctrct.substring(20).trim()));
+        var ic = this.pagedata.body.contracts.findIndex(
+          obj => (obj.code.trim() == table.ctrct.substring(20).trim() && obj.prgm == table.prgm.padEnd(10)+table.ratc.padEnd(10)));
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
@@ -1195,9 +1204,11 @@ export class Quote3Component implements OnInit {
           Util.setHead(this.pagedata.head);
           Util.responsiveMenu();
           this.AllCov();
+          this.mindwn = this.pagedata.body.mindwn;
+          this.months = this.pagedata.body.months;
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
-            this.datanotsored = this.pagedata.body.data;
+            this.datanotsored = JSON.parse(JSON.stringify(this.pagedata.body.data));
             this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "desc", "prg", "A");
             
             

@@ -391,6 +391,16 @@ export class ContractComponent implements OnInit {
       pdf.focus();
     }
   }
+  viewPdfz(index){
+    index = index + this.pagedata.body.contract.contracts.length;
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    if (pdf == null || typeof(pdf)=='undefined') { 	
+      alert('Please disable your pop-up blocker and click the link again.'); 
+    } 
+    else { 	
+      pdf.focus();
+    }
+  }
   hidePdf(){
     Util.modalid('hide','contractModal')
   }
@@ -481,7 +491,7 @@ export class ContractComponent implements OnInit {
         err => {Util.hideWait();  },
         () => {
           if(this.errSet.status == 'S'){Util.hideWait();Util.modalid('show','contractModal');return;}
-          if(this.tries <15 )
+          if(this.tries <20 )
             setTimeout(() => { this.UrlDelay(); }, 1000);
           else{
             Util.modalid('show','contractModal');
@@ -568,6 +578,8 @@ formatCVV() {
       .subscribe(data => this.pagedata = data,
         err => {Util.hideWait();  },
         () => {Util.responsiveMenu(); 
+          this.months = this.pagedata.body.months;
+          this.mindwn = this.pagedata.body.mindwn;
           this.pagedata.body.fields = Util.killDups3(this.pagedata.body.fields);
           Util.setHead(this.pagedata.head);
           this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");

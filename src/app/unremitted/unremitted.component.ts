@@ -6,6 +6,7 @@ import { Unremitteddata,  Readnextdata } from './unremitteddata';
 import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { PagerService } from '../_services'
+import { utils } from 'protractor';
 
 
 @Component({
@@ -63,9 +64,19 @@ export class UnremittedComponent implements OnInit {
   eozip = new Textfield
   eophn = new Textfield
   email = new Textfield
+  datesort:boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
-
+  changeSort(){
+    this.datesort = !this.datesort;
+    Util.showWait();
+    if(this.datesort)
+      this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","A");
+    else
+      this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
   onChange(){
   	//this.changes = true;
     this.validating = false;
