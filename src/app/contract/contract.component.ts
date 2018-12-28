@@ -105,7 +105,7 @@ export class ContractComponent implements OnInit {
        parseFloat(percdwn) !== 40  ){
          this.caldwn = percdwn.toString();
          this.mindwn = this.caldwn;
-       }
+       }else{this.mindwn = percdwn.toString();}
 
     if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
 
