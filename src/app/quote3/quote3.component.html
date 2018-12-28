@@ -182,10 +182,11 @@
                                                 <option value="20">20%</option>
                                                 <option value="30">30%</option>
                                                 <option value="40">40%</option>
-                                                <!--<option value="100">Full Pay</option>-->
+                                                <option *ngIf="caldwn!==''" value="{{caldwn}}">{{caldwn}}%</option>-->
                                             </select>
                                         </div>
-                                        <label class="flat-input inputlabel" style="margin-top:10px">Down Payment</label>
+                                        <label class="flat-input inputlabel" style="margin-top:10px">Down Payment
+                                        <span class="errorspan2" [class.opqquezero]="downpmMsg===''"  [class.alert-danger]="downpmMsg!==''" [class.validating]="downpmMsg!==''"><br> {{downpmMsg}}</span> </label>
                                         <div class="flat-input w100">
                                             <div style="padding:0">
                                                 <input type="text" placeholder="Down Payment" name="downpm" [(ngModel)]="downpm" (keyup)="calcChng('downpm')" >

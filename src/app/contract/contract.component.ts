@@ -97,7 +97,9 @@ export class ContractComponent implements OnInit {
 
     if (field !== "downpm") this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
     this.caldwn ='';
-    var percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
+    var percdwn = '5';
+    if(parseFloat(this.totalp)>0) percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
+    if(parseFloat(this.totalp)>0){
     if(parseFloat(percdwn) !== 5 &&
        parseFloat(percdwn) !== 10 &&
        parseFloat(percdwn) !== 20 &&
@@ -106,7 +108,10 @@ export class ContractComponent implements OnInit {
          this.caldwn = percdwn.toString();
          this.mindwn = this.caldwn;
        }else{this.mindwn = parseInt(percdwn).toString();}
-
+      }
+    //Down Payment
+    this.downpmMsg = "";
+    if(parseFloat(percdwn)<5) { this.downpmMsg = "(5% Or more required)";}
     if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
 
     this.balnce = (parseFloat(this.totalp) - (parseFloat(this.downpm))).toFixed(2);
