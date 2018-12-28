@@ -433,6 +433,8 @@
                     <div class="clearfix"></div>
                </div>
             </div>
+        </form>
+        <form  method="post" autocomplete="new-password" class="contactform style4" novalidate> 
             <div style="margin:10px" *ngIf="payment!=='F'">
             <div class="col-md-8 col-md-offset-2 well">
 
@@ -449,7 +451,7 @@
                                 <option value="20">20%</option>
                                 <option value="30">30%</option>
                                 <option value="40">40%</option>
-                                <!--<option value="100">Full Pay</option>-->
+                                <option *ngIf="caldwn!==''" value="{{caldwn}}">{{caldwn}}%</option>-->
                             </select>
                         </div>
                         <label class="flat-input inputlabel" style="margin-top:10px" id="dwnpmlbl">Down Payment
@@ -491,7 +493,7 @@
                         <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <button name="submit" style="background:#f19614" type="submit" class="flat-button pull-right" id="submit" title="Continue">Continue</button>
                 </div>
-                </form>
+            </form>    
         </div>
     </div>
     <div class="loading hidden" id="calculating">

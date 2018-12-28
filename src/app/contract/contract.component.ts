@@ -21,7 +21,7 @@ export class ContractComponent implements OnInit {
   pagedata = new Contractdata();
   vindata = new VindData;
   erScrolid :string = "";
-  pvinsrvc:string = ""
+  pvinsrvc:string = "";
   dsplhfi:boolean = true;
 
   payment:string ='F';
@@ -59,6 +59,7 @@ export class ContractComponent implements OnInit {
   validlh = false;
   months: string = "12";
   mindwn: string = "5";
+  caldwn: string = "";
   totalp: string = "0";
   mthlyp: string = "";
   downpm: string = "";
@@ -95,6 +96,16 @@ export class ContractComponent implements OnInit {
     if (parseFloat(this.downpm) <= 0 || isNaN(parseFloat(this.downpm))) this.downpm = "0";
 
     if (field !== "downpm") this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+    this.caldwn ='';
+    var percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
+    if(parseFloat(percdwn) !== 5 &&
+       parseFloat(percdwn) !== 10 &&
+       parseFloat(percdwn) !== 20 &&
+       parseFloat(percdwn) !== 30 &&
+       parseFloat(percdwn) !== 40  ){
+         this.caldwn = percdwn.toString();
+         this.mindwn = this.caldwn;
+       }
 
     if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
 
@@ -580,6 +591,7 @@ formatCVV() {
         () => {Util.responsiveMenu(); 
           this.months = this.pagedata.body.months;
           this.mindwn = this.pagedata.body.mindwn;
+          this.caldwn = "";
           this.pagedata.body.fields = Util.killDups3(this.pagedata.body.fields);
           Util.setHead(this.pagedata.head);
           this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
