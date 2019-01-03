@@ -107,6 +107,8 @@
 				<button name="save" type="button" class="btn-danger pull-right" style="margin-right: 10px" title="SAVE" (click)="saveboxes()" >SAVE</button>
 				</span>
 				<div class="p-table-responsive">
+					<style>
+					@media only screen and (min-width: 845px) {.btncol{width: 50px;}}</style>
 					<table class="table">
 						<thead>
 							<tr>
@@ -115,18 +117,25 @@
 								<th><b>State</b></th>
 								<th><b>Phone</b></th>
 								<th class="text-center"><b>Edit</b></th>
-								<th class="text-right"><b>Include</b></th>
+								<th class="text-center btncol"><b>Default</b></th>
+								<th class="text-right btncol"><b>Include</b></th>
 							</tr>
 						</thead>
 						<tbody>
 							<ng-container *ngFor="let ovrd of pagedata.filters">
 							<tr *ngIf="ovrd.dlr !== '*UNIVERSAL'">
-								<td data-label="Lienholder">{{ovrd.name}}</td>
-								<td data-label="City">{{ovrd.city}}</td>
-								<td data-label="State">{{ovrd.sta}}</td>
-								<td data-label="Phone">{{ovrd.phon}}</td>
+								<td data-label="Lienholder">{{ovrd.name}}&nbsp;</td>
+								<td data-label="City">{{ovrd.city}}&nbsp;</td>
+								<td data-label="State">{{ovrd.sta}}&nbsp;</td>
+								<td data-label="Phone">{{ovrd.phon}}&nbsp;</td>
 								
 								<td data-label="Edit" class="text-center"><a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
+								<td data-label="Default" class="text-center">
+									<div class="custradio" (click)="setdefault(ovrd)" style="float: none;">
+										<input name="default" type="radio"  [checked]="ovrd.dflt"><label></label>
+									</div>
+									&nbsp;
+								</td>
 								<td data-label="Include" class="text-right">
 									<div class="custcheck pull-right" (click)="onChangebox(ovrd)" >
 										<input [checked]="ovrd.chek" type="checkbox">
@@ -150,17 +159,24 @@
 								<th><b>State</b></th>
 								<th><b>Phone</b></th>
 								<th>&nbsp;</th>
-								<th class="text-right"><b>Include</b></th>
+								<th class="text-center btncol"><b>Default</b></th>
+								<th class="text-right btncol"><b>Include</b></th>
 							</tr>
 						</thead>
 						<tbody>
 							<ng-container *ngFor="let ovrd of pagedata.filters">
 							<tr *ngIf="ovrd.dlr == '*UNIVERSAL'">
-								<td data-label="Lienholder">{{ovrd.name}}</td>
-								<td data-label="City">{{ovrd.city}}</td>
-								<td data-label="State">{{ovrd.sta}}</td>
-								<td data-label="Phone">{{ovrd.phon}}</td>
+								<td data-label="Lienholder">{{ovrd.name}}&nbsp;</td>
+								<td data-label="City">{{ovrd.city}}&nbsp;</td>
+								<td data-label="State">{{ovrd.sta}}&nbsp;</td>
+								<td data-label="Phone">{{ovrd.phon}}&nbsp;</td>
 								<td data-label="" class="text-right">&nbsp;</td>
+								<td data-label="Default" class="text-center">
+										<div class="custradio" (click)="setdefault(ovrd)" style="float: none;">
+											<input name="default" type="radio"  [checked]="ovrd.dflt"><label></label>
+										</div>
+										&nbsp;
+									</td>
 								<td data-label="Include" class="text-right">
 										<div class="custcheck pull-right" (click)="onChangebox(ovrd)" >
 												<input [checked]="ovrd.chek" type="checkbox">

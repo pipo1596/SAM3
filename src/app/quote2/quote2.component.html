@@ -201,7 +201,7 @@
                                     <option  *ngIf="cont.prgm.padEnd(20) == datads.prg.padEnd(10) +datads.ratc.padEnd(10)" [value]="datads.prg.padEnd(10) + datads.ratc.padEnd(10) + cont.code.padEnd(30)" >{{cont.desc}}</option>
                                 </ng-container>
                             </select> 
-                            <input name="onetime{{p}}" type="number"   [class.hidden]="datads.catg !== 'OTC'" [(ngModel)]="datads.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:left;padding-left:8px; font-family:text-security-circle;  text-security: disc;-webkit-text-security: disc;-moz-text-security: disc;">
+                            <input name="onetime{{p}}{{m}}" type="number"   [class.hidden]="datads.catg !== 'OTC'" [(ngModel)]="datads.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:left;padding-left:8px; font-family:text-security-circle;  text-security: disc;-webkit-text-security: disc;-moz-text-security: disc;">
                         </span>
                     </div>
                     <div class="clearfix"></div>

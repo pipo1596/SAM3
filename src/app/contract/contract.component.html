@@ -79,7 +79,7 @@
                 
                 
                 <div class="col-xs-12 col-sm-6 col-md-4" *ngIf="pagedata.body.veh" style="padding-top:15px;">
-                        <label class="flat-input inputlabel" id="vinlbl"><span *ngIf="pagedata.body.veh.rvtype ==''" class="req">*&nbsp;</span>VIN&nbsp;<a  *ngIf="vinE==false && pagedata.body.veh.vin==''" href="javascript:void(0)" (click)="editVin()" style="color:#5a8ce6">- Edit</a>
+                        <label class="flat-input inputlabel" id="vinlbl"><span class="req">*&nbsp;</span>VIN&nbsp;<a  *ngIf="vinE==false && (pagedata.body.veh.vin==''|| this.pagedata.body.veh.price!=='')"  href="javascript:void(0)" (click)="editVin()" style="color:#5a8ce6">- Edit</a>
                            
                         </label>  
                         <span class="pull-left" style="padding:0 5PX;"  *ngIf="vinE==false">{{vin.value}}</span>  
@@ -452,15 +452,16 @@
                                 <option value="20">20%</option>
                                 <option value="30">30%</option>
                                 <option value="40">40%</option>
-                                <option *ngIf="caldwn!==''" value="{{caldwn}}">{{caldwn}}%</option>-->
+                                <option *ngIf="caldwn!==''" value="{{caldwn}}">{{caldwn}}%</option>
                             </select>
                         </div>
                         <label class="flat-input inputlabel" style="margin-top:10px" id="dwnpmlbl">Down Payment
-                                <span class="errorspan2" [class.opqquezero]="downpmMsg===''"  [class.alert-danger]="downpmMsg!==''" [class.validating]="validating">{{downpmMsg}}</span> 
+                                 
                         </label>
                         <div class="flat-input w100">
                             <div style="padding:0">
-                                <input type="text" placeholder="Down Payment" name="downpm" [(ngModel)]="downpm" (keyup)="calcChng('downpm')" >
+                                <input type="text" placeholder="Down Payment" autocomplete="new-password{{ran}}" name="downpm{{ran}}" [(ngModel)]="downpm" (keyup)="calcChng('downpm')" >
+                                <span class="errorspan2" [class.opqquezero]="downpmMsg===''"  [class.alert-danger]="downpmMsg!==''" [class.validating]="downpmMsg!==''">{{downpmMsg}}</span>
                             </div>
                         </div>
                     </div>

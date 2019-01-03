@@ -94,6 +94,7 @@ export class ContractComponent implements OnInit {
   calcChng(field) {
     if (parseFloat(this.totalp) <= 0 || isNaN(parseFloat(this.totalp))) this.totalp = "0";
     if (parseFloat(this.downpm) <= 0 || isNaN(parseFloat(this.downpm))) this.downpm = "0";
+    if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
 
     if (field !== "downpm") this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
     this.caldwn ='';
@@ -112,7 +113,7 @@ export class ContractComponent implements OnInit {
     //Down Payment
     this.downpmMsg = "";
     if(parseFloat(percdwn)<5) { this.downpmMsg = "(5% Or more required)";}
-    if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
+    
 
     this.balnce = (parseFloat(this.totalp) - (parseFloat(this.downpm))).toFixed(2);
     this.mthlyp = (parseFloat(this.balnce) / (parseFloat(this.months))).toFixed(2);
@@ -305,7 +306,7 @@ export class ContractComponent implements OnInit {
     this.zip.value = this.zip.value.trim();
 
     
-    if (this.pagedata.body.veh.type=='A' && this.vin.value == "") { this.vin.message = "(required)"; this.vin.erlevel = "D"; this.valid = false;this.erscrol('vin'); }
+    if (this.vin.value == "") { this.vin.message = "(required)"; this.vin.erlevel = "D"; this.valid = false;this.erscrol('vin'); }
     if (this.pagedata.body.veh.type=='A' && this.vin.value !=='' && !this.validvin) { 
       this.vin.message = "( Invalid VIN for "+this.pagedata.body.veh.year+" "+
                                               this.pagedata.body.veh.make+" "+
@@ -625,7 +626,11 @@ formatCVV() {
           if(this.pagedata.body.lienholders && this.pagedata.body.lienholders.length > 0)
             this.pagedata.body.lienholders = Util.sortByKey(this.pagedata.body.lienholders,"desc","A");
           
-          if(this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'))>-1) this.dsplhfi = false;
+          var indexlh = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'));
+          if(indexlh>-1){
+             this.dsplhfi = false;
+             if(this.lhfi.value !=="") this.pagedata.body.fields[indexlh].value = this.lhfi.value;
+          }
         }
       );
   }

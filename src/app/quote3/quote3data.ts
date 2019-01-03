@@ -121,6 +121,7 @@ export class Term{
 }
 export class Col{
     ded:number;
+    desc:string;
     check:boolean =false;
 }
 export class Cont{

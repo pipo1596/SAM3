@@ -264,13 +264,13 @@ checkStep1(){
       if(parseInt(this.lmth.value) <= 0){this.lmth.message = "(Invalid)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
       if(this.valid && this.lmth.value.toString().length>3){this.lmth.message = "(Too High)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
     }
-    if(this.arrlob.indexOf('RVGAP')>-1 || this.arrlob.indexOf('RVTHEFT')>-1 || this.arrlob.indexOf('RVWHEEL')>-1){
+    if(this.arrlob.indexOf('RVGAP')>-1 || this.arrlob.indexOf('RVTHEFT')>-1 || this.arrlob.indexOf('RVWHEEL')>-1 || this.arrlob.indexOf('RVRS')>-1 ){
       //Amount Financed
       if(this.amfn.value == null || this.amfn.value.toString() == ""){this.amfn.message = "(Required)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
       if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
     if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}}
-    if(this.insrvc.value !== "" && this.arrlobAll.indexOf("AUTO")>-1 ){//If Auto Inservice Date has to be equal or less than model year 
+    if(this.insrvc.value !== "" && !this.rvmode ){//If Auto Inservice Date has to be equal or less than model year 
       if(this.pagedata.body.dyear !==''){
       
       if(parseInt(this.insrvc.value.substring(0,4)) > parseInt(this.pagedata.body.dyear)){
@@ -434,7 +434,7 @@ addplan(e,plan){
         this.pagedata.body.ckprgs.push(obj);
         if(plan.dspasn == "Y") this.arrdspn.push("Y");
         this.arrlobAll.push(plan.lob);
-        if((plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob =='RVWHEEL') && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
+        if((plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob =='RVWHEEL' || plan.lob =='RVRS' ) && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
     }else{
       if(plan.dspasn == "Y") this.arrdspn.pop();
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
@@ -443,7 +443,7 @@ addplan(e,plan){
       var iloball = this.arrlobAll.indexOf(plan.lob);
       if (iloball > -1) { this.arrlobAll.splice(iloball, 1);}
 
-      if((plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL')){
+      if((plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL' || plan.lob == 'RVRS')){
       var ilob = this.arrlob.indexOf(plan.lob);
       if (ilob > -1) { this.arrlob.splice(ilob, 1);}
       

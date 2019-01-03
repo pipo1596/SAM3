@@ -38,6 +38,7 @@ export class UsersComponent implements OnInit {
   changes = false;
   reqpass2 = false;
   canedit:boolean=true;
+  dlrdrp:boolean = false;
   //Input Fields
   user = new  Textfield ;
   rlno = new  Textfield ;
@@ -568,6 +569,7 @@ changePass(){
           
           Util.hideWait();
           }
+          this.dlrdrp = !Util.noAuth(this.pagedata.head.menuOp,'XLOCEDIT');
           this.canedit = (this.dlrusr == this.pagedata.head.orgdlr || !Util.noAuth(this.pagedata.head.menuOp,'XLOCEDIT') || this.pagedata.head.as400);  
         }
 

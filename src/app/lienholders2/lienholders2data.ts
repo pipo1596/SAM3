@@ -9,6 +9,7 @@ export class Lienholders2data{
 export class Lienh{
 	mode  : string;
 	chek  : boolean;
+	dflt  : boolean;
 	dlr   : string;
 	lhno  : string;
 	adr1  : string;
@@ -30,6 +31,7 @@ export class Lienh{
 		this.dlr  = "";
 		this.namei = "";
 		this.chek = false;
+		this.dflt = false;
 		this.lhno = "";
 	}
 }

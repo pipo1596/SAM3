@@ -360,8 +360,8 @@ export class Quote3Component implements OnInit {
             var index = this.pagedata.body.chkdf.findIndex(obj => (
               obj.type == 'C' &&
               obj.cov == element.termc &&
-              obj.prg == element.prgm &&
-              obj.ratc == element.ratc));
+              obj.prg == element.termp &&
+              obj.ratc == element.card));
 
             var index2 = this.pagedata.body.chkdf.findIndex(obj => (
                 obj.desc == element.desc && obj.type=="C"));
@@ -545,7 +545,7 @@ export class Quote3Component implements OnInit {
   calcChng(field) {
     if (parseFloat(this.totalp) <= 0 || isNaN(parseFloat(this.totalp))) this.totalp = "0";
     if (parseFloat(this.downpm) <= 0 || isNaN(parseFloat(this.downpm))) this.downpm = "0";
-
+    if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
     if (field !== "downpm") this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
     this.caldwn ='';
     var percdwn = '5';
@@ -564,7 +564,7 @@ export class Quote3Component implements OnInit {
     this.downpmMsg = "";
     if(parseFloat(percdwn)<5) { this.downpmMsg = "(5% Or more required)";}
 
-    if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
+    
 
     this.balnce = (parseFloat(this.totalp) - (parseFloat(this.downpm))).toFixed(2);
     this.mthlyp = (parseFloat(this.balnce) / (parseFloat(this.months))).toFixed(2);
@@ -669,29 +669,32 @@ export class Quote3Component implements OnInit {
     //Disable
     var master: [any] = [""];
     var cov = this.pagedata.body.chkdf;
+    var main = this.pagedata.body.data;
     master.pop();
     if (this.pagedata.body.tables.length <= 0) return false;
     this.pagedata.body.tables.forEach((table) => {
       if (table.rates !== undefined) {
         table.rates.forEach((program) => {
 
-          var index = cov.findIndex(obj => (obj.type == "C" &&
-            obj.cov == program.coverage &&
+          var index = main.findIndex(obj => (
             obj.prg == program.program &&
             obj.ratc == program.ratc));
-          if (index >= 0) {
+            
+          var index2 = cov.findIndex(obj => (obj.type == "C" &&
+            obj.cov == program.coverage &&
+            obj.prg == program.program &&
+            obj.ratc == program.ratc)); 
+
+            if (index >= 0 && index2 >= 0) {
             program.check = true;
-            table.nup = this.pagedata.body.data[cov[index].indx].nup;
-            table.dflt = this.pagedata.body.data[cov[index].indx].dflt;
+            table.nup = this.pagedata.body.data[index].nup;
+            table.dflt = this.pagedata.body.data[index].dflt;
             table.showct = false;
-            //table.nup = program.nup;
             table.prgm = program.program;
             table.ratc = program.ratc;
-            //table.prgm = this.pagedata.body.data[cov[index].indx].prg;
-            //table.ratc = this.pagedata.body.data[cov[index].indx].ratc;
-            table.catg = this.pagedata.body.data[cov[index].indx].catg;
-            table.ctrct = this.pagedata.body.data[cov[index].indx].ctrct;
-            table.valu = parseFloat(this.datanotsored[cov[index].indx].valu);
+            table.catg = this.pagedata.body.data[index].catg;
+            table.ctrct = this.pagedata.body.data[index].ctrct;
+            table.valu = parseFloat(this.pagedata.body.data[index].valu);
             if(isNaN(table.valu)){table.valu = 0;}
             
           }
@@ -776,11 +779,12 @@ export class Quote3Component implements OnInit {
         if (table.prgm !== undefined && table.ratc !== undefined) {
           if (ctrct.prgm.padEnd(20) == table.prgm.padEnd(10) + table.ratc.padEnd(10)) {
             table.showct = true;
-            if(table.ctrct  && table.ctrct.trim() == ""){ table.ctrct = table.prgm.padEnd(10) + table.ratc.padEnd(10) + ctrct.code.padEnd(30);
+            if(table.ctrct  && table.ctrct.trim() == ""){ 
+              table.ctrct = table.prgm.padEnd(10) + table.ratc.padEnd(10) + ctrct.code.padEnd(30);
               table.valu= parseFloat(ctrct.valu);
               table.catg=ctrct.catg;
              }
-            return false;
+           // return false;
           }
         }
       });
@@ -1048,7 +1052,7 @@ export class Quote3Component implements OnInit {
   applySurch(mode) {
     this.ncbarr =[''];this.ncbarr.pop();
     this.ncbarrv =[0];this.ncbarrv.pop();
-    if (mode == 'C') { Util.showWait(); }
+    if (mode == 'C' || mode=='M') { Util.showWait(); }
 
     this.pagedata.body.tables.forEach((table, i0) => {
       if (table.rates !== undefined && table.prgm !== undefined && table.ctrct !== undefined) {
@@ -1058,7 +1062,8 @@ export class Quote3Component implements OnInit {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
           if(table.valu == null) table.valu = 0;
-          if (table.valu == undefined || table.valu == -1.2323){if(this.cont.catg=='OTC') table.valu = parseFloat(this.cont.valu);}
+          
+          if (table.valu == undefined || table.valu == -1.2323 || mode=='M'){if(this.cont.catg=='OTC') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && this.cont.catg == 'OTC') this.cont.valu = table.valu.toFixed(2);
         }
 
@@ -1067,7 +1072,7 @@ export class Quote3Component implements OnInit {
             row.forEach((unitp, i3) => {
 
               //Original Value
-              if (mode == 'C' || mode == 'D') unitp[0] = unitp[1];
+              if (mode == 'C' || mode == 'D' || mode == 'M') unitp[0] = unitp[1];
               //Cost
               var cost = 0 ;
               if(rate.cost !== undefined)
@@ -1142,7 +1147,7 @@ export class Quote3Component implements OnInit {
         });
       }
     });
-    if (mode == 'C') Util.hideWait();
+    if (mode == 'C' || mode=='M') Util.hideWait();
   }
   //==================================================================================================//  
   xlatelob(prg, ratc) {

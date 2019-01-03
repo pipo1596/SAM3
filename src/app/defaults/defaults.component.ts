@@ -18,17 +18,42 @@ export class DefaultsComponent implements OnInit {
   valid = false;
   changes = false;
   noAuth = true;
-  //Input Fields
+  //Radio Buttons
   perc  = new  Textfield ; 
   rvtp  = new  Textfield ; 
   lntp  = new  Textfield ; 
   ancl  = new  Textfield ; 
   plnk  = new  Textfield ; 
   mnth  = new  Textfield ;
-  lhno  = new  Textfield ;
+  //CheckBoxes
+  xptf  :boolean = false; //paytype
+  xptm  :boolean = false; 
+  xpta  :boolean = false; 
+  xptc  :boolean = false; 
+
+  xpc5  :boolean = false; //%down
+  xpc1  :boolean = false; 
+  xpc2  :boolean = false; 
+  xpc3  :boolean = false; 
+  xpc4  :boolean = false; 
+
+  xm12  :boolean = false; //# Months
+  xm15  :boolean = false; 
+  xm18  :boolean = false; 
+  xm24  :boolean = false; 
+
+  xrvm  :boolean = false; //RV Type
+  xrvt  :boolean = false; 
+  xrvp  :boolean = false;
+
   //Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
+  //Bool
+  hasplnk:boolean = false;
+  hasrv  :boolean = false;
+  hasancl:boolean = false;
+
 
   constructor(private jsonService: JsonService,private router: Router) { }
 
@@ -39,14 +64,6 @@ export class DefaultsComponent implements OnInit {
   checkData(){
     this.validating = true;
     this.valid = true;
-    //Reset Error Messages
-    this.perc.message  = "";
-    this.rvtp.message  = "";
-    this.lntp.message  = "";
-    this.lhno.message  = "";
-    this.ancl.message  = "";
-    this.plnk.message  = "";
-    this.mnth.message  = "";
     //Reset Top Alert
     this.dispAlert.default();
     //Required Logic
@@ -59,13 +76,32 @@ export class DefaultsComponent implements OnInit {
     if(!this.valid) return false;
       Util.showWait();
       this.pagedata.body.mode ="SAVE";
+      //Radio
       this.pagedata.body.perc  = this.perc.value;
       this.pagedata.body.rvtp  = this.rvtp.value;
       this.pagedata.body.lntp  = this.lntp.value;
-      this.pagedata.body.lhno  = this.lhno.value;
       this.pagedata.body.ancl  = this.ancl.value;
       this.pagedata.body.plnk  = this.plnk.value;
       this.pagedata.body.mnth  = this.mnth.value;
+      
+      //Checkboxes
+      this.pagedata.body.xptf  = this.xptf;
+      this.pagedata.body.xptm  = this.xptm;
+      this.pagedata.body.xpta  = this.xpta;
+      this.pagedata.body.xptc  = this.xptc;
+      this.pagedata.body.xpc1  = this.xpc1;
+      this.pagedata.body.xpc2  = this.xpc2;
+      this.pagedata.body.xpc3  = this.xpc3;
+      this.pagedata.body.xpc4  = this.xpc4;
+      this.pagedata.body.xpc5  = this.xpc5;
+      this.pagedata.body.xm12  = this.xm12;
+      this.pagedata.body.xm15  = this.xm15;
+      this.pagedata.body.xm18  = this.xm18;
+      this.pagedata.body.xm24  = this.xm24;
+      this.pagedata.body.xrvm  = this.xrvm;
+      this.pagedata.body.xrvt  = this.xrvt;
+      this.pagedata.body.xrvp  = this.xrvp;
+
       this.jsonService
         .initService(this.pagedata.body,Util.Url("CGICDFLTS"))
         .subscribe(data => this.errSet = data,
@@ -105,10 +141,42 @@ export class DefaultsComponent implements OnInit {
           this.perc.value = this.pagedata.body.perc;
           this.rvtp.value = this.pagedata.body.rvtp;
           this.lntp.value = this.pagedata.body.lntp;
-          this.lhno.value = this.pagedata.body.lhno;
           this.ancl.value = this.pagedata.body.ancl;
           this.mnth.value = this.pagedata.body.mnth;
           this.plnk.value = this.pagedata.body.plnk;
+          //Checkboxes
+          this.xptf = this.pagedata.body.xptf;
+          this.xptm = this.pagedata.body.xptm;
+          this.xpta = this.pagedata.body.xpta;
+          this.xptc = this.pagedata.body.xptc;
+          this.xpc1 = this.pagedata.body.xpc1;
+          this.xpc2 = this.pagedata.body.xpc2;
+          this.xpc3 = this.pagedata.body.xpc3;
+          this.xpc4 = this.pagedata.body.xpc4;
+          this.xpc5 = this.pagedata.body.xpc5;
+          this.xm12 = this.pagedata.body.xm12;
+          this.xm15 = this.pagedata.body.xm15;
+          this.xm18 = this.pagedata.body.xm18;
+          this.xm24 = this.pagedata.body.xm24;
+          this.xrvm = this.pagedata.body.xrvm;
+          this.xrvt = this.pagedata.body.xrvt;
+          this.xrvp = this.pagedata.body.xrvp;
+
+          //Set Bool
+          this.hasplnk = this.pagedata.body.plnkon;
+          this.pagedata.body.pln.plans.forEach(plan =>{
+            //Has Anc
+            if(plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL' || plan.lob == 'RVRS'){
+              this.hasancl = true;
+            }
+            //Has RV
+            if(plan.plnt == "R"){
+              this.hasrv = true;
+            }
+          });
+          this.hasplnk = true;
+          this.hasancl = true;
+          this.hasrv   = true;
         }
 
        }

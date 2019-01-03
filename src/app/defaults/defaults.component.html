@@ -17,104 +17,295 @@
                     <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
-                
-                <div class="col-sm-4">
-                    <label class="flat-input inputlabel">Default Eligibility
-                        <span class="errorspan2" [class.opqquezero]="ancl.message===''" [class.alert-danger]="ancl.erlevel==='D'"  [class.validating]="validating">{{ancl.message}}</span> 
-                    </label>
-                    <span class="flat-input">
-                        <select  autocomplete="new-password" class="form__select" name="ancl" id="ancl" [(ngModel)]="ancl.value" [class.required]="ancl.message !==''"  [class.validating]="validating"  (change)="onChange()">
-                            <option value="">Select</option>
-                            <option value="N" [attr.selected]="ancl.value=='N' ? true : null">New</option>
-                            <option value="U" [attr.selected]="ancl.value=='U' ? true : null">Used</option>
-                        </select>
-                    </span>
-                </div>
-                <div class="col-sm-8">
-                        <label class="flat-input inputlabel"  style="padding-left:15px;">RV Type&nbsp;</label>
-                    <div class="col-sm-3 text-left" style="padding-top:8px;">
-                        <div class="custradio"><input name="rvtype" id="rvtype1" value="" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" ><label for="rvtype1"></label></div>
-                        <label class="checklabel" style="font-weight: bold;" for="rvtype1">Motorhome</label> 
-                    </div>
-                    <div class="col-sm-5 text-left" style="padding-top:8px;">
-                        <div class="custradio"><input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value"><label for="rvtype2"></label></div>
-                        <label class="checklabel" style="font-weight: bold;" for="rvtype2">Travel Trailer</label>
-                    </div>
-                    <div class="col-sm-4 text-left" style="padding-top:8px;">
-                        <div class="custradio"><input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value"><label for="rvtype3"></label></div>
-                        <label class="checklabel" style="font-weight: bold;" for="rvtype3">Pop-Up</label>
-                    </div>
-                </div>
+                <style>.custradio,.custcheck{float: none} .custcheck{top:-15px;}</style>
                 <div class="col-xs-12"><hr></div>
-                <div class="col-sm-6">
-                        <label class="flat-input inputlabel">Default Lienholder
-                            <span class="errorspan2" [class.opqquezero]="lhno.message===''" [class.alert-danger]="lhno.erlevel==='D'" [class.validating]="validating">{{lhno.message}}</span> 
-                        </label>
-                        <span class="flat-input">
-                            <select  autocomplete="new-password" class="form__select" name="lhno" id="lhno" [(ngModel)]="lhno.value" [class.required]="plnk.message !==''"  [class.validating]="validating"  (change)="onChange()">
-                                <option value="">Select</option>
-                                <ng-container *ngFor="let optn of pagedata.body.lienholders">
-                                        <option   [value]="optn.key"  >{{optn.val}}</option>
-                                </ng-container>
-                            </select>
-                        </span>
+                <!-- Pay Link Section -->
+                <div *ngIf="hasplnk" >
+                <div class="col-xs-12"><h3>Paylink Options</h3></div>      
+                <div class="col-sm-4">
+                    <div class="well well-sm" style="background: white;">
+                    <table class="table  table-striped">
+                        <tr>
+                            <th><b>Pay Type</b></th>
+                            <th class="text-center"><b>Exclude</b></th>
+                            <th class="text-center"><b>Default</b></th>
+                        </tr>
+                        <!--Full Pay-->
+                        <tr>
+                            <td>Full Pay</td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                        <input name="xptf" type="checkbox" id="xptf" [(ngModel)]="xptf" [disabled]="plnk.value==''">
+                                        <label for="xptf"></label>
+                                    </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="paytype" id="fullpayin" value="" type="radio"  (change)="onChange();xptf=false;" [(ngModel)]="plnk.value" >
+                                    <label for="fullpayin"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--Monthly-->
+                        <tr>
+                            <td>Monthly</td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xptm" type="checkbox" id="xptm" [(ngModel)]="xptm" [disabled]="plnk.value=='M'">
+                                            <label for="xptm"></label>
+                                        </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="paytype" id="monthlyin" value="M" type="radio"  (change)="onChange();xptm=false;" [(ngModel)]="plnk.value" >
+                                    <label for="monthlyin"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--Monthly-->
+                        <tr>
+                            <td>ACH</td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xpta" type="checkbox" id="xpta" [(ngModel)]="xpta" [disabled]="plnk.value=='A'">
+                                            <label for="xpta"></label>
+                                        </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="paytype" id="achin" value="A" type="radio"  (change)="onChange();xpta=false;" [(ngModel)]="plnk.value" >
+                                    <label for="achin"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--Credit Card-->
+                        <tr>
+                            <td>Credit Card</td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xptc" type="checkbox" id="xptc" [(ngModel)]="xptc" [disabled]="plnk.value=='C'">
+                                            <label for="xptc"></label>
+                                        </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="paytype" id="creditin" value="C" type="radio"  (change)="onChange();xptc=false;" [(ngModel)]="plnk.value" >
+                                    <label for="creditin"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                    </table>
                     </div>
-                <div class="clearfix"></div>
-                <div class="col-sm-6">
-                    <label class="flat-input inputlabel">Paylink Options
-                        <span class="errorspan2" [class.opqquezero]="plnk.message===''" [class.alert-danger]="plnk.erlevel==='D'" [class.validating]="validating">{{plnk.message}}</span> 
-                    </label>
-                    <span class="flat-input">
-                        <select  autocomplete="new-password" class="form__select" name="plnk" id="plnk" [(ngModel)]="plnk.value" [class.required]="plnk.message !==''"  [class.validating]="validating"  (change)="onChange()">
-                            <option value="">Full Pay</option>
-                            <option value="A" [attr.selected]="plnk.value=='A' ? true : null">ACH</option>
-                            <option value="C" [attr.selected]="plnk.value=='C' ? true : null">Credit Card</option>
-                            <option value="M" [attr.selected]="plnk.value=='M' ? true : null">Monthly Bill</option>
-                        </select>
-                    </span>
                 </div>
-                <div class="col-sm-6">
-                    <label class="flat-input inputlabel">Loan Type
-                        <span class="errorspan2" [class.opqquezero]="lntp.message===''" [class.alert-danger]="lntp.erlevel==='D'" [class.validating]="validating">{{lntp.message}}</span> 
-                    </label>
-                    <span class="flat-input">
-                        <select  autocomplete="new-password" class="form__select" name="lntp" id="lntp" [(ngModel)]="lntp.value" [class.required]="plnk.message !==''"  [class.validating]="validating"  (change)="onChange()">
-                            <option value="">Select</option>
-                            <ng-container *ngFor="let optn of pagedata.body.lntpdrp">
-                                    <option   [value]="optn.key"  >{{optn.val}}</option>
-                            </ng-container>
-                        </select>
-                    </span>
+                <!--Percent Down-->
+                <div class="col-sm-4">
+                    <div class="well well-sm" style="background: white;">
+                    <table class="table  table-striped">
+                        <tr>
+                            <th><b>% Down</b></th>
+                            <th class="text-center"><b>Exclude</b></th>
+                            <th class="text-center"><b>Default</b></th>
+                        </tr>
+                        <!--5%-->
+                        <tr>
+                            <td>5%</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="percdwn" id="fiveperc" value="" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <label for="fiveperc"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--10%-->
+                        <tr>
+                            <td>10%</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="percdwn" id="tenperc" value="10" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <label for="tenperc"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--20%-->
+                        <tr>
+                            <td>20%</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="percdwn" id="twenperc" value="20" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <label for="twenperc"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--30%-->
+                        <tr>
+                            <td>30%</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="percdwn" id="trtynperc" value="30" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <label for="trtynperc"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--40%-->
+                        <tr>
+                            <td>30%</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="percdwn" id="frtyperc" value="40" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <label for="frtyperc"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                    </table>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label class="flat-input inputlabel">% Down
-                        <span class="errorspan2" [class.opqquezero]="perc.message===''" [class.alert-danger]="perc.erlevel==='D'" [class.validating]="validating">{{perc.message}}</span> 
-                    </label>
-                    <span class="flat-input">
-                        <select  autocomplete="new-password" class="form__select" name="perc" id="perc" [(ngModel)]="perc.value" [class.required]="perc.message !==''"  [class.validating]="validating"  (change)="onChange()">
-                            <option value="">Select</option>
-                            <option value="5" [attr.selected]="mnth.value=='5' ? true : null">5</option>
-                            <option value="10" [attr.selected]="mnth.value=='10' ? true : null">10</option>
-                            <option value="20" [attr.selected]="mnth.value=='20' ? true : null">20</option>
-                            <option value="30" [attr.selected]="mnth.value=='30' ? true : null">30</option>
-                            <option value="40" [attr.selected]="mnth.value=='40' ? true : null">40</option>
-                            <!--<option value="100" [attr.selected]="mnth.value=='100' ? true : null">100</option>-->
-                        </select>
-                    </span>
+                <!--# Months-->
+                <div class="col-sm-4">
+                    <div class="well well-sm" style="background: white;">
+                    <table class="table  table-striped">
+                        <tr>
+                            <th><b># Months</b></th>
+                            <th class="text-center"><b>Exclude</b></th>
+                            <th class="text-center"><b>Default</b></th>
+                        </tr>
+                        <!--12-->
+                        <tr>
+                            <td>12</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="nummnth" id="twlvmth" value="" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <label for="twlvmth"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--15-->
+                        <tr>
+                            <td>15</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="nummnth" id="fiftnmth" value="15" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <label for="fiftnmth"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--18-->
+                        <tr>
+                            <td>18</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="nummnth" id="eightnnmth" value="18" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <label for="eightnnmth"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        <!--24-->
+                        <tr>
+                            <td>24</td>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <div class="custradio">
+                                    <input name="nummnth" id="twntyfrnnmth" value="24" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <label for="twntyfrnnmth"></label>
+                                </div> 
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label class="flat-input inputlabel"># Months
-                        <span class="errorspan2" [class.opqquezero]="mnth.message===''" [class.alert-danger]="mnth.erlevel==='D'"  [class.validating]="validating">{{mnth.message}}</span> 
-                    </label>
-                    <span class="flat-input">
-                        <select  autocomplete="new-password" class="form__select" name="mnth" id="mnth" [(ngModel)]="mnth.value" [class.required]="mnth.message !==''"  [class.validating]="validating"  (change)="onChange()">
-                            <option value="">Select</option>
-                            <option value="12" [attr.selected]="mnth.value=='12' ? true : null">12</option>
-                            <option value="15" [attr.selected]="mnth.value=='15' ? true : null">15</option>
-                            <option value="18" [attr.selected]="mnth.value=='18' ? true : null">18</option>
-                            <option value="24" [attr.selected]="mnth.value=='24' ? true : null">24</option>
-                        </select>
-                    </span>
+
+                  
+              
+              
+                <div class="col-xs-12"><hr></div>
+                </div>
+                <!-- RV Section -->
+                <div *ngIf="hasrv">
+                    <div class="col-xs-12"><h3>RV Options</h3></div>
+                <!--RV Type-->
+                <div class="col-sm-4">
+                        <div class="well well-sm" style="background: white;">
+                        <table class="table  table-striped">
+                            <tr>
+                                <th><b>RV Type</b></th>
+                                <th class="text-center"><b>Exclude</b></th>
+                                <th class="text-center"><b>Default</b></th>
+                            </tr>
+                            <!--Motorhome-->
+                            <tr>
+                                <td>Motorhome</td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvtype" id="rvtype1" value="" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" >
+                                        <label for="twlvmth"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--Trailer-->
+                            <tr>
+                                <td>Travel Trailer</td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" >
+                                        <label for="rvtype2"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--Pop up-->
+                            <tr>
+                                <td>Pop-up</td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" >
+                                        <label for="rvtype3"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            
+                            
+                        </table>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-xs-12"><hr></div>
+                </div>
+                <!-- Ancillary Section-->
+                <div *ngIf="hasancl">
+                    <div class="col-xs-12"><h3 *ngIf="hasancl">Ancillary Options</h3></div>
+                    <div class="col-sm-6">
+                            <label class="flat-input inputlabel">Default Eligibility</label>
+                            <span class="flat-input">
+                                <select  autocomplete="new-password" class="form__select" name="ancl" id="ancl" [(ngModel)]="ancl.value" (change)="onChange()">
+                                    <option value="">Select</option>
+                                    <option value="N" [attr.selected]="ancl.value=='N' ? true : null">New</option>
+                                    <option value="U" [attr.selected]="ancl.value=='U' ? true : null">Used</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
+                                <label class="flat-input inputlabel">Default Loan Type</label>
+                                <span class="flat-input">
+                                    <select  autocomplete="new-password" class="form__select" name="lntp" id="lntp" [(ngModel)]="lntp.value" (change)="onChange()">
+                                        <option value="">Select</option>
+                                        <ng-container *ngFor="let optn of pagedata.body.lntpdrp">
+                                                <option   [value]="optn.key"  >{{optn.val}}</option>
+                                        </ng-container>
+                                    </select>
+                                </span>
+                            </div>
+                    <div class="col-xs-12"><hr></div>
                 </div>
                 
                 <div class="col-md-12 hidden-xs">

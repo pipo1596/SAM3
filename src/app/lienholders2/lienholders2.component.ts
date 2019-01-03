@@ -60,12 +60,14 @@ export class Lienholders2Component implements OnInit {
 
   saveboxes(){
 	var jsonObj = {
-        mode: "BOXES",
+		mode: "BOXES",
+		dflt: "",
         boxes:[]
 	  };
 	  this.pagedata.filters.forEach(elem =>{ if(elem.chek){
 		
 		  jsonObj.boxes.push({lhno:elem.lhno});
+		  if(elem.dflt) jsonObj.dflt = elem.lhno;
 		
 		}});
 		Util.showWait();
@@ -96,6 +98,17 @@ export class Lienholders2Component implements OnInit {
 	this.changes = true;
 	this.boxchange = true;
 	elem.chek = !elem.chek;
+	if(elem.dflt && !elem.chek){ elem.dflt = false;}
+}
+  setdefault(elem){
+	this.pagedata.filters.forEach((record) => {
+		if(record !== elem)
+		record.dflt = false;
+	  });  
+	this.changes = true;
+	this.boxchange = true;
+	elem.dflt = !elem.dflt;
+	if(elem.dflt){elem.chek = true;}
 }
 
 
