@@ -42,6 +42,9 @@ export class bodyData{
     dms     : dms;
     dispdms :string;
     step:string;
+    xrvm:boolean;
+    xrvt:boolean;
+    xrvp:boolean;
 
 }
 

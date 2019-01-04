@@ -37,6 +37,17 @@ contracts : [Cont];
      zip : string = "";
      mindwn : string = "";
      months : string = "";
+     xpc1:boolean;
+     xpc2:boolean;
+     xpc3:boolean;
+     xpc4:boolean;
+     xpc5:boolean;
+     xm12:boolean;
+     xm15:boolean;
+     xm18:boolean;
+     xm24:boolean;
+
+
 }
 
 export class Data{

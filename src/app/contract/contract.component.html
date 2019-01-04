@@ -54,7 +54,10 @@
                                             </td>
                                             <td style="font-weight: bold">{{ cont.term }}</td>
                                             <td style="font-weight: bold" *ngIf="cont.ded!=='DD'">{{ cont.ded | currency }}</td>
-                                            <td style="font-weight: bold" *ngIf="cont.ded =='DD'">{{ cont.ded }}</td>
+                                            <td style="font-weight: bold" *ngIf="cont.ded =='DD'">
+                                                    <span *ngIf="!cont.desc || cont.desc ==''">${{cont.ded}}</span>
+                                                    <span *ngIf="cont.desc && cont.desc !==''">{{cont.desc}}</span> 
+                                            </td>
                                             <td style="font-weight: bold" *ngIf="cont.xtr7 !=='1'">{{ cont.ccst| currency }}</td>
                                             <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>
                                     </tr>
@@ -327,21 +330,21 @@
                        <h4 style="margin-bottom:0px;white-space: nowrap;margin-top:3px">Paylink Options:</h4>
                     </div>
                     <div class="col-md-9"  >
-                       <div class="col-md-4" style="padding-top:3px;">
+                       <div class="col-md-4" style="padding-top:3px;" *ngIf="!pagedata.body.xptc">
                          <div class="custradio"><input name="payment" id="payment1" value="C" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment1"></label></div>
                          <label class="checklabel" for="payment1">Credit Card</label>
                        </div>
-                       <div class="col-md-4"  style="padding-top:3px;">
+                       <div class="col-md-4"  style="padding-top:3px;"  *ngIf="!pagedata.body.xpta">
                          <div class="custradio"><input name="payment" id="payment2" value="A" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment2"></label></div>
                          <label class="checklabel" for="payment2">ACH</label>
                        </div>
-                       <div class="col-md-4" style="padding-right:0;padding-top: 3px;">
+                       <div class="col-md-4" style="padding-right:0;padding-top: 3px;"  *ngIf="!pagedata.body.xptm">
                          <div class="custradio"><input name="payment" id="payment3" value="M" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment3"></label></div>
                          <label class="checklabel" for="payment3">Monthly Bill</label>
                        </div>
                     </div>
                 </div>
-                    <div class="col-md-2 col-md-offset-2" style="padding:10px 0;">
+                    <div class="col-md-2 col-md-offset-2" style="padding:10px 0;"  *ngIf="!pagedata.body.xptf">
                        <div class="col-md-12"  style="padding-top:3px;">
                          <div class="custradio"><input name="payment" id="payment4" value="F" type="radio" (click)="effect()" (change)="clearPayment()" [(ngModel)]="payment"><label for="payment4"></label></div>
                          <label class="checklabel" for="payment4" style="font-weight: bold">Full Pay</label>
@@ -447,11 +450,11 @@
                         <label class="flat-input inputlabel" style="margin-top:10px">Min 5% Down</label>
                         <div class="flat-input w100">
                             <select class="form__select w100" name="mindwn" [(ngModel)]="mindwn" (change)="calcChng('mindwn')" >
-                                <option value="5">5%</option>
-                                <option value="10">10%</option>
-                                <option value="20">20%</option>
-                                <option value="30">30%</option>
-                                <option value="40">40%</option>
+                                <option value="5"  *ngIf="!pagedata.body.xpc5">5%</option>
+                                <option value="10" *ngIf="!pagedata.body.xpc1">10%</option>
+                                <option value="20" *ngIf="!pagedata.body.xpc2">20%</option>
+                                <option value="30" *ngIf="!pagedata.body.xpc3">30%</option>
+                                <option value="40" *ngIf="!pagedata.body.xpc4">40%</option>
                                 <option *ngIf="caldwn!==''" value="{{caldwn}}">{{caldwn}}%</option>
                             </select>
                         </div>
@@ -469,10 +472,10 @@
                         <label class="flat-input inputlabel" style="margin-top:10px"># Months</label>
                         <div class="flat-input w100">
                             <select class="form__select w100" name="months" [(ngModel)]="months"  (change)="calcChng('months')" >
-                                <option value="12">12</option>
-                                <option value="15">15</option>
-                                <option value="18">18</option>
-                                <option value="24">24</option>
+                                <option value="12" *ngIf="!pagedata.body.xm12">12</option>
+                                <option value="15" *ngIf="!pagedata.body.xm15">15</option>
+                                <option value="18" *ngIf="!pagedata.body.xm18">18</option>
+                                <option value="24" *ngIf="!pagedata.body.xm24">24</option>
                             </select>
                         </div>
                         <label class="flat-input inputlabel" style="margin-top:10px">Monthly Payment</label>
@@ -537,7 +540,10 @@
                                         </p>
                                         <p>{{ cont.term }}</p>
                                         <p *ngIf="cont.ded!=='DD'"> {{ cont.ded | currency }}</p>
-                                        <p *ngIf="cont.ded =='DD'"> {{ cont.ded }}</p>
+                                        <p *ngIf="cont.ded =='DD'">
+                                                <span *ngIf="!cont.desc || cont.desc ==''">${{cont.ded}}</span>
+                                                <span *ngIf="cont.desc && cont.desc !==''">{{cont.desc}}</span> 
+                                        </p>
                                     </td>
                                     <td style="font-weight: bold" *ngIf="cont.xtr7 !=='1'">{{ cont.ccst| currency }}</td>
                                     <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>

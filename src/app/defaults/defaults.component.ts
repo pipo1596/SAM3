@@ -53,6 +53,7 @@ export class DefaultsComponent implements OnInit {
   hasplnk:boolean = false;
   hasrv  :boolean = false;
   hasancl:boolean = false;
+  haslntp:boolean = false;
 
 
   constructor(private jsonService: JsonService,private router: Router) { }
@@ -164,19 +165,18 @@ export class DefaultsComponent implements OnInit {
 
           //Set Bool
           this.hasplnk = this.pagedata.body.plnkon;
+          this.haslntp = this.pagedata.body.haslntp;
           this.pagedata.body.pln.plans.forEach(plan =>{
             //Has Anc
             if(plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL' || plan.lob == 'RVRS'){
               this.hasancl = true;
             }
+            if(plan.dspasn == 'Y'){this.hasancl = true;}
             //Has RV
             if(plan.plnt == "R"){
               this.hasrv = true;
             }
           });
-          this.hasplnk = true;
-          this.hasancl = true;
-          this.hasrv   = true;
         }
 
        }

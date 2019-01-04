@@ -26,6 +26,7 @@ export class Quote2Component implements OnInit {
   chkdcoverages:any;
   warnings:any;
   covnum:number = 0;
+  hascover:boolean = false;
 
   expvehc : boolean = false;
   
@@ -257,7 +258,7 @@ export class Quote2Component implements OnInit {
 
   defaultCheck() {
     this.pagedata.body.data.forEach((eachObj)=>{
-      
+      if(eachObj.cov.coverages.length > 0) this.hascover = true;
       if (this.pagedata.body.chkdf.length > 0){
       //Coverages
       eachObj.cov.coverages.forEach(element => {
@@ -391,7 +392,11 @@ export class Quote2Component implements OnInit {
           }
           
           this.checkData('L');
+          if(this.hascover){
           this.loading = false;
+          }else{
+            Util.modalid("show","nocoverages");
+          }
 
         } 
 

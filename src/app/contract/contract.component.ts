@@ -597,6 +597,7 @@ formatCVV() {
         () => {Util.responsiveMenu(); 
           this.months = this.pagedata.body.months;
           this.mindwn = this.pagedata.body.mindwn;
+          this.payment= this.pagedata.body.plnk;
           this.caldwn = "";
           this.pagedata.body.fields = Util.killDups3(this.pagedata.body.fields);
           Util.setHead(this.pagedata.head);
@@ -630,6 +631,11 @@ formatCVV() {
           if(indexlh>-1){
              this.dsplhfi = false;
              if(this.lhfi.value !=="") this.pagedata.body.fields[indexlh].value = this.lhfi.value;
+             this.setlhadr('C');
+          }
+          var indexx3 = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECXTR3'));
+          if(indexx3>-1){
+              this.pagedata.body.fields[indexx3].value = this.pagedata.body.lntp;
           }
         }
       );

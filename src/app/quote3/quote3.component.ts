@@ -135,6 +135,7 @@ export class Quote3Component implements OnInit {
     contract.RATC ='';
     contract.CVDS ='';
     contract.DED  ='';
+    contract.DDESC='';
     contract.CVMN ='';
     contract.CVML ='';
     contract.TAX  ='';
@@ -159,7 +160,11 @@ export class Quote3Component implements OnInit {
     contract.RATC += tb.rates[t].ratc.padEnd(10);
     contract.CVDS += tb.rates[t].title.padEnd(50);
     contract.DED +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
-    
+    if( tb.rates[t].cols[c].desc)
+      contract.DDESC +=  tb.rates[t].cols[c].desc.toString().padEnd(10);
+    else
+     contract.DDESC +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
+
     if(this.xlatelobc(contract.PRG.trim(), contract.RATC.trim())=='WT'){
       contract.CVMN += this.pagedata.body.veh.lmth.toString().padEnd(3);
       contract.CVML += this.pagedata.body.veh.lmil.toString().padEnd(7);

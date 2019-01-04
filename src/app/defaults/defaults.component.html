@@ -13,12 +13,12 @@
             <form  class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()"
                 id="adduser"  autocomplete="off">
                 <div class="col-md-12">
-                    <h2>Set Default Values</h2>
+                    <h2  *ngIf="hasrv || hasplnk || hasancl || haslntp">Set Default Values</h2>
+                    <h2  *ngIf="!hasrv && !hasplnk && !hasancl && !haslntp">No Default Settings Available!</h2>
                     <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
                 <style>.custradio,.custcheck{float: none} .custcheck{top:-15px;}</style>
-                <div class="col-xs-12"><hr></div>
                 <!-- Pay Link Section -->
                 <div *ngIf="hasplnk" >
                 <div class="col-xs-12"><h3>Paylink Options</h3></div>      
@@ -109,10 +109,15 @@
                         <!--5%-->
                         <tr>
                             <td>5%</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xpc5" type="checkbox" id="xpc5" [(ngModel)]="xpc5" [disabled]="perc.value==''">
+                                            <label for="xpc5"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="percdwn" id="fiveperc" value="" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <input name="percdwn" id="fiveperc" value="" type="radio"  (change)="onChange();xpc5=false;" [(ngModel)]="perc.value" >
                                     <label for="fiveperc"></label>
                                 </div> 
                             </td>
@@ -120,10 +125,15 @@
                         <!--10%-->
                         <tr>
                             <td>10%</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xpc1" type="checkbox" id="xpc1" [(ngModel)]="xpc1" [disabled]="perc.value=='10'">
+                                            <label for="xpc1"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="percdwn" id="tenperc" value="10" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <input name="percdwn" id="tenperc" value="10" type="radio"  (change)="onChange();xpc1=false;" [(ngModel)]="perc.value" >
                                     <label for="tenperc"></label>
                                 </div> 
                             </td>
@@ -131,10 +141,15 @@
                         <!--20%-->
                         <tr>
                             <td>20%</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xpc2" type="checkbox" id="xpc2" [(ngModel)]="xpc2" [disabled]="perc.value=='20'">
+                                            <label for="xpc2"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="percdwn" id="twenperc" value="20" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <input name="percdwn" id="twenperc" value="20" type="radio"  (change)="onChange();xpc2=false;" [(ngModel)]="perc.value" >
                                     <label for="twenperc"></label>
                                 </div> 
                             </td>
@@ -142,21 +157,31 @@
                         <!--30%-->
                         <tr>
                             <td>30%</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xpc3" type="checkbox" id="xpc3" [(ngModel)]="xpc3" [disabled]="perc.value=='30'">
+                                            <label for="xpc3"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="percdwn" id="trtynperc" value="30" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <input name="percdwn" id="trtynperc" value="30" type="radio"  (change)="onChange();xpc3=false;" [(ngModel)]="perc.value" >
                                     <label for="trtynperc"></label>
                                 </div> 
                             </td>
                         </tr>
                         <!--40%-->
                         <tr>
-                            <td>30%</td>
-                            <td class="text-center"></td>
+                            <td>40%</td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xpc4" type="checkbox" id="xpc4" [(ngModel)]="xpc4" [disabled]="perc.value=='40'">
+                                            <label for="xpc4"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="percdwn" id="frtyperc" value="40" type="radio"  (change)="onChange()" [(ngModel)]="perc.value" >
+                                    <input name="percdwn" id="frtyperc" value="40" type="radio"  (change)="onChange();xpc4=false;" [(ngModel)]="perc.value" >
                                     <label for="frtyperc"></label>
                                 </div> 
                             </td>
@@ -176,10 +201,15 @@
                         <!--12-->
                         <tr>
                             <td>12</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xm12" type="checkbox" id="xm12" [(ngModel)]="xm12" [disabled]="mnth.value==''">
+                                            <label for="xm12"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="nummnth" id="twlvmth" value="" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <input name="nummnth" id="twlvmth" value="" type="radio"  (change)="onChange();xm12=false;" [(ngModel)]="mnth.value" >
                                     <label for="twlvmth"></label>
                                 </div> 
                             </td>
@@ -187,10 +217,15 @@
                         <!--15-->
                         <tr>
                             <td>15</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xm15" type="checkbox" id="xm15" [(ngModel)]="xm15" [disabled]="mnth.value=='15'">
+                                            <label for="xm15"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="nummnth" id="fiftnmth" value="15" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <input name="nummnth" id="fiftnmth" value="15" type="radio"  (change)="onChange();xm15=false;" [(ngModel)]="mnth.value" >
                                     <label for="fiftnmth"></label>
                                 </div> 
                             </td>
@@ -198,10 +233,15 @@
                         <!--18-->
                         <tr>
                             <td>18</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xm18" type="checkbox" id="xm18" [(ngModel)]="xm18" [disabled]="mnth.value=='18'">
+                                            <label for="xm18"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="nummnth" id="eightnnmth" value="18" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <input name="nummnth" id="eightnnmth" value="18" type="radio"  (change)="onChange();xm18=false;" [(ngModel)]="mnth.value" >
                                     <label for="eightnnmth"></label>
                                 </div> 
                             </td>
@@ -209,10 +249,15 @@
                         <!--24-->
                         <tr>
                             <td>24</td>
-                            <td class="text-center"></td>
+                            <td class="text-center">
+                                    <div class="custcheck">
+                                            <input name="xm24" type="checkbox" id="xm24" [(ngModel)]="xm24" [disabled]="mnth.value=='24'">
+                                            <label for="xm24"></label>
+                                        </div>
+                            </td>
                             <td class="text-center">
                                 <div class="custradio">
-                                    <input name="nummnth" id="twntyfrnnmth" value="24" type="radio"  (change)="onChange()" [(ngModel)]="mnth.value" >
+                                    <input name="nummnth" id="twntyfrnnmth" value="24" type="radio"  (change)="onChange();xm24=false;" [(ngModel)]="mnth.value" >
                                     <label for="twntyfrnnmth"></label>
                                 </div> 
                             </td>
@@ -242,21 +287,31 @@
                             <!--Motorhome-->
                             <tr>
                                 <td>Motorhome</td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="xrvm" type="checkbox" id="xrvm" [(ngModel)]="xrvm" [disabled]="rvtp.value==''">
+                                                <label for="xrvm"></label>
+                                            </div>
+                                </td>
                                 <td class="text-center">
                                     <div class="custradio">
-                                        <input name="rvtype" id="rvtype1" value="" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" >
-                                        <label for="twlvmth"></label>
+                                        <input name="rvtype" id="rvtype1" value="" type="radio"  (change)="onChange();xrvm=false;" [(ngModel)]="rvtp.value" >
+                                        <label for="rvtype1"></label>
                                     </div> 
                                 </td>
                             </tr>
                             <!--Trailer-->
                             <tr>
                                 <td>Travel Trailer</td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="xrvt" type="checkbox" id="xrvt" [(ngModel)]="xrvt" [disabled]="rvtp.value=='T'">
+                                                <label for="xrvt"></label>
+                                            </div>
+                                </td>
                                 <td class="text-center">
                                     <div class="custradio">
-                                        <input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" >
+                                        <input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="onChange();xrvt=false;" [(ngModel)]="rvtp.value" >
                                         <label for="rvtype2"></label>
                                     </div> 
                                 </td>
@@ -264,10 +319,15 @@
                             <!--Pop up-->
                             <tr>
                                 <td>Pop-up</td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="xrvp" type="checkbox" id="xrvp" [(ngModel)]="xrvp" [disabled]="rvtp.value=='P'">
+                                                <label for="xrvp"></label>
+                                            </div>
+                                </td>
                                 <td class="text-center">
                                     <div class="custradio">
-                                        <input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="onChange()" [(ngModel)]="rvtp.value" >
+                                        <input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="onChange();xrvp=false;" [(ngModel)]="rvtp.value" >
                                         <label for="rvtype3"></label>
                                     </div> 
                                 </td>
@@ -282,9 +342,9 @@
                     <div class="col-xs-12"><hr></div>
                 </div>
                 <!-- Ancillary Section-->
-                <div *ngIf="hasancl">
-                    <div class="col-xs-12"><h3 *ngIf="hasancl">Ancillary Options</h3></div>
-                    <div class="col-sm-6">
+                <div *ngIf="hasancl || haslntp">
+                    <div class="col-xs-12"><h3>Ancillary Options</h3></div>
+                    <div class="col-sm-6" *ngIf="hasancl">
                             <label class="flat-input inputlabel">Default Eligibility</label>
                             <span class="flat-input">
                                 <select  autocomplete="new-password" class="form__select" name="ancl" id="ancl" [(ngModel)]="ancl.value" (change)="onChange()">
@@ -294,7 +354,7 @@
                                 </select>
                             </span>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" *ngIf="haslntp">
                                 <label class="flat-input inputlabel">Default Loan Type</label>
                                 <span class="flat-input">
                                     <select  autocomplete="new-password" class="form__select" name="lntp" id="lntp" [(ngModel)]="lntp.value" (change)="onChange()">
@@ -308,12 +368,12 @@
                     <div class="col-xs-12"><hr></div>
                 </div>
                 
-                <div class="col-md-12 hidden-xs">
+                <div class="col-md-12 hidden-xs" *ngIf="hasrv || hasplnk || hasancl || haslntp">
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right" style="margin:10px 0" title="Update">Update</button>
                     </span>
                 </div>
-                <div class="col-md-12 hidden-sm hidden-md hidden-lg">
+                <div class="col-md-12 hidden-sm hidden-md hidden-lg"  *ngIf="hasrv || hasplnk || hasancl || haslntp">
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">Update</button>
                         </span>

@@ -7,12 +7,27 @@ export class Contractdata{
 
 export class bodyData{
 
-     mode : string = "SAVE";
-      veh : Vehicle;
- contract : Cont;
- months : string;
- mindwn : string;
-     dnup : String;
+        mode : string = "SAVE";
+        veh : Vehicle;
+        contract : Cont;
+        months : string;
+        mindwn : string;
+        plnk: string;
+        lntp: string;
+        xptf:boolean;
+        xptm:boolean;
+        xpta:boolean;
+        xptc:boolean;
+        xpc1:boolean;
+        xpc2:boolean;
+        xpc3:boolean;
+        xpc4:boolean;
+        xpc5:boolean;
+        xm12:boolean;
+        xm15:boolean;
+        xm18:boolean;
+        xm24:boolean;
+        dnup : String;
  dspasnew : [string];
    states : [State];
     srchg : [Srchg];
@@ -127,6 +142,7 @@ export class Single{
     cov : string = "";
     cvds: string = "";
     ded : string = "";
+    desc: string = "";
    cvmn : string = "";
    cvml : string = "";
    term : string = "";

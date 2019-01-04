@@ -90,18 +90,19 @@
                         <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 style="margin-bottom: 0">OR</h4></div>
                         <div class="text-center" *ngIf="pagedata.body.type==='R' || (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                           <hr style="margin:0 0 15px 0">
-                          <div class="col-sm-3 text-left">
+                          <div class="col-sm-3 text-left" *ngIf="!pagedata.body.xrvm">
                               <div class="custradio"><input name="rvtype" id="rvtype1" value="M" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype" ><label for="rvtype1"></label></div>
                               <label class="checklabel" style="font-weight: bold;" for="rvtype1">Motorhome</label> 
                           </div>
-                          <div class="col-sm-5 text-left">
+                          <div class="col-sm-5 text-left" *ngIf="!pagedata.body.xrvt">
                               <div class="custradio"><input name="rvtype" id="rvtype2" value="T" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype"><label for="rvtype2"></label></div>
                               <label class="checklabel" style="font-weight: bold;" for="rvtype2">Travel Trailer</label>
                           </div>
-                          <div class="col-sm-4 text-left">
+                          <div class="col-sm-4 text-left" *ngIf="!pagedata.body.xrvp">
                               <div class="custradio"><input name="rvtype" id="rvtype3" value="P" type="radio"  (change)="rvchange()" [(ngModel)]="rvtype"><label for="rvtype3"></label></div>
                               <label class="checklabel" style="font-weight: bold;" for="rvtype3">Pop-Up</label>
                           </div>
+                          <div class="clearfix"></div>
                         </div>
                         
                         <div><span class="errorspan2 alert-danger"  [class.hidden]="vin.erlevel==='S'" [class.validating]="vin.erlevel=='D' || validating">{{vin.message}}</span>&nbsp;

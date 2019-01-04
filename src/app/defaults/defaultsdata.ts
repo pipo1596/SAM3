@@ -15,6 +15,7 @@ export class bodyData{
 
             lntpdrp:[Drp];
             plnkon: boolean;
+            haslntp: boolean;
             pln:plans;
             
             xptf: boolean;

@@ -244,6 +244,7 @@ export class Lienholders2Component implements OnInit {
   					this.newRec.namei= this.selectedRec.name;
 					this.newRec.dlr = this.pagedata.head.currdlr; 
 					this.newRec.lhno = this.dispAlert.data;
+					this.newRec.chek = true;
 
   					this.pagedata.filters.push(JSON.parse(JSON.stringify(this.newRec)));
 

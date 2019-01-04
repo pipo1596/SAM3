@@ -177,11 +177,11 @@
                                         <label class="flat-input inputlabel" style="margin-top:10px">Min 5% Down</label>
                                         <div class="flat-input w100">
                                             <select class="form__select w100" name="mindwn" [(ngModel)]="mindwn" (change)="calcChng('mindwn')" >
-                                                <option value="5">5%</option>
-                                                <option value="10">10%</option>
-                                                <option value="20">20%</option>
-                                                <option value="30">30%</option>
-                                                <option value="40">40%</option>
+                                                <option value="5"  *ngIf="!pagedata.body.xpc5">5%</option>
+                                                <option value="10" *ngIf="!pagedata.body.xpc1">10%</option>
+                                                <option value="20" *ngIf="!pagedata.body.xpc2">20%</option>
+                                                <option value="30" *ngIf="!pagedata.body.xpc3">30%</option>
+                                                <option value="40" *ngIf="!pagedata.body.xpc4">40%</option>
                                                 <option *ngIf="caldwn!==''" value="{{caldwn}}">{{caldwn}}%</option>
                                             </select>
                                         </div>
@@ -197,10 +197,10 @@
                                         <label class="flat-input inputlabel" style="margin-top:10px"># Months</label>
                                         <div class="flat-input w100">
                                             <select class="form__select w100" name="months" [(ngModel)]="months"  (change)="calcChng('months')" >
-                                                <option value="12">12</option>
-                                                <option value="15">15</option>
-                                                <option value="18">18</option>
-                                                <option value="24">24</option>
+                                                <option value="12" *ngIf="!pagedata.body.xm12">12</option>
+                                                <option value="15" *ngIf="!pagedata.body.xm15">15</option>
+                                                <option value="18" *ngIf="!pagedata.body.xm18">18</option>
+                                                <option value="24" *ngIf="!pagedata.body.xm24">24</option>
                                             </select>
                                         </div>
                                         <label class="flat-input inputlabel" style="margin-top:10px">Monthly Payment</label>
@@ -600,7 +600,8 @@
                                         </th>
                                         <ng-container *ngFor="let col of table.cols" >
                                             <th scope="col" *ngIf="col.check">
-                                                 <b>${{col.ded}}</b>
+                                                    <b *ngIf="!col.desc || col.desc ==''">${{col.ded}}</b>
+                                                    <b *ngIf="col.desc && col.desc !==''">{{col.desc}}</b>
                                             </th>
                                         </ng-container>
                                     </tr>
