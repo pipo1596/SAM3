@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Contractdata , VindData} from './contractdata'; 
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-contract',
