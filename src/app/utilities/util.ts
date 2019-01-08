@@ -395,7 +395,10 @@ static focusById(id){
 static selectById(id){
     $("#"+id).focus();
     setTimeout(function(){ 
-        $("#"+id).select();},200);
+        //$("#"+id).select();
+        
+        $("#"+id)[0].setSelectionRange(0,9999);
+    },200);
 }
 //===================================================================================//
 static showWait2(message){

@@ -573,6 +573,11 @@ ngOnInit() {
               this.pagedata.body.type = plan.plnt;
               this.pagedata.body.ckprgs.push(obj);
               Util.checkbyid('chk'+plan.prg+plan.ratc); 
+              if(this.arrlob.indexOf(plan.lob)==-1) this.arrlob.push(plan.lob);
+              this.arrlobAll.push(plan.lob);
+              if(plan.dspasn == "Y") this.arrdspn.push("Y");
+              if(this.arrlobAll.indexOf("AUTO")<0 && this.arrlobAll.indexOf("RV")<0 &&  this.arrdspn.length > 0 && this.pagedata.body.ckprgs.length>0){
+                this.neednew = true;}
             }
           }
           Util.hideWait();
