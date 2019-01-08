@@ -6,6 +6,7 @@ import { Usersdata , User } from './usersdata';
 import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { utimesSync } from 'fs';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class UsersComponent implements OnInit {
   hasnum = false;
   matchp = false;
   haschr8= false;
-  initload = true;
+  initload=true;
   mode = "ADD";
   modebtn = "ADD";
   useri = "";
@@ -546,10 +547,12 @@ changePass(){
     .initService({"mode":xmode,"currdlr":this.dlrusr},Util.Url("CGICUSERSS"))
     .subscribe(data => this.pagedata = data,
       err => { Util.responsiveMenu();Util.hideWait(); },
-      () => { 
-        if(this.initload){Util.responsiveMenu(); this.initload = false;}
+      () => { if(this.initload)
+                Util.responsiveMenu(); 
+              else
+                Util.resetMenu();
         Util.setHead(this.pagedata.head);
-       
+       this.initload = false;
       //Sort By User Ascending
         this.pagedata.users =  Util.sortByKey(this.pagedata.users, "user","A");
 

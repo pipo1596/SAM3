@@ -150,6 +150,13 @@ static hideWait(){
 
 
 }
+static resetMenu(){
+    $(window).off('resize');
+    $(window).off('scroll');
+    $('.btn-menu').off('click');
+    $(document).off('click');
+    this.responsiveMenu();
+}
 static makeid() {
     var text = "";
 

@@ -16,7 +16,6 @@ export class DescoverrideComponent implements OnInit {
 	validating = false;
 	valid = false;
 	changes = false;
-	initload = true;
 	modebtn = "ADD";
 	//Input Fields
 	srky = new Textfield;
@@ -26,6 +25,7 @@ export class DescoverrideComponent implements OnInit {
 	dlr  = new Textfield;
 	prg  = new Textfield;
 	lob	 = new Textfield;
+	initload = true;
 	cmpc:string = "INT";
 	//Alerts
   dispAlert = new Dispalert();
@@ -283,7 +283,11 @@ export class DescoverrideComponent implements OnInit {
   		err => {Util.hideWait(); },
   		() => {
 			Util.setHead(this.pagedata.head);
-			if(this.initload){Util.responsiveMenu();this.initload = false;}
+			  if(this.initload)
+					  Util.responsiveMenu();
+			  else
+					  Util.resetMenu();
+			this.initload = false;		  
   			if (this.pagedata.head.status === "O" || !this.pagedata.head.as400) {
   				Util.showWait();
   				setTimeout(() => {
