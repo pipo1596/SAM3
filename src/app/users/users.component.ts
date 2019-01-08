@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit {
   hasnum = false;
   matchp = false;
   haschr8= false;
+  initload = true;
   mode = "ADD";
   modebtn = "ADD";
   useri = "";
@@ -545,7 +546,8 @@ changePass(){
     .initService({"mode":xmode,"currdlr":this.dlrusr},Util.Url("CGICUSERSS"))
     .subscribe(data => this.pagedata = data,
       err => { Util.responsiveMenu();Util.hideWait(); },
-      () => { Util.responsiveMenu(); 
+      () => { 
+        if(this.initload){Util.responsiveMenu(); this.initload = false;}
         Util.setHead(this.pagedata.head);
        
       //Sort By User Ascending
