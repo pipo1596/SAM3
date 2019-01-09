@@ -26,7 +26,6 @@ export class Quote2Component implements OnInit {
   chkdcoverages:any;
   warnings:any;
   covnum:number = 0;
-  hascover:boolean = false;
 
   expvehc : boolean = false;
   
@@ -99,6 +98,11 @@ export class Quote2Component implements OnInit {
       this.validc = false; if (parent.cov.coverages.length <=0) this.validc = true;
       this.validt = false; if (parent.trm.terms.length <=0) this.validt = true;
       this.validd = false; if (parent.ded.deductibles.length <=0) this.validd = true;
+      if(!parent.hascov || !parent.hastrm){
+        this.validc = true;
+        this.validt = true;
+        this.validd = true;
+      }
       var allexcl = true;
       parent.cov.coverages.forEach(coverage=>{
         if(coverage.check) coverage.check2 = false; else allexcl = false;
@@ -258,7 +262,8 @@ export class Quote2Component implements OnInit {
 
   defaultCheck() {
     this.pagedata.body.data.forEach((eachObj)=>{
-      if(eachObj.cov.coverages.length > 0) this.hascover = true;
+      eachObj.cov.coverages.every(element => {if(!element.check) eachObj.hascov = true;return true;});
+      eachObj.trm.terms.every(element => {if(!element.check) eachObj.hastrm = true;return true;});
       if (this.pagedata.body.chkdf.length > 0){
       //Coverages
       eachObj.cov.coverages.forEach(element => {
@@ -392,11 +397,7 @@ export class Quote2Component implements OnInit {
           }
           
           this.checkData('L');
-          if(this.hascover){
           this.loading = false;
-          }else{
-            Util.modalid("show","nocoverages");
-          }
 
         } 
 

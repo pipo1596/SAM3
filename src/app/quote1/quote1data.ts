@@ -75,3 +75,33 @@ export class dms{
     miles :string;
     insrvc:string;
 }
+
+export class Data1{
+    data : [Data];
+}
+
+export class Data{
+    prg  :string ="";
+    ratc :string ="";
+    lobc :string ="";
+    desc :string ="";
+    showct: boolean = false;
+    hasoc:boolean=false;
+    ctrct :string ="";
+    valu :string="";
+    catg :string="";
+    open :boolean =false;
+    dflt: boolean = false;
+    mesg :string = "";
+    cov  = new Coverages;
+    trm  = new Terms ;  
+}
+export class Coverages{
+    operation :string="";
+    coverages :[any]; 
+}
+
+export class Terms{
+    operation :string="";
+    terms :[any];
+}

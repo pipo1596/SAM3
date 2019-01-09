@@ -290,5 +290,22 @@
           </div>
         </div>
       </div>
+      <div class="modal" id="nocoverages" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title pull-left" id="alertTitle">No Coverages Available!</h4>
+            </div>
+            <div class="modal-body">
+              <p> No <span *ngIf="!hascover">Coverages</span> 
+                     <span *ngIf="!hascover && !hasterm"> / </span>
+                     <span *ngIf="!hasterm">Terms</span> available because vehicle is out of eligibility.</p>
+            </div>
+            <div class="modal-footer">
+              <a style="padding:8px 30px" type="button" class="btn btn-primary" href="javascript:void(0)" (click)="closecov()" >Continue</a>
+            </div>
+          </div>
+        </div>
+      </div>
 </section>
 <app-footer></app-footer>

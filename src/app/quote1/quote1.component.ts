@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Util } from '../utilities/util';
 import { Dispalert , Errsetter } from '../utilities/dispalert'; 
 import { Router } from '@angular/router'; 
-import { Quote1data } from './quote1data'; 
+import { Quote1data, Data1 } from './quote1data'; 
 import { JsonService } from '../utilities/json.service'; 
 import { Textfield } from '../utilities/textfield';
 
@@ -27,7 +27,10 @@ export class Quote1Component implements OnInit {
   arrdspn = [];
   neednew:boolean = false;
   notfoc:boolean = true;
-
+  data1 = new Data1;
+  hascover:boolean = false;
+  hasterm:boolean = false;
+  hasboth:boolean = false;
   prevVin:string ="";
   ran:string = Util.makeid();
   
@@ -317,9 +320,10 @@ checkStep1(){
                             if(this.errSet.status !== "S") this.dispAlert.setMessage(this.errSet);
                             if (this.errSet.status === "S") {
                               Util.showWait();
-                              setTimeout(() => {
-                                this.router.navigate(['/app/Quote2']);
-                              }, 100);
+                              this.checkcoverages();
+                              //setTimeout(() => {
+                              //  this.router.navigate(['/app/Quote2']);
+                              //}, 100);
                                this.changes = false; 
                                  }else{
           Util.hideWait();
@@ -333,6 +337,37 @@ checkStep1(){
     
 }
 
+checkcoverages(){
+  this.jsonService
+      .initService({ "mode": "INIT1","tabid": sessionStorage.getItem("tabid") }, Util.Url("CGICQUOTE2"))
+      .subscribe(data => this.data1 = data,
+        err => {Util.hideWait();},
+        
+        () => {
+          
+          this.data1.data.every((eachObj)=>{
+            this.hascover = false;
+            //Has Coverages
+              eachObj.cov.coverages.forEach(element => {if(!element.check) this.hascover = true;return;});
+            if(this.hascover){
+              eachObj.trm.terms.forEach(element => {if(!element.check) this.hasterm = true;return;});
+            }
+            if(this.hascover && this.hasterm)
+            { this.hasboth = true;
+              return false;
+            }
+          })
+          if(this.hasboth){
+            this.router.navigate(['/app/Quote2']);
+          }else{
+            Util.hideWait();
+            Util.modalid("show","nocoverages");
+          }
+        });
+}
+closecov(){
+  Util.modalid("hide","nocoverages");
+}
 onChange() {
   this.validating = false;
   this.dispAlert.default();

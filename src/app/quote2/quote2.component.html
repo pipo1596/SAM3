@@ -157,29 +157,7 @@
                        
                     </div>
                     <div class="clearfix"></div>
-                   <!-- <div clas="row" style="margin:10px 0px 30px 0px" *ngIf="listoc>0">
-                        <div class="col-md-12" style="padding:0">
-                            <h2>Optional Coverages</h2>
-                        </div>
-                        <ng-container *ngFor="let schg of pagedata.body.srchg ;let s = index">
-                        <div class="col-sm-4" *ngIf="schg.type =='OC'">
-                           
-                                <span class="flat-input-checkbox" >
-                                    <div class="custcheck" >
-                                        <input name="plan" [checked]="schg.chek"    type="checkbox" class="c1" [checked]="schg.chek" >
-                                        <label (click)="toggleschg(schg)"></label>
-                                    </div>
-                                    <label class="checklabel"(click)="toggleschg(schg)">{{schg.desc}}</label>
-                                </span>
-                            
-                        </div>
-                        <div class="clearfix" *ngIf="schg.type =='OC' && (s-listvf+1)%3 == 0"></div>
-                    </ng-container>
-                        
-                        
-                        
-                        <div class="col-md-12" style="padding:0"><hr></div>
-                    </div>-->
+                   
                     <div class="row" style="margin:10px 0px 10px 0px">
                         
                     </div>
@@ -231,6 +209,11 @@
                             </div>
                             <div class="clearfix hidden-sm" *ngIf="coverage.clrf"></div>
                         </ng-container>
+                        <div class="col-xs-12" *ngIf="!datads.hascov"  style="margin-top:15px">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>No coverage available</strong> because vehicle is out of eligibility
+                          </div>
+                        </div>
                         <!--Stacked-->
                     </div>
                     <div class="col-xs-12"><hr></div>
@@ -245,6 +228,11 @@
                             </span>
                             </div>
                         </ng-container>
+                        <div class="col-xs-12" *ngIf="!datads.hastrm">
+                            <div class="alert alert-danger" role="alert" style="margin-top:15px">
+                                <strong>No terms available</strong> because vehicle is out of eligibility
+                              </div>
+                            </div>
                     </div>
                     <div class="col-xs-12"><hr></div>
                     <div class="col-xs-12" style="padding:15px 0 0 5px;">
@@ -283,20 +271,6 @@
           </div>
         </div>
       </div>
-    <div class="modal" id="nocoverages" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title pull-left" id="alertTitle">No Coverages Available!</h4>
-            </div>
-            <div class="modal-body">
-              <p>Vehicle is not eligible for coverage, please return to step 1 to quote a different vehicle.</p>
-            </div>
-            <div class="modal-footer">
-              <a style="padding:8px 30px" type="button" class="btn btn-primary" routerLink="/app/Quote1" >Continue</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    
 </section>
 <app-footer></app-footer>

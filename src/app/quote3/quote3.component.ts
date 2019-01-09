@@ -242,6 +242,8 @@ export class Quote3Component implements OnInit {
     data.open = !status;
     Util.scrollToId('step3left');
     var i = 0;
+    var i2 = 0;
+    var foundtable = false;
     this.pagedata.body.tables.forEach(table => {
       var index = -1;
       if (table.rates !== undefined) index = table.rates.findIndex(obj => (obj.program == data.prg && obj.ratc == data.ratc));
@@ -250,10 +252,14 @@ export class Quote3Component implements OnInit {
         //          this.pagedata.body.tables[0] = this.pagedata.body.tables[i];
         //          this.pagedata.body.tables[i] = tmp;
         this.firsttable = i;
+        foundtable = true;
+      }
+      else{
+        if (table.rates == undefined) i2= i;
       }
       i++;
     });
-
+    if(!foundtable) this.firsttable = i2;
     Util.hideWait();
   }
   //==================================================================================================//
@@ -1298,8 +1304,20 @@ export class Quote3Component implements OnInit {
             this.pagedata.body.tables = Util.sortByKey(this.pagedata.body.tables, "desc", "A");
             this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
             this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
-            this.pagedata.body.data[0].open = true;
+            //this.pagedata.body.data[0].open = true;
             }
+
+            var prg;
+            var ratc;
+            var foundfirst = false;
+            this.pagedata.body.data.forEach((elem) =>{
+              elem.cov.coverages.forEach((cv)=>{
+                if(!cv.check){
+                  if(!foundfirst) {elem.open = true; prg=elem.prg; ratc = elem.ratc; foundfirst=true;}
+                }
+              });
+              if(elem.open) return true;
+            });
             this.pagedata.body.coverages.forEach(cov => {
               var p = parseInt(cov.index.substring(0, 3));
               var t = parseInt(cov.index.substring(4, 7));
@@ -1338,6 +1356,13 @@ export class Quote3Component implements OnInit {
                     })
                 })
               }
+
+              var index = -1;
+      if (elm.rates !== undefined) index = elm.rates.findIndex(obj => (obj.program == prg && obj.ratc == ratc));
+      if (index >= 0) {
+        this.firsttable = i;
+      }
+      i++;
   
             });
             if(i>0 && this.pagedata.body.tables.length ==1){

@@ -216,7 +216,7 @@
                 <input class="pull-left" style="margin-right:15px;width:200px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  (focus)="clearagent()" type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
             </div>
-            <div class="col-sm-6 col-xs-12" *ngIf="headdata.as400">
+            <div class="col-sm-6 col-xs-12" style="padding:0 8px;" *ngIf="headdata.as400">
                 <label  class="pull-left" style="font-weight: bold;clear:left;">Agent Code / Name</label>
                 <input  class="pull-left" style="margin-right:15px;width:200px;clear:left;" [disabled]="process3" id="agentsearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="agent" (keyup)="agentSearch()" (focus)="cleardealer()" (blur)="agnblur()" type="text" placeholder="Agent Code / Name" maxlength="30">
                 <div *ngIf="process2" class="loader2 pull-left" style="margin-top:5px"></div>

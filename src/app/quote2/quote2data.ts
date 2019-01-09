@@ -25,6 +25,8 @@ export class Data{
     desc :string ="";
     showct: boolean = false;
     hasoc:boolean=false;
+    hascov:boolean=false;
+    hastrm:boolean=false;
     ctrct :string ="";
     valu :string="";
     catg :string="";
