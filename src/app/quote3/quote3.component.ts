@@ -1335,6 +1335,7 @@ export class Quote3Component implements OnInit {
 
             //Default Fuccillo Conditional Programs if firt time.
             var i=0;
+            var j=0;
             
             this.pagedata.body.tables.forEach((elm,parent)=>{
               if(elm.dflt){
@@ -1360,9 +1361,9 @@ export class Quote3Component implements OnInit {
               var index = -1;
       if (elm.rates !== undefined) index = elm.rates.findIndex(obj => (obj.program == prg && obj.ratc == ratc));
       if (index >= 0) {
-        this.firsttable = i;
+        this.firsttable = j;
       }
-      i++;
+      j++;
   
             });
             if(i>0 && this.pagedata.body.tables.length ==1){

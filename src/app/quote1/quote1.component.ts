@@ -251,6 +251,7 @@ checkStep1(){
     //RV
     if(this.rvmode){
       if(this.price.value == "" || this.price.value == null){this.price.message = "(Required)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
+      if(parseInt(this.price.value) > 9999999){this.price.message = "(Too High)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
       if(parseInt(this.price.value) <= 0){this.price.message = "(Invalid)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
     }  
     //WT //Lease Mode
