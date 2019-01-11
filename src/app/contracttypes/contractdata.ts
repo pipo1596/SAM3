@@ -19,7 +19,6 @@ export class Prg{
 
 export  class Cont{
     mode : string;
-    code : string;
     codei: string;
     desc : string;
     catg : string;
@@ -27,14 +26,34 @@ export  class Cont{
     valu : number;
     prgm : string;
     prgmd: string;
+    dflt : boolean;
+    sepr : boolean;
     public default(mode){
         this.mode = mode;
-        this.code = "";
         this.desc = "";
         this.catg = "";
         this.catgd = "";
         this.valu = null;
         this.prgm = "";
+        this.prgmd = "";
+        this.sepr = false;
+    }
+}
+export  class Conte{
+    mode : string;
+    desc : string;
+    catg : string;
+    catgd: string;
+    valu : number;
+    prgm : [any];
+    prgmd: string;
+    public default(mode){
+        this.mode = mode;
+        this.desc = "";
+        this.catg = "";
+        this.catgd = "";
+        this.valu = null;
+        this.prgm = [''];
         this.prgmd = "";
     }
 }

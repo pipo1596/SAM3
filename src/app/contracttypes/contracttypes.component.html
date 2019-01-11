@@ -10,20 +10,15 @@
         </div> 
         <div class="row white"> 
 
-            <form *ngIf="selectedRec" class="contactform style4 clearfix panel-body" method="post" style="display:none" (submit)="checkData()"
+            <form class="contactform style4 clearfix panel-body" method="post" style="display:none" (submit)="checkData()"
                 id="topform"  autocomplete="off">
                 <div class="col-md-12">
                     <h2>{{modebtn}} Contract Type</h2>
                     <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
-                <div class="col-sm-6">
-                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Code
-                        <span class="errorspan2" [class.opqquezero]="code.message===''" [class.alert-danger]="code.erlevel==='D'"  [class.validating]="validating">{{code.message}}</span> 
-                    </label>
-                    <div class="flat-input w100">
-                        <input autocomplete="new-password" style="text-transform: uppercase;" id="code" name="code" type="text" placeholder="Code" [class.required]="code.message !==''"  [class.validating]="validating" [(ngModel)]="selectedRec.code" maxlength="30" (change)="onChange()">
-                    </div>
+                <!--Edit Mode-->
+                <div class="col-sm-6" *ngIf="selectedRec && modebtn == 'SAVE'">
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Program
                         <span class="errorspan2" [class.opqquezero]="prgm.message===''" [class.alert-danger]="prgm.erlevel==='D'"  [class.validating]="validating">{{prgm.message}}</span> 
                     </label>
@@ -45,7 +40,27 @@
                         </select>
                     </span>
                 </div>
-                <div class="col-sm-6">
+                <!--Enter Mode-->
+                <div class="col-sm-6" *ngIf="selectedRecE && modebtn == 'ADD'">
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Program
+                        <span class="errorspan2" [class.opqquezero]="prgme.message===''" [class.alert-danger]="prgme.erlevel==='D'"  [class.validating]="validating">{{prgme.message}}</span> 
+                    </label>
+                   
+                        <ng-container *ngFor="let plan of selectedRecE.prgm;let i=index">
+                        <div class="col-xs-12 " style="margin:5px 0;font-weight: bold">
+                        <div class="custcheck">
+                            <input name="box{{i}}" type="checkbox" id="box{{i}}" [(ngModel)]="plan.check" (change)="onChange()" >
+                            <label for="box{{i}}"></label>
+                        </div>
+                        <label class="checklabel" style="display:inline-block" for="box{{i}}">{{plan.desc}}</label>
+                        </div>
+                        </ng-container>
+
+                   
+                    
+                </div>
+                <!--Edit Mode-->
+                <div class="col-sm-6" *ngIf="selectedRec && modebtn == 'SAVE'">
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Description
                         <span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'"  [class.validating]="validating">{{desc.message}}</span> 
                     </label>
@@ -61,8 +76,34 @@
                     <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
                     
                 </div>
+                <!--Enter Mode-->
+                <div class="col-sm-6" *ngIf="selectedRecE && modebtn == 'ADD'">
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Category
+                        <span class="errorspan2" [class.opqquezero]="catge.message===''" [class.alert-danger]="catge.erlevel==='D'"  [class.validating]="validating">{{catge.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select  autocomplete="new-password" class="form__select" name="catge" id="catge" [(ngModel)]="selectedRecE.catg" [class.required]="catge.message !==''"  [class.validating]="validating"  (change)="onChange()">
+                            <option value="">Select</option>
+                            <option *ngFor="let categ of pagedata.categories" [value]="categ.key" [attr.selected]="categ.key==selectedRecE.catg ? true : null">{{categ.desc}}</option>
+                        </select>
+                    </span>
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Description
+                        <span class="errorspan2" [class.opqquezero]="desce.message===''" [class.alert-danger]="desce.erlevel==='D'"  [class.validating]="validating">{{desce.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password"  name="desce" type="text" placeholder="Description" [class.required]="desce.message !==''"  [class.validating]="validating" [(ngModel)]="selectedRecE.desc" maxlength="100"  (change)="onChange()">
+                    </div>
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Value
+                            <span class="errorspan2" [class.opqquezero]="value.message===''" [class.alert-danger]="value.erlevel==='D'"  [class.validating]="validating">{{value.message}}</span> 
+                    </label>
+                    <div class="flat-input w100">
+                        <input autocomplete="new-password" name="value" type="number" placeholder="Value" [class.required]="value.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRecE.valu" maxlength="10"  (change)="onChange()">
+                    </div>
+                    <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
+                    
+                </div>
                 <div class="clearfix"></div>
-                <div class="col-md-12 hidden-xs">
+                <div class="col-md-12 hidden-xs" style="margin-top:15px;">
                     <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} User">{{modebtn}} Contract Type</button>
@@ -96,12 +137,15 @@
                 <h2 class="pull-left">Contract Types</h2>
                 <a href="javascript:void(0)" name="submit" class="flat-button pull-right" title="New Contract Type"
                     (click)="addRecInit()" id="addnewb">New Contract Type</a>
+                    <span class="flat-input" *ngIf="savedflt">
+                            <button name="submit" type="button" (click)="savedflts()" class="pull-right btn-danger" style="padding:16px 36px 15px 34px;margin-right:10px" title="Save">SAVE</button>
+                        </span> 
                 <div class="p-table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>
-                                    <b>Code</b>
+                                    <b>Program</b>
                                 </th>
                                 <th>
                                     <b>Description</b>
@@ -112,9 +156,7 @@
                                 <th>
                                     <b>Value</b>
                                 </th>
-                                <th>
-                                    <b>Program</b>
-                                </th>
+                                
                                 <th></th>
                             </tr>
                         </thead>
@@ -122,16 +164,28 @@
                             <tr *ngIf="pagedata.contracts && pagedata.contracts.length <1">
                                 <td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Contract Types To List----</h4></td>                        
                             </tr>
-                            <tr *ngFor="let cont of pagedata.contracts">
-                                <td data-label="Code">{{cont.code}}</td>
+                            <ng-container *ngFor="let cont of pagedata.contracts">
+                            <tr *ngIf="cont.sepr">
+                                <td colspan="6" style="text-align: right;background: whitesmoke;"><b>Default</b></td>
+                            </tr>
+                            <tr >
+                                <td data-label="Program">{{cont.prgmd}}</td>
                                 <td data-label="Description">{{cont.desc}}</td>
                                 <td data-label="Category">{{cont.catgd}}</td>
                                 <td data-label="Value">{{cont.valu | number:'1.2-2'}}</td>
-                                <td data-label="Sub LOB">{{cont.prgmd}}</td>
-                                <td data-label="">
+                                <td data-label="Edit">
                                     <a href="javascript:void(0)" (click)="onSelect(cont)" class="btn btn-warning btnedit">Edit</a>
                                 </td>
+                                <td data-label="Default">&nbsp;
+                                    <div class="custradio" style="float:right;margin-right: 15px"  (click)="setdefault(cont)">
+                                            <input name="dflt{{cont.prgmd}}" id="radio{{cont.codei}}"  type="radio"  [checked]="cont.dflt" >
+                                            <label for="radio{{cont.codei}}"></label>
+                                        </div> 
+                                </td>
+                                
                             </tr>
+                            </ng-container>
+
                         </tbody>
                     </table>
                 </div>
