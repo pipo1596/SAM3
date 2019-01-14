@@ -104,6 +104,7 @@ export class ContracttypesComponent implements OnInit {
             var pvpgm = "";
             this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts,"prgmd","desc","A");
         this.pagedata.contracts.forEach((elem)=>{
+          elem.sepr = false;
           if(pvpgm !== elem.prgm)
             elem.sepr = true;
           pvpgm = elem.prgm;
@@ -212,6 +213,7 @@ export class ContracttypesComponent implements OnInit {
             var pvpgm = "";
             this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts,"prgmd","desc","A");
         this.pagedata.contracts.forEach((elem)=>{
+          elem.sepr = false;
           if(pvpgm !== elem.prgm)
             elem.sepr = true;
           pvpgm = elem.prgm;
@@ -286,6 +288,7 @@ export class ContracttypesComponent implements OnInit {
           this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts,"prgmd","desc","A");
           var pvpgm = "";
         this.pagedata.contracts.forEach((elem)=>{
+          elem.sepr = false;
           if(pvpgm !== elem.prgm)
             elem.sepr = true;
           pvpgm = elem.prgm;
@@ -329,6 +332,7 @@ export class ContracttypesComponent implements OnInit {
         
         var pvpgm = "";
         this.pagedata.contracts.forEach((elem)=>{
+          elem.sepr = false;
           if(pvpgm !== elem.prgm)
             elem.sepr = true;
           pvpgm = elem.prgm;

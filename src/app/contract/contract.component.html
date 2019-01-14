@@ -697,5 +697,20 @@
               </div>
             </div>
           </div>
+    <div class="modal" id="costwarning" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Cost warning!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Price of contract is less than the contract cost.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="hidemdl('costwarning');" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
 </section>
 <app-footer></app-footer>

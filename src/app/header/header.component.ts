@@ -168,13 +168,14 @@ public logOutTimer(mode){
     clearTimeout(this.logMeOut);
     Util.hidebyid("toolate");
     Util.showbyid("staylogin");
-
+if(!this.stage){
     this.modalIn = setTimeout(()=>{ 
         this.hideVersion();
         this.hideAlert();
         if(this.headdata.status === "I") { Util.modal("show");}
         }, 1800000);
     this.logMeOut = setTimeout(()=>{ Util.hidebyid("staylogin");Util.showbyid("toolate");}, 1820000);
+}
 }
 
 public logOutTimerB(mode){

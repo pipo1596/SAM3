@@ -1074,8 +1074,8 @@ export class Quote3Component implements OnInit {
           table.catg = this.cont.catg;
           if(table.valu == null) table.valu = 0;
           
-          if (table.valu == undefined || table.valu == -1.2323 || mode=='M'){if(this.cont.catg=='OTC') table.valu = parseFloat(this.cont.valu);}
-          if (mode == 'D' && this.cont.catg == 'OTC') this.cont.valu = table.valu.toFixed(2);
+          if (table.valu == undefined || table.valu == -1.2323 || mode=='M'){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
+          if (mode == 'D' && (this.cont.catg == 'OTC' || this.cont.catg == 'OTR')) this.cont.valu = table.valu.toFixed(2);
         }
 
         table.rates.forEach((rate, i1) => {
@@ -1104,6 +1104,9 @@ export class Quote3Component implements OnInit {
                       break;
                     case "OTC":
                       unitp[0] = unitp[0] + table.valu;
+                      break;
+                    case "OTR":
+                      unitp[0] = parseFloat(this.cont.valu);
                       break;
                     case "RTL":
                       unitp[0] = parseFloat(this.cont.valu);
@@ -1280,7 +1283,7 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
-          if (table.valu == undefined && this.cont.catg =='OTC') table.valu = parseFloat(this.cont.valu);
+          if (table.valu == undefined && (this.cont.catg =='OTC' || this.cont.catg=='OTR')) table.valu = parseFloat(this.cont.valu);
         }
       }
 

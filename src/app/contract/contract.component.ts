@@ -56,6 +56,7 @@ export class ContractComponent implements OnInit {
   //LH Popup
   validatinglh = false;
   validlh = false;
+  costwrn = false;
   months: string = "12";
   mindwn: string = "5";
   caldwn: string = "";
@@ -418,10 +419,10 @@ export class ContractComponent implements OnInit {
     }
   }
   hidePdf(){
-    Util.modalid('hide','contractModal')
+    Util.modalid('hide','contractModal');
   }
   hidemdl(id){
-    Util.modalid('hide',id)
+    Util.modalid('hide',id);
   }
 
   loadDb() {
@@ -616,9 +617,12 @@ formatCVV() {
             Util.hideWait();
             this.vinCheck();
             var totalpn = 0;
+
             this.pagedata.body.contract.contracts.forEach(cnt =>{ 
               if(cnt.xtr7 !=='1')  totalpn += parseFloat(cnt.ccst);
+              if(cnt.ccst < cnt.covc) this.costwrn = true;
             });
+            if(this.costwrn) Util.modalid('show','costwarning');
             this.totalp = totalpn.toString();
             this.calcChng("totalp");
           }
