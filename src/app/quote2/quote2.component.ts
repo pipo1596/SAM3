@@ -295,16 +295,31 @@ export class Quote2Component implements OnInit {
         
       });
     }
-      this.pagedata.body.contracts.forEach(ctrct=>{
+    var xxctrct="",xxvalu="",xxcatg="";
+      this.pagedata.body.contracts.every(ctrct=>{
         if(ctrct.prgm.padEnd(20) == (eachObj.prg.padEnd(10) +eachObj.ratc.padEnd(10))){
           eachObj.showct = true;
-          if(eachObj.ctrct.trim() == ""){ eachObj.ctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30);
+          if(eachObj.ctrct.trim() == ""){ 
+            if(ctrct.isdf){eachObj.ctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30);
                                    eachObj.valu=ctrct.valu;
                                    eachObj.catg=ctrct.catg;
+                                    return false;
+            }else{
+              if(xxctrct ==""){
+              xxctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30);
+              xxvalu=ctrct.valu;
+              xxcatg=ctrct.catg;
+              }
+            }
                                   }
-          return false;
+          return true;
         }
       });
+      if(eachObj.ctrct.trim()==""){
+        eachObj.ctrct = xxctrct;
+        eachObj.valu= xxvalu;
+        eachObj.catg= xxcatg;
+      }
       //has OC?
       this.pagedata.body.srchg.forEach(schg=>{
         if(schg.prgm == eachObj.prg && schg.ratc == eachObj.ratc) {eachObj.hasoc = true;return;}

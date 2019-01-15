@@ -56,6 +56,7 @@ export class Cont{
     catg :string="";
     valu :string="";
     prgm :string="";
+    isdf :boolean=false;
     desc :string="";
 }
 export class Srchg{

@@ -346,18 +346,20 @@ checkcoverages(){
         
         () => {
           
-          this.data1.data.every((eachObj)=>{
+          this.data1.data.every(eachObj=>{
             this.hascover = false;
+            this.hasterm = false;
             //Has Coverages
-              eachObj.cov.coverages.forEach(element => {if(!element.check) this.hascover = true;return;});
+              eachObj.cov.coverages.forEach(element => {if(!element.check) {this.hascover = true;}});
             if(this.hascover){
-              eachObj.trm.terms.forEach(element => {if(!element.check) this.hasterm = true;return;});
+              eachObj.trm.terms.forEach(element => {if(!element.check) {this.hasterm = true;}});
             }
             if(this.hascover && this.hasterm)
             { this.hasboth = true;
-              return false;
+              return false;//breaks the loop.
             }
-          })
+            return true;
+          });
           if(this.hasboth){
             this.router.navigate(['/app/Quote2']);
           }else{

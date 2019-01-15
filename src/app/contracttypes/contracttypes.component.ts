@@ -348,7 +348,7 @@ export class ContracttypesComponent implements OnInit {
         }else{
           Util.hideWait();
         }
-        this.pagedata.programs.plans = Util.sortByKey(this.pagedata.programs.plans,"desc","A")
+        this.pagedata.programs.plans = Util.sortByKey(this.pagedata.programs.plans,"desc","A");
        }
     );
   }
