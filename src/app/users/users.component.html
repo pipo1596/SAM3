@@ -8,7 +8,7 @@
                     <h1 *ngIf="salesmode" class="title pull-left">Salespersons/Agents Maintenance</h1>
                     <div class="pull-right" *ngIf="dlrdrp && !salesmode && dlrlist && dlrlist.length > 1">
                         <label class="pull-right"><b>Dealers</b></label>
-                        <select *ngIf="dlrlist" autocomplete="new-password" class="form__select" name="dlrusr" id="dlrusr" style="width:300px;clear:right;float:right;" (change)="cancel();ngOnInit()" [(ngModel)]="dlrusr">
+                        <select *ngIf="dlrlist" autocomplete="new-password" [disabled]="showtop" class="form__select" name="dlrusr" id="dlrusr" style="width:300px;clear:right;float:right;" (change)="cancel();ngOnInit()" [(ngModel)]="dlrusr">
                                 <option *ngFor="let option of dlrlist" [attr.selected]="option.dlr==dlrusr" [value]="option.dlr" >{{option.desc}}</option>
                             </select>
                         </div>

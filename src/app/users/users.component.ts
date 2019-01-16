@@ -5,8 +5,6 @@ import { Util } from '../utilities/util';
 import { Usersdata , User } from './usersdata'; 
 import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { utimesSync } from 'fs';
 
 
 @Component({
@@ -19,6 +17,7 @@ export class UsersComponent implements OnInit {
   validating = false;
   valid = false;
   noAuth = true;
+  showtop=false;
   dealermode = false;
   salesmode = false;
   haslow = false;
@@ -65,6 +64,7 @@ export class UsersComponent implements OnInit {
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "dlrc":"",
     "agrp":"",
     "stat":"",
     "rlno":"",
@@ -82,6 +82,7 @@ export class UsersComponent implements OnInit {
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "dlrc":"",
     "agrp":"",
     "stat":"",
     "rlno":"",
@@ -249,6 +250,7 @@ removeDlr(dealer){
 onSelect(user: User): void {
   this.selectedUser.mode = "SAVE";
   this.validating = false;
+  this.showtop = true;
   this.selectedUser.user = user.user;
   this.selectedUser.useri = user.useri;
   this.selectedUser.rlno = user.rlno;
@@ -295,6 +297,7 @@ addUserInit(){
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "dlrc":"",
     "agrp":"",
     "stat":"",
     "rlno":"",
@@ -307,6 +310,7 @@ addUserInit(){
     "pswd":"",
     "dlr" :[{"dlri":"","desc":""}]
   };  
+  this.showtop = true;
   this.selectedUser.dlr.pop();
   this.dlr.erlevel ="";
   this.dlr.message ="";
@@ -369,6 +373,7 @@ cancel(){
     "smode":this.salesmode,
     "user":"",
     "useri":"",
+    "dlrc":"",
     "agrp":"",
     "stat":"",
     "rlno":"",
@@ -385,6 +390,7 @@ cancel(){
   this.changes = false;
   Util.hideWait(); 
   Util.hideUsers();
+  this.showtop = false;
   this.useri = "";
   this.mode = "ADD";
   this.modebtn = "ADD";
@@ -455,6 +461,7 @@ saveData(){
   Util.showWait();
   this.selectedUser.mode = this.mode;
   this.selectedUser.pswd = this.pswd1;
+  this.selectedUser.dlrc = this.dlrusr.toString();
   if(this.selectedUser.agrp == 'Y'){ this.selectedUser.dlr = [{"dlri":"","desc":""}]; this.selectedUser.dlr.pop();}
   this.usersService
   
@@ -471,6 +478,7 @@ saveData(){
             "smode":this.salesmode,
             "user":this.selectedUser.user,
             "useri":this.selectedUser.user,
+            "dlrc":this.selectedUser.dlrc,
             "agrp":this.selectedUser.agrp,
             "stat":this.selectedUser.stat,
             "rlno":this.selectedUser.rlno,
@@ -496,6 +504,7 @@ saveData(){
           //alert(this.index);
           this.selectedUserG.user = this.selectedUser.user;
           this.selectedUserG.rlno = this.selectedUser.rlno;
+          this.selectedUserG.dlrc = this.selectedUser.dlrc;
           this.selectedUserG.agrp = this.selectedUser.agrp;
           this.selectedUserG.stat = this.selectedUser.stat;
           this.selectedUserG.rold = Util.getSelText(this.selectedUser.rlno,this.pagedata.roles);

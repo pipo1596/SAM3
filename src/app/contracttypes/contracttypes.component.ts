@@ -51,9 +51,9 @@ export class ContracttypesComponent implements OnInit {
     this.selectedRecE.default("ADD");
     this.selectedRecE.prgm.pop();
     this.pagedata.programs.plans.forEach(prg=>{
-      var jsob ={"prgm":prg.prg.padEnd(10) + prg.ratc,"desc":prg.desc,"check":false};
+      var jsob ={"prgm":prg.prg.padEnd(10) + prg.ratc,"desc":prg.desc,"check":false,"dlob":prg.dlob,"lobd":prg.lobd};
       this.selectedRecE.prgm.push(jsob);
-    })
+    });
 
     Util.showWait();    
     Util.showTopForm();
@@ -231,7 +231,7 @@ export class ContracttypesComponent implements OnInit {
 
   setdefault(elem){
     this.pagedata.contracts.forEach(elm => {
-      if(elm.prgmd == elem.prgmd) elm.dflt = false;
+      if(elm.prgm == elem.prgm) elm.dflt = false;
       
     });
     elem.dflt = true;
@@ -337,6 +337,15 @@ export class ContracttypesComponent implements OnInit {
             elem.sepr = true;
           pvpgm = elem.prgm;
         });
+
+        var pvlob = "";
+        this.pagedata.programs.plans = Util.sortByKey(this.pagedata.programs.plans,"desc","A");
+        this.pagedata.programs.plans = Util.sortBy2Key(this.pagedata.programs.plans,"plnt","lobd","A");
+        this.pagedata.programs.plans.forEach((eachObj)=>{
+          if(pvlob =="" || pvlob !== eachObj.lobd) eachObj.dlob = true;
+          pvlob = eachObj.lobd; 
+        });
+
         this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'CONTRACT');
         if (this.pagedata.head.status === "O" || this.noAuth) {
           

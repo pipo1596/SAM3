@@ -42,12 +42,14 @@
                 </div>
                 <!--Enter Mode-->
                 <div class="col-sm-6" *ngIf="selectedRecE && modebtn == 'ADD'">
-                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Program
+                    <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>SELECT A PRODUCT 
                         <span class="errorspan2" [class.opqquezero]="prgme.message===''" [class.alert-danger]="prgme.erlevel==='D'"  [class.validating]="validating">{{prgme.message}}</span> 
                     </label>
                    
                         <ng-container *ngFor="let plan of selectedRecE.prgm;let i=index">
                         <div class="col-xs-12 " style="margin:5px 0;font-weight: bold">
+                            <hr style="margin:5px" *ngIf="plan.dlob && i>0">
+                                <h6 style="margin-top:15px;margin-bottom:5px;font-style:italic;" *ngIf="plan.dlob">{{plan.lobd}}</h6>
                         <div class="custcheck">
                             <input name="box{{i}}" type="checkbox" id="box{{i}}" [(ngModel)]="plan.check" (change)="onChange()" >
                             <label for="box{{i}}"></label>
@@ -178,7 +180,7 @@
                                 </td>
                                 <td data-label="Default">&nbsp;
                                     <div class="custradio" style="float:right;margin-right: 15px"  (click)="setdefault(cont)">
-                                            <input name="dflt{{cont.prgmd}}" id="radio{{cont.codei}}"  type="radio"  [checked]="cont.dflt" >
+                                            <input name="dflt{{cont.prgm}}" id="radio{{cont.codei}}"  type="radio"  [checked]="cont.dflt" >
                                             <label for="radio{{cont.codei}}"></label>
                                         </div> 
                                 </td>
