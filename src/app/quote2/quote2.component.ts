@@ -296,14 +296,13 @@ export class Quote2Component implements OnInit {
       });
     }
     var xxctrct="",xxvalu="",xxcatg="";
-      this.pagedata.body.contracts.every(ctrct=>{
+      this.pagedata.body.contracts.forEach(ctrct=>{
         if(ctrct.prgm.padEnd(20) == (eachObj.prg.padEnd(10) +eachObj.ratc.padEnd(10))){
           eachObj.showct = true;
           if(eachObj.ctrct.trim() == ""){ 
             if(ctrct.isdf){eachObj.ctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30);
                                    eachObj.valu=ctrct.valu;
                                    eachObj.catg=ctrct.catg;
-                                    return false;
             }else{
               if(xxctrct ==""){
               xxctrct = eachObj.prg.padEnd(10) + eachObj.ratc.padEnd(10) + ctrct.code.padEnd(30);
@@ -312,7 +311,6 @@ export class Quote2Component implements OnInit {
               }
             }
                                   }
-          return true;
         }
       });
       if(eachObj.ctrct.trim()==""){

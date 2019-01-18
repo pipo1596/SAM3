@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service';
-import { Headerdata } from '../header/headerdata';
 import { Util } from '../utilities/util';
 import { Homedata } from './homedata';
 

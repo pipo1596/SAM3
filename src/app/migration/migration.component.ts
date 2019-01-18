@@ -4,7 +4,6 @@ import { JsonService } from '../utilities/json.service';
 import { Util } from '../utilities/util';
 import { Migrationdata} from './migrationdata'; 
 import { Dispalert } from '../utilities/dispalert';
-import { utils } from 'protractor';
 
 @Component({
   selector: 'app-migration',

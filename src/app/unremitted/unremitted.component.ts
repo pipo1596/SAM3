@@ -6,7 +6,6 @@ import { Unremitteddata,  Readnextdata } from './unremitteddata';
 import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { PagerService } from '../_services'
-import { utils } from 'protractor';
 
 
 @Component({

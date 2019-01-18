@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
 import { Overridedata, Ovrd } from './overridedata';
-import { Textfield , Numfield} from '../utilities/textfield';
+import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({

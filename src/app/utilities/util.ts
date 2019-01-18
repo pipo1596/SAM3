@@ -31,8 +31,40 @@ static showParag(words){
         this.modalid("show","modalqdsc");
 
 }
+static formatdateDsp(id,str){
+    if ( $("#"+id)[0].type == 'date' ) 
+        return str;
+    else{
+        if(str.length == 10)
+        return str.substring(5,7)+'/'+str.substring(8,10) + '/'+str.substring(0,4);
+        else 
+        return "";
+        
+        }
+    }
+static getyear(id,str){
+    if ( $("#"+id)[0].type == 'date' ) 
+        return parseInt(str.substring(0,4));
+    else
+        return parseInt(str.substring(6));
+}
+static isdatestring(id,str){
+    if ( $("#"+id)[0].type == 'date' ) 
+        return true;
+    else{
+    var strar = str.split("/");
+    if(strar.length !==3) return false;
+    if(strar[0].length < 2 || parseInt(strar[0])>12 || parseInt(strar[0])<1 )return false;
+    if(strar[1].length < 2 || parseInt(strar[1])>31 || parseInt(strar[1])<1 )return false;
+    if(strar[2].length < 4  )return false;
+    return true;
+    }
+}
 static checkbyid(id){
     setTimeout(function(){ $("#"+id).prop("checked", true); }, 100);
+}
+static uncheckbyid(id){
+    $("#"+id).prop("checked", false);
 }
 
 static Url(prgrm:string):string{

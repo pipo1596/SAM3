@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
 import { Defaultsdata } from './defaultsdata';  
-import { Textfield , Numfield } from '../utilities/textfield';
+import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({

@@ -4,7 +4,6 @@ import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { Router } from '@angular/router'; 
 import { Covsequencedata } from './covsequencedata';
 import { JsonService } from '../utilities/json.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({

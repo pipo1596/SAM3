@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
 import { ClaimsFormdata } from './claimsformdata'; 
-import { Textfield , Numfield } from '../utilities/textfield';
+import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({

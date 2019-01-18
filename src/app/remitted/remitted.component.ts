@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
-import { Remitteddata, Cont, Readnextdata } from './remitteddata'; 
+import { Remitteddata,  Readnextdata } from './remitteddata'; 
 import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { PagerService } from '../_services'

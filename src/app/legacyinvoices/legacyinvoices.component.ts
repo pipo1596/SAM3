@@ -5,7 +5,6 @@ import { Util } from '../utilities/util';
 import { Legacyinvoicesdata, Readnextdata } from './legacyinvoicesdata'; 
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { PagerService } from '../_services'
-import { utils } from 'protractor';
 
 
 @Component({

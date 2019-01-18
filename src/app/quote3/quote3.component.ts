@@ -6,7 +6,6 @@ import { Quote3data, Cont } from './quote3data';
 import { JsonService } from '../utilities/json.service';
 import { Textfield } from '../utilities/textfield';
 import { Location } from '@angular/common';
-import { takeLast } from 'rxjs/operators';
 
 @Component({
   selector: 'app-quote3',

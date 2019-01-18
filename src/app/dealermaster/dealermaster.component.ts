@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
-import { MasterDealerData, Body } from './dealermaster'; 
-import { Textfield , Numfield} from '../utilities/textfield';
+import { MasterDealerData } from './dealermaster'; 
+import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({

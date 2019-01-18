@@ -75,10 +75,16 @@ dmsOn(){
 dmsOff(){
   this.dmsmode = false;
 }
+onChangeDate1(){
+  this.onChange();
+  
+  //this.insrvc.value = Util.formatdateDsp('servicedate');
 
+}
 vinCheck(mode){
   if(mode == 'S')  this.onChange();
   if(mode == 'S') this.pagedata.body.requot = false;
+  
   this.vin.value = this.vin.value.toUpperCase();
   if(this.vin.erlevel=="D")this.validvin = false; 
   if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
@@ -102,6 +108,8 @@ vinCheck(mode){
   this.year.value = "";
   this.make.value = "";
   this.model.value ="";
+  this.insrvc.value = "";
+  Util.uncheckbyid("ckdate");
   this.pagedata.body.tabid = sessionStorage.getItem("tabid");
   this.jsonService
     .initService(this.pagedata.body,Util.Url("CGICQUOTE1"))
@@ -127,7 +135,9 @@ setDate(e){
     var y = d.getFullYear();
     if(parseInt(setyear) > y){setyear = y.toString()}
     var srcEl = e.srcElement || e.target;
-    if(srcEl.checked){ this.insrvc.value=setyear +"-01-01";}
+    if(srcEl.checked){ this.insrvc.value=setyear +"-01-01";
+    this.insrvc.value = Util.formatdateDsp('servicedate',this.insrvc.value);
+  }
 }
 
 previous(){
@@ -274,18 +284,23 @@ checkStep1(){
       if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
     if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}}
-    if(this.insrvc.value !== "" && !this.rvmode ){//If Auto Inservice Date has to be equal or less than model year 
+    if(this.insrvc.value !== "" && !Util.isdatestring("servicedate",this.insrvc.value)){
+      this.insrvc.message = "(Invalid)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}
+    }
+    if(this.insrvc.value !== "" && !this.rvmode && Util.isdatestring("servicedate",this.insrvc.value)){//If Auto Inservice Date has to be equal or less than model year 
       if(this.pagedata.body.dyear !==''){
-      
-      if((parseInt(this.insrvc.value.substring(0,4))-1) > parseInt(this.pagedata.body.dyear)){
-        this.insrvc.message = "(Greater than vehicle year)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;
+      var year = Util.getyear("servicedate",this.insrvc.value);
+      if((year-2) > parseInt(this.pagedata.body.dyear)){
+        this.insrvc.message = "(Date Ineligible)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;
       }
 
       }
     }
   }
     if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}}
-
+    if(this.asofdt.value !== "" && !Util.isdatestring("asofdt",this.insrvc.value)){
+      this.asofdt.message = "(Invalid)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}
+    }
     if(!this.valid){Util.scrollToId('quotesteps');}
     if (this.valid){//Serve Action
       Util.showWait();
@@ -382,6 +397,8 @@ yearChange(){
   this.onChange();
   this.pagedata.body.requot = false;
   this.pagedata.body.dyear = this.year.value;
+  this.insrvc.value = "";
+  Util.uncheckbyid("ckdate");
   if( this.pagedata.body.type ==="R" || this.pagedata.body.type ==="H" ){ return false;}
   Util.showWait();
   this.pagedata.body.mode ="YEAR";
@@ -620,6 +637,9 @@ ngOnInit() {
             }
           }
           Util.hideWait();
+          setTimeout(() => {
+          this.insrvc.value = Util.formatdateDsp('servicedate',this.insrvc.value);
+          this.asofdt.value = Util.formatdateDsp('asofdt',this.asofdt.value);},200);
         }
        }
     );
