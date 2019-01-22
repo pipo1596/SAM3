@@ -59,6 +59,7 @@ export class ContractComponent implements OnInit {
   costwrn = false;
   months: string = "12";
   mindwn: string = "5";
+  mindwn2:string = "5";
   caldwn: string = "";
   totalp: string = "0";
   mthlyp: string = "";
@@ -82,6 +83,8 @@ export class ContractComponent implements OnInit {
   city = new Textfield;
   state = new Textfield;
   zip = new Textfield;
+  //bool
+  reqlh = false;
   Requote(){
     this.router.navigate(['/app/Quote1']);
   }
@@ -333,7 +336,9 @@ export class ContractComponent implements OnInit {
     if (this.state.value == "") { this.state.message = "(required)"; this.state.erlevel = "D"; this.valid = false; this.erscrol('state');}
     if (this.zip.value == "") { this.zip.message = "(required)"; this.zip.erlevel = "D"; this.valid = false; this.erscrol('zip');}
     if (this.zip.value !== "" && !Util.validZip(this.zip.value)) { this.zip.message = "(invalid Zip)"; this.zip.erlevel = "D"; this.valid = false;this.erscrol('zip'); } 
-
+    if(this.reqlh && this.lhfi.value == ""){
+      this.lhfi.message = "(required)"; this.lhfi.erlevel = "D"; this.valid = false;this.erscrol('lhfi');
+    }
     this.checkReqFields();
     this.checkPayLink();
     this.loadDb();
@@ -366,7 +371,8 @@ export class ContractComponent implements OnInit {
       //Name On Card
       if (this.ccnam.value == "") { this.ccnam.message = "(required)"; this.ccnam.erlevel = "D"; this.valid = false; this.erscrol('ccnam');}
       //Down Payment
-      if(this.downpm <(parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2))
+      
+      if(parseFloat(this.downpm) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)))
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
     //ACH
@@ -377,12 +383,13 @@ export class ContractComponent implements OnInit {
       if (this.achacno.value == "") { this.achacno.message = "(required)"; this.achacno.erlevel = "D"; this.valid = false; this.erscrol('achacno');}
       if (this.achacno.value == "") { this.achchek.message = "(required)"; this.achchek.erlevel = "D"; this.valid = false; this.erscrol('achchek');}
        //Down Payment
-      if(this.downpm <(parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2))
+       
+      if(parseFloat(this.downpm)  <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)))
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
     if(this.payment == 'M'){
        //Down Payment
-      if(this.downpm <(parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2))
+      if(parseFloat(this.downpm) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)))
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
   }
@@ -621,6 +628,7 @@ formatCVV() {
             this.pagedata.body.contract.contracts.forEach(cnt =>{ 
               if(cnt.xtr7 !=='1')  totalpn += parseFloat(cnt.ccst);
               if(cnt.ccst < cnt.covc) this.costwrn = true;
+              if(cnt.lob == 'RVGAP') this.reqlh = true;
             });
             if(this.costwrn) Util.modalid('show','costwarning');
             this.totalp = totalpn.toString();

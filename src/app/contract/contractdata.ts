@@ -150,6 +150,7 @@ export class Single{
     tax : string = "";
    ccst : string = "";
    xtr7 : string = "";
+   lob  : string = "";
    covc : string = "";
 }
 

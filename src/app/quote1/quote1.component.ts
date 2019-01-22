@@ -290,7 +290,7 @@ checkStep1(){
     if(this.insrvc.value !== "" && !this.rvmode && Util.isdatestring("servicedate",this.insrvc.value)){//If Auto Inservice Date has to be equal or less than model year 
       if(this.pagedata.body.dyear !==''){
       var year = Util.getyear("servicedate",this.insrvc.value);
-      if((year-2) > parseInt(this.pagedata.body.dyear)){
+      if((year-2) > parseInt(this.pagedata.body.dyear) || (year+1) < parseInt(this.pagedata.body.dyear)){
         this.insrvc.message = "(Date Ineligible)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;
       }
 

@@ -169,11 +169,11 @@
                 </div>
                 <div class="clearfix"  *ngIf="dsplhfi"></div>
                 <div class="col-sm-6 col-xs-12" *ngIf="dsplhfi">
-                    <label class="flat-input inputlabel" id="lhiflbl">Lien Holder Name &nbsp;<a href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#2196F3">Add New</a>
+                    <label class="flat-input inputlabel" id="lhiflbl"><span class="req" *ngIf="reqlh">*&nbsp;</span>Lien Holder Name &nbsp;<a href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#5a8ce6">Add New</a>
                         <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
                     </label>
                     <span class="flat-input" *ngIf="pagedata.body.lienholders && pagedata.body.lienholders.length > 0">
-                            <select  autocomplete="new-password"  (change)="onChange();setlhadr('C');" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
+                            <select  autocomplete="new-password" if="lhfi" (change)="onChange();setlhadr('C');" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
                                  <option value="">Select</option>                                    
                                  <option *ngFor="let optn of pagedata.body.lienholders" [value]="optn.code" [attr.selected]="optn.code==lhfi.value ? true : null">{{optn.desc}}</option>
                              </select>
@@ -291,7 +291,7 @@
                 <ng-container  *ngFor="let fld of pagedata.body.fields;let j=index;">
                     <div class="col-sm-6 col-xs-12">
                     <label class="flat-input inputlabel" id="{{fld.name}}lbl"><span class="req">*&nbsp;</span>{{fld.labl}} 
-                        &nbsp;<a *ngIf="fld.name =='ECLHFI'" href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#2196F3">Add New</a>
+                        &nbsp;<a *ngIf="fld.name =='ECLHFI'" href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#5a8ce6">Add New</a>
                         <span class="errorspan2" [class.opqquezero]="fld.message===''" [class.alert-danger]="fld.erlevel==='D'" [class.validating]="validating">{{fld.message}}</span> 
                     </label>
                     <div class="flat-input w100" *ngIf="fld.type == 'TEL'">

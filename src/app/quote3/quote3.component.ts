@@ -1105,7 +1105,7 @@ export class Quote3Component implements OnInit {
                       unitp[0] = unitp[0] + table.valu;
                       break;
                     case "OTR":
-                      unitp[0] = parseFloat(this.cont.valu);
+                      unitp[0] = table.valu;
                       break;
                     case "RTL":
                       unitp[0] = parseFloat(this.cont.valu);
@@ -1118,7 +1118,7 @@ export class Quote3Component implements OnInit {
                   }
                 }
               }
-              if(this.cont.catg!=="RTL"){
+              if(this.cont.catg!=="RTL" && this.cont.catg !=="OTR"){
               //Surcharges
               this.pagedata.body.srchg.forEach((surch, i4) => {
                 var srchi = rate.surch.findIndex(sch => (surch.code == sch));

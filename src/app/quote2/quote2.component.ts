@@ -402,7 +402,7 @@ export class Quote2Component implements OnInit {
               if(oneded == 1) parent.ded.deductibles[dedind].check2 = true;
             }
 
-            if(onecov !== 1 || onetrm !== 1 || oneded !== 1){allones = false;}
+            if(onecov > 1 || onetrm  > 1 || oneded > 1){allones = false;}
           });
 
           if(allones){
@@ -418,8 +418,6 @@ export class Quote2Component implements OnInit {
 
   }
   canDeactivate() {
-
-    // if the editName !== this.user.name
     if (this.changes)
       return window.confirm('Changes not saved! Discard changes?');
     return true;
