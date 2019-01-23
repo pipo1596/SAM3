@@ -246,7 +246,7 @@
 												<td width="50">{{view.mail}}</td>
 										</tr>
 										<tr *ngIf="!canedit">
-												<td style="font-weight: bold;text-align: right">Lien Holder Name</td>
+												<td style="font-weight: bold;text-align: right">Lienholder Name</td>
 												<td width="50">{{view.lhfi}}</td>
 										</tr>
 										<tr *ngIf="canedit" id="email">
@@ -258,7 +258,7 @@
 										<tr *ngIf="canedit" id="lhfi">
 												<td style="font-weight: bold;text-align: right;vertical-align: middle;">
 													<span class="errorspan2 alert-danger" [class.validating]="validating" [class.opqquezero]="lhfi.message===''">{{lhfi.message}}</span> 	
-													&nbsp;&nbsp;Lien Holder Name</td>
+													&nbsp;&nbsp;Lienholder Name</td>
 												<td width="50"><input [class.validating]="validating" (change)="onChangeE()" [class.required]="lhfi.message !== ''" type="text" autocomplete="new-password{{ran}}" name="lhfi{{ran}}" [(ngModel)]="lhfi.value" style="margin:0;width:100%" ></td>
 										</tr>
 										<tr>

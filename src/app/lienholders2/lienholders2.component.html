@@ -21,7 +21,7 @@
 						<span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validating">{{name.message}}</span>
 					</label>
 					<div class="flat-input w100">
-						<input autocomplete="new-password" style="text-transform:uppercase;" id="name" name="name" type="text" placeholder="Lienholder Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.name" maxlength="60" (change)="onChange()">
+						<input autocomplete="new-password"  id="name" name="name" type="text" placeholder="Lienholder Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.name" maxlength="60" (change)="onChange()">
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -29,7 +29,7 @@
                         <span class="errorspan2" [class.opqquezero]="phon.message===''" [class.alert-danger]="phon.erlevel==='D'"  [class.validating]="validating">{{phon.message}}</span> 
                     </label>
                     <div class="flat-input w100">
-                        <input autocomplete="new-password" name="phon" type="text" placeholder="Lienholer Phone" (keyup)="formatPhone(selectedRec.phon)"  [class.required]="phon.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.phon" maxlength="14"  (change)="onChange()">
+                        <input autocomplete="new-password" name="phon" type="text" placeholder="Lienholder Phone" (keyup)="formatPhone(selectedRec.phon)"  [class.required]="phon.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.phon" maxlength="14"  (change)="onChange()">
                     </div>
                 </div>
 				<div class="col-sm-6">
@@ -37,7 +37,7 @@
 						<span class="errorspan2" [class.opqquezero]="adr1.message===''" [class.alert-danger]="adr1.erlevel==='D'" [class.validating]="validating">{{adr1.message}}</span>
 					</label>
 					<div class="flat-input w100">
-						<input autocomplete="new-password" style="text-transform:uppercase;" id="adr1" name="adr1" type="text" placeholder="Lienholder Address" [class.required]="adr1.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.adr1" maxlength="50" (change)="onChange()">
+						<input autocomplete="new-password" id="adr1" name="adr1" type="text" placeholder="Lienholder Address" [class.required]="adr1.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.adr1" maxlength="50" (change)="onChange()">
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -45,7 +45,7 @@
 						<span class="errorspan2" [class.opqquezero]="city.message===''" [class.alert-danger]="city.erlevel==='D'" [class.validating]="validating">{{city.message}}</span>
 					</label>
 					<div class="flat-input w100">
-						<input autocomplete="new-password" style="text-transform:uppercase;" id="city" name="city" type="text" placeholder="Lienholder City" [class.required]="city.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.city" maxlength="30" (change)="onChange()">
+						<input autocomplete="new-password" id="city" name="city" type="text" placeholder="Lienholder City" [class.required]="city.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.city" maxlength="30" (change)="onChange()">
 					</div>
 				</div>
 				<div class="col-sm-6 col-xs-12">

@@ -297,10 +297,11 @@ checkStep1(){
       }
     }
   }
-    if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}}
+    if(this.pagedata.head.as400 && this.asofdt.value == ""){this.asofdt.message = "(Required)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}
     if(this.asofdt.value !== "" && !Util.isdatestring("asofdt",this.insrvc.value)){
       this.asofdt.message = "(Invalid)";this.asofdt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("asofdt");this.notfoc=false;}
     }
+  }
     if(!this.valid){Util.scrollToId('quotesteps');}
     if (this.valid){//Serve Action
       Util.showWait();
@@ -639,7 +640,8 @@ ngOnInit() {
           Util.hideWait();
           setTimeout(() => {
           this.insrvc.value = Util.formatdateDsp('servicedate',this.insrvc.value);
-          this.asofdt.value = Util.formatdateDsp('asofdt',this.asofdt.value);},200);
+          if(this.pagedata.head.as400) this.asofdt.value = Util.formatdateDsp('asofdt',this.asofdt.value);
+        },200);
         }
        }
     );

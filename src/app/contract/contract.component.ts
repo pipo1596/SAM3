@@ -372,7 +372,7 @@ export class ContractComponent implements OnInit {
       if (this.ccnam.value == "") { this.ccnam.message = "(required)"; this.ccnam.erlevel = "D"; this.valid = false; this.erscrol('ccnam');}
       //Down Payment
       
-      if(parseFloat(this.downpm) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)))
+      if(parseFloat(this.downpm).toFixed(2) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)).toFixed(2))
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
     //ACH
@@ -384,12 +384,12 @@ export class ContractComponent implements OnInit {
       if (this.achacno.value == "") { this.achchek.message = "(required)"; this.achchek.erlevel = "D"; this.valid = false; this.erscrol('achchek');}
        //Down Payment
        
-      if(parseFloat(this.downpm)  <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)))
+      if(parseFloat(this.downpm).toFixed(2)  <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)).toFixed(2))
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
     if(this.payment == 'M'){
        //Down Payment
-      if(parseFloat(this.downpm) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)))
+      if(parseFloat(this.downpm).toFixed(2) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)).toFixed(2))
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
   }
