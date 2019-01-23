@@ -51,7 +51,7 @@ export  class Conte{
         this.mode = mode;
         this.desc = "";
         this.catg = "";
-        this.catgd = "";
+        this.catgd = ""; 
         this.valu = null;
         this.prgm = [''];
         this.prgmd = "";
