@@ -60,7 +60,9 @@ export class Quote3Component implements OnInit {
 
   constructor(private jsonService: JsonService, private router: Router, private location: Location) { }
 
-
+  printquote(){
+    Util.prinQuote();
+  }
   withcommas(x){
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");

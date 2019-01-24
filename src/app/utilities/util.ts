@@ -79,6 +79,20 @@ static UrlStatic(prgrm:string):string{
     else
         return location.origin+'/'+prgrm;
 }
+
+static prinQuote(){
+    var html ="";
+    if(window.location.hostname == 'localhost')
+    html ='<link rel="stylesheet" href="http://qa.milo.inds.com/styles.css">'+$(".row.white").html();
+    else
+     html ='<link rel="stylesheet" href="http://'+window.location.hostname+'/styles.css">'+$(".row.white").html();
+    var winPrint = window.open('', '', 'status=0');
+    
+winPrint.document.write(html);
+winPrint.document.close();
+winPrint.focus();
+setTimeout(function(){winPrint.print()},500);
+}
 //==================================================================================//
 static setIframeSrc(url){
     $('#pdfIframe').attr('src', url)

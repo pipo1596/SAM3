@@ -627,7 +627,7 @@ formatCVV() {
 
             this.pagedata.body.contract.contracts.forEach(cnt =>{ 
               if(cnt.xtr7 !=='1')  totalpn += parseFloat(cnt.ccst);
-              if(cnt.ccst < cnt.covc) this.costwrn = true;
+              if(parseFloat(cnt.ccst) < parseFloat(cnt.covc)) this.costwrn = true;
               if(cnt.lob == 'RVGAP') this.reqlh = true;
             });
             if(this.costwrn) Util.modalid('show','costwarning');
