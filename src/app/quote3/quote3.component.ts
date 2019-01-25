@@ -29,6 +29,7 @@ export class Quote3Component implements OnInit {
   rightMatch: [any];
   ncbarr:[any];
   ncbarrv:[number];
+  today:Date = new Date();
 
   months: string = "12";
   mindwn: string = "5";

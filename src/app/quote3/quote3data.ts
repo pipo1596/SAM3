@@ -153,6 +153,7 @@ export class State{
     desc :string=""
 }
 export class Vehicle{
+    name  : string="";
     year  : string="";
     make  : string="";
     model : string="";

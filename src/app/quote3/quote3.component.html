@@ -870,13 +870,153 @@
                             <button *ngIf="pagedata.body.tables.length<2" name="submit" style="background:#f19614" type="submit" (click)="createCont()" class="flat-button pull-right" id="submit" title="Continue">Create Contract</button>
                             <button *ngIf="pagedata.body.tables.length>1" name="submit" style="background:#f19614" type="submit" (click)="createCont()" class="flat-button pull-right" id="submit" title="Continue">Create Contracts</button>
                             <button name="submit" style="margin-right:15px" type="button" (click)="mode3()" class="flat-button pull-right" id="submit" title="Edit">Edit</button>
-                            <!--<button name="submit" style="margin-right:15px;background: #9fa7af" type="button" (click)="printquote()" class="flat-button pull-right" id="submit" title="Edit">Print Quote</button>-->
+                            <button name="submit" style="margin-right:15px;background: #4f8ece" type="button" (click)="printquote()" class="flat-button pull-right" id="submit" title="Edit">Print Quote</button>
                         </span>
                     </div>
                     </div>
                     
                 </form>
-
+                <div id="printContract" class="hidden" *ngIf="pagedata.body.pagemode == 'R' && pagedata.body.veh">
+                    <div class="" style="height: -webkit-fill-available;margin-bottom:5px;width:650px;margin:0 auto;">
+                        <h3 class="text-center" style="margin:0">{{pagedata.body.veh.name}}</h3>
+                        <p style="font-weight: bold;font-style: italic;" class="text-center">Don't let mechanical breakdown costs catch you off guard!</p>
+                        <p style="font-weight: bold;font-style: italic;" class="text-center">Guard against them instead!</p>
+                        <table class="table table-sm" style="margin-bottom:0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-right" nowrap width="25%">
+                                            <b>Quote ID:</b>
+                                        </td>
+                                        <td class="text-left" nowrap width="25%">{{pagedata.body.qtid}}</td>
+                                        <td class="text-right" nowrap width="25%">
+                                            <b>Quote Date:</b>
+                                        </td>
+                                        <td class="text-left" nowrap width="25%">{{today | date:'MM/dd/yyyy'}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                            <td class="text-right" nowrap>
+                                                <b>Name:</b>
+                                            </td>
+                                            <td class="text-left" nowrap>{{pagedata.body.first +' '+pagedata.body.last}}</td>
+                                            <td class="text-right" nowrap>
+                                                    <b>Stock #/Member ID:</b>
+                                                </td >
+                                                <td class="text-left" nowrap>{{pagedata.body.stock}}</td>
+                                        
+                                            
+                                        </tr>
+                                    <tr>
+                                            <td class="text-right" nowrap>
+                                                    <b>Vehicle:</b>
+                                                </td>
+                                                <td class="text-left" colspan="3">{{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}</td>
+                                    </tr>     
+                                    <tr>     
+                                                <td class="text-right" nowrap>
+                                            <b>Miles:</b>
+                                        </td>
+                                        <td class="text-left" nowrap>{{pagedata.body.veh.miles | number:0}}</td>
+                                            <td class="text-right" nowrap>
+                                                    <b>In-Service:</b>
+                                                </td>
+                                                <td class="text-left" nowrap>{{pagedata.body.veh.insrvc}}</td>
+                                                <td>&nbsp;</td>
+                                                <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                        <ng-container *ngFor="let element of pagedata.body.tables;let p = index">
+                                <ng-container *ngIf="element.show">
+                                 
+                                    <div class="well well-sm" style="background:white">
+                                        <h3 class="">{{element.desc}}&nbsp;&nbsp;<span class="pull-right">({{element.lob}})&nbsp;</span></h3>
+                                        <hr style="margin:3px;">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        <b>&nbsp;</b>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <b>Coverage</b>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <b>Term</b>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <b>Deductible</b>
+                                                    </th>
+                                                    <th scope="col" >
+                                                        <b>Price</b>
+                                                    </th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngFor="let table of element.rates;let t = index">
+                                                    <ng-container *ngFor="let row of table.rows;let r = index">
+                                                        <ng-container *ngFor="let col of table.cols;let c = index" >
+                                                            <tr *ngIf="table.data[r][c]!==undefined && table.data[r][c][2]==1">
+                                                                    <td class="text-left">
+                                                                            <div style="width:18px;height:18px;border:2px solid;float: left;margin-top:2px"></div>
+                                                                            <label class="checklabel" style="margin-left:23px"><b>ACCEPT</b></label>
+                                                                    </td>
+                                                                <td style="font-weight: bold">
+                                                                    <span>{{table.title}}
+                                                                    <span style="color:gray" *ngIf="table.nup =='N'">- [{{dspNup(element.prgm,'N')}}]</span>
+                                                                    <span style="color:gray" *ngIf="table.nup =='P'">- [Program]</span>
+                                                                    <span style="color:gray" *ngIf="table.nup =='U'">- [{{dspNup(element.prgm,'U')}}]</span>
+                                                                    </span>
+                                                                </td>
+                                                                <td style="font-weight: bold">
+                                                                        <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>
+                                                                        <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                                                </td>
+                                                                <td style="font-weight: bold" *ngIf="col.ded!=='DD'">{{ col.ded | currency}}</td>
+                                                                <td style="font-weight: bold" *ngIf="col.ded =='DD'">
+                                                                <span *ngIf="!col.desc || col.desc ==''">${{col.ded}}</span>
+                                                                <span *ngIf="col.desc && col.desc !==''">{{col.desc}}</span>   
+                                                                </td>
+                                                                <td style="font-weight: bold">{{ table.data[r][c][0] | currency}}</td>
+                                                                
+                                                            </tr>
+                                                        </ng-container>
+        
+                                                    </ng-container>
+        
+                                                </ng-container>
+                                                <tr>
+                                                    <td colspan="5" style="background: aliceblue">
+                                                            <div style="width:18px;height:18px;border:2px solid;float: left;margin-top:2px"></div>
+                                                            <label class="checklabel" style="margin-left:23px"><b>DECLINE</b></label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    
+                                </ng-container>
+                            </ng-container>
+                            <p>I decline purchase of the above checked protection offered on my vechicle. I understand that by not accepting, I am 
+                                not entitled to any of the benefits listed above. This protection may be available to me at a later date and any repair 
+                                or replacement of these items will be at my own expense.
+                            </p>
+                            <div style="float:left;margin:15px 0 0 0;border-bottom:2px solid;width:250px">
+                                <h4 style="margin-bottom:5px">X</h4>
+                            </div>
+                            <div style="float:right;margin:15px 0 0 0;border-bottom:2px solid;width:200px;">
+                                <h4 style="margin-bottom:5px">&nbsp;</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <p class="pull-left">Customer Signature</p>
+                            <p class="pull-right">Date</p>
+                            <p style="margin:15px">&nbsp;</p>
+                            </div>
+                </div>
 
             </div>
         </div>
