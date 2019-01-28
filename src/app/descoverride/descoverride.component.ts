@@ -21,10 +21,13 @@ export class DescoverrideComponent implements OnInit {
 	srky = new Textfield;
 	srky2= new Textfield;
 	desc = new Textfield;
+	descq = new Textfield;
 	qdsc = new Textfield;
 	dlr  = new Textfield;
 	prg  = new Textfield;
 	lob	 = new Textfield;
+	letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+	seq:String = "A";
 	initload = true;
 	cmpc:string = "INT";
 	//Alerts
@@ -32,7 +35,6 @@ export class DescoverrideComponent implements OnInit {
   errSet    = new Errsetter();
   //Top Section
   selectedRec = new Ovrd;
-  //selectedRecG = new Ovrd;
   //New Rec Skeleton
   newRec = new Ovrd;	
   index : number;
@@ -53,8 +55,36 @@ export class DescoverrideComponent implements OnInit {
 		});
   }
 
+  remove(inobj){
+	var indx = this.selectedRec.bullets.findIndex(obj => obj.dscx==inobj.dscx);  
+	if(indx > -1) this.selectedRec.bullets.splice(indx,1);
+  }
+  addcomponent(){
+
+	if(this.descq.value ==""){
+		this.descq.message = '(required)'
+		return false;	
+	}
+
+	var indx = this.selectedRec.bullets.findIndex(obj => obj.dscx==this.descq.value.toUpperCase());
+	if(indx > -1){
+		this.descq.message = '(Already exists!)'
+		return false;
+	}
+
+	var jsobj ={desc:this.descq.value,seq:this.seq,dscx:this.descq.value.toUpperCase()};
+	this.selectedRec.bullets.push(jsobj);
+	this.selectedRec.bullets = Util.sortByKey(this.selectedRec.bullets,"seq","A");
+	Util.modalid("hide","addnew");
+  }
   showParag(el){
-	  Util.showParag(el.qdsc);
+	  var htm = el.qdsc.toString();
+	  htm = htm + '<ul style="list-style-type: square;margin: 20px;color: black;font-weight: bold;font-size: 16px;">';
+	  el.bullets.forEach(element => {
+		htm = htm + '<li style="display:inline;margin-left:30px;padding-top:5px;"><i class="fa fa-angle-double-right" style="font-size:20px;color:#53afff"></i>'+element.desc +'</li>';
+	  });
+	  htm = htm + "</ul>"; 
+	  Util.showParag(htm);
 	  this.qdscel = el;
 
   }
@@ -64,6 +94,9 @@ export class DescoverrideComponent implements OnInit {
   }
   closemodal(){
 	  Util.modalid("hide","modalqdsc");
+  }
+  closemodal2(){
+	  Util.modalid("hide","addnew");
   }
   toglelg(flag){
 	  flag.belg = !flag.belg;
@@ -78,9 +111,17 @@ export class DescoverrideComponent implements OnInit {
 	  this.ngOnInit();
   }
 
+  newcomp(){
+	this.seq = 'A';
+	this.descq.value ='';
+	this.descq.message ='';
+	Util.modalid("show","addnew"); 
+  }
+
   addRecInit(){
   	//delete this.selectedRecG;
-  	this.selectedRec.default("ADD");
+	this.selectedRec.default("ADD");
+	this.selectedRec.bullets.pop();
   	this.dispAlert.default();
   	Util.showWait();
   	Util.showTopForm();
@@ -96,7 +137,8 @@ export class DescoverrideComponent implements OnInit {
   cancel(){
     Util.showWait();
     this.validating = false;
-    this.selectedRec.default("ADD"); 
+	this.selectedRec.default("ADD"); 
+	this.selectedRec.bullets.pop();
     Util.hideWait(); 
     Util.hideTopForm();
     this.modebtn = "ADD";
@@ -119,7 +161,8 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.type = record.type;
   	this.selectedRec.lob = record.lob;
   	this.selectedRec.cmpc = this.cmpc;
-  	this.selectedRec.belg = record.belg;
+	this.selectedRec.belg = record.belg; 
+	this.selectedRec.bullets = JSON.parse(JSON.stringify(record.bullets));  
 
   	//this.selectedRecG = record;
   	this.selectedRec.mode = "SAVE";
@@ -164,6 +207,8 @@ export class DescoverrideComponent implements OnInit {
 	this.prg.message = "";  
 	this.lob.message = "";  
   	this.desc.message = "";
+  	this.descq.message = "";
+  	this.descq.value = "";
   	this.qdsc.message = "";
   	this.dlr.message  = "";
   	this.dispAlert.default();
@@ -220,7 +265,9 @@ export class DescoverrideComponent implements OnInit {
   					this.newRec.type = this.selectedRec.type.toUpperCase();
   					this.newRec.lob = this.selectedRec.lob.toUpperCase();
   					this.newRec.cmpc = this.cmpc;
-  					this.newRec.belg = this.selectedRec.belg;
+					this.newRec.belg = this.selectedRec.belg;
+					this.newRec.bullets = this.selectedRec.bullets;
+					  
 
 					  this.pagedata.overrides.push(JSON.parse(JSON.stringify(this.newRec)));
 					  this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
@@ -250,6 +297,8 @@ export class DescoverrideComponent implements OnInit {
   					this.pagedata.overrides[this.index].lob = this.selectedRec.lob; 
   					this.pagedata.overrides[this.index].cmpc = this.cmpc; 
   					this.pagedata.overrides[this.index].belg = this.selectedRec.belg; 
+					  this.pagedata.overrides[this.index].bullets = this.selectedRec.bullets; 
+					  this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
   					
   					// this.selectedRecG.srky = this.selectedRec.srky;
   					// this.selectedRecG.srkyi= this.selectedRec.srky;
@@ -295,6 +344,7 @@ export class DescoverrideComponent implements OnInit {
   					this.router.navigate(['/app']);
   				}, 100);
   			} else {
+				this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
   				Util.hideWait();
   			}
   		}

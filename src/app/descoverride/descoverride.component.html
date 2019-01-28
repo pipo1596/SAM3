@@ -72,13 +72,24 @@
 								<label (click)="toglelg(selectedRec)"></label>
 							</div><label class="checklabel" (click)="toglelg(selectedRec)" style="font-weight: bold">Only rate best eligibility</label></span>
 				</div>
-				<div class="col-sm-12" *ngIf="PMTYPE=='Coverage'">
+				<div *ngIf="PMTYPE=='Coverage'">
+				<div class="col-sm-12" >
 						<label class="flat-input inputlabel">Quote Printout Description
 							<span class="errorspan2" [class.opqquezero]="qdsc.message===''" [class.alert-danger]="qdsc.erlevel==='D'" [class.validating]="validating">{{qdsc.message}}</span>
 						</label>
 						<div class="flat-input w100">
 								<textarea autocomplete="new-password"  style="max-height:100px;color:black;margin-bottom: 10px;" name="qdsc" [class.required]="qdsc.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.qdsc" maxlength="512"  (change)="onChange()"></textarea>
 						</div>
+				</div>
+				<div class="col-xs-12 well" >
+						<label class="flat-input inputlabel" style="margin-bottom: 20px;">Quote Printout Coverage Components&nbsp;<a href="javascript:void(0)" title="Add New" (click)="newcomp()" style="color:#5a8ce6">- Add New</a></label>
+						<div *ngFor="let bullet of selectedRec.bullets" class="col-xs-3" >
+							<h5>
+								<a  title="remove"  href="javascript:void(0)" (click)="remove(bullet)"><i class="fa fa-remove" style="font-size:20px;color:red"></i></a>
+								&nbsp;<span style="color:darkgray">[{{bullet.seq}}] - </span>{{bullet.desc}}</h5></div>
+				</div>
+				
+				
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-xs">
@@ -138,7 +149,7 @@
 									&nbsp;<span *ngIf="ovrd.belg">Yes</span>
 								</td>
 								<td data-label="">
-									<a *ngIf="PMTYPE=='Coverage'" href="javascript:void(0);" style="margin-right:8px;" (click)="showParag(ovrd)" [class.invisible]="ovrd.qdsc ==''" class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
+									<a *ngIf="PMTYPE=='Coverage'" href="javascript:void(0);" style="margin-right:8px;" (click)="showParag(ovrd)" [class.invisible]="ovrd.qdsc =='' && ovrd.bullets.length <1" class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
 									<a href="javascript:void(0)" (click)="onSelect(ovrd)" class="btn btn-warning btnedit">Edit</a></td>
 							</tr>
 						</tbody>
@@ -160,6 +171,41 @@
 				<div class="modal-footer">
 				  <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="closemodal()" >OK</button>
 				  <button style="padding:8px 30px" type="button" class="btn btn-warning" (click)="editfrommodal()" >EDIT</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
+	<div class="modal" id="addnew" role="dialog">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h4 class="modal-title pull-left" id="alertTitle">Add Quote Printout Coverage Component</h4>
+				</div>
+				<div class="modal-body">
+				  <div>
+						<div class="col-xs-4" >
+								<label class="flat-input inputlabel">Sequence</label>
+								<span class="flat-input">
+										<select autocomplete="new-password" class="form__select w100" name="seq" id="seq" [class.validating]="validating"  (change)="onChange()" [(ngModel)]="seq">
+											<option *ngFor="let option of letters" [value]="option" >{{option}}</option>
+										</select>
+									</span>
+						</div>
+						<div class="col-xs-8">
+								<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Description
+									<span class="errorspan2 validating" [class.opqquezero]="descq.message===''" [class.alert-danger]="descq.message!==''">{{descq.message}}</span>
+								</label>
+								<div class="flat-input w100">
+										<input autocomplete="new-password" class="w100" id="descq" name="descq" type="text" placeholder="Description" [class.required]="descq.message !==''" [class.validating]="descq.message!==''" [(ngModel)]="descq.value" maxlength="256" (change)="onChange()">
+									</div>
+						</div>
+						
+					<div class="clearfix"></div>	
+				  </div>
+				</div>
+				<div class="modal-footer">
+				  <button style="padding:8px 30px" type="button" class="btn btn-warning" (click)="closemodal2()" >CANCEL</button>
+				  <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="addcomponent()" >ADD</button>
 				</div>
 			  </div>
 			</div>

@@ -25,6 +25,7 @@ export class Ovrd{
 	dlri : string;
 	type : string;
 	belg : boolean;
+	bullets:[Bullet]
 	
 	public default(mode){
 		this.mode = mode;
@@ -36,5 +37,13 @@ export class Ovrd{
 		this.prg  = "";
 		this.lob  = "";
 		this.belg  = false;
+		this.bullets = [{desc:"",seq:"",dscx:""}]
 	}
+}
+
+export class Bullet{
+	desc: String;
+	seq : String;
+	dscx: String;
+
 }
