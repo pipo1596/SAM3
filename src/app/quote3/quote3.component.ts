@@ -187,7 +187,6 @@ export class Quote3Component implements OnInit {
     
   }                 
                   });
-    //alert(JSON.stringify(contract)) ;
     contract.tabid = sessionStorage.getItem("tabid");
     this.jsonService
         .initService(contract, Util.Url("CGICCNTRCT"))
@@ -250,9 +249,6 @@ export class Quote3Component implements OnInit {
       var index = -1;
       if (table.rates !== undefined) index = table.rates.findIndex(obj => (obj.program == data.prg && obj.ratc == data.ratc));
       if (index >= 0) {
-        //var tmp = this.pagedata.body.tables[0];
-        //          this.pagedata.body.tables[0] = this.pagedata.body.tables[i];
-        //          this.pagedata.body.tables[i] = tmp;
         this.firsttable = i;
         foundtable = true;
       }

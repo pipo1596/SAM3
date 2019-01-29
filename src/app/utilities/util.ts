@@ -80,7 +80,16 @@ static UrlStatic(prgrm:string):string{
         return location.origin+'/'+prgrm;
 }
 
+static hideDups(){
+    var pvtitle="";
+    $(".hidedups").each(function (index, value) { 
+         if($(this).attr('title')==pvtitle){$(this).addClass("hidden");}; 
+         pvtitle =$(this).attr('title'); 
+      });
+}
+
 static prinQuote(){
+    this.hideDups();
     var html ="";
     if(window.location.hostname == 'localhost')
     html ='<link rel="stylesheet" href="http://qa.milo.inds.com/styles.css">'+$("#printContract").html();

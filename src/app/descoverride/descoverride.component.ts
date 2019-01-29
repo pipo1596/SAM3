@@ -56,8 +56,10 @@ export class DescoverrideComponent implements OnInit {
   }
 
   remove(inobj){
+	if(confirm("Delete this Component?")){
 	var indx = this.selectedRec.bullets.findIndex(obj => obj.dscx==inobj.dscx);  
 	if(indx > -1) this.selectedRec.bullets.splice(indx,1);
+	}
   }
   addcomponent(){
 
@@ -74,7 +76,7 @@ export class DescoverrideComponent implements OnInit {
 
 	var jsobj ={desc:this.descq.value,seq:this.seq,dscx:this.descq.value.toUpperCase()};
 	this.selectedRec.bullets.push(jsobj);
-	this.selectedRec.bullets = Util.sortByKey(this.selectedRec.bullets,"seq","A");
+	this.selectedRec.bullets = Util.sortBy2Key(this.selectedRec.bullets,"seq","dscx","A");
 	Util.modalid("hide","addnew");
   }
   showParag(el){
@@ -163,6 +165,7 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.cmpc = this.cmpc;
 	this.selectedRec.belg = record.belg; 
 	this.selectedRec.bullets = JSON.parse(JSON.stringify(record.bullets));  
+	this.selectedRec.bullets = Util.sortBy2Key(this.selectedRec.bullets,"seq","dscx","A");
 
   	//this.selectedRecG = record;
   	this.selectedRec.mode = "SAVE";

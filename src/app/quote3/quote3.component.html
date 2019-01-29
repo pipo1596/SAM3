@@ -892,7 +892,6 @@
                                             <b>Quote Date:</b>
                                         </td>
                                         <td class="text-left" nowrap width="25%">{{today | date:'MM/dd/yyyy'}}</td>
-                                        
                                     </tr>
                                     <tr>
                                             <td class="text-right" nowrap>
@@ -903,8 +902,6 @@
                                                     <b>Stock #:</b>
                                                 </td >
                                                 <td class="text-left" nowrap>{{pagedata.body.stock}}</td>
-                                        
-                                            
                                         </tr>
                                     <tr>
                                             <td class="text-right" nowrap>
@@ -929,63 +926,63 @@
                             <hr>
                         <ng-container *ngFor="let element of pagedata.body.tables;let p = index">
                                 <ng-container *ngIf="element.show">
-                                 
                                     <div class="well well-sm" style="background:white">
-                                        <h3 class="">{{element.desc}}&nbsp;&nbsp;<span class="pull-right">({{element.lob}})&nbsp;</span></h3>
-                                        <hr style="margin:3px;">
+                                        <h4 style="margin-bottom:3px;">{{element.desc}}</h4>
                                         <table class="table">
                                             <thead>
-                                                <tr>
+                                                <tr style="display: none">
                                                     <th scope="col">
                                                         <b>&nbsp;</b>
                                                     </th>
                                                     <th scope="col">
-                                                        <b>Coverage</b>
+                                                        <b>&nbsp;</b>
                                                     </th>
                                                     <th scope="col">
-                                                        <b>Term</b>
+                                                        <b>&nbsp;</b>
                                                     </th>
                                                     <th scope="col">
-                                                        <b>Deductible</b>
+                                                        <b>&nbsp;</b>
                                                     </th>
-                                                    <th scope="col" >
-                                                        <b>Price</b>
-                                                    </th>
-                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <ng-container *ngFor="let table of element.rates;let t = index">
                                                     <ng-container *ngFor="let row of table.rows;let r = index">
                                                         <ng-container *ngFor="let col of table.cols;let c = index" >
+                                                            <ng-container *ngIf="table.data[r][c]!==undefined && table.data[r][c][2]==1">
+                                                            <tr class="hidedups" title="{{table.title}}">
+                                                                <td colspan="4">
+                                                                    <div class="well well-sm w100" style="margin-bottom:0">
+                                                                    <h5 class="text-center" style="margin-bottom:0"><span>{{table.title}}</span></h5>
+                                                                    <p class="col-xs-12">{{table.qdsc}}</p>
+                                                                    <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:10px;font-size:15px;font-weight:bold;padding:0">
+                                                                        <i class="fa fa-angle-double-right"></i>&nbsp;{{bullet}}</p>
+                                                                    
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
                                                             <tr *ngIf="table.data[r][c]!==undefined && table.data[r][c][2]==1">
                                                                     <td class="text-left">
                                                                             <div style="width:18px;height:18px;border:2px solid;float: left;margin-top:2px"></div>
                                                                             <label class="checklabel" style="margin-left:23px"><b>ACCEPT</b></label>
                                                                     </td>
                                                                 <td style="font-weight: bold">
-                                                                    <span>{{table.title}}
-                                                                    <span style="color:gray" *ngIf="table.nup =='N'">- [{{dspNup(element.prgm,'N')}}]</span>
-                                                                    <span style="color:gray" *ngIf="table.nup =='P'">- [Program]</span>
-                                                                    <span style="color:gray" *ngIf="table.nup =='U'">- [{{dspNup(element.prgm,'U')}}]</span>
-                                                                    </span>
-                                                                </td>
-                                                                <td style="font-weight: bold">
+                                                                        <b>Term:&nbsp;</b>
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                                 </td>
-                                                                <td style="font-weight: bold" *ngIf="col.ded!=='DD'">{{ col.ded | currency}}</td>
+                                                                <td style="font-weight: bold" *ngIf="col.ded!=='DD'">
+                                                                    <b>Deductible:&nbsp;</b>{{ col.ded | currency}}</td>
                                                                 <td style="font-weight: bold" *ngIf="col.ded =='DD'">
+                                                                    <b>Deductible:&nbsp;</b>
                                                                 <span *ngIf="!col.desc || col.desc ==''">${{col.ded}}</span>
                                                                 <span *ngIf="col.desc && col.desc !==''">{{col.desc}}</span>   
                                                                 </td>
-                                                                <td style="font-weight: bold">{{ table.data[r][c][0] | currency}}</td>
-                                                                
+                                                                <td style="font-weight: bold"><b>Rate:&nbsp;</b>{{ table.data[r][c][0] | currency}}</td>
                                                             </tr>
                                                         </ng-container>
-        
+                                                        </ng-container>
                                                     </ng-container>
-        
                                                 </ng-container>
                                                 <tr>
                                                     <td colspan="5" style="background: aliceblue">
@@ -995,10 +992,8 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        
                                         <div class="clearfix"></div>
                                     </div>
-                                    
                                 </ng-container>
                             </ng-container>
                             <p>I decline purchase of the above checked protection offered on my vechicle. I understand that by not accepting, I am 

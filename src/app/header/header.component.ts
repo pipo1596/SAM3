@@ -241,8 +241,6 @@ hideLoc(){
     if (window.location.href.indexOf("192.168.6.48") > -1) this.stage = true;
     if (window.location.href.indexOf("192.168.6.47") > -1) this.stage = true;
     if (window.location.href.indexOf("localhost") > -1) this.stage = true;
-    //console.log(window.location.href);
-    //console.log(this.stage);
 
 this.logOutTimer("I");
 this.validVersion();
