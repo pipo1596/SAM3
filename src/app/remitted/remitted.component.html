@@ -122,7 +122,7 @@
 									<td data-label="Vehicle"><span class="vinspan">{{cont.year}}<br>{{cont.make}}<br>{{cont.modl}}</span></td>
 									<td data-label="View">
 											<a href="javascript:void(0);" [class.invisible]="cont.ionov===''" (click)="viewCont(cont.ionov)" style="margin:1px;float: right;clear:right;width:58px" class="btn btn-primary btn-sm btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;VSC</a> 
-											<a href="javascript:void(0);" [class.invisible]="cont.ionoc===''" (click)="viewCont(cont.ionoc)" style="margin:1px;float: right;clear:right;width:58px" class="btn btn-warning btn-sm btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;CAP</a> 
+											<a href="javascript:void(0);" *ngIf="showcap" [class.invisible]="cont.ionoc===''" (click)="viewCont(cont.ionoc)" style="margin:1px;float: right;clear:right;width:58px" class="btn btn-warning btn-sm btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;CAP</a> 
 											<a href="javascript:void(0);" [class.invisible]="cont.ionoz===''" (click)="viewCont(cont.ionoz)" style="margin:1px;float: right;clear:right;width:58px" class="btn btn-info btn-sm btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a> 
 										<div class="clearfix"></div>
 									</td>

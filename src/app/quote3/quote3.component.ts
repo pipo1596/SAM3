@@ -58,6 +58,7 @@ export class Quote3Component implements OnInit {
   city = new Textfield;
   state = new Textfield;
   zip = new Textfield;
+  arrslct: [string] = [""];
 
   constructor(private jsonService: JsonService, private router: Router, private location: Location) { }
 
@@ -679,6 +680,7 @@ export class Quote3Component implements OnInit {
     var master: [any] = [""];
     var cov = this.pagedata.body.chkdf;
     var main = this.pagedata.body.data;
+    var srch = this.pagedata.body.srchg;
     master.pop();
     if (this.pagedata.body.tables.length <= 0) return false;
     this.pagedata.body.tables.forEach((table) => {
@@ -777,6 +779,26 @@ export class Quote3Component implements OnInit {
           });
           table.desc = this.xlateprg(program.program, program.ratc);
           table.lob = this.xlatelob(program.program, program.ratc);
+
+          //Keep only checked oc
+         if(mode == "I"){ 
+          program.surch.forEach((surc,i)=>{
+
+            var ix = srch.findIndex(obj =>(obj.prgm == program.program 
+                                        && obj.ratc == program.ratc
+                                        && obj.code == surc));
+            if(ix<0){
+              program.surdesc[i]="";
+            }
+          });
+
+          this.arrslct =[""];
+          this.arrslct.pop();
+          program.surdesc.forEach(desc=>{
+            if(desc!=="")this.arrslct.push(desc);
+          });
+          program.surdesc = this.arrslct;
+        }
         });
       }
     });

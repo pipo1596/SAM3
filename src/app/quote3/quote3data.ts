@@ -114,6 +114,7 @@ export class Rate{
     title :string="";
     nup :string="";
     surch: [string] = [""];
+    surdesc: [string] = [""];
     check :boolean = false;
     data :[[number]];
     cost :[[[number]]];
@@ -145,6 +146,7 @@ export class Cont{
 }
 export class Srchg{
     prgm :string="";
+    ratc :string="";
     code :string="";
     type :string="";
 }

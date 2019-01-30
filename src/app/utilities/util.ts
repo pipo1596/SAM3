@@ -99,8 +99,9 @@ static prinQuote(){
     html = '<div class="container"><div class="row white">'+html+'</div></div>';
 winPrint.document.write(html);
 winPrint.document.close();
+
 winPrint.focus();
-setTimeout(function(){winPrint.print()},500);
+//setTimeout(function(){winPrint.opener = null;winPrint.print();},500);
 }
 //==================================================================================//
 static setIframeSrc(url){

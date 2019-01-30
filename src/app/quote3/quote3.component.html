@@ -877,7 +877,15 @@
                     
                 </form>
                 <div id="printContract" class="hidden" *ngIf="pagedata.body.pagemode == 'R' && pagedata.body.veh">
+                    <style>   
+                    @media print {
+                            .hideinprint {
+                                display :  none;
+                            }
+                        }
+                    </style>
                     <div class="" style="height: -webkit-fill-available;margin-bottom:5px;width:650px;margin:0 auto;">
+                        <div class="text-right hideinprint" style="margin:10px;"><a href="javascript:window.print()" class="  btn btn-primary"><span class="fa fa-print"></span> PRINT</a></div>
                         <h3 class="text-center" style="margin:0">{{pagedata.body.veh.name}}</h3>
                         <p style="font-weight: bold;font-style: italic;" class="text-center">Don't let mechanical breakdown costs catch you off guard!</p>
                         <p style="font-weight: bold;font-style: italic;" class="text-center">Guard against them instead!</p>
@@ -957,7 +965,12 @@
                                                                     <p class="col-xs-12">{{table.qdsc}}</p>
                                                                     <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:10px;font-size:15px;font-weight:bold;padding:0">
                                                                         <i class="fa fa-angle-double-right"></i>&nbsp;{{bullet}}</p>
-                                                                    
+                                                                    <div *ngIf="table.surdesc && table.surdesc.length >0" class="pull-left w100">
+                                                                        <hr>
+                                                                        <h6 style="margin-bottom:0">OPTIONAL COVERAGES:</h6>
+                                                                        <p class="col-xs-4" *ngFor="let oc of table.surdesc" style="margin-top:6px;font-size:13px;padding:0;white-space: nowrap;">
+                                                                                <i class="fa fa-star"></i>&nbsp;{{oc}}</p>
+                                                                    </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -978,7 +991,7 @@
                                                                 <span *ngIf="!col.desc || col.desc ==''">${{col.ded}}</span>
                                                                 <span *ngIf="col.desc && col.desc !==''">{{col.desc}}</span>   
                                                                 </td>
-                                                                <td style="font-weight: bold"><b>Rate:&nbsp;</b>{{ table.data[r][c][0] | currency}}</td>
+                                                                <td style="font-weight: bold"><b>Price:&nbsp;</b>{{ table.data[r][c][0] | currency}}</td>
                                                             </tr>
                                                         </ng-container>
                                                         </ng-container>

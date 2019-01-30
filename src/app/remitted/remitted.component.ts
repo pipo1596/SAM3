@@ -28,6 +28,7 @@ export class RemittedComponent implements OnInit {
 	stock : string="";
   lname : string="";
   salep : string="";
+  showcap:boolean = false;
   pagemode:string = "L";
 	//Alerts
   dispAlert = new Dispalert();
@@ -374,6 +375,7 @@ for (var i = 0; i < numbers.length; i++) {
           } else {
             this.applyFiltBtn = true;
           }
+          this.showcap = !Util.noAuth(this.pagedata.head.menuOp,'VIEWCAPSH');
           //this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
   			}
   		}

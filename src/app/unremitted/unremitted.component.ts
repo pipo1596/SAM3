@@ -27,6 +27,7 @@ export class UnremittedComponent implements OnInit {
 	todt  : string="";
 	stock : string="";
   lname : string="";
+  showcap:boolean = false;
   salep : string="";
   pagemode:string = "L";
 	//Alerts
@@ -458,6 +459,7 @@ for (var i = 0; i < numbers.length; i++) {
             this.applyFiltBtn = true;
           }
           this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
+          this.showcap = !Util.noAuth(this.pagedata.head.menuOp,'VIEWCAPSH');
   			}
   		}
   	);
