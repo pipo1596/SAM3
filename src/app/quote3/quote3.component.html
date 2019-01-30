@@ -887,54 +887,48 @@
                     <div class="" style="height: -webkit-fill-available;margin-bottom:5px;width:650px;margin:0 auto;">
                         <div class="text-right hideinprint" style="margin:10px;"><a href="javascript:window.print()" class="  btn btn-primary"><span class="fa fa-print"></span> PRINT</a></div>
                         <h3 class="text-center" style="margin:0">{{pagedata.body.veh.name}}</h3>
-                        <p style="font-weight: bold;font-style: italic;" class="text-center">Don't let mechanical breakdown costs catch you off guard!</p>
-                        <p style="font-weight: bold;font-style: italic;" class="text-center">Guard against them instead!</p>
                         <table class="table table-sm" style="margin-bottom:0">
                                 <tbody>
-                                    <tr>
-                                        <td class="text-right" nowrap width="25%">
-                                            <b>Quote ID:</b>
+                                        <tr>
+                                                <td class="text-left" nowrap colspan="2">
+                                                        <b>Vehicle:</b>&nbsp;
+                                                   {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}
+                                                </td>
+                                        </tr>     
+                                        <tr>     
+                                        <td class="text-left" nowrap>
+                                                <b>Miles:</b>&nbsp;
+                                            {{pagedata.body.veh.miles | number:0}}
                                         </td>
-                                        <td class="text-left" nowrap width="25%">{{pagedata.body.qtid}}</td>
-                                        <td class="text-right" nowrap width="25%">
-                                            <b>Quote Date:</b>
-                                        </td>
-                                        <td class="text-left" nowrap width="25%">{{today | date:'MM/dd/yyyy'}}</td>
-                                    </tr>
-                                    <tr>
-                                            <td class="text-right" nowrap>
-                                                <b>Name:</b>
-                                            </td>
-                                            <td class="text-left" nowrap>{{pagedata.body.first +' '+pagedata.body.last}}</td>
-                                            <td class="text-right" nowrap>
-                                                    <b>Stock #:</b>
-                                                </td >
-                                                <td class="text-left" nowrap>{{pagedata.body.stock}}</td>
+                                                <td class="text-left" nowrap>
+                                                        <b>In-Service:</b>&nbsp;
+                                                    {{pagedata.body.veh.insrvc}}</td>
                                         </tr>
                                     <tr>
-                                            <td class="text-right" nowrap>
-                                                    <b>Vehicle:</b>
-                                                </td>
-                                                <td class="text-left" colspan="3">{{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}</td>
-                                    </tr>     
-                                    <tr>     
-                                                <td class="text-right" nowrap>
-                                            <b>Miles:</b>
-                                        </td>
-                                        <td class="text-left" nowrap>{{pagedata.body.veh.miles | number:0}}</td>
-                                            <td class="text-right" nowrap>
-                                                    <b>In-Service:</b>
-                                                </td>
-                                                <td class="text-left" nowrap>{{pagedata.body.veh.insrvc}}</td>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
+                                        <td class="text-left" nowrap>
+                                            <b>Quote ID:</b>&nbsp;
+                                        {{pagedata.body.qtid}}
+                                    </td>
+                                        <td class="text-left" nowrap width="25%">
+                                            <b>Quote Date:</b>&nbsp;
+                                       {{today | date:'MM/dd/yyyy'}}
+                                    </td>
                                     </tr>
+                                    <tr>
+                                            <td class="text-left" nowrap>
+                                                <b>Name:</b>&nbsp;
+                                           {{pagedata.body.first +' '+pagedata.body.last}}</td>
+                                            <td class="text-left" nowrap>
+                                                    <b>Stock #:</b>&nbsp;
+                                                {{pagedata.body.stock}}</td>
+                                        </tr>
+                                    
                                 </tbody>
                             </table>
                             <hr>
                         <ng-container *ngFor="let element of pagedata.body.tables;let p = index">
                                 <ng-container *ngIf="element.show">
-                                    <div class="well well-sm" style="background:white">
+                                    <div class="well well-sm" style="background:white;border-color: black;">
                                         <h4 style="margin-bottom:3px;">{{element.desc}}</h4>
                                         <table class="table">
                                             <thead>
@@ -961,7 +955,8 @@
                                                             <tr class="hidedups" title="{{table.title}}">
                                                                 <td colspan="4">
                                                                     <div class="well well-sm w100" style="margin-bottom:0">
-                                                                    <h5 class="text-center" style="margin-bottom:0"><span>{{table.title}}</span></h5>
+                                                                    <h5 class="text-center" style="margin-bottom:0;"><span>{{table.title}}</span></h5>
+                                                                    <hr *ngIf="table.qdsc !==''||table.arrd.length>0">
                                                                     <p class="col-xs-12">{{table.qdsc}}</p>
                                                                     <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:10px;font-size:15px;font-weight:bold;padding:0">
                                                                         <i class="fa fa-angle-double-right"></i>&nbsp;{{bullet}}</p>
