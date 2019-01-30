@@ -86,7 +86,7 @@
 						<div *ngFor="let bullet of selectedRec.bullets" class="col-xs-3" >
 							<h5>
 								<a  title="remove"  href="javascript:void(0)" (click)="remove(bullet)"><i class="fa fa-remove" style="font-size:20px;color:red"></i></a>
-								&nbsp;<span style="color:darkgray">[{{(bullet.seq.charCodeAt(pos) - 64)}}] - </span>{{bullet.desc}}</h5></div>
+								&nbsp;<span class="hidden" style="color:darkgray">[{{(bullet.seq.charCodeAt(pos) - 64)}}] - </span>{{bullet.desc}}</h5></div>
 				</div>
 				
 				
@@ -183,7 +183,7 @@
 				</div>
 				<div class="modal-body">
 				  <div>
-						<div class="col-xs-4" >
+						<div class="col-xs-4 hidden" >
 								<label class="flat-input inputlabel">Sequence</label>
 								<span class="flat-input">
 										<select autocomplete="new-password" class="form__select w100" name="seq" id="seq" [class.validating]="validating"  (change)="onChange()" [(ngModel)]="seq">

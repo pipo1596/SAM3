@@ -77,7 +77,10 @@ export class DescoverrideComponent implements OnInit {
 	var jsobj ={desc:this.descq.value,seq:this.seq,dscx:this.descq.value.toUpperCase()};
 	this.selectedRec.bullets.push(jsobj);
 	this.selectedRec.bullets = Util.sortBy2Key(this.selectedRec.bullets,"seq","dscx","A");
-	Util.modalid("hide","addnew");
+	this.descq.value ="";
+	Util.showWait();
+	Util.hideWait();
+	//Util.modalid("hide","addnew");
   }
   showParag(el){
 	  var htm = el.qdsc.toString();
