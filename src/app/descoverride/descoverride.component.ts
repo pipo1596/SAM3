@@ -73,10 +73,10 @@ export class DescoverrideComponent implements OnInit {
 		this.descq.message = '(Already exists!)'
 		return false;
 	}
-
+	this.onChange();
 	var jsobj ={desc:this.descq.value,seq:this.seq,dscx:this.descq.value.toUpperCase()};
 	this.selectedRec.bullets.push(jsobj);
-	this.selectedRec.bullets = Util.sortBy2Key(this.selectedRec.bullets,"seq","dscx","A");
+	//this.selectedRec.bullets = Util.sortByKey(this.selectedRec.bullets,"seq","A");
 	this.descq.value ="";
 	Util.showWait();
 	Util.hideWait();
@@ -168,7 +168,7 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.cmpc = this.cmpc;
 	this.selectedRec.belg = record.belg; 
 	this.selectedRec.bullets = JSON.parse(JSON.stringify(record.bullets));  
-	this.selectedRec.bullets = Util.sortBy2Key(this.selectedRec.bullets,"seq","dscx","A");
+	//this.selectedRec.bullets = Util.sortByKey(this.selectedRec.bullets,"seq","A");
 
   	//this.selectedRecG = record;
   	this.selectedRec.mode = "SAVE";
@@ -356,5 +356,13 @@ export class DescoverrideComponent implements OnInit {
   		}
   	);
   }
+
+  canDeactivate() {
+
+    if(this.changes)
+      return window.confirm('Changes not saved! Discard changes?');
+    return true;
+
+}
 
 }

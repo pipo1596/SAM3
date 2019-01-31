@@ -83,7 +83,7 @@
 				</div>
 				<div class="col-xs-12 well" >
 						<label class="flat-input inputlabel" style="margin-bottom: 20px;">Quote Printout Coverage Components&nbsp;<a href="javascript:void(0)" title="Add New" (click)="newcomp()" style="color:#5a8ce6">- Add New</a></label>
-						<div *ngFor="let bullet of selectedRec.bullets" class="col-xs-3" >
+						<div *ngFor="let bullet of selectedRec.bullets" class="col-sm-3 col-xs-6" >
 							<h5>
 								<a  title="remove"  href="javascript:void(0)" (click)="remove(bullet)"><i class="fa fa-remove" style="font-size:20px;color:red"></i></a>
 								&nbsp;<span class="hidden" style="color:darkgray">[{{(bullet.seq.charCodeAt(pos) - 64)}}] - </span>{{bullet.desc}}</h5></div>

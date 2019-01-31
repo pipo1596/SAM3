@@ -890,36 +890,50 @@
                         <table class="table table-sm" style="margin-bottom:0">
                                 <tbody>
                                         <tr>
-                                                <td class="text-left" nowrap colspan="2">
-                                                        <b>Vehicle:</b>&nbsp;
+                                                <td class="text-right" nowrap >
+                                                        <b>Vehicle:</b>
+                                                </td>
+                                                <td class="text-left" colspan="3">
                                                    {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}
                                                 </td>
                                         </tr>     
                                         <tr>     
-                                        <td class="text-left" nowrap>
-                                                <b>Miles:</b>&nbsp;
+                                        <td class="text-right" nowrap>
+                                                <b>Miles:</b>
+                                        </td>
+                                        <td class="text-left">
                                             {{pagedata.body.veh.miles | number:0}}
                                         </td>
-                                                <td class="text-left" nowrap>
-                                                        <b>In-Service:</b>&nbsp;
+                                                <td class="text-right" nowrap>
+                                                        <b>In-Service:</b>
+                                                </td>
+                                                <td class="text-left">
                                                     {{pagedata.body.veh.insrvc}}</td>
                                         </tr>
                                     <tr>
-                                        <td class="text-left" nowrap>
-                                            <b>Quote ID:</b>&nbsp;
+                                        <td class="text-right" nowrap>
+                                            <b>Quote ID:</b>
+                                        </td>
+                                        <td class="text-left">
                                         {{pagedata.body.qtid}}
                                     </td>
-                                        <td class="text-left" nowrap width="25%">
-                                            <b>Quote Date:</b>&nbsp;
+                                        <td class="text-right" nowrap width="25%">
+                                            <b>Quote Date:</b>
+                                        </td>
+                                        <td class="text-left">
                                        {{today | date:'MM/dd/yyyy'}}
                                     </td>
                                     </tr>
                                     <tr>
-                                            <td class="text-left" nowrap>
-                                                <b>Name:</b>&nbsp;
+                                            <td class="text-right" nowrap>
+                                                <b>Name:</b>
+                                            </td>
+                                            <td class="text-left">
                                            {{pagedata.body.first +' '+pagedata.body.last}}</td>
-                                            <td class="text-left" nowrap>
-                                                    <b>Stock #:</b>&nbsp;
+                                            <td class="text-right" nowrap>
+                                                    <b>Stock #:</b>
+                                            </td>
+                                            <td class="text-left">
                                                 {{pagedata.body.stock}}</td>
                                         </tr>
                                     
@@ -928,8 +942,8 @@
                             <hr>
                         <ng-container *ngFor="let element of pagedata.body.tables;let p = index">
                                 <ng-container *ngIf="element.show">
-                                    <div class="well well-sm" style="background:white;border-color: black;">
-                                        <h4 style="margin-bottom:3px;">{{element.desc}}</h4>
+                                    <div class="" style="background:white;padding:2px;border-color: black;BORDER: 1PX SOLID;BORDER-RADIUS: 5PX;MARGIN-BOTTOM: 15PX;">
+                                        <h4 style="margin:3px 8px;">{{element.desc}}</h4>
                                         <table class="table">
                                             <thead>
                                                 <tr style="display: none">
@@ -954,16 +968,16 @@
                                                             <ng-container *ngIf="table.data[r][c]!==undefined && table.data[r][c][2]==1">
                                                             <tr class="hidedups" title="{{table.title}}">
                                                                 <td colspan="4">
-                                                                    <div class="well well-sm w100" style="margin-bottom:0">
+                                                                    <div class="well well-sm w100" style="margin-bottom:0;padding:2px;">
                                                                     <h5 class="text-center" style="margin-bottom:0;"><span>{{table.title}}</span></h5>
                                                                     <hr *ngIf="table.qdsc !==''||table.arrd.length>0">
-                                                                    <p class="col-xs-12">{{table.qdsc}}</p>
-                                                                    <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:10px;font-size:15px;font-weight:bold;padding:0">
+                                                                    <p class="w100">{{table.qdsc}}</p>
+                                                                    <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:10px;font-size:12px;font-weight:bold;padding:0">
                                                                         <i class="fa fa-angle-double-right"></i>&nbsp;{{bullet}}</p>
                                                                     <div *ngIf="table.surdesc && table.surdesc.length >0" class="pull-left w100">
                                                                         <hr>
                                                                         <h6 style="margin-bottom:0">OPTIONAL COVERAGES:</h6>
-                                                                        <p class="col-xs-4" *ngFor="let oc of table.surdesc" style="margin-top:6px;font-size:13px;padding:0;white-space: nowrap;">
+                                                                        <p class="col-xs-4" *ngFor="let oc of table.surdesc" style="margin-top:6px;font-size:11px;padding:0;white-space: nowrap;">
                                                                                 <i class="fa fa-star"></i>&nbsp;{{oc}}</p>
                                                                     </div>
                                                                     </div>
