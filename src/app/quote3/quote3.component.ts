@@ -1112,33 +1112,7 @@ export class Quote3Component implements OnInit {
                 cost+=rate.cost[i2][i3][0];
 
                 
-              //Contract Types
-              if (table.ctrct.trim() !== "") {
-
-                if (ic > -1) {
-
-                  switch (this.cont.catg) {
-                    case "PCT":
-                      unitp[0] = unitp[0] * (1 + parseFloat(this.cont.valu));
-                      table.valu = -1.2323;
-                      break;
-                    case "OTC":
-                      unitp[0] = unitp[0] + table.valu;
-                      break;
-                    case "OTR":
-                      unitp[0] = table.valu;
-                      break;
-                    case "RTL":
-                      unitp[0] = parseFloat(this.cont.valu);
-                      table.valu = -1.2323;
-                      break;
-                    default:
-                      unitp[0] = unitp[0] + parseFloat(this.cont.valu);
-                      table.valu = -1.2323;
-                      break;
-                  }
-                }
-              }
+              
               if(this.cont.catg!=="RTL" && this.cont.catg !=="OTR"){
               //Surcharges
               this.pagedata.body.srchg.forEach((surch, i4) => {
@@ -1174,6 +1148,34 @@ export class Quote3Component implements OnInit {
               this.ncbarrv.push(ncbsurch);
               //Taxes
               if (this.pagedata.body.tax > 0) unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
+            }
+
+            //Contract Types
+            if (table.ctrct.trim() !== "") {
+
+              if (ic > -1) {
+
+                switch (this.cont.catg) {
+                  case "PCT":
+                    unitp[0] = unitp[0] * (1 + parseFloat(this.cont.valu));
+                    table.valu = -1.2323;
+                    break;
+                  case "OTC":
+                    unitp[0] = unitp[0] + table.valu;
+                    break;
+                  case "OTR":
+                    unitp[0] = table.valu;
+                    break;
+                  case "RTL":
+                    unitp[0] = parseFloat(this.cont.valu);
+                    table.valu = -1.2323;
+                    break;
+                  default:
+                    unitp[0] = unitp[0] + parseFloat(this.cont.valu);
+                    table.valu = -1.2323;
+                    break;
+                }
+              }
             }
             unitp[0] = Math.ceil(unitp[0])
             });

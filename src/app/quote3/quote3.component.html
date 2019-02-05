@@ -577,7 +577,7 @@
                         <h6 style="margin:0px">Contract Type</h6>
                         <button type="button" (click)="applySurch('C')" [class.hidden]="element.catg !== 'OTC' && element.catg !== 'OTR'" class="btn btn-primary" style="margin: 1px;padding: 8px;float: right;">APPLY</button>
                         <input name="valu{{p}}" (focus)="otcOn()" (blur)="otcOff()" type="number" [class.hidden]="element.catg !== 'OTC' && element.catg !=='OTR'" [(ngModel)]="element.valu"  autocomplete="off" placeholder="Charge" style="margin:0 3px;width:80px;float:right;padding-left:8px;font-family:text-security-circle;-webkit-text-security: disc;font-family:text-security-circle;">
-                        <select class="form__select pull-right" name="year{{element.rates[0].program+element.rates[0].ratc}}" [(ngModel)]="element.ctrct" style="margin-bottom:3px;width:60%;" (change)="applySurch('C')">
+                        <select class="form__select pull-right" name="year{{element.rates[0].program+element.rates[0].ratc}}" [(ngModel)]="element.ctrct" style="margin-bottom:3px;width:60%;" (change)="applySurch('M')">
                             <ng-container *ngFor="let cont of pagedata.body.contracts">
                                 <option  *ngIf="cont.prgm.padEnd(20) == element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)" [value]=" element.rates[0].program.padEnd(10) +element.rates[0].ratc.padEnd(10)+cont.code.padEnd(30)" [attr.selected]="element.ctrct==(cont.prgm.padEnd(20) + cont.code.padEnd(30)) ? true : null">{{cont.desc}}</option>
                             </ng-container>
