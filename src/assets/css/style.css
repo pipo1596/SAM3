@@ -7,6 +7,22 @@
      -webkit-text-size-adjust: 100%;
      -ms-text-size-adjust: 100%;
 }
+/*Quote Table Small Mode*/
+/* CSS for smaller view spaces */
+table.sixcol{font-size:14px;}
+@media screen and (max-width: 1320px) {
+    table.sixcol,table.sixcol th{font-size:14px;}
+    table.sixcol .custcheck label{width:15px;height:15px;}
+    table.sixcol .custcheck label:after{left:2px;top:2px;}
+    table.sixcol .labelprice{margin-left:5px;}
+    table.sixcol th.dedcol b{margin-left:-15px;display:inline-block;}
+    table.sixcol .custcheck{width:15px;margin-left: -12px;margin-top: 1px;}
+}
+@media screen and (max-width: 992px) {
+    .tablcont{padding: 0;}
+}
+
+
  @media (min-width: 992px) {
     ::-webkit-scrollbar{
         -webkit-appearance:none;
@@ -21,7 +37,7 @@
         font-size:14px;
     }
     .claimsmenu{width:260px !important;}
-    .supportmenu{width:230px !important;}
+    .supportmenu{width:195px !important;}
 }
  body {
      line-height: 1;

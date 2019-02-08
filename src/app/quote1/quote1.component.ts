@@ -59,6 +59,7 @@ export class Quote1Component implements OnInit {
   rvchange2(){
     Util.showWait();
     this.mfgw.value = "";
+    if(this.engtyp.value=='AGAS'){ this.mfgw.value ='36 Months / 36,000';};
     Util.hideWait();
   }
   rvchange(){

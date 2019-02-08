@@ -35,6 +35,23 @@
             <input autocomplete="new-password{{ran}}" name="todate" id="todate" type="date" placeholder="To Date" [(ngModel)]="todt">
           </div>
 				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Last Name
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password{{ran}}" (change)="onChange()" name="Last Name" id="lnam" type="text" placeholder="Last Name" [(ngModel)]="lnam">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">First Name
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password{{ran}}" (change)="onChange()" name="First Name" id="fnam" type="text" placeholder="First Name" [(ngModel)]="fnam">
+					</div>
+				</div>
 				<div class="col-md-4">
 					<label class="flat-input inputlabel">&nbsp;
 						<span class="errorspan2"></span>
@@ -74,6 +91,8 @@
 							<tr>
 								<th><b>Contract #</b></th>
 								<th><b>Contract Date</b></th>
+								<th><b>Last Name</b></th>
+								<th><b>First Name</b></th>
 								<th><b>Price</b></th>
 								<th class="text-center"><b>View</b></th>
 							</tr>
@@ -86,6 +105,8 @@
 								<tr *ngIf="cnt.show === true">
 									<td data-label="Contract #">{{cnt.anum}}-{{cnt.asuf}}</td>
 									<td data-label="Contract Date">{{cnt.date}}</td>
+									<td data-label="Last Name">{{cnt.lnam}}</td>
+									<td data-label="First Name">{{cnt.fnam}}</td>
 									<td data-label="Total Cost">{{cnt.ccst|currency}}</td>
 									<td data-label="View" class="text-center">
 										<a class="btn btn-primary btnedit" target="_blank" href="http://reports.inds.com/Auto/Decpage.asp?d={{pagedata.head.currdlr}}&n={{cnt.anum}}&s={{cnt.asuf}}"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>									</td>

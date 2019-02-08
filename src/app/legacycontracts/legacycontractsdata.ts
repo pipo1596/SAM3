@@ -17,6 +17,8 @@ export class Lginv {
 	asuf : string;
 	date : string;
 	datei: string;
+	fnam: string;
+	lnam: string;
 	ccst : string;	
 }
 

@@ -25,7 +25,9 @@ export class LegacycontractsComponent implements OnInit {
 	changes = false;
 	//Input Fields
 	frdt : string="";
-	todt : string="";
+  todt : string="";
+  lnam : string="";
+  fnam : string="";
 	//Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -51,6 +53,8 @@ export class LegacycontractsComponent implements OnInit {
 
   dateFilter(){
     Util.showWait();
+    this.lnam = this.lnam.trim();
+    this.fnam = this.fnam.trim();
     this.pageCount = this.masterPgCnt;
   	if(this.frdt === "" || !this.isValidDate(this.frdt)){
       this.frdt = "0";
@@ -67,6 +71,13 @@ export class LegacycontractsComponent implements OnInit {
 				this.pagedata.lcontracts[i].show = false;
 			}
       
+      
+      if(this.lnam !== "" && this.pagedata.lcontracts[i].lnam.toUpperCase().indexOf(this.lnam.toUpperCase()) === -1){
+        this.pagedata.lcontracts[i].show = false;
+      }
+      if(this.fnam !== "" && this.pagedata.lcontracts[i].fnam.toUpperCase().indexOf(this.fnam.toUpperCase()) === -1){
+        this.pagedata.lcontracts[i].show = false;
+      }
       if(this.pagedata.lcontracts[i].show === false){
         this.pageCount -= 1;
       }
@@ -145,6 +156,8 @@ export class LegacycontractsComponent implements OnInit {
   resetf(){
     this.frdt = "";
     this.todt = "";
+    this.fnam = "";
+    this.lnam = "";
     this.dateFilter();
 
   }

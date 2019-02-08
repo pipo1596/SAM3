@@ -95,7 +95,7 @@ static prinQuote(){
     html ='<link rel="stylesheet" href="http://qa.milo.inds.com/styles.css">'+$("#printContract").html();
     else
      html ='<link rel="stylesheet" href="'+location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+'/styles.css">'+$("#printContract").html();
-    var winPrint = window.open('', '', 'status=0,width=800,height=800');
+    var winPrint = window.open('', '', 'status=0,width=800,height=800,scrollbars=1');
     html = '<div class="container"><div class="row white">'+html+'</div></div>';
 winPrint.document.write(html);
 winPrint.document.close();

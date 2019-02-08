@@ -703,10 +703,13 @@ export class Quote3Component implements OnInit {
             table.showct = false;
             table.prgm = program.program;
             table.ratc = program.ratc;
-            table.catg = this.pagedata.body.data[index].catg;
+            
+            if(mode!=='C' || table.ctrct.trim()==""){
+            table.catg = this.pagedata.body.data[index].catg;  
             table.ctrct = this.pagedata.body.data[index].ctrct;
             table.valu = parseFloat(this.pagedata.body.data[index].valu);
             if(isNaN(table.valu)){table.valu = 0;}
+            }
             
           }
           else

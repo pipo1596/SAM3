@@ -183,10 +183,14 @@
                                 <div class="custradio"><input name="mfgw" id="mfgw9" value="72 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw9"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw9">72 Months</label> 
                             </div>
-                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw10" value="84 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw10"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw10">84 Months</label> 
-                            </div>
+                            </div> 
+                            <div class="col-sm-8 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                <div class="custradio"><input name="mfgw" id="mfgw11" value="0 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw11"></label></div>
+                                <label class="checklabel" style="font-weight: bold;" for="mfgw11">None</label> 
+                            </div> 
                         </span>    
                         <label class="flat-input inputlabel" *ngIf="pagedata.body.type==='R' ||
                                                                     (pagedata.body.type==='' && pagedata.body.dtype==='R')"><span class="req">*&nbsp;</span>Original Purchase Price
