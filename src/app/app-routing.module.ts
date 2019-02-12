@@ -40,6 +40,10 @@ import { RepairsComponent } from './repairs/repairs.component';
 import { CancellationsComponent } from './cancellations/cancellations.component';
 
 const routes: Routes = [
+  {
+    path: 'app/agents',
+    loadChildren: './agents/agents.module#AgentsModule'
+  },
   { path: 'app/Home', component: HomeComponent },
   { path: 'app/Users', canDeactivate: [CanDeactivateGuard], component: UsersComponent },
   { path: 'app/SalesPersons', canDeactivate: [CanDeactivateGuard], component: UsersComponent },

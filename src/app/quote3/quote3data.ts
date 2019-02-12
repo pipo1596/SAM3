@@ -21,6 +21,7 @@ contracts : [Cont];
      dnup : String;
     dspasnew: [string]; 
      tax : number = 0 ;
+     incl: string = "N" ;
     code : string = "";
    stock : string = "";
    first : string = "";

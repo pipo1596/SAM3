@@ -35,6 +35,7 @@ export class Quote3Component implements OnInit {
   mindwn: string = "5";
   caldwn: string = "";
   totalp: string = "";
+  taxes: string = "";
   mthlyp: string = "";
   downpm: string = "";
   downpmMsg: string = "";
@@ -153,8 +154,11 @@ export class Quote3Component implements OnInit {
     var c = parseInt(cont.selected.substring(12, 15));
     var tb = this.pagedata.body.tables[p];
     contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
-    
-    contract.COVC += Math.ceil(tb.rates[t].data[r][c][1]).toString().padEnd(15);
+    if(this.pagedata.body.incl !=='Y'){
+      contract.COVC += Math.ceil(tb.rates[t].data[r][c][1]).toString().padEnd(15);
+    }else{
+      contract.COVC += tb.rates[t].data[r][c][1].toFixed(2).toString().padEnd(15); 
+    }
     contract.XTR8 += this.getCostPlus(p,t,r,c).toString().padEnd(15);
     contract.XTR9 += this.dspNupCode(tb.rates[t].program,tb.rates[t].nup).toString().padEnd(1);
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
@@ -554,12 +558,46 @@ export class Quote3Component implements OnInit {
   //==================================================================================================//
   calcChng(field) {
     if (parseFloat(this.totalp) <= 0 || isNaN(parseFloat(this.totalp))) this.totalp = "0";
+    //Tax Logic
+    var ttl = parseFloat(this.totalp);
+    var base = 0;var stax=0;
+    this.taxes = '0';
+    if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+      base = ttl /(1+(this.pagedata.body.tax / 100));
+      stax = base * (this.pagedata.body.tax / 100); 
+      stax = Math.ceil(stax*100);
+    this.taxes = '('+(stax/100).toFixed(2) +')';
+    }else{
+      if(this.pagedata.body.tax >0){
+      stax = ttl * (this.pagedata.body.tax / 100);
+      stax = Math.ceil(stax*100);
+    this.taxes = (stax/100).toFixed(2);
+    //this.totalp = (parseFloat(this.totalp) + parseFloat(this.taxes)).toFixed(2);
+      }
+    }
+    
+
     if (parseFloat(this.downpm) <= 0 || isNaN(parseFloat(this.downpm))) this.downpm = "0";
     if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
-    if (field !== "downpm") this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+    if (field !== "downpm"){ 
+    if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+      this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+    }else{
+      this.downpm = ((parseFloat(this.totalp)+parseFloat(this.taxes)) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+    }
+  }
     this.caldwn ='';
     var percdwn = '5';
-    if(parseFloat(this.totalp)>0) percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
+    if(parseFloat(this.totalp)>0){
+      if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+        percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
+    }else{
+      percdwn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)+parseFloat(this.taxes)) )* 100)).toFixed(1); 
+
+    }
+  }
+    
+    
     if(parseFloat(this.totalp)>0){
     if(parseFloat(percdwn) !== 5 &&
        parseFloat(percdwn) !== 10 &&
@@ -575,8 +613,11 @@ export class Quote3Component implements OnInit {
     if(parseFloat(percdwn)<5) { this.downpmMsg = "(5% Or more required)";}
 
     
-
-    this.balnce = (parseFloat(this.totalp) - (parseFloat(this.downpm))).toFixed(2);
+    if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+      this.balnce = (parseFloat(this.totalp) - (parseFloat(this.downpm))).toFixed(2);
+    }else{
+      this.balnce = ((parseFloat(this.totalp)+parseFloat(this.taxes)) - (parseFloat(this.downpm))).toFixed(2);
+    }
     this.mthlyp = (parseFloat(this.balnce) / (parseFloat(this.months))).toFixed(2);
 
     if (field !== "totalp") this.totalp = parseFloat(this.totalp).toFixed(2);
@@ -1150,7 +1191,7 @@ export class Quote3Component implements OnInit {
               );
               this.ncbarrv.push(ncbsurch);
               //Taxes
-              if (this.pagedata.body.tax > 0) unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
+              if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
             }
 
             //Contract Types
@@ -1180,7 +1221,10 @@ export class Quote3Component implements OnInit {
                 }
               }
             }
-            unitp[0] = Math.ceil(unitp[0])
+            if(this.pagedata.body.incl !=='Y') 
+              unitp[0] = Math.ceil(unitp[0])
+            else
+            unitp[0] = parseFloat(unitp[0].toFixed(2));
             });
           });
         });

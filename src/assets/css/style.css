@@ -2934,3 +2934,71 @@ margin:3px 0 0 3px;}
         url('text-security-circle.woff2') format('woff2'),
         url('text-security-circle.woff') format('woff');
 }
+.invisible {
+	visibilty: hidden;
+}
+
+.flat-input-checkbox-SQ {
+	margin: 0 0 0 20px;
+  height: 40px;
+  padding: 7px 0;
+  display: inline-block;
+}
+
+.apply-delete-space {
+	padding-top: 25px;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+	cursor: pointer;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+	cursor: pointer;
+}
+
+.disabled > a:hover {
+	cursor: not-allowed !important;
+}
+
+.table {
+	margin-bottom: 0px;
+}
+
+.pagination > li > a, .pagination > li > span {
+	color: #124c8a;
+}
+
+.pageOf {
+	cursor: default !important;
+}
+
+.pageOf:hover {
+	background-color: #fff;
+	color: #124c8a;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+	background-color: #eee;
+}
+
+.ULpageOf {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	margin: 10px 0 5px 0;
+}
+
+button:disabled, button[disabled], button:disabled:hover, button[disabled]:hover, .flat-button:disabled::before {
+	background-color: #eee !important;
+	background: #eee !important;
+	cursor: not-allowed;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}

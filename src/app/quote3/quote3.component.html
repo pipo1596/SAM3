@@ -192,6 +192,8 @@
                                                 <span class="errorspan2" [class.opqquezero]="downpmMsg===''"  [class.alert-danger]="downpmMsg!==''" [class.validating]="downpmMsg!==''">{{downpmMsg}}</span>
                                             </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                     <div class="col-xs-6">
                                         <label class="flat-input inputlabel" style="margin-top:10px"># Months</label>
@@ -209,12 +211,17 @@
                                                 <input name="mthlyp" [(ngModel)]="mthlyp" type="text" placeholder="Monthly Payment" disabled >
                                             </div>
                                         </div>
+                                        <label class="flat-input inputlabel" style="margin-top:10px">Tax</label>
+                                        <div class="flat-input w100" >
+                                            <input  type="text" placeholder="Tax" name="tax" [(ngModel)]="taxes" disabled >
+                                        </div>
                                         <label class="flat-input inputlabel" style="margin-top:10px">Balance</label>
                                         <div class="flat-input w100">
                                             <div style="padding:0">
                                                 <input name="balnce" [(ngModel)]="balnce" type="text" placeholder="Balance" disabled >
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>

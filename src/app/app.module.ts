@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PagerService } from './_services';
 
 import { AppComponent }     from './app.component';
-import { HeaderComponent }  from './header/header.component';
+import { HeaderComponent }  from './header/header.component'; 
 import { FooterComponent }  from './footer/footer.component';
 import { LoginComponent }   from './login/login.component';
 import { Login1Component }  from './login1/login1.component';

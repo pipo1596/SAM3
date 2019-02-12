@@ -3,12 +3,8 @@ import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 import { Util } from '../utilities/util';
 import { JsonService } from '../utilities/json.service';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
 import { Login1data } from './login1data';
-import { utils } from 'protractor';
-
 
 @Component({
   selector: 'app-login',

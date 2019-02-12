@@ -9,8 +9,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-savedquotes',
-  templateUrl: './savedquotes.component.html',
-  styleUrls: [ './savedquotes.component.css']
+  templateUrl: './savedquotes.component.html'
 })
 
 
