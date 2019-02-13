@@ -1,18 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-
 import { enableProdMode } from '@angular/core';
-import { JsonService , HtmlService } from './utilities/json.service';
-import { CanDeactivateGuard } from './utilities/confirmroute';
-import { AppRoutingModule } from './app-routing.module';
-import { PagerService } from './_services';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent }     from './app.component';
-import { HeaderComponent }  from './header/header.component'; 
-import { FooterComponent }  from './footer/footer.component';
+
 import { LoginComponent }   from './login/login.component';
 import { Login1Component }  from './login1/login1.component';
 import { ForgotPasswordComponent }  from './forgotpassword/forgotpassword.component';
@@ -52,14 +45,13 @@ import { RepairsComponent } from './repairs/repairs.component';
 import { CancellationsComponent } from './cancellations/cancellations.component';
 import {Safe} from './_services/pager.service';
 import { TooltipModule } from 'ng2-tooltip-directive';
+import { HeadersModule } from './headers/headers.module';
 
 
 enableProdMode();
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
     LoginComponent,
     Login1Component,
     ForgotPasswordComponent,
@@ -101,15 +93,10 @@ enableProdMode();
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
     TooltipModule,
-    AppRoutingModule
-  ],
-  providers: [JsonService,
-              HtmlService,
-              CanDeactivateGuard,
-              PagerService
+    RouterModule,
+    FormsModule,
+    HeadersModule
   ],
   bootstrap: [AppComponent]
 })

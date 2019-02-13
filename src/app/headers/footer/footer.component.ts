@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Util } from '../utilities/util';
+import { Util } from '../../utilities/util';
 
 @Component({
   selector: 'app-footer',
