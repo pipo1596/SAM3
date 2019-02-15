@@ -1,0 +1,336 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Producer Analysis</h1>
+				</div>
+			</div>
+		</div>
+
+		<form class="contactform style4 clearfix panel-body" method="post"  (submit)="applyFilter()" autocomplete="off" >
+       <!---Default View Initial I-->
+       <div *ngIf="pagemode=='L'">
+          <div class="row white">
+              
+            <div class="col-xs-12" style="margin-top:15px;">
+              <h4 class="pull-left" *ngIf="pagemodel=='PRC'">Processed Contracts &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="pagemodel=='PNC'">Pending Contracts &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="pagemodel=='DNC'">Denied Contracts &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="pagemodel=='PDCL'">Paid Claims &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="pagemodel=='DNCL'">Denied Claims &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="pagemodel=='OPCL'">Open Claims &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="period=='1'"> - Current Month &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="period=='2'"> - Previous Month &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="period=='3'"> - Previous 3 Months &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="period=='4'"> - Previous 12 Months &nbsp;</h4>
+              <h4 class="pull-left" *ngIf="period=='5'"> - Inception To Date &nbsp;</h4>
+              <button class="btn btn-warning pull-right" (click)="clearmode()" type="button"><span class="fa fa-backward"></span>&nbsp;&nbsp;Back</button>
+            </div>
+            <div class="col-xs-4">
+              <h5 style="margin-bottom: 0"><span style="color:gray">Status: </span>{{parentRec.stat}}</h5>
+            </div>
+            <div class="col-xs-8">
+              <h5 style="margin-bottom: 0"><span style="color:gray">Producer: </span>{{parentRec.dlrn}} - {{parentRec.dlrc}}</h5>
+            </div>
+            <div class="col-xs-12"><hr></div>
+            <div class="col-xs-12">
+                <div class="p-table-responsive">
+              <table class="table">
+                	<thead>
+                      <tr *ngIf="pagemodel=='PRC' || pagemodel=='PNC' || pagemodel =='DNC'" style="font-weight: bold">
+                        <th>VSC#&nbsp;</th>
+                        <th>VSC Holder&nbsp;</th>
+                        <th>VIN&nbsp;</th>
+                        <th>Date Sold&nbsp;</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                      <tr *ngIf="pagemodel=='PDCL' || pagemodel=='DNCL' || pagemodel =='OPCL'" style="font-weight: bold">
+                        <th>VSC#&nbsp;</th>
+                        <th>VSC Holder&nbsp;</th>
+                        <th>Clm#&nbsp;</th>
+                        <th>Shop Entry Date&nbsp;</th>
+                        <th>Repair Facility&nbsp;</th>
+                        <th>Paid Amt&nbsp;</th>
+                        <th>&nbsp;</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="drilldata && drilldata.length > 0">
+                        <ng-container *ngFor="let drill of drilldata">
+                            <tr *ngIf="pagemodel=='PRC' || pagemodel=='PNC' || pagemodel =='DNC'">
+                                <td data-label="VSC#">{{drill.anum}} - {{drill.asuf}}&nbsp;</td>
+                                <td data-label="VSC Holder">{{drill.oln}} {{drill.ofn}}&nbsp;</td>
+                                <td data-label="VIN">{{drill.vin}}&nbsp;</td>
+                                <td data-label="Date Sold">{{drill.cpd}}&nbsp;</td>
+                                <td data-label="View">
+                                    <a  href="javascript:void(0);" (click)="viewCont(drill)" class="btn btn-primary btn-xs btnedit" ><i style="font-size:17px" class="fa fa-eye"></i>&nbsp;View</a>
+                                </td>
+                              </tr>
+                              <tr *ngIf="pagemodel=='PDCL' || pagemodel=='DNCL' || pagemodel =='OPCL'">
+                                <td data-label="VSC#">{{drill.anum}} - {{drill.asuf}}&nbsp;</td>
+                                <td data-label="VSC Holder">{{drill.oln}} {{drill.ofn}}&nbsp;</td>
+                                <td data-label="Clm#">{{drill.clmn}}&nbsp;</td>
+                                <td data-label="Shop Entry Date">{{drill.sedt}}&nbsp;</td>
+                                <td data-label="Repair Facility">{{drill.repn}}&nbsp;</td>
+                                <td data-label="Paid Amt">{{drill.clmp}}&nbsp;</td>
+                                <td data-label="View">
+                                    <a  href="javascript:void(0);" (click)="viewCont(drill)" class="btn btn-primary btn-xs btnedit" ><i style="font-size:17px" class="fa fa-eye"></i>&nbsp;View</a>
+                                </td>
+                              </tr>
+                        </ng-container>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+      <!---Default View Initial I-->
+      <div *ngIf="pagemode=='I'">
+      <div class="row white">
+				<div class="col-xs-12">
+					<h5 class="pull-left">&nbsp;</h5>
+				</div>
+							
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Producer Name
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password{{ran}}" name="Producer Name" id="dlrn" type="text" placeholder="Producer Name" [(ngModel)]="dlrn">
+					</div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">Producer #
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password{{ran}}" name="Producer #" id="dlrc" type="text" placeholder="Producer #" [(ngModel)]="dlrc">
+					</div>
+				</div>
+				
+				
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">&nbsp;
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<button name="submit" type="submit" [disabled]="applyFiltBtn === false"  class="flat-button" style="margin-right:10px" title="Apply">Apply</button>
+						<button name="submit" type="button" [disabled]="applyFiltBtn === false" (click)="resetf()"  class="flat-button" style="margin-right:10px;background: #f0ad4e;" title="Clear">Clear</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row white apply-delete-space">			
+        <div class="col-xs-12" *ngIf="pagedItems.length >0">
+            <ul class="breadcrumb">
+                <li  [ngClass]="{'active':period=='1'}">
+                  <div class="custradio hidden">
+                    <input name="periond" id="period1" value="1" type="radio" (change)="resetf()" [(ngModel)]="period">
+                    <label for="period1"></label>
+                  </div>&nbsp;&nbsp;<label for="period1">Current Month</label>
+                </li>
+                <li  [ngClass]="{'active':period=='2'}">
+                    <div class="custradio hidden">
+                        <input name="periond" id="period2" value="2" type="radio" (change)="resetf()" [(ngModel)]="period">
+                        <label for="period2"></label>
+                      </div>&nbsp;&nbsp;<label for="period2">Previous Month</label>
+                </li>
+                <li  [ngClass]="{'active':period=='3'}">
+                    <div class="custradio hidden">
+                        <input name="periond" id="period3" value="3" type="radio" (change)="resetf()" [(ngModel)]="period">
+                        <label for="period3"></label>
+                      </div>&nbsp;&nbsp;<label for="period3">Previous 3 Months</label>
+                </li>
+                <li [ngClass]="{'active':period=='4'}">
+                    <div class="custradio hidden">
+                        <input name="periond" id="period4" value="4" type="radio" (change)="resetf()" [(ngModel)]="period">
+                        <label for="period4"></label>
+                      </div>&nbsp;&nbsp;<label for="period4">Previous 12 Months</label>
+                </li>
+                <li  [ngClass]="{'active':period=='5'}">
+                    <div class="custradio hidden">
+                        <input name="periond" id="period5" value="5" type="radio" (change)="resetf()" [(ngModel)]="period">
+                        <label for="period5"></label>
+                      </div>&nbsp;&nbsp;<label for="period5">Inception To Date</label>
+                </li>
+                
+              </ul>
+        </div>			
+				<div class="col-xs-6" [class.invisible]="pager.totalPages<=1">
+					<ul *ngIf="pager.pages && pager.pages.length" class="pagination ULpageOf pull-left">
+						<li [ngClass]="{disabled:pager.currentPage === 1}">
+							<a (click)="setPage(pager.currentPage - 1)">Previous</a>
+						</li>
+						<li>
+							<span class="pageOf">Page {{pager.currentPage}} of {{pager.totalPages}}</span>
+						</li>
+						<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+							<a (click)="setPage(pager.currentPage + 1)">Next</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-xs-6" [class.invisible]="pageCount<1">
+					<label class="pull-right" style="margin:15px 10px 0 0;font-weight: bold;">( {{pageCount}} - Records Found )</label>	
+				</div>
+			</div>
+			<div class="row white">
+				<div class="p-table-responsive">
+					<table class="table table-striped">
+						<thead>
+              <tr>
+                <th colspan="3" style="padding:0;height:10px;background: #f9f9f9;">&nbsp;</th>
+                <th colspan="3" style="padding:0;height:10px;text-align: center;font-weight: bold;background: aliceblue;border-right: 1px solid gainsboro;border-left:1px solid gainsboro;">Contracts</th>
+                <th colspan="3" style="padding:0;height:10px;text-align: center;font-weight: bold;background: #f9f9f9;">Claims</th>
+              </tr>
+							<tr>
+								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort('S')" title="Sort By Status"><b>Status</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!statsort" [class.fa-arrow-up]="statsort"></i></a></th>
+								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort('N')" title="Sort By Producer"><b>Producer</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!namesort" [class.fa-arrow-up]="namesort"></i></a></th>
+								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort('C')" title="Sort By Producer#"><b>Producer#</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!codesort" [class.fa-arrow-up]="codesort"></i></a></th>
+								<th style="border-left: 1px solid gainsboro;">Processed</th>
+								<th>Pending</th>
+								<th style="border-right: 1px solid gainsboro;">Denied</th>
+								<th>Paid</th>
+								<th>Denied</th>
+								<th>Open</th>
+							</tr>
+						</thead>
+						<tbody>
+                <tr *ngIf="pagedItems.length < 1">
+                    <td colspan="9"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Data To List----</h4></td>
+                  </tr>
+              	<ng-container *ngFor="let record of pagedItems">
+							
+              <tr *ngIf="pagedItems.length >0 && record.show" id="row{{record.dlrc}}">
+									<td data-label="Status">&nbsp;{{record.stat}}</td>	
+									<td data-label="Producer">&nbsp;{{record.dlrn}}</td>
+                  <td data-label="Producer #"  class="text-center" style="border-right: 1px solid g;">&nbsp;{{record.dlrc}}</td>
+                  
+                  <td data-label="Processed Contracts" class="text-center" style="border-left: 1px solid gainsboro;">&nbsp;
+                    <span *ngIf="record.cprc == '0'">{{record.cprc}}</span>
+                    <a href="javascript:void(0)" (click)="listmode('PRC',record,'')" *ngIf="record.cprc !== '0'" style="font-weight:bold;color:#337ab7">{{record.cprc}}</a>
+                  </td>
+
+									<td data-label="Pending Contracts" class="text-center">&nbsp;
+                    <span *ngIf="record.cpnd == '0'">{{record.cpnd}}</span>
+                    <a href="javascript:void(0)" (click)="listmode('PNC',record,'')" *ngIf="record.cpnd !== '0'" style="font-weight:bold;color:#337ab7">{{record.cpnd }}</a>
+                  </td>
+
+                  <td data-label="Denied Contracts" class="text-center" style="border-right: 1px solid gainsboro;">&nbsp;
+                    <span *ngIf="record.cdnd == '0'">{{record.cdnd}}</span>
+                    <a href="javascript:void(0)" (click)="listmode('DNC',record,'')" *ngIf="record.cdnd !== '0'" style="font-weight:bold;color:#337ab7">{{record.cdnd }}</a>
+                  </td>
+
+									<td data-label="Paid Claims" class="text-center">&nbsp;
+                    <span *ngIf="record.clmp == '0'">{{record.clmp}}</span>
+                    <a href="javascript:void(0)" (click)="listmode('PDCL',record,'')" *ngIf="record.clmp !== '0'" style="font-weight:bold;color:#337ab7">{{record.clmp }}</a>
+                  </td>
+									<td data-label="Denied Claims" class="text-center">&nbsp;
+                    <span *ngIf="record.clmd == '0'">{{record.clmd}}</span>
+                    <a href="javascript:void(0)" (click)="listmode('DNCL',record,'')" *ngIf="record.clmd !== '0'" style="font-weight:bold;color:#337ab7">{{record.clmd }}</a>
+                  </td>
+									<td data-label="Open Claims" class="text-center">&nbsp;
+                    <span *ngIf="record.clmo == '0'">{{record.clmo}}</span>
+                    <a href="javascript:void(0)" (click)="listmode('OPCL',record,'')" *ngIf="record.clmo !== '0'" style="font-weight:bold;color:#337ab7">{{record.clmo }}</a>
+                  </td>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+			</div>
+      </div>
+
+		</form>
+  </div>
+  <div class="modal" id="contractmodal" role="dialog">
+      <div class="modal-dialog" role="document" style="width:750px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title pull-left" id="alertTitle">Contract Details</h4>
+          </div>
+          <div class="modal-body">
+         
+  <table class="table table-bordered table-striped" *ngIf="view">
+      <tr>
+          <td style="font-weight: bold;text-align: right;width:40%;">Contract Number / Status</td>
+          <td width="50">{{view.anum}}-{{view.asuf}} / {{view.stat}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Full Name</td>
+          <td width="50">{{view.ofn}} {{view.oln}}</td>
+      </tr>
+      <tr *ngIf="view.cbn && view.cbn !==''">
+          <td style="font-weight: bold;text-align: right">Co-buyer Full Name</td>
+          <td width="50">{{view.cbn}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Street Address</td>
+          <td width="50">{{view.oad1}}</td>
+      </tr>
+      <tr *ngIf="view.oad2!==''">
+          <td style="font-weight: bold;text-align: right">Apartment Number</td>
+          <td width="50">{{view.oad2}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">City, State, Zip</td>
+          <td width="50">{{view.octy}}, {{view.ost}} {{view.ozip}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Telephone</td>
+          <td width="50">{{view.ophn}}</td>
+      </tr>
+      <tr *ngIf="view.mail!==''">
+          <td style="font-weight: bold;text-align: right">Email Address</td>
+          <td width="50">{{view.mail}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Covered Vehicle</td>
+          <td width="50">{{view.veh}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">VIN</td>
+          <td width="50">{{view.vin}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Contract Term</td>
+          <td width="50">{{view.cvmn}} Months / {{view.cvml|number:0}} miles</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Coverage</td>
+          <td width="50">{{view.cov}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Deductible</td>
+          <td width="50">{{view.ded | currency}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Purchase Date / Selling Price</td>
+          <td width="50">{{view.vpd}} / {{view.ccst | currency}}</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Vehicle In Service Date / Mileage</td>
+          <td width="50">{{view.vid}} / {{view.odr |number:0}} miles</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Expiration Date / Mileage</td>
+          <td width="50">{{view.texd}} / {{view.exml |number:0}} miles</td>
+      </tr>
+      <tr>
+          <td style="font-weight: bold;text-align: right">Dealer</td>
+          <td width="50">{{view.dnam}}</td>
+      </tr>
+</table>
+</div>
+<div class="modal-footer">
+  <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="closemodal()" >OK</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<app-footer></app-footer>

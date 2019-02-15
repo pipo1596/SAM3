@@ -1,7 +1,7 @@
 import { Component, OnInit ,Input, OnDestroy} from '@angular/core';
-import { JsonService } from '../../utilities/json.service';
+import { JsonService } from '../utilities/json.service';
 import { Headerdata,Locn,Agnt } from './headerdata';
-import { Util } from '../../utilities/util';
+import { Util } from '../utilities/util';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({

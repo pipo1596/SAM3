@@ -63,7 +63,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="3" style="font-weight: bold;text-align:right">Total</td>
-                                        <td colspan="1" style="font-weight: bold;color:#337ab7">{{totalp | currency}}</td>
+                                        <td colspan="1" style="font-weight: bold;color:#337ab7">{{totalpi | currency}}</td>
                                     </tr>
                                 </tbody>
                         </table>
@@ -484,6 +484,10 @@
                                 <input name="mthlyp" [(ngModel)]="mthlyp" type="text" placeholder="Monthly Payment" disabled >
                             </div>
                         </div>
+                        <label class="flat-input inputlabel" style="margin-top:10px">Tax</label>
+                        <div class="flat-input w100" >
+                            <input  type="text" placeholder="Tax" name="tax" [(ngModel)]="taxes" disabled >
+                        </div>
                         <label class="flat-input inputlabel" style="margin-top:10px">Balance</label>
                         <div class="flat-input w100">
                             <div style="padding:0">
@@ -560,7 +564,7 @@
                 </ng-container>
                             <tr>
                                 <td colspan="1" style="font-weight: bold;text-align:right">Total</td>
-                                <td colspan="2" style="font-weight: bold;color:#337ab7;text-align: left">{{totalp | currency}}</td>
+                                <td colspan="2" style="font-weight: bold;color:#337ab7;text-align: left">{{totalpi | currency}}</td>
                             </tr>
                         </tbody>
          </table>

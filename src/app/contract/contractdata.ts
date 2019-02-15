@@ -28,6 +28,8 @@ export class bodyData{
         xm18:boolean;
         xm24:boolean;
         dnup : String;
+        tax : number = 0 ;
+        incl: string = "N" ;
  dspasnew : [string];
    states : [State];
     srchg : [Srchg];

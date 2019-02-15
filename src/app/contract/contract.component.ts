@@ -62,6 +62,8 @@ export class ContractComponent implements OnInit {
   mindwn2:string = "5";
   caldwn: string = "";
   totalp: string = "0";
+  totalpi: string = "0";
+  taxes: string = "";
   mthlyp: string = "";
   downpm: string = "";
   downpmMsg: string = "";
@@ -96,19 +98,53 @@ export class ContractComponent implements OnInit {
   //==================================================================================================//
   calcChng(field) {
     if (parseFloat(this.totalp) <= 0 || isNaN(parseFloat(this.totalp))) this.totalp = "0";
+    //Tax Logic
+    var ttl = parseFloat(this.totalp);
+    var base = 0;var stax=0;
+    this.taxes = '0';
+    if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+      base = ttl /(1+(this.pagedata.body.tax / 100));
+      stax = base * (this.pagedata.body.tax / 100); 
+      stax = Math.ceil(stax*100);
+    this.taxes = '('+(stax/100).toFixed(2) +')';
+    }else{
+      if(this.pagedata.body.tax >0){
+      stax = ttl * (this.pagedata.body.tax / 100);
+      stax = Math.ceil(stax*100);
+    this.taxes = (stax/100).toFixed(2);
+    //if(field=='totalp') this.totalp = (parseFloat(this.totalp) + parseFloat(this.taxes)).toFixed(2);
+      }
+    }
+     
+    if(field == 'totali' && this.pagedata.body.incl=='N')this.totalp = (parseFloat(this.totalp) + parseFloat(this.taxes)).toFixed(2);
+
     if (parseFloat(this.downpm) <= 0 || isNaN(parseFloat(this.downpm))) this.downpm = "0";
     if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
 
-    if (field !== "downpm") this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+    if (field !== "downpm"){ 
+      if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+        this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+      }else{
+        this.downpm = ((parseFloat(this.totalp)) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+      }
+    }
     this.caldwn ='';
     var percdwn = '5';
-    if(parseFloat(this.totalp)>0) percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
     if(parseFloat(this.totalp)>0){
-    if(parseFloat(percdwn) !== 5 &&
-       parseFloat(percdwn) !== 10 &&
-       parseFloat(percdwn) !== 20 &&
-       parseFloat(percdwn) !== 30 &&
-       parseFloat(percdwn) !== 40  ){
+      if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+        percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
+    }else{
+      percdwn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)) )* 100)).toFixed(1); 
+
+    }
+  }
+    if(parseFloat(this.totalp)>0){
+      if(
+        (parseFloat(percdwn) !== 5  || this.pagedata.body.xpc5)  &&
+        (parseFloat(percdwn) !== 10 || this.pagedata.body.xpc1) &&
+        (parseFloat(percdwn) !== 20 || this.pagedata.body.xpc2) &&
+        (parseFloat(percdwn) !== 30 || this.pagedata.body.xpc3) &&
+        (parseFloat(percdwn) !== 40 || this.pagedata.body.xpc4) ){
          this.caldwn = percdwn.toString();
          this.mindwn = this.caldwn;
        }else{this.mindwn = parseInt(percdwn).toString();}
@@ -235,7 +271,9 @@ export class ContractComponent implements OnInit {
         case('D')://Dollar
         if(parseFloat(fld.value) < 0 || isNaN(parseFloat(fld.value))){
           fld.message = "(Invalid)";fld.erlevel="D";this.valid = false;this.erscrol(fld.name);
-        }else{fld.value = parseFloat(fld.value).toFixed(2).toString();}
+        }else{
+          fld.value = fld.value.replace(/\,/g,'')
+          fld.value = parseFloat(fld.value).toFixed(2).toString();}
         break;
         case('P')://Percentage
         if(parseFloat(fld.value) < 0 || parseFloat(fld.value)>100 || isNaN(parseFloat(fld.value))){
@@ -354,6 +392,15 @@ export class ContractComponent implements OnInit {
       return false;
     }
     //Credit Card
+    var percdwnn = 0;
+    if(parseFloat(this.totalp)>0){
+      if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+        percdwnn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)); 
+    }else{
+      percdwnn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)+parseFloat(this.taxes)) )* 100)); 
+
+    }
+  }
     if(this.payment == 'C'){
       //Credit Card Number
       if (this.ccnum.value == "") { this.ccnum.message = "(required)"; this.ccnum.erlevel = "D"; this.valid = false; this.erscrol('ccnum');}
@@ -371,8 +418,8 @@ export class ContractComponent implements OnInit {
       //Name On Card
       if (this.ccnam.value == "") { this.ccnam.message = "(required)"; this.ccnam.erlevel = "D"; this.valid = false; this.erscrol('ccnam');}
       //Down Payment
-      
-      if(parseFloat(this.downpm).toFixed(2) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)).toFixed(2))
+     
+      if(percdwnn<5)
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
     //ACH
@@ -384,12 +431,12 @@ export class ContractComponent implements OnInit {
       if (this.achacno.value == "") { this.achchek.message = "(required)"; this.achchek.erlevel = "D"; this.valid = false; this.erscrol('achchek');}
        //Down Payment
        
-      if(parseFloat(this.downpm).toFixed(2)  <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)).toFixed(2))
+       if(percdwnn<5)
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
     if(this.payment == 'M'){
        //Down Payment
-      if(parseFloat(this.downpm).toFixed(2) <(parseFloat(this.totalp) * (parseFloat(this.mindwn2) / 100)).toFixed(2))
+       if(percdwnn<5)
       { this.downpmMsg = "(5% Or more required)";  this.valid = false; this.erscrol('downpm');}
     }
   }
@@ -632,7 +679,8 @@ formatCVV() {
             });
             if(this.costwrn) Util.modalid('show','costwarning');
             this.totalp = totalpn.toString();
-            this.calcChng("totalp");
+            this.totalpi = totalpn.toString();
+            this.calcChng("totali");
           }
           this.pvinsrvc = this.pagedata.body.veh.insrvc;
           if(this.pagedata.body.lienholders && this.pagedata.body.lienholders.length > 0)

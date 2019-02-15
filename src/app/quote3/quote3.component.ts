@@ -127,6 +127,7 @@ export class Quote3Component implements OnInit {
     if(this.pagedata.body.tax>0 && this.notaxalert){ Util.modalid("show","taxmodal"); return false;}
     this.notaxalert = true;
     Util.showWait();
+    var ccst =0;
     var contract: any = {};
     contract.mode = 'CONT';
     contract.CCST ='';
@@ -154,6 +155,7 @@ export class Quote3Component implements OnInit {
     var c = parseInt(cont.selected.substring(12, 15));
     var tb = this.pagedata.body.tables[p];
     contract.CCST += tb.rates[t].data[r][c][0].toString().padEnd(15);
+    ccst = tb.rates[t].data[r][c][0].toString();
     if(this.pagedata.body.incl !=='Y'){
       contract.COVC += Math.ceil(tb.rates[t].data[r][c][1]).toString().padEnd(15);
     }else{
@@ -186,8 +188,8 @@ export class Quote3Component implements OnInit {
    
     contract.TXRT = this.pagedata.body.tax;
     if(this.pagedata.body.tax>0){
-    var subt = (contract.CCST/(1+(contract.TXRT/100)));
-    contract.TAX  +=  (contract.CCST - subt).toFixed(2).toString().padEnd(15);
+    var subt = (ccst/(1+(contract.TXRT/100)));
+    contract.TAX  +=  (ccst - subt).toFixed(2).toString().padEnd(15);
     }                
     
   }                 
@@ -575,7 +577,7 @@ export class Quote3Component implements OnInit {
     //this.totalp = (parseFloat(this.totalp) + parseFloat(this.taxes)).toFixed(2);
       }
     }
-    
+    if(field == 'totali' && this.pagedata.body.incl=='N')this.totalp = (parseFloat(this.totalp) + parseFloat(this.taxes)).toFixed(2);
 
     if (parseFloat(this.downpm) <= 0 || isNaN(parseFloat(this.downpm))) this.downpm = "0";
     if (parseFloat(this.downpm) > parseFloat(this.totalp)) this.downpm = parseFloat(this.totalp).toFixed(2);
@@ -583,7 +585,7 @@ export class Quote3Component implements OnInit {
     if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
       this.downpm = (parseFloat(this.totalp) * (parseFloat(this.mindwn) / 100)).toFixed(2);
     }else{
-      this.downpm = ((parseFloat(this.totalp)+parseFloat(this.taxes)) * (parseFloat(this.mindwn) / 100)).toFixed(2);
+      this.downpm = ((parseFloat(this.totalp)) * (parseFloat(this.mindwn) / 100)).toFixed(2);
     }
   }
     this.caldwn ='';
@@ -592,18 +594,19 @@ export class Quote3Component implements OnInit {
       if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
         percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
     }else{
-      percdwn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)+parseFloat(this.taxes)) )* 100)).toFixed(1); 
+      percdwn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)) )* 100)).toFixed(1); 
 
     }
   }
     
     
     if(parseFloat(this.totalp)>0){
-    if(parseFloat(percdwn) !== 5 &&
-       parseFloat(percdwn) !== 10 &&
-       parseFloat(percdwn) !== 20 &&
-       parseFloat(percdwn) !== 30 &&
-       parseFloat(percdwn) !== 40  ){
+    if(
+      (parseFloat(percdwn) !== 5  || this.pagedata.body.xpc5)  &&
+      (parseFloat(percdwn) !== 10 || this.pagedata.body.xpc1) &&
+      (parseFloat(percdwn) !== 20 || this.pagedata.body.xpc2) &&
+      (parseFloat(percdwn) !== 30 || this.pagedata.body.xpc3) &&
+      (parseFloat(percdwn) !== 40 || this.pagedata.body.xpc4) ){
          this.caldwn = percdwn.toString();
          this.mindwn = this.caldwn;
        }else{this.mindwn = parseInt(percdwn).toString();}
@@ -613,11 +616,11 @@ export class Quote3Component implements OnInit {
     if(parseFloat(percdwn)<5) { this.downpmMsg = "(5% Or more required)";}
 
     
-    if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
+    //if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
       this.balnce = (parseFloat(this.totalp) - (parseFloat(this.downpm))).toFixed(2);
-    }else{
-      this.balnce = ((parseFloat(this.totalp)+parseFloat(this.taxes)) - (parseFloat(this.downpm))).toFixed(2);
-    }
+    //}else{
+    //  this.balnce = ((parseFloat(this.totalp)+parseFloat(this.taxes)) - (parseFloat(this.downpm))).toFixed(2);
+   // }
     this.mthlyp = (parseFloat(this.balnce) / (parseFloat(this.months))).toFixed(2);
 
     if (field !== "totalp") this.totalp = parseFloat(this.totalp).toFixed(2);
@@ -1190,8 +1193,7 @@ export class Quote3Component implements OnInit {
                                i3.toString().padEnd(4) 
               );
               this.ncbarrv.push(ncbsurch);
-              //Taxes
-              if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
+              
             }
 
             //Contract Types
@@ -1221,6 +1223,9 @@ export class Quote3Component implements OnInit {
                 }
               }
             }
+            //Taxes
+            if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
+            
             if(this.pagedata.body.incl !=='Y') 
               unitp[0] = Math.ceil(unitp[0])
             else
@@ -1266,7 +1271,7 @@ export class Quote3Component implements OnInit {
     
     if (srcEl.checked) {
       this.totalp = this.pagedata.body.tables[parent].rates[table].data[row][col][0].toString();
-      this.calcChng("totalp");
+      this.calcChng("totali");
     }
     var ind = {
       "index": parent.toString().padEnd(4) +

@@ -38,13 +38,11 @@ import { ProfitComponent } from './profit/profit.component';
 import { ClaimsComponent } from './claims/claims.component';
 import { RepairsComponent } from './repairs/repairs.component';
 import { CancellationsComponent } from './cancellations/cancellations.component';
+import { ProduceranalysisComponent } from './produceranalysis/produceranalysis.component';
 
 const routes: Routes = [
-  {
-    path: 'app/agents',
-    loadChildren: './agents/agents.module#AgentsModule'
-  },
   { path: 'app/Home', component: HomeComponent },
+  { path: 'app/ProducerAnalysis', canDeactivate: [CanDeactivateGuard], component: ProduceranalysisComponent },
   { path: 'app/Users', canDeactivate: [CanDeactivateGuard], component: UsersComponent },
   { path: 'app/SalesPersons', canDeactivate: [CanDeactivateGuard], component: UsersComponent },
   { path: 'app/Authorities', canDeactivate: [CanDeactivateGuard], component: RolesComponent },
