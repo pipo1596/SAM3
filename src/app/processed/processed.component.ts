@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
@@ -35,6 +35,14 @@ export class ProcessedComponent implements OnInit {
   easuf:string="";
   edlr:string="";
   pagemode:string = "L";
+  innermode:string="";
+  @Input()
+  set indata(indata: any) {
+    this.innermode = (indata.innermode && indata.innermode.trim()) || '';
+    this.pagemode = (indata.pagemode && indata.pagemode.trim()) || 'L';
+    this.viewCont(indata);
+    console.log(indata);
+  }
 	//Input Fields
 	ofn  : string="";
 	oln  : string="";
@@ -432,6 +440,7 @@ export class ProcessedComponent implements OnInit {
 
   ngOnInit() {
     this.pagedata.head.status = "I";
+    if(window.location.href.indexOf("Processed")>-1){
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
   	this.jsonService
@@ -440,7 +449,7 @@ export class ProcessedComponent implements OnInit {
   		err => {Util.hideWait(); },
   		() => {
         Util.setHead(this.pagedata.head);
-  			Util.responsiveMenu();
+         Util.responsiveMenu();
   			if (this.pagedata.head.status === "O" ||  Util.noAuth(this.pagedata.head.menuOp,'W1PCNTINQ')) {
   				Util.showWait();
   				setTimeout(() => {
@@ -455,7 +464,8 @@ export class ProcessedComponent implements OnInit {
           this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
   			}
   		}
-  	);
+    );
+    }
   }
 
   setPage(page: number){

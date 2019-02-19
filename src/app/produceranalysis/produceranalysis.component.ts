@@ -28,7 +28,8 @@ export class ProduceranalysisComponent implements OnInit {
   posScrolid:string="";
   drilldata: any[]=[];
   view : any;
-	changes = false;
+  changes = false;
+  indata:any ={};
 
 	//Alerts
   dispAlert = new Dispalert();
@@ -88,21 +89,14 @@ export class ProduceranalysisComponent implements OnInit {
     Util.hideWait();  
   }
   viewCont(agr){
-    Util.showWait();
-    var obj ={"mode":"VIEW",
+    this.indata ={"mode":"VIEW",
               "anum": agr.anum,
               "asuf": agr.asuf,
+              "innermode": 'I',
+              "pagemode": 'V',
               "dlr" : agr.dlrc
             }
-    this.jsonService
-  	.initService(obj,Util.Url("CGICPRCNTR"))
-  	.subscribe(data => this.view = data,
-  		err => {Util.hideWait(); },
-  		() => {
-        Util.modalid("show","contractmodal");
-        Util.hideWait();  
-  		}
-  	);
+            Util.modalid("show","contractmodal");
     
   }
   closemodal(){
@@ -206,7 +200,7 @@ export class ProduceranalysisComponent implements OnInit {
   		() => {
         Util.setHead(this.pagedata.head);
   			Util.responsiveMenu();
-  			if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'SAVEDQ')) {
+  			if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'6ANALYSIZ')) {
   				Util.showWait();
   				setTimeout(() => {
   					Util.hideWait();

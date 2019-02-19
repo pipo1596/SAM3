@@ -246,84 +246,15 @@
 
 		</form>
   </div>
-  <div class="modal" id="contractmodal" role="dialog">
+  <div class="modal" id="contractmodal" role="dialog" *ngIf="pagemode=='L' && indata">
       <div class="modal-dialog" role="document" style="width:750px;">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title pull-left" id="alertTitle">Contract Details</h4>
           </div>
-          <div class="modal-body">
-         
-  <table class="table table-bordered table-striped" *ngIf="view">
-      <tr>
-          <td style="font-weight: bold;text-align: right;width:40%;">Contract Number / Status</td>
-          <td width="50">{{view.anum}}-{{view.asuf}} / {{view.stat}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Full Name</td>
-          <td width="50">{{view.ofn}} {{view.oln}}</td>
-      </tr>
-      <tr *ngIf="view.cbn && view.cbn !==''">
-          <td style="font-weight: bold;text-align: right">Co-buyer Full Name</td>
-          <td width="50">{{view.cbn}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Street Address</td>
-          <td width="50">{{view.oad1}}</td>
-      </tr>
-      <tr *ngIf="view.oad2!==''">
-          <td style="font-weight: bold;text-align: right">Apartment Number</td>
-          <td width="50">{{view.oad2}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">City, State, Zip</td>
-          <td width="50">{{view.octy}}, {{view.ost}} {{view.ozip}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Telephone</td>
-          <td width="50">{{view.ophn}}</td>
-      </tr>
-      <tr *ngIf="view.mail!==''">
-          <td style="font-weight: bold;text-align: right">Email Address</td>
-          <td width="50">{{view.mail}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Covered Vehicle</td>
-          <td width="50">{{view.veh}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">VIN</td>
-          <td width="50">{{view.vin}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Contract Term</td>
-          <td width="50">{{view.cvmn}} Months / {{view.cvml|number:0}} miles</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Coverage</td>
-          <td width="50">{{view.cov}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Deductible</td>
-          <td width="50">{{view.ded | currency}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Purchase Date / Selling Price</td>
-          <td width="50">{{view.vpd}} / {{view.ccst | currency}}</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Vehicle In Service Date / Mileage</td>
-          <td width="50">{{view.vid}} / {{view.odr |number:0}} miles</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Expiration Date / Mileage</td>
-          <td width="50">{{view.texd}} / {{view.exml |number:0}} miles</td>
-      </tr>
-      <tr>
-          <td style="font-weight: bold;text-align: right">Dealer</td>
-          <td width="50">{{view.dnam}}</td>
-      </tr>
-</table>
+          <div style="max-height: 550px;overflow-y: scroll;">
+   <app-processed [indata]='indata'></app-processed>      
+
 </div>
 <div class="modal-footer">
   <button style="padding:8px 30px" type="button" class="btn btn-primary" (click)="closemodal()" >OK</button>

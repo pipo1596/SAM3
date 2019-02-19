@@ -1,8 +1,8 @@
-<app-header [headdata]="pagedata.head"></app-header>
+<app-header *ngIf="innermode!=='I'" [headdata]="pagedata.head"></app-header>
 
-<section class="flat-row section-iconbox">
-	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
-		<div class="row">
+<section [class.flat-row]="innermode!=='I'"  class="section-iconbox">
+	<div [class.container]="innermode!=='I'" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row" *ngIf="innermode!=='I'">
 			<div class="col-xs-12" style="z-index:1">
 				<div class="title-section style3 left">
 					<h1 class="title">Processed Contracts Inquiry</h1>
@@ -148,25 +148,25 @@
 					    <button type="button" class="btn col-xs-3"  [class.btn-primary]="pagemode=='H' || pagemode=='CL'"   [class.btn-default]="pagemode!=='H' && pagemode!=='CL'" style="padding:12px 0"  (click)="getHist()">Claims History</button>
 					  </div>
 					  <div class="clearfix"></div>
-			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='V'">View<span *ngIf="canedit">/Edit</span> Contract Information</h2>
-			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='P'">View Payment History</h2>
-			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='C'">View Cancellation Info</h2>
-			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='H'">Service Contract Claim History</h2>
-			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='R'">Cancellation Calculator and Quote</h2>
+			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='V' && innermode!=='I'">View<span *ngIf="canedit">/Edit</span> Contract Information</h2>
+			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='P' && innermode!=='I'">View Payment History</h2>
+			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='C' && innermode!=='I'">View Cancellation Info</h2>
+			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='H' && innermode!=='I'">Service Contract Claim History</h2>
+			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='R' && innermode!=='I'">Cancellation Calculator and Quote</h2>
 			
-			<a href="javascript:window.print()"  class="btn pull-right nextsection btn-default"  title="Print" style="padding:10px 30px;margin: 15px;">
+			<a href="javascript:window.print()"  *ngIf="innermode!=='I'" class="btn pull-right nextsection btn-default"  title="Print" style="padding:10px 30px;margin: 15px;">
 				<span class="fa fa-print" style="font-size:16px"></span>&nbsp;&nbsp; Print</a>
 			
-			<a href="javascript:void(0)" *ngIf="view && canedit && view.stat=='Active' && pagemode=='V'"  (click) ="editMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
+			<a href="javascript:void(0)" *ngIf="view && canedit && view.stat=='Active' && pagemode=='V' && innermode!=='I'"  (click) ="editMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
 				<span class="fa fa-edit"></span>&nbsp;&nbsp;Edit</a>
-		    <a href="javascript:void(0)"  (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
+		    <a href="javascript:void(0)"  *ngIf="innermode!=='I'" (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
 					<span class="fa fa-backward"></span>&nbsp;&nbsp; Back</a>
 			<div class="col-xs-12">
 				<hr>
 				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-8 col-md-offset-2" style="padding-bottom: 15px">
-					<h3 style="cursor: pointer" (click)="showcc=!showcc" *ngIf="pagemode!=='V'"><i class="fa fa-plus" [class.fa-plus]="!showcc" [class.fa-minus]="showcc" ></i>&nbsp;Contract Information</h3>
+			<div class="col-md-10 col-md-offset-1" style="padding-bottom: 15px">
+					<h3 style="cursor: pointer"  (click)="showcc=!showcc" *ngIf="pagemode!=='V' && innermode!=='I'"><i class="fa fa-plus" [class.fa-plus]="!showcc" [class.fa-minus]="showcc" ></i>&nbsp;Contract Information</h3>
 					<table class="table table-bordered table-striped" *ngIf="view" [class.hidden]="!showcc && pagemode!=='V'">
 							
 								<tr>
@@ -584,4 +584,4 @@
 	</div>
 </section>
 
-<app-footer></app-footer>
+<app-footer *ngIf="innermode!=='I'"></app-footer>

@@ -188,8 +188,13 @@ export class Quote3Component implements OnInit {
    
     contract.TXRT = this.pagedata.body.tax;
     if(this.pagedata.body.tax>0){
+    if(this.pagedata.body.incl =='Y'){
     var subt = (ccst/(1+(contract.TXRT/100)));
     contract.TAX  +=  (ccst - subt).toFixed(2).toString().padEnd(15);
+    }
+    else
+    contract.TAX  +=  (ccst*(contract.TXRT/100)).toFixed(2).toString().padEnd(15);
+    
     }                
     
   }                 
