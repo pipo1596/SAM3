@@ -339,7 +339,6 @@ export class Quote2Component implements OnInit {
           Util.setHead(this.pagedata.head);
           //Sort By User Ascending
           this.pagedata.body.srchg = Util.sortByKey(this.pagedata.body.srchg, "type","D");
-          //this.pagedata.body.data = Util.killDups2(this.pagedata.body.data);
           this.hideDupCov();
           if (this.pagedata.head.status === "O" || Util.noAuth(this.pagedata.head.menuOp,'QUOTE1')) {
 
@@ -350,7 +349,6 @@ export class Quote2Component implements OnInit {
             }, 100);
           } else {
             this.defaultCheck();
-            //if(this.pagedata.body.code === "" && this.pagedata.body.contracts.length) this.pagedata.body.code = this.pagedata.body.contracts[0].code;
             Util.hideWait();
             setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
           }

@@ -94,7 +94,31 @@
 				<div class="col-xs-12">
 					<h5 class="pull-left">&nbsp;</h5>
 				</div>
-							
+				<div class="col-md-4">
+          <div class="well well-sm">
+          <div class="custradio">
+            <input name="statbox" id="stata" value="Active" type="radio" (change)="applyFilter()" [(ngModel)]="status">
+            <label for="stata"></label>
+          </div>&nbsp;&nbsp;<label for="stata">Active</label>
+          </div>
+        </div>			
+				<div class="col-md-4">
+            <div class="well well-sm">
+          <div class="custradio">
+            <input name="statbox" id="statt" value="Terminated" type="radio" (change)="applyFilter()" [(ngModel)]="status">
+            <label for="statt"></label>
+          </div>&nbsp;&nbsp;<label for="statt">Terminated</label>
+          </div>
+        </div>			
+				<div class="col-md-4">
+            <div class="well well-sm">
+          <div class="custradio">
+            <input name="statbox" id="stato" value="Out Of Business" type="radio" (change)="applyFilter()" [(ngModel)]="status">
+            <label for="stato"></label>
+          </div>&nbsp;&nbsp;<label for="stato">Out Of Business</label>
+          </div>
+        </div>
+        <div class="clearfix" style="margin-top:10px;"></div>			
 				<div class="col-md-4">
 					<label class="flat-input inputlabel">Producer Name
 						<span class="errorspan2"></span>
@@ -186,8 +210,18 @@
                 <th colspan="3" style="padding:0;height:10px;text-align: center;font-weight: bold;background: aliceblue;border-right: 1px solid gainsboro;border-left:1px solid gainsboro;">Contracts</th>
                 <th colspan="3" style="padding:0;height:10px;text-align: center;font-weight: bold;background: #f9f9f9;">Claims</th>
               </tr>
+              <tr>
+                <th  data-label="Totals" colspan="3" style="background: #ecc2c2; text-align: center;font-weight: bold;">Totals:</th>
+                <th style="background: #ecc2c2;" class="text-center">{{col1cnt}}</th>
+                <th style="background: #ecc2c2;" class="text-center">{{col2cnt}}</th>
+                <th style="background: #ecc2c2;" class="text-center">{{col3cnt}}</th>
+                <th style="background: #ecc2c2;" class="text-center">{{col4cnt}}</th>
+                <th style="background: #ecc2c2;" class="text-center">{{col5cnt}}</th>
+                <th style="background: #ecc2c2;" class="text-center">{{col6cnt}}</th>
+              </tr>
+              
 							<tr>
-								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort('S')" title="Sort By Status"><b>Status</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!statsort" [class.fa-arrow-up]="statsort"></i></a></th>
+								<th><b>Status</b>&nbsp;&nbsp;</th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort('N')" title="Sort By Producer"><b>Producer</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!namesort" [class.fa-arrow-up]="namesort"></i></a></th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort('C')" title="Sort By Producer#"><b>Producer#</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!codesort" [class.fa-arrow-up]="codesort"></i></a></th>
 								<th style="border-left: 1px solid gainsboro;">Processed</th>
@@ -249,10 +283,10 @@
   <div class="modal" id="contractmodal" role="dialog" *ngIf="pagemode=='L' && indata">
       <div class="modal-dialog" role="document" style="width:750px;">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header" style="padding:5px 15px;">
             <h4 class="modal-title pull-left" id="alertTitle">Contract Details</h4>
           </div>
-          <div style="max-height: 550px;overflow-y: scroll;">
+          <div style="max-height: 650px;overflow-y: scroll;">
    <app-processed [indata]='indata'></app-processed>      
 
 </div>

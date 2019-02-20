@@ -78,9 +78,6 @@ dmsOff(){
 }
 onChangeDate1(){
   this.onChange();
-  
-  //this.insrvc.value = Util.formatdateDsp('servicedate');
-
 }
 vinCheck(mode){
   if(mode == 'S')  this.onChange();
@@ -117,7 +114,6 @@ vinCheck(mode){
     .subscribe(data => this.errSet = data,
       err => { this.dispAlert.error(); Util.hideWait(); },
                      () => {
-                            //this.dispAlert.setMessage(this.errSet);
                             this.vin.message = this.errSet.message;
                             this.vin.erlevel = this.errSet.status;
                             if(this.errSet.status==="S"){ this.validvin = true; this.pagedata.body.dyear = this.errSet.data}
@@ -339,9 +335,6 @@ checkStep1(){
                             if (this.errSet.status === "S") {
                               Util.showWait();
                               this.checkcoverages();
-                              //setTimeout(() => {
-                              //  this.router.navigate(['/app/Quote2']);
-                              //}, 100);
                                this.changes = false; 
                                  }else{
           Util.hideWait();
@@ -590,7 +583,6 @@ ngOnInit() {
           this.insrvc.value = this.pagedata.body.insrvc;
           this.asofdt.value = this.pagedata.body.asofdt;
           var master = this.pagedata.body.ckprgs;
-          //this.pagedata.body.pln.plans = Util.killDups(this.pagedata.body.pln.plans);
           var pvlob ="";
           this.pagedata.body.pln.plans.forEach(eachObj =>{  
             var obj = {"prg":eachObj.prg,"ratc":eachObj.ratc}; 
@@ -604,7 +596,6 @@ ngOnInit() {
               this.arrlobAll.push(eachObj.lob);
             }else{
               eachObj.check = false;
-             // if(eachObj.dspasn == "Y") this.arrdspn.pop();
             }
             //Display LOB Header
             if(pvlob =="" || pvlob !== eachObj.lobd) eachObj.dlob = true;

@@ -62,7 +62,6 @@ getVersion(){
 
 dealerGroupsAles(){
 
-  //this.temploctn = this.headdata.loctn; 
   this.process = true;
   clearTimeout(this.keytime);
   

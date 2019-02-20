@@ -95,9 +95,6 @@ export class UsersComponent implements OnInit {
     "pswd":"",
     "dlr" :[{"dlri":"","desc":""}]
   };  
-  
-  
- 
   constructor(private usersService: JsonService,
     private router: Router) { 
 
@@ -113,7 +110,6 @@ salesvalid(submit){
   this.sprs.erlevel ="";
   this.sprs.message ="";
  
- // if(this.selectedUser.sprs == ""){this.saveData(submit);return;}
   this.pvsprs = this.selectedUser.sprs;
   Util.showWait();
   this.usersService
@@ -132,12 +128,8 @@ salesvalid(submit){
           this.sprs.message = this.errSet.message;
           Util.hideWait();
         }
-        
-        
        }
       );
-
-
 }
 
 validPass(){

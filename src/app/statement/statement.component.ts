@@ -72,7 +72,6 @@ export class StatementComponent implements OnInit {
   				}, 100);
   			} else {
           Util.hideWait();
-          //Util.setIframeSrc(Util.Url('output/000000000000190.pdf'));
           
   			}
   		}

@@ -9,7 +9,7 @@
 				</div>
 			</div>
 		</div>
-		<form class="contactform style4 clearfix panel-body" method="post"  (submit)="getData()" autocomplete="off" [class.hidden]="pagemode!=='L'">
+		<form class="contactform style4 clearfix panel-body"  style="padding:5px 15px" method="post"  (submit)="getData()" autocomplete="off" [class.hidden]="pagemode!=='L'">
 			<div class="row white">
 				<div class="col-md-12">
 					<div class="alert alert-success" style="margin:15px 5px 0 5px" [ngClass]="{'hidden':dispAlert.message===''|| dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
@@ -130,14 +130,14 @@
 			</div>
 		</form>
 		<!-- View/Edit Mode -->
-		<form class="contactform style4 clearfix panel-body" method="post" autocomplete="new-password{{ran}}"[class.hidden]="pagemode=='L'">
+		<form class="contactform style4 clearfix panel-body" style="padding:5px 15px" method="post" autocomplete="new-password{{ran}}"[class.hidden]="pagemode=='L'">
 		<div class="row white">
 				<div class="btn-group col-xs-12" role="group" aria-label="Select View" style="margin-bottom: 10px;margin-top:10px;font-size: 18px">
-						<button type="button" class="btn col-xs-3" [class.btn-primary]="pagemode=='V'"   [class.btn-default]="pagemode!=='V'"  (click)="setmode('V')" style="padding:12px 0">Contract Info</button>
-						<button type="button" class="btn col-xs-3" [class.btn-primary]="pagemode=='P'"   [class.btn-default]="pagemode!=='P'" (click)="getPaym()" style="padding:12px 0">Payments</button>
+						<button type="button" class="btn col-xs-3" [class.btn-primary]="pagemode=='V'"   [class.btn-default]="pagemode!=='V'"  (click)="setmode('V')" [class.higher]="innermode!=='I'">Contract Info</button>
+						<button type="button" class="btn col-xs-3" [class.btn-primary]="pagemode=='P'"   [class.btn-default]="pagemode!=='P'" (click)="getPaym()"  [class.higher]="innermode!=='I'">Payments</button>
 						
 						<div class="btn-group" role="group" style="width:25%">
-							<button (click)="togglec()" type="button" class="btn" [class.btn-primary]="pagemode=='R'||pagemode=='C'"   [class.btn-default]="pagemode!=='C' && pagemode!=='R'" style="width:100%;padding:12px 0">
+							<button (click)="togglec()" type="button" class="btn" [class.btn-primary]="pagemode=='R'||pagemode=='C'"   [class.btn-default]="pagemode!=='C' && pagemode!=='R'" [class.higher]="innermode!=='I'" style="width:100%;">
 								Cancellations &nbsp;<span class="fa fa-caret-down"></span>
 							</button>
 						<div class="dropdown-menu show" [class.show]="showc"  style="min-width:80%">
@@ -145,7 +145,7 @@
 							  <a class="pull-left" style="clear: left;padding:8px;" href="javascript:void(0)" (click)="setmode('R')">Calculate Cancellation Refund</a>
 						</div>
 					  	</div>
-					    <button type="button" class="btn col-xs-3"  [class.btn-primary]="pagemode=='H' || pagemode=='CL'"   [class.btn-default]="pagemode!=='H' && pagemode!=='CL'" style="padding:12px 0"  (click)="getHist()">Claims History</button>
+					    <button type="button" class="btn col-xs-3"  [class.btn-primary]="pagemode=='H' || pagemode=='CL'"   [class.btn-default]="pagemode!=='H' && pagemode!=='CL'" [class.higher]="innermode!=='I'"  (click)="getHist()">Claims History</button>
 					  </div>
 					  <div class="clearfix"></div>
 			<h2 style="margin:15px 15px 0 15px;float: left" id="viewtop" *ngIf="pagemode=='V' && innermode!=='I'">View<span *ngIf="canedit">/Edit</span> Contract Information</h2>
@@ -162,12 +162,12 @@
 		    <a href="javascript:void(0)"  *ngIf="innermode!=='I'" (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
 					<span class="fa fa-backward"></span>&nbsp;&nbsp; Back</a>
 			<div class="col-xs-12">
-				<hr>
+				<hr *ngIf="innermode!=='I'">
 				<div class="clearfix"></div>
 			</div>
 			<div class="col-md-10 col-md-offset-1" style="padding-bottom: 15px">
 					<h3 style="cursor: pointer"  (click)="showcc=!showcc" *ngIf="pagemode!=='V' && innermode!=='I'"><i class="fa fa-plus" [class.fa-plus]="!showcc" [class.fa-minus]="showcc" ></i>&nbsp;Contract Information</h3>
-					<table class="table table-bordered table-striped" *ngIf="view" [class.hidden]="!showcc && pagemode!=='V'">
+					<table class="table table-bordered table-striped" [class.small-table]="innermode=='I'" *ngIf="view" [class.hidden]="!showcc && pagemode!=='V'">
 							
 								<tr>
 										<td style="font-weight: bold;text-align: right;width:40%;">Contract Number / Status</td>

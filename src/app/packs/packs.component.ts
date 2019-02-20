@@ -299,7 +299,6 @@ export class PacksComponent implements OnInit {
 
           }
           if(this.selectedRec.mode=="SAVE"){
-            //this.index = this.pagedata.users.findIndex(obj => obj.user==this.selectedUser.user);
             //alert(this.index);
             this.selectedRecG.prg  = this.selectedRec.prg.padEnd(20);
             this.selectedRecG.cov  = this.selectedRec.cov;

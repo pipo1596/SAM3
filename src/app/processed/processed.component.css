@@ -66,3 +66,5 @@ button:disabled, button[disabled], button:disabled:hover, button[disabled]:hover
     display: flex;
     align-items: center;
 }
+.higher{padding:12px 0;}
+.small-table td{padding:5px;}

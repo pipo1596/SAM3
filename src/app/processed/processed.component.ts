@@ -390,34 +390,6 @@ export class ProcessedComponent implements OnInit {
     this.asuf = this.asuf.trim();
     this.vin = this.vin.trim();
     
-
-   // if(this.oln =='' && 
-   //    this.ofn =='' &&
-   //    this.anum =='' &&
-   //    this.asuf =='' &&
-   //    this.vin =='' 
-   //  ){
-   //     this.dispAlert.message = "At least one search criteria required!";
-   //     this.dispAlert.status = 'E';
-   //     
-   //     Util.hideWait();
-   //     this.pagedata.contracts = [{"show": true,                 
-   //                                "oln":"",
-   //                                "ofn":"",
-   //                                "anum":"",
-   //                                "asuf":"",
-   //                                "vin":"",
-   //                                "yr":"",
-   //                                "manf":""
-   //                               }];
-   //     this.pagedata.contracts.pop();
-   //     this.masterPgCnt = 0;
-   //     this.pageCount = 0;
-   //     this.setPage(1);
-   //     return false;
-   //   }
-
-
     var obj ={"mode":"SEARCH",
               "oln": this.oln,
               "ofn": this.ofn,

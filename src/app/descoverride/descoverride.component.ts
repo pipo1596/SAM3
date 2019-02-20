@@ -303,14 +303,8 @@ export class DescoverrideComponent implements OnInit {
   					this.pagedata.overrides[this.index].lob = this.selectedRec.lob; 
   					this.pagedata.overrides[this.index].cmpc = this.cmpc; 
   					this.pagedata.overrides[this.index].belg = this.selectedRec.belg; 
-					  this.pagedata.overrides[this.index].bullets = this.selectedRec.bullets; 
-					  this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
-  					
-  					// this.selectedRecG.srky = this.selectedRec.srky;
-  					// this.selectedRecG.srkyi= this.selectedRec.srky;
-  					// this.selectedRecG.desc = this.selectedRec.desc;
-  					// this.selectedRecG.dlr  = this.selectedRec.dlr;
-  					// this.selectedRecG.dlri = this.selectedRec.dlr;
+					this.pagedata.overrides[this.index].bullets = this.selectedRec.bullets; 
+					this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
   					setTimeout(() => {
   						Util.showWait();
   						this.cancel();

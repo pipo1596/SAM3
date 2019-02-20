@@ -23,6 +23,12 @@ export class ProduceranalysisComponent implements OnInit {
   codesort:boolean = false;
   pagemode:string = "I";
   pagemodel:string = "I";
+  col1cnt:number = 0;
+  col2cnt:number = 0;
+  col3cnt:number = 0;
+  col4cnt:number = 0;
+  col5cnt:number = 0;
+  col6cnt:number = 0;
   parentRec:any;
   listdata: any;
   posScrolid:string="";
@@ -30,7 +36,7 @@ export class ProduceranalysisComponent implements OnInit {
   view : any;
   changes = false;
   indata:any ={};
-
+  status:string = "Active";
 	//Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -173,6 +179,9 @@ export class ProduceranalysisComponent implements OnInit {
       if(this.pagedata.records[i].perd  !== this.period){
         this.pagedata.records[i].show = false;
       }
+      if(this.pagedata.records[i].stat  !== this.status){
+        this.pagedata.records[i].show = false;
+      }
       
       if(this.pagedata.records[i].show === true){
         this.pageCount += 1;
@@ -235,7 +244,17 @@ export class ProduceranalysisComponent implements OnInit {
     // get current page of items
     this.pagedItems = this.dispItems.slice(this.pager.startIndex, this.pager.endIndex + 1);    
   }
-
+addcounts(){
+  this.pagedItems.forEach(sq =>{
+    this.col1cnt += parseInt(sq.cprc); 
+    this.col2cnt += parseInt(sq.cpnd); 
+    this.col3cnt += parseInt(sq.cdnd); 
+    this.col4cnt += parseInt(sq.clmp); 
+    this.col5cnt += parseInt(sq.clmd); 
+    this.col6cnt += parseInt(sq.clmo); 
+   });
+  
+}
   readNext(anchor){
     if(this.killRecur){
       return;
@@ -246,10 +265,15 @@ export class ProduceranalysisComponent implements OnInit {
       err => {Util.hideWait(); },
       () => {
         Array.prototype.push.apply(this.pagedata.records,this.readdata.records);
+        
         if (this.readdata.ttlpgs.lstrec === "EOF") {
           this.applyFiltBtn = true;
           return;
         } else {
+    this.readdata.records.forEach(sq =>{ if(sq.show && sq.perd == this.period) this.dispItems.push(sq)});
+    // get current page of items
+    this.pagedItems = this.dispItems.slice(this.pager.startIndex, this.pager.endIndex + 1); 
+    this.addcounts();  
           this.readNext(this.readdata.ttlpgs.lstrec);
         }
       }
