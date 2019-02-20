@@ -131,12 +131,7 @@ export class ContractComponent implements OnInit {
     this.caldwn ='';
     var percdwn = '5';
     if(parseFloat(this.totalp)>0){
-      if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
         percdwn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)).toFixed(1); 
-    }else{
-      percdwn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)) )* 100)).toFixed(1); 
-
-    }
   }
     if(parseFloat(this.totalp)>0){
       if(
@@ -394,12 +389,7 @@ export class ContractComponent implements OnInit {
     //Credit Card
     var percdwnn = 0;
     if(parseFloat(this.totalp)>0){
-      if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y'){
         percdwnn = ((parseFloat(this.downpm) / (parseFloat(this.totalp) )* 100)); 
-    }else{
-      percdwnn = ((parseFloat(this.downpm) / ((parseFloat(this.totalp)+parseFloat(this.taxes)) )* 100)); 
-
-    }
   }
     if(this.payment == 'C'){
       //Credit Card Number
