@@ -193,6 +193,7 @@ export class ProduceranalysisComponent implements OnInit {
     }else{
       this.pager = {};
     }
+    this.addcounts(); 
   	Util.hideWait();
   }
 
@@ -245,13 +246,21 @@ export class ProduceranalysisComponent implements OnInit {
     this.pagedItems = this.dispItems.slice(this.pager.startIndex, this.pager.endIndex + 1);    
   }
 addcounts(){
-  this.pagedItems.forEach(sq =>{
+  this.col1cnt = 0;
+  this.col2cnt = 0;
+  this.col3cnt = 0;
+  this.col4cnt = 0;
+  this.col5cnt = 0;
+  this.col6cnt = 0;
+  this.pagedata.records.forEach(sq =>{
+    if(sq.show && sq.perd == this.period){
     this.col1cnt += parseInt(sq.cprc); 
     this.col2cnt += parseInt(sq.cpnd); 
     this.col3cnt += parseInt(sq.cdnd); 
     this.col4cnt += parseInt(sq.clmp); 
     this.col5cnt += parseInt(sq.clmd); 
     this.col6cnt += parseInt(sq.clmo); 
+    }
    });
   
 }
@@ -265,15 +274,17 @@ addcounts(){
       err => {Util.hideWait(); },
       () => {
         Array.prototype.push.apply(this.pagedata.records,this.readdata.records);
-        
+        this.addcounts(); 
         if (this.readdata.ttlpgs.lstrec === "EOF") {
+          
+          
           this.applyFiltBtn = true;
           return;
         } else {
     this.readdata.records.forEach(sq =>{ if(sq.show && sq.perd == this.period) this.dispItems.push(sq)});
     // get current page of items
     this.pagedItems = this.dispItems.slice(this.pager.startIndex, this.pager.endIndex + 1); 
-    this.addcounts();  
+     
           this.readNext(this.readdata.ttlpgs.lstrec);
         }
       }
