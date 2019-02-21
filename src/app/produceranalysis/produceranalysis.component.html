@@ -210,15 +210,7 @@
                 <th colspan="3" style="padding:0;height:10px;text-align: center;font-weight: bold;background: aliceblue;border-right: 1px solid gainsboro;border-left:1px solid gainsboro;">Contracts</th>
                 <th colspan="3" style="padding:0;height:10px;text-align: center;font-weight: bold;background: #f9f9f9;">Claims</th>
               </tr>
-              <tr>
-                <th  data-label="Totals" colspan="3" style="background: #ecc2c2; text-align: center;font-weight: bold;">Totals:</th>
-                <th style="background: #ecc2c2;" class="text-center">{{col1cnt}}</th>
-                <th style="background: #ecc2c2;" class="text-center">{{col2cnt}}</th>
-                <th style="background: #ecc2c2;" class="text-center">{{col3cnt}}</th>
-                <th style="background: #ecc2c2;" class="text-center">{{col4cnt}}</th>
-                <th style="background: #ecc2c2;" class="text-center">{{col5cnt}}</th>
-                <th style="background: #ecc2c2;" class="text-center">{{col6cnt}}</th>
-              </tr>
+              
               
 							<tr>
 								<th><b>Status</b>&nbsp;&nbsp;</th>
@@ -230,7 +222,16 @@
 								<th>Paid</th>
 								<th>Denied</th>
 								<th>Open</th>
-							</tr>
+              </tr>
+              <tr>
+                  <th  data-label="Totals" colspan="3" style="background: #ecc2c2; text-align: center;font-weight: bold;padding:0;">Totals</th>
+                  <th style="background: #ecc2c2;padding:0;" class="text-center">&nbsp;{{col1cnt}}</th>
+                  <th style="background: #ecc2c2;padding:0;" class="text-center">&nbsp;{{col2cnt}}</th>
+                  <th style="background: #ecc2c2;padding:0;" class="text-center">&nbsp;{{col3cnt}}</th>
+                  <th style="background: #ecc2c2;padding:0;" class="text-center">&nbsp;{{col4cnt}}</th>
+                  <th style="background: #ecc2c2;padding:0;" class="text-center">&nbsp;{{col5cnt}}</th>
+                  <th style="background: #ecc2c2;padding:0;" class="text-center">&nbsp;{{col6cnt}}</th>
+                </tr>
 						</thead>
 						<tbody>
                 <tr *ngIf="pagedItems.length < 1">

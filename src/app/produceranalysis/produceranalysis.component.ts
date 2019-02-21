@@ -102,6 +102,7 @@ export class ProduceranalysisComponent implements OnInit {
               "pagemode": 'V',
               "dlr" : agr.dlrc
             }
+            Util.showWait();
             Util.modalid("show","contractmodal");
     
   }

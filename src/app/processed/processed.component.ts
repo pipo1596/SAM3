@@ -41,7 +41,6 @@ export class ProcessedComponent implements OnInit {
     this.innermode = (indata.innermode && indata.innermode.trim()) || '';
     this.pagemode = (indata.pagemode && indata.pagemode.trim()) || 'L';
     this.viewCont(indata);
-    console.log(indata);
   }
 	//Input Fields
 	ofn  : string="";
