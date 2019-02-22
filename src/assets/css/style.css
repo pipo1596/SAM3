@@ -2421,7 +2421,8 @@ date-input-polyfill button{padding:5px;}
   color: transparent;
   text-shadow: none;
   background-color: transparent;
-  border: 0;    
+  border: 0;   
+  z-index: 9999; 
 }
 
 .loading:not(:required):after {

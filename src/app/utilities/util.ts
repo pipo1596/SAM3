@@ -101,7 +101,6 @@ winPrint.document.write(html);
 winPrint.document.close();
 
 winPrint.focus();
-//setTimeout(function(){winPrint.opener = null;winPrint.print();},500);
 }
 //==================================================================================//
 static setIframeSrc(url){
@@ -113,7 +112,6 @@ static Env(){
         return false;
     else
         return true;
-
 }
 //===================================================================================//
 static hideWait(){ 
@@ -128,7 +126,6 @@ static hideWait(){
  static setFAQ(){
     $("#staticpages .panel-body").addClass("hidden");
     $('input[name=faq]:checked').parentsUntil('.panel').parent().find(".panel-body").removeClass("hidden");
-    //$('html, body').scrollTop( $('input[name=faq]:checked').offset().top-5 );
     setTimeout(function(){   $('html, body').animate({scrollTop: $('input[name=faq]:checked').parentsUntil('.panel').parent().offset().top-5 },200);},100);
  }
 //===================================================================================//
@@ -188,9 +185,6 @@ static hideWait(){
         }                                                                                                                 
     }                                                                                                             
     
-        //setTimeout(function(){   
-             
-                
         $('.btn-menu').on('click', function() {                                                                                   
             $('#mainnav-mobi').slideToggle(300);                                                                                  
             $(this).toggleClass('active');                                                                                        
@@ -217,7 +211,6 @@ static makeid() {
     var text = "";
 
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  
     for (var i = 0; i < 5; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
@@ -275,7 +268,6 @@ static hideTopForm(){
 static hideRoles(){
     $("#addrole").slideUp();
     $("#addnewb").show();
-
 }
 //===================================================================================//
 static showUsers(){
@@ -316,7 +308,6 @@ static scrollToId(id){
 }
 //===================================================================================//
 static scrollToIds(id){
-    
     if($("#"+id).length<1) return false;
     $('html, body').animate({ scrollTop: $("#"+id).offset().top-5 }, 400,"swing",
     function(){ 
@@ -458,11 +449,7 @@ static focusById(id){
 static selectById(id){
     $("#"+id).focus();
     setTimeout(function(){ 
-        //$("#"+id).select();
-        
         $("#"+id)[0].setSelectionRange(0,9999);
-       
-
     },200);
 }
 //===================================================================================//
@@ -546,9 +533,7 @@ static alertmodal(message,title){
     $("#alertBody").html(message);
     $("#alertTitle").html(title);
     this.modalid('show','alertModal');
-    
     }
-
 //==================================================================================//
 static  cardType(ccnum) {
     var sel_brand;
@@ -598,8 +583,6 @@ static newQuote(){
         return false;
 }
 //===================================================================================//
-
-
 static Usersnap(){
     if($("#usersnap").length>0)return false;
    var s = document.createElement("script"); 

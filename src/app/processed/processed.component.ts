@@ -228,6 +228,7 @@ export class ProcessedComponent implements OnInit {
 
   }
   viewCont(agr){
+    if(agr.anum !==undefined && agr.anum !==""){
     this.eanum = agr.anum;
     this.edlr  = agr.dlr;
     this.easuf = agr.asuf;
@@ -265,7 +266,7 @@ export class ProcessedComponent implements OnInit {
         Util.hideWait();  
   		}
   	);
-    
+    }
   }
   getHist(){
     
