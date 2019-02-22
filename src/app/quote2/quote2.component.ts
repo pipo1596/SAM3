@@ -18,6 +18,8 @@ export class Quote2Component implements OnInit {
   validc :boolean = false;
   validt :boolean = false;
   validd :boolean = false;
+  allchek:boolean = false;
+
   listoc : number = 0;
   listvf : number = 0;
   firsttype   : number = 0;
@@ -35,6 +37,18 @@ export class Quote2Component implements OnInit {
   toggle(data) {
     data.open = !data.open;
 
+  }
+
+  checkall(){
+    this.allchek = ! this.allchek;
+    if(this.allchek){
+    this.pagedata.body.data.forEach((eachObj)=>{
+      eachObj.cov.coverages.forEach(element => {element.check2 = this.allchek;});
+      eachObj.trm.terms.forEach(element => {element.check2 = this.allchek;});
+      eachObj.ded.deductibles.forEach(element => {element.check2 = this.allchek;});
+
+    });
+  }
   }
 
   toggleschg(incheck){
