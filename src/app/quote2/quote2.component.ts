@@ -41,14 +41,14 @@ export class Quote2Component implements OnInit {
 
   checkall(){
     this.allchek = ! this.allchek;
-    if(this.allchek){
+   // if(this.allchek){
     this.pagedata.body.data.forEach((eachObj)=>{
       eachObj.cov.coverages.forEach(element => {element.check2 = this.allchek;});
       eachObj.trm.terms.forEach(element => {element.check2 = this.allchek;});
       eachObj.ded.deductibles.forEach(element => {element.check2 = this.allchek;});
 
     });
-  }
+  //}
   }
 
   toggleschg(incheck){
