@@ -40,6 +40,9 @@ export class ProcessedComponent implements OnInit {
   set indata(indata: any) {
     this.innermode = (indata.innermode && indata.innermode.trim()) || '';
     this.pagemode = (indata.pagemode && indata.pagemode.trim()) || 'L';
+    this.gotpaym = false;
+    this.gothist = false;
+    this.gotcanc = false;
     this.viewCont(indata);
   }
 	//Input Fields
