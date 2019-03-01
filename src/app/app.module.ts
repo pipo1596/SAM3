@@ -26,6 +26,7 @@ import { CovsequenceComponent } from './covsequence/covsequence.component';
 import { UniversalfiltersComponent } from './universalfilters/universalfilters.component';
 import { LienholdersComponent } from './lienholders/lienholders.component';
 import { Lienholders2Component } from './lienholders2/lienholders2.component';
+import { PaymentmethodsComponent } from './paymentmethods/paymentmethods.component';
 import { PacksComponent } from './packs/packs.component';
 import { ContracttypesComponent } from './contracttypes/contracttypes.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
@@ -71,6 +72,7 @@ enableProdMode();
     CovsequenceComponent,
     UniversalfiltersComponent,
     LienholdersComponent,
+    PaymentmethodsComponent,
     Lienholders2Component,
     Quote1Component,
     Quote2Component,

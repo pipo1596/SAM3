@@ -1,0 +1,138 @@
+<app-header [headdata]="pagedata.head"></app-header>
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Payment Methods</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="row white">
+			<form *ngIf="selectedRec"  class="contactform style4 clearfix panel-body" method="post" style="display:none;" (submit)="checkData()" id="topform"  autocomplete="off">
+				<div class="col-md-12">
+					<h2>{{modebtn}} Payment Method</h2>
+					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+          <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+				</div>
+				<div class="col-sm-6">
+						<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Type
+							<span class="errorspan2" [class.opqquezero]="type.message===''" [class.alert-danger]="type.erlevel==='D'"  [class.validating]="validating">{{type.message}}</span> 
+						</label>
+						<span class="flat-input">
+							<select  autocomplete="new-password" class="form__select" name="type" [(ngModel)]="selectedRec.type" [class.required]="type.message !==''"  [class.validating]="validating"  (change)="onChange()">
+								<option value="">Select</option>
+								<option value="C">Checking</option>
+								<option value="S">Saving</option>
+							</select>
+						</span>
+					</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Holder's Name
+						<span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validating">{{name.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password"  id="name" name="name" type="text" placeholder="Account Holder's Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.name" maxlength="60" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Routing Number
+						<span class="errorspan2" [class.opqquezero]="rout.message===''" [class.alert-danger]="rout.erlevel==='D'" [class.validating]="validating">{{rout.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password"  id="rout" name="rout" type="text" placeholder="Routing Number" [class.required]="rout.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.rout" maxlength="60" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Nickname
+						<span class="errorspan2" [class.opqquezero]="nick.message===''" [class.alert-danger]="nick.erlevel==='D'" [class.validating]="validating">{{nick.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password"  id="nick" name="nick" type="text" placeholder="Account Nickname" [class.required]="nick.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.nick" maxlength="60" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Number
+						<span class="errorspan2" [class.opqquezero]="acno.message===''" [class.alert-danger]="acno.erlevel==='D'" [class.validating]="validating">{{acno.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password"  id="acno" name="acno" type="text" placeholder="Account Number" [class.required]="acno.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.acno" maxlength="60" (change)="onChange()">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Confirm Account Number
+						<span class="errorspan2" [class.opqquezero]="acnc.message===''" [class.alert-danger]="acnc.erlevel==='D'" [class.validating]="validating">{{acnc.message}}</span>
+					</label>
+					<div class="flat-input w100">
+						<input autocomplete="new-password"  id="acnc" name="acnc" type="text" placeholder="Confirm Account Number" [class.required]="acnc.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.acnc" maxlength="60" (change)="onChange()">
+					</div>
+				</div>
+				
+				<div class="clearfix"></div>
+				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
+					<span class="flat-input">
+						<button name="submit" type="submit" class="flat-button btn-block saveUser" style="margin:0" title="{{modebtn}} Payment Method">{{modebtn}} Payment Method</button>
+					</span>
+					<span class="flat-input">
+						<button name="submit" type="button" (click)="cancel()" class="btn-warning btn-block" style="margin:5px 0"  title="Cancel">Cancel</button>
+					</span>
+				</div>
+				<div class="col-md-12 hidden-xs">
+					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
+					<span class="flat-input">
+						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Payment Mehtod">{{modebtn}} Payment Method</button>
+					</span>
+					
+					<span class="flat-input">
+						<button name="submit" type="button" (click)="cancel()" class="pull-right btn-warning" style="margin-right:10px" title="Cancel">Cancel</button>
+					</span>
+				</div>
+			</form>
+
+			<form class="contactform style4 clearfix panel-body" method="post"  autocomplete="off">
+				<h2 class="pull-left">Payment Methods</h2>
+				<span class="flat-input">
+						<button name="new" type="button" class="flat-button pull-right" title="New Payment Method" (click)="addRecInit()" id="addnewb">New Payment Method</button>
+						</span>
+						<span class="flat-input" *ngIf="boxchange">
+						<button name="save" type="button" class="btn-danger pull-right" style="margin-right: 10px" title="SAVE" (click)="saveboxes()" >SAVE</button>
+						</span>
+				<div class="p-table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><b>Account Nickname</b></th>
+								<th><b>Account Ending In</b></th>
+								<th><b>Delete</b></th>
+								<th class="text-center btncol"><b>Default</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<ng-container *ngFor="let ovrd of pagedata.methods">
+							<tr>
+								<td data-label="Account Nickname">{{ovrd.nick}}&nbsp;</td>
+								<td data-label="Account Ending In">{{ovrd.four}}&nbsp;</td>
+								<td data-label="Delete">
+								<a href="javascript:void(0)" (click) ="delete(ovrd)" class="btn btn-danger"  title="Delete">Delete</a>
+								</td>
+								<td data-label="Default" class="text-center">
+									<div class="custradio" (click)="setdefault(ovrd)" style="float: none;">
+										<input name="default" type="radio"  [checked]="ovrd.dflt"><label></label>
+									</div>									
+								</td>
+							</tr>
+							</ng-container>
+							<tr *ngIf="pagedata.methods && pagedata.methods.length <1">
+									<td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Payment Method On File----</h4></td>                        
+								</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</section>
+<app-footer></app-footer>

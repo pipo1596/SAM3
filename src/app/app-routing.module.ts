@@ -20,6 +20,7 @@ import { CovsequenceComponent } from './covsequence/covsequence.component';
 import { UniversalfiltersComponent } from './universalfilters/universalfilters.component';
 import { LienholdersComponent } from './lienholders/lienholders.component'; 
 import { Lienholders2Component } from './lienholders2/lienholders2.component'; 
+import { PaymentmethodsComponent } from './paymentmethods/paymentmethods.component'; 
 import { CanDeactivateGuard } from './utilities/confirmroute';
 import { DescoverrideComponent } from './descoverride/descoverride.component';
 import { CovwarningsComponent } from './covwarnings/covwarnings.component';
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'app/UniversalFilters', canDeactivate: [CanDeactivateGuard], component: UniversalfiltersComponent },
   { path: 'app/GlobalLienholders', canDeactivate: [CanDeactivateGuard], component: LienholdersComponent },
   { path: 'app/Lienholders', canDeactivate: [CanDeactivateGuard], component: Lienholders2Component },
+  { path: 'app/Paymentmethods', canDeactivate: [CanDeactivateGuard], component: PaymentmethodsComponent },
   { path: 'app/Quote1', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
   { path: 'app/QuoteNew', canDeactivate: [CanDeactivateGuard], component: Quote1Component },
   { path: 'app/Quote2', canDeactivate: [CanDeactivateGuard], component: Quote2Component },
