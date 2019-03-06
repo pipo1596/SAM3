@@ -42,6 +42,18 @@ static formatdateDsp(id,str){
         
         }
     }
+
+    static isFutureDate(idate){
+        var today = new Date();
+        var indate = new Date(idate+' ');
+        var char1 = today.getFullYear().toString()+today.getMonth().toString()+today.getDate().toString();
+        var char2 = indate.getFullYear().toString()+indate.getMonth().toString()+indate.getDate().toString();
+        var num1 = parseInt(char1);
+        var num2 = parseInt(char2);
+        //indate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+        return (num1 <= num2)
+        }
+
 static getyear(id,str){
     if ( $("#"+id)[0].type == 'date' ) 
         return parseInt(str.substring(0,4));

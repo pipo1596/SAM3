@@ -117,6 +117,21 @@
 
 		</form>
 	</div>
+	<div class="modal" id="infomodal" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title pull-left" id="alertTitle">Invoices have been submitted!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Instructions...</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="hidemdl('infomodal');" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
 </section>
 
 <app-footer></app-footer>

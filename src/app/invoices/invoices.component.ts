@@ -97,6 +97,15 @@ export class InvoicesComponent implements OnInit {
   				if(this.dispAlert.status === "S"){
             this.setPage(this.pager.currentPage);
             this.remtarr = [];
+            //ACH Logic
+            if(this.dispAlert.data == 'M'){
+              Util.modalid("show","infomodal");
+            }
+            if(this.dispAlert.data == 'X'){
+              Util.showWait();
+              this.router.navigate(['/app/InvoicePayment']);
+            }
+            
   					
   				} else {
   					
@@ -107,7 +116,9 @@ export class InvoicesComponent implements OnInit {
   	}
   }
   
-
+  hidemdl(id){
+    Util.modalid('hide',id);
+  }
   dateFilter(){
     Util.showWait();
     this.stock = this.stock.trim();

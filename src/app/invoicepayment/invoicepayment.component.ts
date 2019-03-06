@@ -1,0 +1,247 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { JsonService } from '../utilities/json.service'; 
+import { Util } from '../utilities/util';
+import { InvoicePaymentdata } from './invoicepaymentdata'; 
+import { Textfield , Numfield } from '../utilities/textfield';
+import { Dispalert , Errsetter } from '../utilities/dispalert';
+
+@Component({
+  selector: 'app-invoicepayment',
+  templateUrl: './invoicepayment.component.html'
+})
+export class InvoicePaymentComponent implements OnInit {
+
+  pagedata = new InvoicePaymentdata ;
+
+  validating = false;
+  valid = false;
+  changes = false;
+  jsonObj:any;
+  newRec:any;
+  ran:string = Util.makeid();
+  step:number = 1;
+  noAuth = true;
+  prof:string="";
+  //Input Fields
+  method = new  Textfield ;
+  pdate = new  Textfield ;
+  name = new Textfield;
+	type = new Textfield;
+	nick = new Textfield;
+	rout = new Textfield;
+	acno = new Textfield;
+	acnc = new Textfield;
+  save = new Textfield;
+  canadd:boolean = false;
+  //Alerts
+  dispAlert = new Dispalert();
+  errSet    = new Errsetter();
+
+  constructor(private jsonService: JsonService,private router: Router) { }
+  addnew(){
+    Util.showWait();
+    this.onChange();
+    this.save.value = "Y"; 
+    this.type.value = ""; 
+    this.name.value = "";
+    this.acno.value = "";
+    this.acnc.value = "";
+    this.nick.value = "";
+    this.rout.value = "";
+    Util.hideWait();
+  }
+  cancel(){
+    if(this.step==1) this.method.value ='';this.step=1;
+  }
+
+  onChange(){
+    this.changes= true;
+    this.validating = false;
+  }
+  checkData(){
+    this.validating = true;
+    this.valid = true;
+    //Reset Error Messages
+    this.pdate.message  = "";
+    this.method.message = "";
+    this.type.message = "";
+    this.name.message = "";
+    this.acno.message = "";
+    this.acnc.message = "";
+    this.nick.message = "";
+    this.rout.message = "";
+    //Reset Top Alert
+    this.dispAlert.default();
+    //Required Logic
+    //Trim Field Values
+		this.type.value = this.type.value.trim();
+		this.name.value = this.name.value.trim();
+		this.acno.value = this.acno.value.trim();
+		this.acnc.value = this.acnc.value.trim();
+		this.nick.value = this.nick.value.trim();
+    this.rout.value = this.rout.value.trim();
+    
+    if(this.pdate.value == '') { this.pdate.message = "(required)"; this.pdate.erlevel = "D"; this.valid = false; }
+    if(this.pdate.value !== "" && !Util.isdatestring("pdate",this.pdate.value)){
+      this.pdate.message = "(invalid)"; this.pdate.erlevel = "D"; this.valid = false;
+    }
+    //Date in Future
+    if(this.valid && !Util.isFutureDate(this.pdate.value)){
+      this.pdate.message = "(Cannot be in the past!)"; this.pdate.erlevel = "D"; this.valid = false;
+    }
+    if(this.method.value == "") { this.method.message = "(required)"; this.method.erlevel = "D"; this.valid = false; }
+    if(this.method.value =='ADDNEW'){
+	    if(this.type.value == ""){ this.type.message = "(required)"; this.type.erlevel = 'D'; this.valid = false;}
+	    if(this.name.value == ""){ this.name.message = "(required)"; this.name.erlevel = 'D'; this.valid = false;}
+	    if(this.acnc.value == ""){ this.acnc.message = "(required)"; this.acnc.erlevel = 'D'; this.valid = false;}
+	    if(this.acnc.value !== "" && this.acnc.value !== this.acno.value){ this.acno.message = "(Account Number Don't Match)"; this.acno.erlevel = 'D'; this.valid = false;}
+      if(this.save.value=='Y' && this.nick.value == ""){ this.nick.message = "(required)"; this.nick.erlevel = 'D'; this.valid = false;}
+      if(this.rout.value == ""){ this.rout.message = "(required)"; this.rout.erlevel = 'D'; this.valid = false;}
+      if(this.acno.value !== "" && this.acno.value.length < 6){ this.acno.message = "(Invalid)"; this.acno.erlevel = 'D'; this.valid = false;}
+      if(this.acno.value == ""){ this.acno.message = "(required)"; this.acno.erlevel = 'D'; this.valid = false;}
+    }
+
+    
+    this.step2();  
+  }
+
+  step2(){
+    if(!this.valid) return false;
+    if(this.method.value =='ADDNEW' && this.save.value == 'Y'){
+      this.jsonObj = {
+        mode: "CHECK",
+        acno: this.acno.value,
+        type: this.type.value,
+        name: this.name.value,
+        nick: this.nick.value,
+        rout: this.rout.value
+      }
+      Util.showWait();
+      this.jsonService
+        .initService(this.jsonObj,Util.Url("CGICPYMTMT"))
+        .subscribe(data => this.errSet = data,
+                    err => { this.dispAlert.error(); Util.hideWait(); },
+                     () => {
+                            Util.hideWait();
+                            if (this.errSet.status === "S") {
+                                this.step = 2;
+                                setTimeout(() => { Util.scrollToId("alertschedule");},200);
+                                 }else{
+                                   this.nick.message = this.errSet.message;
+                                   this.nick.erlevel = 'D'; this.valid = false;
+                                   this.step = 1;
+                                 }
+                          }
+                  );
+
+    }
+    else{
+    this.step = 2;
+    setTimeout(() => { Util.scrollToId("alertschedule");},200);
+    }
+    
+  }
+
+  step3(){
+    if(!this.valid) return false;
+    Util.showWait();
+
+    if(this.method.value =='ADDNEW' && this.save.value == 'Y'){
+      this.jsonObj = {
+        mode: "ADD",
+        acno: this.acno.value,
+        type: this.type.value,
+        name: this.name.value,
+        nick: this.nick.value,
+        rout: this.rout.value
+      }
+      
+      this.jsonService
+        .initService(this.jsonObj,Util.Url("CGICPYMTMT"))
+        .subscribe(data => this.errSet = data,
+                    err => { this.dispAlert.error(); Util.hideWait(); },
+                     () => {
+                            
+                            if (this.errSet.status === "S") {
+                              this.prof = this.errSet.data;
+                              this.schedule();
+                                 }else{
+                                   this.dispAlert.message = this.errSet.message;
+                                   this.dispAlert.status  = this.errSet.status;
+                                   Util.hideWait();
+                                 }
+                          }
+                  );
+
+    }
+    else{
+      this.prof = this.method.value;
+      this.schedule();
+    
+    }
+    
+  }
+
+  schedule(){
+    this.jsonObj = {
+      mode: "SCHDL",
+      acno: this.acno.value,
+      type: this.type.value,
+      name: this.name.value,
+      nick: this.nick.value,
+      pdat: this.pdate.value,
+      prof: this.prof,
+      totl: this.pagedata.body.totl,
+      rout: this.rout.value
+    }
+
+    this.jsonService
+        .initService(this.jsonObj,Util.Url("CGICINVPMT"))
+        .subscribe(data => this.errSet = data,
+                    err => { this.dispAlert.error(); Util.hideWait(); },
+                     () => {
+                            
+                            if (this.errSet.status === "S") {
+                                 
+                                 }
+                          }
+                  );
+
+  }
+
+  ngOnInit() {
+    Util.showWait();
+    this.pagedata.head = Util.getHead(this.pagedata.head);
+    this.jsonService
+    .initService({"mode":"INIT"},Util.Url("CGICINVPMT"))
+    .subscribe(data => this.pagedata = data,
+      err => { Util.hideWait(); },
+      () => { Util.responsiveMenu(); 
+        Util.setHead(this.pagedata.head);
+        this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'TXRATE');
+        if (this.pagedata.head.status === "O" || this.noAuth) {
+          
+          Util.showWait();
+          setTimeout(() => {
+            Util.hideWait();   
+            this.router.navigate(['/app/']);
+          }, 100);
+        }else{
+          Util.hideWait();
+          this.canadd =  !Util.noAuth(this.pagedata.head.menuOp,'PAYMETHOD');
+        }
+
+       }
+    );
+  }
+
+  canDeactivate() {
+
+    if(this.changes)
+      return window.confirm('Changes not saved! Discard changes?');
+    return true;
+
+}
+
+}

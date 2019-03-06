@@ -10,6 +10,7 @@ export class Body{
 	mode : string;
 	dsmd : string;
 	belg : boolean;
+	dbil : boolean;
 	user : string;
 	type : string;
 	dsid : string;

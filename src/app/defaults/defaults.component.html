@@ -13,8 +13,7 @@
             <form  class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()"
                 id="adduser"  autocomplete="off">
                 <div class="col-md-12">
-                    <h2  *ngIf="hasrv || hasplnk || hasancl || haslntp">Set Default Values</h2>
-                    <h2  *ngIf="!hasrv && !hasplnk && !hasancl && !haslntp">No Default Settings Available!</h2>
+                    <h2>Set Default Values</h2>
                     <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                     <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
@@ -367,13 +366,31 @@
                             </div>
                     <div class="col-xs-12"><hr></div>
                 </div>
-                
-                <div class="col-md-12 hidden-xs" *ngIf="hasrv || hasplnk || hasancl || haslntp">
+                <div class="col-xs-12"><h3>Payment Options</h3></div>
+                <div class="col-sm-4">
+                        <div class="custradio">
+                                <input name="payment" id="direct" value="D" type="radio"  (change)="onChange();" [(ngModel)]="pymt.value" >
+                                <label for="direct"></label>
+                            </div> <label for="direct">Direct Billing</label>
+                </div>
+                <div class="col-sm-4">
+                        <div class="custradio">
+                                <input name="payment" id="manual" value="M" type="radio"  (change)="onChange();" [(ngModel)]="pymt.value" >
+                                <label for="manual"></label>
+                            </div> <label for="manual">Manual Payment</label>
+                </div>
+                <div class="col-sm-4">
+                        <div class="custradio">
+                                <input name="payment" id="achbil" value="A" type="radio"  (change)="onChange();" [(ngModel)]="pymt.value" >
+                                <label for="achbil"></label>
+                            </div> <label for="achbil">ACH Billing</label>
+                </div>
+                <div class="col-md-12 hidden-xs" >
                     <span class="flat-input">
                         <button name="submit" type="submit"  class="flat-button pull-right" style="margin:10px 0" title="Update">Update</button>
                     </span>
                 </div>
-                <div class="col-md-12 hidden-sm hidden-md hidden-lg"  *ngIf="hasrv || hasplnk || hasancl || haslntp">
+                <div class="col-md-12 hidden-sm hidden-md hidden-lg">
                         <span class="flat-input">
                             <button name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">Update</button>
                         </span>

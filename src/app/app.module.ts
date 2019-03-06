@@ -30,6 +30,7 @@ import { PaymentmethodsComponent } from './paymentmethods/paymentmethods.compone
 import { PacksComponent } from './packs/packs.component';
 import { ContracttypesComponent } from './contracttypes/contracttypes.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
+import { InvoicePaymentComponent } from './invoicepayment/invoicepayment.component';
 import { DefaultsComponent } from './defaults/defaults.component';
 import { ClaimsFormComponent } from './claimsform/claimsform.component';
 import { Quote3Component } from './quote3/quote3.component';
@@ -79,6 +80,7 @@ enableProdMode();
     PacksComponent, 
     ContracttypesComponent,
     TaxrateComponent,
+    InvoicePaymentComponent,
     DefaultsComponent,
     ClaimsFormComponent,
     Quote3Component,

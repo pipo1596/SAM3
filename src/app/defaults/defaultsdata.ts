@@ -10,6 +10,7 @@ export class bodyData{
             ancl: string;
             rvtp: string;
             plnk: string;
+            pymt: string;
             mnth: string; 
             lntp: string; 
 

@@ -24,6 +24,7 @@ export class DefaultsComponent implements OnInit {
   lntp  = new  Textfield ; 
   ancl  = new  Textfield ; 
   plnk  = new  Textfield ; 
+  pymt  = new  Textfield ; 
   mnth  = new  Textfield ;
   //CheckBoxes
   xptf  :boolean = false; //paytype
@@ -83,6 +84,7 @@ export class DefaultsComponent implements OnInit {
       this.pagedata.body.lntp  = this.lntp.value;
       this.pagedata.body.ancl  = this.ancl.value;
       this.pagedata.body.plnk  = this.plnk.value;
+      this.pagedata.body.pymt  = this.pymt.value;
       this.pagedata.body.mnth  = this.mnth.value;
       
       //Checkboxes
@@ -145,6 +147,7 @@ export class DefaultsComponent implements OnInit {
           this.ancl.value = this.pagedata.body.ancl;
           this.mnth.value = this.pagedata.body.mnth;
           this.plnk.value = this.pagedata.body.plnk;
+          this.pymt.value = this.pagedata.body.pymt;
           //Checkboxes
           this.xptf = this.pagedata.body.xptf;
           this.xptm = this.pagedata.body.xptm;
