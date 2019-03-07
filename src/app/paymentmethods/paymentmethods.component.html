@@ -17,6 +17,14 @@
           <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
 				</div>
 				<div class="col-sm-6">
+						<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Nickname
+							<span class="errorspan2" [class.opqquezero]="nick.message===''" [class.alert-danger]="nick.erlevel==='D'" [class.validating]="validating">{{nick.message}}</span>
+						</label>
+						<div class="flat-input w100">
+							<input autocomplete="new-password"  id="nick" name="nick" type="text" placeholder="Account Nickname" [class.required]="nick.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.nick" maxlength="60" (change)="onChange()">
+						</div>
+				</div>
+				<div class="col-sm-6">
 						<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Type
 							<span class="errorspan2" [class.opqquezero]="type.message===''" [class.alert-danger]="type.erlevel==='D'"  [class.validating]="validating">{{type.message}}</span> 
 						</label>
@@ -44,14 +52,7 @@
 						<input autocomplete="new-password"  id="rout" name="rout" type="text" placeholder="Routing Number" [class.required]="rout.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.rout" maxlength="60" (change)="onChange()">
 					</div>
 				</div>
-				<div class="col-sm-6">
-					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Nickname
-						<span class="errorspan2" [class.opqquezero]="nick.message===''" [class.alert-danger]="nick.erlevel==='D'" [class.validating]="validating">{{nick.message}}</span>
-					</label>
-					<div class="flat-input w100">
-						<input autocomplete="new-password"  id="nick" name="nick" type="text" placeholder="Account Nickname" [class.required]="nick.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.nick" maxlength="60" (change)="onChange()">
-					</div>
-				</div>
+				
 				<div class="col-sm-6">
 					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Number
 						<span class="errorspan2" [class.opqquezero]="acno.message===''" [class.alert-danger]="acno.erlevel==='D'" [class.validating]="validating">{{acno.message}}</span>
@@ -82,7 +83,7 @@
 				<div class="col-md-12 hidden-xs">
 					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
 					<span class="flat-input">
-						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Payment Mehtod">{{modebtn}} Payment Method</button>
+						<button name="submit" type="submit" class="flat-button pull-right saveUser" style="margin-right:10px" title="{{modebtn}} Payment Method">{{modebtn}} Payment Method</button>
 					</span>
 					
 					<span class="flat-input">

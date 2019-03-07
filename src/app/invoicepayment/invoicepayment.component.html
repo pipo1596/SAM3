@@ -13,12 +13,11 @@
             <form  class="contactform style4 clearfix panel-body" method="post" (submit)="checkData()" autocomplete="off">
                 <div class="col-md-12">
                         <ul class="breadcrumb w100 pull-left">
-                                <li class="col-xs-4" [ngClass]="{'active':step==1}">Choose a payment mehtod</li>
+                                <li class="col-xs-4" [ngClass]="{'active':step==1}">Choose a payment method</li>
                                 <li class="col-xs-4" [ngClass]="{'active':step==2}">Review your information</li>
                                 <li class="col-xs-4" [ngClass]="{'active':step==3}">Payment confirmation</li>
                         </ul>
-                    <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
-                    <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+                    
                 </div>
                 <div class="col-xs-12"><h3>Invoices to pay</h3></div>
                 <div class="col-sm-6">
@@ -44,13 +43,16 @@
                 <div class="col-xs-12"><hr>
                     <div class="alert alert-info" role="alert" *ngIf="step==2" id="alertschedule">
                             Review Your information and schedule payment
-                          </div></div>
+                          </div>
+                          <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+                          <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+                </div>
                 <div class="col-sm-6" style="margin-top:10px;">
                         <div class="well well-sm text-right">
                                 <label class="flat-input inputlabel">Amount To Pay:&nbsp;<span style="color:#5a8ce6">{{pagedata.body.totl|currency}}</span></label>  
                         </div>
                        
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Payment Method:
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Payment Method:
                             <span class="errorspan2" [class.opqquezero]="method.message===''" [class.alert-danger]="method.erlevel==='D'"  [class.validating]="validating">{{method.message}}</span> 
                         <a href="javascript:void(0)" *ngIf="canadd" (click)="method.value ='ADDNEW';addnew();" [class.hidden]="method.value=='ADDNEW' || step > 1" class="pull-right" style="color:#5a8ce6">Add New</a>
                         </label>
@@ -63,7 +65,7 @@
                                 </ng-container>
                             </select>
                         </span>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Payment Date:
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Payment Date:
                             &nbsp;&nbsp;<span class="errorspan2" [class.opqquezero]="pdate.message===''" [class.alert-danger]="pdate.erlevel==='D'" [class.validating]="validating">{{pdate.message}}</span> 
                         </label>
                         <div class="flat-input w100">
@@ -72,27 +74,33 @@
                         </div>
                         <p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>
                         <div class="clearfix"></div>
-                        <div class="col-xs-4" style="padding:0;">
+                        <div class="col-xs-4" style="padding:0;" *ngIf="step < 3">
                                 <span class="flat-input" *ngIf="method.value !=='ADDNEW'">
                                 <button name="submit"  *ngIf="step == 2" type="button" (click)="step=1"  style="margin:10px 0"  class="btn-warning btn-block" title="Cancel">Cancel</button>  
                                 </span>
                             </div>
-                        <div class="col-xs-8"  style="padding-right:0;">
+                        <div class="col-xs-8" *ngIf="step < 3" style="padding-right:0;">
                         <span class="flat-input" *ngIf="method.value !=='ADDNEW'">
-                                <button *ngIf="step< 2" name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">
+                                <button *ngIf="step< 2" name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Proceed">
                                     Proceed&nbsp;<span class="fa fa-forward"></span>
                                 </button>
-                                <button *ngIf="step> 1" name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">
+                                <button *ngIf="step> 1" name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Schedule Payment">
                                     Schedule Payment
                                 </button>
                             </span>
                         </div>
+                        <div class="col-xs-12" style="padding:0" *ngIf="step == 3 && method.value !=='ADDNEW'">
+                                <span class="flat-input" >
+                                        <button name="submit"type="submit"  class="btn-info btn-block" style="margin:10px 0" title="Done">Done&nbsp;&nbsp;&nbsp;<span class="fa fa-check"></span></button>
+                                        
+                                </span> 
+                            </div>
                     </div>
                     <div class="col-sm-6" *ngIf="method.value =='ADDNEW'"  style="margin-top:30px;">  
                         <h4 class="pull-left">Add New Payment Method </h4>
                         
                         <div class="clearfix"></div>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Save This Payment Mehtod</label>
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Save This Payment Method</label>
 						<span class="flat-input">
 							<select  class="form__select" name="type{{ran}}" [(ngModel)]="save.value" [class.required]="save.message !==''"  [class.validating]="validating"  [disabled]="step > 1" (change)="onChange()">
 								<option value="Y">Yes</option>
@@ -101,19 +109,14 @@
                         </span>
                         
                         
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Holder's Name
-                            <span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validating">{{name.message}}</span>
-                        </label>
-                        <div class="flat-input w100">
-                            <input autocomplete="new-password{{ran}}"  name="name{{ran}}" type="text" placeholder="Account Holder's Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="name.value"  [disabled]="step > 1" maxlength="60" (change)="onChange()">
-                        </div>
-                        <label *ngIf="save.value=='Y'" class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Nickname
+                        
+                        <label *ngIf="save.value=='Y'" class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Account Nickname
                             <span class="errorspan2" [class.opqquezero]="nick.message===''" [class.alert-danger]="nick.erlevel==='D'" [class.validating]="validating">{{nick.message}}</span>
                         </label>
                         <div class="flat-input w100" *ngIf="save.value=='Y'">
                             <input autocomplete="new-password{{ran}}"   name="nick{{ran}}" type="text" placeholder="Account Nickname" [class.required]="nick.message !==''" [class.validating]="validating" [(ngModel)]="nick.value"  [disabled]="step > 1" maxlength="60" (change)="onChange()">
                         </div>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Type
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Account Type
 							<span class="errorspan2" [class.opqquezero]="type.message===''" [class.alert-danger]="type.erlevel==='D'"  [class.validating]="validating">{{type.message}}</span> 
 						</label>
 						<span class="flat-input">
@@ -123,34 +126,46 @@
 								<option value="S">Saving</option>
 							</select>
                         </span>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Routing Number
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Account Holder's Name
+                            <span class="errorspan2" [class.opqquezero]="name.message===''" [class.alert-danger]="name.erlevel==='D'" [class.validating]="validating">{{name.message}}</span>
+                        </label>
+                        <div class="flat-input w100">
+                            <input autocomplete="new-password{{ran}}"  name="name{{ran}}" type="text" placeholder="Account Holder's Name" [class.required]="name.message !==''" [class.validating]="validating" [(ngModel)]="name.value"  [disabled]="step > 1" maxlength="60" (change)="onChange()">
+                        </div>
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Routing Number
                             <span class="errorspan2" [class.opqquezero]="rout.message===''" [class.alert-danger]="rout.erlevel==='D'" [class.validating]="validating">{{rout.message}}</span>
                         </label>
                         <div class="flat-input w100">
                             <input autocomplete="new-password{{ran}}"  name="rout{{ran}}" type="text" placeholder="Routing Number" [class.required]="rout.message !==''" [class.validating]="validating" [(ngModel)]="rout.value"  [disabled]="step > 1" maxlength="12" (change)="onChange()">
                         </div>
                         
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Account Number
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Account Number
                             <span class="errorspan2" [class.opqquezero]="acno.message===''" [class.alert-danger]="acno.erlevel==='D'" [class.validating]="validating">{{acno.message}}</span>
                         </label>
                         <div class="flat-input w100">
                             <input autocomplete="new-password{{ran}}"   name="acno{{ran}}" type="text" placeholder="Account Number" [class.required]="acno.message !==''" [class.validating]="validating" [(ngModel)]="acno.value"  [disabled]="step > 1" maxlength="60" (change)="onChange()">
                         </div>
-                        <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Confirm Account Number
+                        <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Confirm Account Number
                             <span class="errorspan2" [class.opqquezero]="acnc.message===''" [class.alert-danger]="acnc.erlevel==='D'" [class.validating]="validating">{{acnc.message}}</span>
                         </label>
                         <div class="flat-input w100">
                             <input autocomplete="new-password{{ran}}"   name="acnc{{ran}}" type="text" placeholder="Confirm Account Number" [class.required]="acnc.message !==''" [class.validating]="validating" [(ngModel)]="acnc.value"  [disabled]="step > 1"  maxlength="60" (change)="onChange()">
                         </div>
-                        <div class="col-xs-4" style="padding:0;">
-                                <button name="submit"  *ngIf="step < 3" type="button" style="margin:10px 0" (click)="cancel()" class="btn-warning btn-block" title="Cancel">Cancel</button>  
+                        <div class="col-xs-4" style="padding:0;" *ngIf="step < 3">
+                                <button name="submit"   type="button" style="margin:10px 0" (click)="cancel()" class="btn-warning btn-block" title="Cancel">Cancel</button>  
                         </div>
-                        <div class="col-xs-8" style="padding-right:0;">
+                        <div class="col-xs-8" style="padding-right:0;" *ngIf="step < 3">
                             <span class="flat-input" >
-                                    <button name="submit" *ngIf="step< 2" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">Proceed&nbsp;<span class="fa fa-forward"></span></button>
-                                    <button *ngIf="step> 1" name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Update">
+                                    <button name="submit" *ngIf="step< 2" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Proceed">Proceed&nbsp;<span class="fa fa-forward"></span></button>
+                                    <button *ngIf="step== 2" name="submit" type="submit"  class="flat-button btn-block" style="margin:10px 0" title="Schedule Payment">
                                             Schedule Payment
-                                        </button>
+                                    </button>
+                            </span> 
+                        </div>
+                        <div class="col-xs-12" style="padding:0" *ngIf="step == 3">
+                            <span class="flat-input" >
+                                    <button name="submit"type="submit"  class="btn-info btn-block" style="margin:10px 0" title="Done">Done&nbsp;&nbsp;&nbsp;<span class="fa fa-check"></span></button>
+                                    
                             </span> 
                         </div>
                     </div>

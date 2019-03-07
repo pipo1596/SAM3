@@ -95,7 +95,7 @@ export class InvoicesComponent implements OnInit {
           this.changes = false;
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
-            this.setPage(this.pager.currentPage);
+            //this.setPage(this.pager.currentPage);
             this.remtarr = [];
             //ACH Logic
             if(this.dispAlert.data == 'M'){
@@ -110,7 +110,7 @@ export class InvoicesComponent implements OnInit {
   				} else {
   					
             this.remtarr = [];
-            this.setPage(this.pager.currentPage);
+            //this.setPage(this.pager.currentPage);
   				}
   			})
   	}

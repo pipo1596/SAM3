@@ -88,7 +88,7 @@ export class InvoicePaymentComponent implements OnInit {
     }
     //Date in Future
     if(this.valid && !Util.isFutureDate(this.pdate.value)){
-      this.pdate.message = "(Cannot be in the past!)"; this.pdate.erlevel = "D"; this.valid = false;
+      this.pdate.message = "(Only 2 days into the future allowed!)"; this.pdate.erlevel = "D"; this.valid = false;
     }
     if(this.method.value == "") { this.method.message = "(required)"; this.method.erlevel = "D"; this.valid = false; }
     if(this.method.value =='ADDNEW'){
@@ -108,6 +108,14 @@ export class InvoicePaymentComponent implements OnInit {
 
   step2(){
     if(!this.valid) return false;
+    if(this.step == 2){
+      this.step3();
+      return false;
+    }
+    if(this.step == 3){
+      this.router.navigate(['/app/Invoices']);
+      return false;
+    }
     if(this.method.value =='ADDNEW' && this.save.value == 'Y'){
       this.jsonObj = {
         mode: "CHECK",
@@ -149,7 +157,7 @@ export class InvoicePaymentComponent implements OnInit {
 
     if(this.method.value =='ADDNEW' && this.save.value == 'Y'){
       this.jsonObj = {
-        mode: "ADD",
+        mode: "ADDF",
         acno: this.acno.value,
         type: this.type.value,
         name: this.name.value,
@@ -192,6 +200,7 @@ export class InvoicePaymentComponent implements OnInit {
       nick: this.nick.value,
       pdat: this.pdate.value,
       prof: this.prof,
+      meth: this.method.value,
       totl: this.pagedata.body.totl,
       rout: this.rout.value
     }
@@ -201,9 +210,14 @@ export class InvoicePaymentComponent implements OnInit {
         .subscribe(data => this.errSet = data,
                     err => { this.dispAlert.error(); Util.hideWait(); },
                      () => {
-                            
+                            Util.hideWait();
+                              this.dispAlert.message = this.errSet.message;
+                              this.dispAlert.status  = this.errSet.status;
                             if (this.errSet.status === "S") {
-                                 
+                                 this.step = 3;
+                                 this.changes = false;
+                                 }else{
+                                   this.step = 1;
                                  }
                           }
                   );
@@ -230,6 +244,19 @@ export class InvoicePaymentComponent implements OnInit {
         }else{
           Util.hideWait();
           this.canadd =  !Util.noAuth(this.pagedata.head.menuOp,'PAYMETHOD');
+          //Default Date
+          var now = new Date();
+          var month = (now.getMonth() + 1).toString();               
+          var day = now.getDate().toString();
+          if (parseInt(month) < 10) 
+            month = "0" + month.toString();
+          if (parseInt(day) < 10) 
+            day = "0" + day;
+          this.pdate.value = now.getFullYear().toString()+'-'+month+'-'+day;
+          //Default Payment
+          this.pagedata.body.paymnt.forEach(elem=>{
+            if(elem.stat == 'Y') this.method.value = elem.prof;
+          });
         }
 
        }

@@ -16,6 +16,7 @@ export class INVO{
     amnt: number;
 }
 export class mehtod{
+    stat: string;
     nick: string;
     prof: string;
     four: string;

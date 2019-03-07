@@ -35,6 +35,7 @@ export class bodyData{
             xrvm: boolean; 
             xrvt: boolean; 
             xrvp: boolean;
+            dbil: boolean;
 }
 
 export class Drp{

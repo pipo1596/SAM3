@@ -75,6 +75,17 @@
                                             </ul><!-- /.submenu --> 
                                         </li> 
                                         </ng-container>
+                                        <!--Payments-->
+                                        <ng-container *ngFor="let main of headdata.menuOp">
+                                                <li *ngIf="main.type=='P'"><a href="javascript:void(0)">Payments</a>
+                                                <ul class="submenu">       
+                                                <ng-container  *ngFor="let menu of headdata.menuOp">
+                                                        <li *ngIf="menu.type=='P1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
+                                                </ng-container>
+                                                </ul>
+                                                </li>
+                                        </ng-container>
+
                                         <ng-container *ngFor="let main of headdata.menuOp">
                                         <li *ngIf="main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
                                             <ul class="submenu">
@@ -136,7 +147,10 @@
                                                 <li><a href="./forms/star_waiver_form.pdf" target="_blank">Star Waiver Form</a></li>                    
                                             </ul><!-- /.submenu --> 
                                         </li>                                                                                                      
-                                        <li><a href="javascript:void(0)" (click)="logOut()">Log Out</a></li>                                                                                                   
+                                        <li><a href="javascript:void(0)" (click)="logOut()" title="Log Out">
+                                         <span class="hidden-lg hidden-md">Log Out &nbsp;&nbsp;</span> 
+                                         <span class="fa fa-sign-out" style="font-size:17px"></span> 
+                                        </a></li>                                                                                                   
                                     </ul><!-- /.menu -->                                                                                      
                                 </nav><!-- /.mainnav -->     
                                 <div class="btn-menu"  [class.invisible]="headdata.status!=='I'">           

@@ -7,6 +7,7 @@
      -webkit-text-size-adjust: 100%;
      -ms-text-size-adjust: 100%;
 }
+
 /*Quote Table Small Mode*/
 /* CSS for smaller view spaces */
 table.sixcol{font-size:14px;}
@@ -412,6 +413,18 @@ date-input-polyfill button{padding:5px;}
      opacity: 1;
      visibility: visible;
 }
+#mainnav > ul > li > a:before {
+    content: '|';
+    text-align: center;
+    margin-left: -8px;
+    position: absolute;
+    margin-top: -1px;
+    color: gainsboro;
+}
+#mainnav > ul > li:first-child > a:before{
+    display:none;
+}
+#mainnav ul li:hover a:before{display:none}
 /* Box-Shadow */
  .shopping-cart .subcart, #mainnav ul.submenu, .flat-language > ul > li > ul {
      box-shadow: 0px 20px 46px 0px rgba(0, 0, 0, 0.15);
@@ -801,13 +814,13 @@ date-input-polyfill button{padding:5px;}
      margin-right: -5px;
 }
  #mainnav > ul > li > a {
-     font-size: 14px;
+     font-size: 12px;
      font-weight: 600;
      text-transform: uppercase;
      display: block;
 }
  #mainnav > ul > li > a, .menu-extra li a {
-     padding: 0 15px 0px 15px;
+     padding: 0 12px 0px 12px;
      line-height: 60px;
 }
 
