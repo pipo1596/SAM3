@@ -9,8 +9,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-invoices',
-  templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.css']
+  templateUrl: './invoices.component.html'
 })
 
 export class InvoicesComponent implements OnInit {

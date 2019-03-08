@@ -10,8 +10,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-unremitted',
-  templateUrl: './unremitted.component.html',
-  styleUrls: ['./unremitted.component.css']
+  templateUrl: './unremitted.component.html'
 })
 
 export class UnremittedComponent implements OnInit {

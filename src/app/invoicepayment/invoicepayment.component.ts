@@ -23,9 +23,11 @@ export class InvoicePaymentComponent implements OnInit {
   step:number = 1;
   noAuth = true;
   prof:string="";
+  paymode:string = "";
   //Input Fields
   method = new  Textfield ;
   pdate = new  Textfield ;
+  ptyp = new  Textfield ;
   name = new Textfield;
 	type = new Textfield;
 	nick = new Textfield;
@@ -193,7 +195,7 @@ export class InvoicePaymentComponent implements OnInit {
 
   schedule(){
     this.jsonObj = {
-      mode: "SCHDL",
+      mode: "SCHDL"+this.paymode,
       acno: this.acno.value,
       type: this.type.value,
       name: this.name.value,
@@ -225,15 +227,19 @@ export class InvoicePaymentComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(window.location.href.indexOf("Make")>-1) this.paymode = 'P'; 
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
     this.jsonService
-    .initService({"mode":"INIT"},Util.Url("CGICINVPMT"))
+    .initService({"mode":"INIT"+this.paymode},Util.Url("CGICINVPMT"))
     .subscribe(data => this.pagedata = data,
       err => { Util.hideWait(); },
       () => { Util.responsiveMenu(); 
         Util.setHead(this.pagedata.head);
-        this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'TXRATE');
+        if(this.paymode == 'P')
+          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'PAYMXMAKE');
+        else
+          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'PAYMETHOD'); 
         if (this.pagedata.head.status === "O" || this.noAuth) {
           
           Util.showWait();

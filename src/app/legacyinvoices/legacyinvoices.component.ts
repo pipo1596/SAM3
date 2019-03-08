@@ -9,8 +9,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-legacyinvoices',
-  templateUrl: './legacyinvoices.component.html',
-  styleUrls: [ './legacyinvoices.component.css']
+  templateUrl: './legacyinvoices.component.html'
 })
 
 

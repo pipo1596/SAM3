@@ -9,8 +9,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-legacycontracts',
-  templateUrl: './legacycontracts.component.html',
-  styleUrls: [ './legacycontracts.component.css']
+  templateUrl: './legacycontracts.component.html'
 })
 
 

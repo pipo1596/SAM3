@@ -17,10 +17,15 @@
                                 <li class="col-xs-4" [ngClass]="{'active':step==2}">Review your information</li>
                                 <li class="col-xs-4" [ngClass]="{'active':step==3}">Payment confirmation</li>
                         </ul>
-                    
                 </div>
-                <div class="col-xs-12"><h3>Invoices to pay</h3></div>
-                <div class="col-sm-6">
+                <div class="col-xs-6">
+                    <h4 class="text-left"><span style="color:grey">Dealer </span>{{pagedata.body.name}}</h4>
+                </div>
+                <div class="col-xs-6">
+                    <h4 class="text-right"><span style="color:grey">Producer#</span> {{pagedata.body.code}}</h4>
+                </div>
+                <div class="col-xs-12" *ngIf="paymode==''"><h3>Invoices to pay</h3></div>
+                <div class="col-sm-6"  *ngIf="paymode==''">
                         <table class="table  table-striped">
                                 <tr>
                                     <th><b>Invoice Number</b></th>
@@ -36,10 +41,21 @@
                                 </tr>
                         </table>
                 </div>
-                <div class="col-sm-6">
-                    <h4 class="text-right"><span style="color:grey">Dealer </span>{{pagedata.body.name}}</h4>
-                    <h4 class="text-right"><span style="color:grey">Producer#</span> {{pagedata.body.code}}</h4>
+                <div class="col-sm-6" *ngIf="paymode=='P'">
+                    <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Type of Payment:
+                        <span class="errorspan2" [class.opqquezero]="ptyp.message===''" [class.alert-danger]="ptyp.erlevel==='D'"  [class.validating]="validating">{{ptyp.message}}</span> 
+                    </label>
+                    <span class="flat-input">
+                        <select (change)="onChange()" class="form__select" name="ptyp{{ran}}"  [class.validating]="validating"  [(ngModel)]="ptyp.value" [disabled]="step > 1" >
+                            <option value="" >Select</option>
+                            <option value="E" >Exception</option>
+                            <option value="S" >Statement Balance</option>
+                            <option value="U" >Upgrade</option>
+                            <option value="O" >Other</option>
+                        </select>
+                    </span>
                 </div>
+                
                 <div class="col-xs-12"><hr>
                     <div class="alert alert-info" role="alert" *ngIf="step==2" id="alertschedule">
                             Review Your information and schedule payment

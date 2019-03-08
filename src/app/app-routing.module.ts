@@ -64,6 +64,7 @@ const routes: Routes = [
   { path: 'app/ContractTypes', canDeactivate: [CanDeactivateGuard], component: ContracttypesComponent },
   { path: 'app/TaxRate', canDeactivate: [CanDeactivateGuard], component: TaxrateComponent },
   { path: 'app/InvoicePayment', canDeactivate: [CanDeactivateGuard], component: InvoicePaymentComponent },
+  { path: 'app/MakePayment', canDeactivate: [CanDeactivateGuard], component: InvoicePaymentComponent },
   { path: 'app/Defaults', canDeactivate: [CanDeactivateGuard], component: DefaultsComponent },
   { path: 'app/ClaimsForm', canDeactivate: [CanDeactivateGuard], component: ClaimsFormComponent },
   { path: 'app/CovWarnings', canDeactivate: [CanDeactivateGuard], component: CovwarningsComponent },
