@@ -24,6 +24,8 @@ export class InvoicePaymentComponent implements OnInit {
   noAuth = true;
   prof:string="";
   paymode:string = "";
+  upfile:string = "";
+  imgtrgt:string ="";
   //Input Fields
   method = new  Textfield ;
   pdate = new  Textfield ;
@@ -41,6 +43,46 @@ export class InvoicePaymentComponent implements OnInit {
   errSet    = new Errsetter();
 
   constructor(private jsonService: JsonService,private router: Router) { }
+
+  onFileChange(event){
+    this.upfile = "";
+    this.imgtrgt = "";
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        if(this.isValid(file)){
+            this.upfile = file.name;
+            if(this.isImage(file)){
+              this.imgtrgt = e.target.result.toString();
+            }
+          }
+        else{
+          alert("Valid files are Images and PDF!");
+          event.value ="";
+          this.upfile = "";
+          this.imgtrgt ="";
+        }
+
+    };
+  }
+
+  }
+
+  isImage(file){
+    if (file["type"].split("/")[0] =="image") 
+          return true;//returns true or false
+    return false;
+  }
+
+  isValid(file){
+    if (file["type"].split("/")[0] =="image") 
+          return true;//returns true or false
+    if (file["type"] =="application/pdf") 
+          return true;//returns true or false\
+  return false;
+}
   addnew(){
     Util.showWait();
     this.onChange();

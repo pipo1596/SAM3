@@ -55,6 +55,28 @@
                         </select>
                     </span>
                 </div>
+                <div class="col-sm-6" *ngIf="paymode=='P'">
+                        <label class="drop_target" [class.disabled]="step > 1">
+                                <input id="inputFile" [disabled]="step > 1" type="file" name="SIFILE" (change)="onFileChange($event)"/>
+                                <div class="settings_actions vertical">
+                                <label for="inputFile">
+                                <i class="fa fa-cloud-upload"></i>&nbsp;&nbsp;
+                                <b> Select PDF / Image To Upload </b></label>
+                                <div id="uploadbtns"> <a href="javascript:uploadimages()">Upload</a></div>
+                                <div *ngIf="upfile && upfile!==''">
+                                    <hr>
+                                    <div class="upfl">
+                                            <img *ngIf="imgtrgt!==''" src="{{imgtrgt}}" class="upimg">    
+                                        {{upfile}}
+                                        <div class="clearfix"></div>
+                                 </div>
+                                        
+                                </div>
+                                
+                              </div> 
+                              </label>
+                            <div class="clearfix"></div>
+                </div>
                 
                 <div class="col-xs-12"><hr>
                     <div class="alert alert-info" role="alert" *ngIf="step==2" id="alertschedule">

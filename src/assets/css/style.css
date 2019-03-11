@@ -3041,3 +3041,16 @@ ul.breadcrumb {
   ul.breadcrumb li label{
     cursor: pointer;
   }
+
+.drop_target {margin-top:20px;cursor: pointer;background: #e6e6e6;border-radius: 4px;padding: 6px 15px;transition: all 0.2s; float: right;}
+.drop_target input[type="file"] {display: none;}
+.drop_target:before {content: '\n';position: absolute;display: block;left: 18px;width: 50px;line-height: 50px;top: 5px;color: transparent;}
+.drop_target:hover,.drop_target.dropping {background: #7bbbf3;color:#fff;cursor: pointer;}      
+.disabled.drop_target:hover{cursor: not-allowed;background: #e6e6e6;color:#646a7c} 
+.upimg{max-width: 50px;max-height: 50px;float: left;}
+.drop_target .image_preview {width: 100%;height: 100%;background: no-repeat center;background-size: contain;position: relative;z-index: 2;}
+.drop_target i{font-size:30px;}
+.drop_target .upfl{background:aliceblue;width:100%;text-align: right;font-weight: bold;font-size:17px;display: block;color:#0f74c1;padding:2px 15px;}
+
+#uploadbtns{padding: 0px 15px; display:none;float:right;}
+#uploadbtns a{padding: 10px 20px;background: #3669dc;float: right;color: WHITE;font-weight: bold;text-decoration: none;border-radius: 6px;margin-top:-10px;}
