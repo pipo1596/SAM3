@@ -94,14 +94,20 @@ export class RolesComponent implements OnInit {
   checkRole(){
     this.validating = true;
     this.valid = true;
-    
+    this.dispAlert.default();
     //Reset Error Messages
     this.desc.message  = "";
     this.dispAlert.default();
     //Trim Field values
     this.desc.value  = this.selectedRole.desc.trim();
 
-    if (this.desc.value == "") { this.desc.message = "(required)"; this.desc.erlevel = "D"; this.valid = false; }
+    if (this.desc.value == "") { this.desc.message = "(required)"; this.desc.erlevel = "D"; this.valid = false;Util.scrollTop(); }
+    var noneselected = true;
+    this.selectedRole.autharr.forEach(element => {
+      if(element.chek == 'Y') noneselected = false;
+      
+    });
+    if(noneselected){this.valid = false;this.dispAlert.message="No authorities selected!";this.dispAlert.status="E";Util.scrollTop();}
 
     if (this.valid){//Serve Action
     Util.showWait();

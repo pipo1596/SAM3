@@ -1,0 +1,204 @@
+<app-header [headdata]="pagedata.head"></app-header>
+
+<section class="flat-row section-iconbox">
+	<div class="container" [ngClass]="{'hidden':pagedata.head.status!=='I'}">
+		<div class="row">
+			<div class="col-xs-12" style="z-index:1">
+				<div class="title-section style3 left">
+					<h1 class="title">Payment History</h1>
+				</div>
+			</div>
+		</div>
+
+		<form class="contactform style4 clearfix panel-body" method="post"  (submit)="dateFilter()" autocomplete="off">
+				<div class="row white" *ngIf="pagemode=='V'">
+						<div class="col-md-12">
+							<h2 class="pull-left" style="margin:10px;">Payment Details</h2>
+								<button name="submit"  type="button" (click)="listmode()"  style="margin:10px 0"  class="btn-warning pull-right" title="Cancel"><span class="fa fa-backward"></span>&nbsp;&nbsp;Back</button>  
+							<div class="clearfix"></div>
+							<hr style="margin-top: 0">
+							</div>
+							<div class="col-md-7" *ngIf="selecrec">
+									<table class="table">
+										<tr>
+											<th class="text-right"><b>Payment Type:</b></th>
+											<th>{{selecrec.type}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Account:</b></th>
+											<th>{{selecrec.nick}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Payment Date:</b></th>
+											<th>{{selecrec.date}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Payment Amount:</b></th>
+											<th>{{selecrec.totl | currency}}</th>
+										</tr>
+										<tr *ngIf="selecrec.four!==''">
+											<th class="text-right"><b>Payment Metod:</b></th>
+											<th>****{{selecrec.four}}</th>
+										</tr>
+										<tr *ngIf="selecrec.iden !==''">
+											<th class="text-right">
+												<b *ngIf="selecrec.typi=='S'">Statement Date Reference:</b>
+												<b *ngIf="selecrec.typi=='E'">Exception Unique Identifier:</b>
+												<b *ngIf="selecrec.typi=='U'">Upgrade Unique Identifier:</b>
+											</th>
+											<th>{{selecrec.iden}}</th>
+										</tr>
+										<tr *ngIf="selecrec.comm !==''">
+											<th class="text-right">
+												<b>Comments:</b>
+											</th>
+											<th>{{selecrec.comm}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Confirmation Number:</b></th>
+											<th>{{selecrec.conf}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Username:</b></th>
+											<th>{{selecrec.user}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Dealer Name:</b></th>
+											<th>{{selecrec.dlrn}}</th>
+										</tr>
+										<tr>
+											<th class="text-right"><b>Producer Number:</b></th>
+											<th>{{selecrec.dlrc}}</th>
+										</tr>
+										<tr *ngIf="selecrec.atch !==''">
+											<th class="text-right"><b> Attachement:</b></th>
+											<th><a class="btn btn-info btn-sm btnedit" target="_blank" title="View Attachment" href="/uploads/{{selecrec.atch}}">View&nbsp;&nbsp;<i class="fa fa-paperclip"></i></a></th>
+										</tr>
+									</table>
+							</div>
+							<div class="col-md-5" *ngIf="selecrec && selecrec.detl.length > 0">
+									
+								
+									<table class="table table-bordered table-striped">
+											<thead>
+													<tr>
+															<th scope="col" colspan="2">
+																	<h3 style="margin-bottom: 0px;text-align: center"  >Invoice Details</h3>
+															</th>
+													</tr>
+													<tr>
+															<th scope="col">
+																	<b>Invoice</b>
+															</th>
+															<th scope="col">
+																	<b>Total Cost</b>
+															</th>
+													</tr>
+											</thead>
+											<tbody>
+													<tr *ngFor="let invo of selecrec.detl;">
+																	
+																	<td>{{ invo.ivno }}</td>
+																	<td>{{ invo.totl| currency }}</td>
+																
+													</tr>
+													
+											</tbody>
+							</table>
+							</div>
+				</div>
+			<div class="row white" *ngIf="pagemode=='L'">
+				<div class="col-md-12">
+					<div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message===''|| dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
+          <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
+				</div>
+				<div class="col-xs-12">
+					<h5 class="pull-left">&nbsp;</h5>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">From Payment Date
+						<span class="errorspan2"> </span>
+					</label>
+					<div class="flat-input w100">
+            <input autocomplete="new-password{{ran}}" name="fromdate" id="fromdate" type="date" placeholder="From Date" [(ngModel)]="frdt">
+          </div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">To Payment Date
+						<span class="errorspan2{{ran}}"></span>
+					</label>
+					<div class="flat-input w100">
+            <input autocomplete="new-password{{ran}}" name="todate" id="todate" type="date" placeholder="To Date" [(ngModel)]="todt">
+          </div>
+				</div>
+				<div class="col-md-4">
+					<label class="flat-input inputlabel">&nbsp;
+						<span class="errorspan2"></span>
+					</label>
+					<div class="flat-input w100">
+						<button name="submit" type="submit" [disabled]="applyFiltBtn === false"  class="flat-button" style="margin-right:10px" title="Apply">Apply</button>
+						<button name="submit" type="button" [disabled]="applyFiltBtn === false" (click)="resetf()"  class="flat-button" style="margin-right:10px;background: #f0ad4e;" title="Clear">Clear</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row white apply-delete-space" *ngIf="pagemode=='L'">						
+				<div class="col-xs-6" [class.invisible]="pager.totalPages<=1">
+					<ul *ngIf="pager.pages && pager.pages.length" class="pagination ULpageOf pull-left">
+						<li [ngClass]="{disabled:pager.currentPage === 1}">
+							<a (click)="setPage(pager.currentPage - 1)">Previous</a>
+						</li>
+						<li>
+							<span class="pageOf">Page {{pager.currentPage}} of {{pager.totalPages}}</span>
+						</li>
+						<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+							<a (click)="setPage(pager.currentPage + 1)">Next</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-xs-6" [class.invisible]="pageCount<1">
+					<label class="pull-right" style="margin:15px 10px 0 0;font-weight: bold;">( {{pageCount}} - Record Found )</label>	
+				</div>
+
+				
+
+			</div>
+			<div class="row white" *ngIf="pagemode=='L'">
+				<div class="p-table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th><b>Payment Date</b></th>
+								<th><b>Account</b></th>
+								<th><b>Type</b></th>
+								<th><b>Total</b></th>
+								<th class="text-center"><b>View</b></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="pagedItems.length <1">
+                               <td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Payments To List----</h4></td>                        
+                            </tr>
+							<ng-container *ngFor="let phno of (pagedItems)">
+								<tr *ngIf="phno.show === true">
+									<td data-label="Payment Date">{{phno.date}}</td>
+									<td data-label="Account">{{phno.nick}}</td>	
+									<td data-label="Type">{{phno.type}}</td>
+									<td data-label="Total">{{phno.totl|currency}}</td>
+									<td data-label="View" class="text-center">
+											
+											<a class="btn btn-primary btnedit" target="_blank" title="View Invoices" href="javascript:void(0)" (click)="viewdetails(phno)"><i class="fa fa-list-ol"></i></a>
+									</td>
+								</tr>
+							</ng-container>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+</section>
+
+<app-footer></app-footer>

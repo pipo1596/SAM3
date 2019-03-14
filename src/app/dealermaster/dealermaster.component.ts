@@ -37,6 +37,10 @@ export class DealermasterComponent implements OnInit {
     this.changes= true;
     this.validating = false;
   }
+  defaultBill(){
+    if(this.pagedata.body.lck1) return false;
+    this.dbil =!this.dbil
+  }
   onChangeDrop(){
     this.changes= false;
     this.validating = false;

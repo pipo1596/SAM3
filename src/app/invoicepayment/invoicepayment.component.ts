@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpRequest,HttpClient } from '@angular/common/http';
 import { JsonService } from '../utilities/json.service'; 
 import { Util } from '../utilities/util';
 import { InvoicePaymentdata } from './invoicepaymentdata'; 
-import { Textfield , Numfield } from '../utilities/textfield';
+import { Textfield } from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({
@@ -16,6 +17,7 @@ export class InvoicePaymentComponent implements OnInit {
 
   validating = false;
   valid = false;
+  resp:any={};
   changes = false;
   jsonObj:any;
   newRec:any;
@@ -37,25 +39,47 @@ export class InvoicePaymentComponent implements OnInit {
 	acno = new Textfield;
 	acnc = new Textfield;
   save = new Textfield;
+  totl = new Textfield;
+  filesc:any=[];
+
+  umsg : string="";
+  comm = new Textfield;
+  iden = new Textfield;
+  inpfile:any;
   canadd:boolean = false;
   //Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
 
-  constructor(private jsonService: JsonService,private router: Router) { }
+  constructor(private jsonService: JsonService,private router: Router,private httpf: HttpClient) { }
 
+  cancelACH(){
+    if(confirm("Cancel Payment and Submission of invoices?")){
+      this.router.navigate(['/app/Invoices']);
+    }
+  }
+  typchange(){
+    Util.showWait();
+    this.onChange();
+    this.inpfile ="";
+    this.imgtrgt = "";
+    this.upfile = "";
+    Util.hideWait();
+  }
   onFileChange(event){
     this.upfile = "";
     this.imgtrgt = "";
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
+     
       reader.readAsDataURL(file);
       reader.onload = (e) => {
         if(this.isValid(file)){
             this.upfile = file.name;
+            this.filesc.push(file);
             if(this.isImage(file)){
-              this.imgtrgt = e.target.result.toString();
+              this.imgtrgt = reader.result.toString();
             }
           }
         else{
@@ -63,6 +87,7 @@ export class InvoicePaymentComponent implements OnInit {
           event.value ="";
           this.upfile = "";
           this.imgtrgt ="";
+          this.filesc =[];
         }
 
     };
@@ -115,6 +140,12 @@ export class InvoicePaymentComponent implements OnInit {
     this.acnc.message = "";
     this.nick.message = "";
     this.rout.message = "";
+    this.ptyp.message = "";
+    this.iden.message = "";
+    this.comm.message = "";
+    this.totl.message = "";
+    this.umsg = "";
+   
     //Reset Top Alert
     this.dispAlert.default();
     //Required Logic
@@ -125,6 +156,11 @@ export class InvoicePaymentComponent implements OnInit {
 		this.acnc.value = this.acnc.value.trim();
 		this.nick.value = this.nick.value.trim();
     this.rout.value = this.rout.value.trim();
+    this.totl.value = this.totl.value.trim();
+    this.iden.value = this.iden.value.trim();
+    this.comm.value = this.comm.value.trim();
+
+    if(this.totl.value!=="")this.totl.value = (parseFloat(this.totl.value)).toFixed(2);
     
     if(this.pdate.value == '') { this.pdate.message = "(required)"; this.pdate.erlevel = "D"; this.valid = false; }
     if(this.pdate.value !== "" && !Util.isdatestring("pdate",this.pdate.value)){
@@ -146,6 +182,23 @@ export class InvoicePaymentComponent implements OnInit {
       if(this.acno.value == ""){ this.acno.message = "(required)"; this.acno.erlevel = 'D'; this.valid = false;}
     }
 
+    //ADDPAYMENT
+    if(this.paymode=='P'){
+      if(this.ptyp.value ==""){this.ptyp.message = "(required)"; this.ptyp.erlevel = 'D'; this.valid = false;}
+      if((this.ptyp.value=="E" || this.ptyp.value=="U") && this.upfile ==""){
+        this.umsg = "(upload required)";this.valid = false;
+      }
+      if(this.ptyp.value!=="O" && this.iden.value ==""){
+        this.iden.message = "(required)";this.iden.erlevel ='D';this.valid = false;
+      }
+      if(this.ptyp.value =="O" && this.comm.value ==""){
+        this.comm.message = "(required)";this.comm.erlevel ='D';this.valid = false;
+      }
+      if(this.totl.value ==""){this.totl.message="(required)";this.totl.erlevel ='D';this.valid = false;}
+      if(this.totl.value !=="" && parseFloat(this.totl.value)<=0){this.totl.message="(invalid)";this.totl.erlevel ='D';this.valid = false;}
+
+    }
+
     
     this.step2();  
   }
@@ -157,7 +210,10 @@ export class InvoicePaymentComponent implements OnInit {
       return false;
     }
     if(this.step == 3){
-      this.router.navigate(['/app/Invoices']);
+      if(this.paymode == "")
+        this.router.navigate(['/app/Invoices']);
+      else
+      this.router.navigate(['/app/MakePayment']);
       return false;
     }
     if(this.method.value =='ADDNEW' && this.save.value == 'Y'){
@@ -236,8 +292,9 @@ export class InvoicePaymentComponent implements OnInit {
   }
 
   schedule(){
+    if(this.paymode == ""){
     this.jsonObj = {
-      mode: "SCHDL"+this.paymode,
+      mode: "SCHDL",
       acno: this.acno.value,
       type: this.type.value,
       name: this.name.value,
@@ -248,6 +305,49 @@ export class InvoicePaymentComponent implements OnInit {
       totl: this.pagedata.body.totl,
       rout: this.rout.value
     }
+  }else{
+    
+    this.uploadImg();
+    return false;
+  }
+
+
+    this.jsonService
+        .initService(this.jsonObj,Util.Url("CGICINVPMT"))
+        .subscribe(data => this.errSet = data,
+                    err => { this.dispAlert.error(); Util.hideWait(); },
+                     () => {
+                            Util.hideWait();
+                              this.dispAlert.message = this.errSet.message;
+                              this.dispAlert.status  = this.errSet.status;
+                            if (this.errSet.status === "S") {
+                                 this.step = 3;
+                                 this.changes = false;
+                                 }else{
+                                   this.step = 1;
+                                 }
+                          }
+                  );
+
+  }
+  scheduleP(iono){
+    this.jsonObj = {
+      mode: "SCHDLP",
+      iono: iono,
+      ptyp: this.ptyp.value,
+      iden: this.iden.value,
+      comm: this.comm.value,
+      acno: this.acno.value,
+      type: this.type.value,
+      name: this.name.value,
+      nick: this.nick.value,
+      pdat: this.pdate.value,
+      prof: this.prof,
+      meth: this.method.value,
+      totl: this.totl.value,
+      rout: this.rout.value
+    }
+  
 
     this.jsonService
         .initService(this.jsonObj,Util.Url("CGICINVPMT"))
@@ -268,6 +368,27 @@ export class InvoicePaymentComponent implements OnInit {
 
   }
 
+  uploadImg(){
+    if(this.upfile !==""){
+    const formData: FormData = new FormData();
+    formData.append('file', this.filesc[0], this.filesc[0].name);
+
+    // create a http-post request and pass the form
+    // tell it to report the upload progress
+    const req = new HttpRequest('POST', Util.Url("CGXIMGUPL"), formData,{withCredentials:Util.Env()});
+    
+    this.httpf.request(req).subscribe(data => {this.resp =  JSON.parse(JSON.stringify(data));},
+      err => { Util.hideWait(); },
+      () => {
+        if(this.resp.body.status=='S'){
+          this.scheduleP(this.resp.body.data);
+        }
+      });
+    }else{
+      this.scheduleP('');
+    }
+  }
+
   ngOnInit() {
     if(window.location.href.indexOf("Make")>-1) this.paymode = 'P'; 
     Util.showWait();
@@ -281,7 +402,8 @@ export class InvoicePaymentComponent implements OnInit {
         if(this.paymode == 'P')
           this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'PAYMXMAKE');
         else
-          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'PAYMETHOD'); 
+          this.noAuth = false; 
+          //this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'PAYMETHOD'); 
         if (this.pagedata.head.status === "O" || this.noAuth) {
           
           Util.showWait();

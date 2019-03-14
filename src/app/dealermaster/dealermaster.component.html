@@ -87,9 +87,13 @@
 						<label class="flat-input inputlabel">&nbsp;</label>
 						<span class="flat-input-checkbox">
 							<div class="custcheck">
-								<input [checked]="dbil" type="checkbox" name="dbil">
-								<label (click)="dbil =!dbil"></label>
-							</div><label class="checklabel" (click)="dbil =!dbil" style="font-weight: bold">Allow Direct Billing</label></span>
+								<input [checked]="dbil" type="checkbox" name="dbil" [disabled]="pagedata.body && pagedata.body.lck1">
+								<label (click)="defaultBill()"></label>
+							</div>
+							<label class="checklabel" (click)="defaultBill()" style="font-weight: bold">Allow Direct Billing
+							&nbsp;<span *ngIf="pagedata.body && pagedata.body.lck1" class="infotip fa fa-question-circle" tooltip="Direct Billing Defaulted for this dealer, Cannot Uncheck!" placement="right" show-delay="200"></span>
+							</label>
+						</span>
 				</div>
 
 				

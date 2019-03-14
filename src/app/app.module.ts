@@ -45,6 +45,7 @@ import { ProcessedComponent } from './processed/processed.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { LegacyinvoicesComponent } from './legacyinvoices/legacyinvoices.component';
 import { LegacycontractsComponent } from './legacycontracts/legacycontracts.component';
+import { PaymentHistoryComponent } from './paymenthistory/paymenthistory.component';
 import { MigrationComponent } from './migration/migration.component';
 import { StatementComponent } from './statement/statement.component';
 import { StaticPageComponent } from './staticpage/staticpage.component';
@@ -95,6 +96,7 @@ enableProdMode();
     StatementComponent,
     LegacyinvoicesComponent,
     LegacycontractsComponent,
+    PaymentHistoryComponent,
     MigrationComponent,
     StaticPageComponent,
     ProfitComponent,
