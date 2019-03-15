@@ -55,6 +55,18 @@ export class PaymentHistoryComponent implements OnInit {
     this.dateFilter();
 
   }
+  viewInv(ivno){
+    Util.showWait();
+    var pdf = window.open(Util.Url("output/IV"+ivno+".pdf"),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    if (pdf == null || typeof(pdf)=='undefined') { 	
+      alert('Please disable your pop-up blocker and click the link again.'); 
+    } 
+    else { 	
+      pdf.focus();
+    }
+    Util.hideWait();
+
+  }
 
   viewdetails(phno){
     Util.showWait();

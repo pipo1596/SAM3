@@ -276,6 +276,7 @@
                     <div class="col-xs-12"><h3>RV Options</h3></div>
                 <!--RV Type-->
                 <div class="col-sm-4">
+                        <h5 style="margin: 5px">&nbsp;</h5>
                         <div class="well well-sm" style="background: white;">
                         <table class="table  table-striped">
                             <tr>
@@ -331,6 +332,164 @@
                                     </div> 
                                 </td>
                             </tr>
+                            
+                            
+                        </table>
+                        </div>
+                    </div>
+                <div class="col-sm-4">
+                        <h5 style="margin: 5px">Trailer/Pop-up Manufacturer Warranty</h5>
+                        <div class="well well-sm" style="background: white;">
+                        
+                        <table class="table  table-striped">
+                            <tr>
+                                <th><b>Months</b></th>
+                                <th class="text-center"><b>Exclude</b></th>
+                                <th class="text-center"><b>Default</b></th>
+                            </tr>
+                            <!--12-->
+                            <tr>
+                                <td>12 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm12" type="checkbox" id="rm12" [(ngModel)]="rm12" [disabled]="rvmn.value=='12 Months'">
+                                                <label for="rm12"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn12" value="12 Months" type="radio"  (change)="onChange();rm12=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn12"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--24-->
+                            <tr>
+                                <td>24 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm24" type="checkbox" id="rm24" [(ngModel)]="rm24" [disabled]="rvmn.value=='24 Months'">
+                                                <label for="rm24"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn24" value="24 Months" type="radio"  (change)="onChange();rm24=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn24"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--36-->
+                            <tr>
+                                <td>36 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm36" type="checkbox" id="rm36" [(ngModel)]="rm36" [disabled]="rvmn.value=='36 Months'">
+                                                <label for="rm36"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn36" value="36 Months" type="radio"  (change)="onChange();rm36=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn36"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--48-->
+                            <tr>
+                                <td>48 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm48" type="checkbox" id="rm48" [(ngModel)]="rm48" [disabled]="rvmn.value=='48 Months'">
+                                                <label for="rm48"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn48" value="48 Months" type="radio"  (change)="onChange();rm48=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn48"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--60-->
+                            <tr>
+                                <td>60 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm60" type="checkbox" id="rm60" [(ngModel)]="rm60" [disabled]="rvmn.value=='60 Months'">
+                                                <label for="rm60"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn60" value="60 Months" type="radio"  (change)="onChange();rm60=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn60"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--72-->
+                            <tr>
+                                <td>72 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm72" type="checkbox" id="rm72" [(ngModel)]="rm72" [disabled]="rvmn.value=='72 Months'">
+                                                <label for="rm72"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn72" value="72 Months" type="radio"  (change)="onChange();rm72=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn72"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--84-->
+                            <tr>
+                                <td>84 Months</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rm84" type="checkbox" id="rm84" [(ngModel)]="rm84" [disabled]="rvmn.value=='84 Months'">
+                                                <label for="rm84"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmn84" value="84 Months" type="radio"  (change)="onChange();rm84=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmn84"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--None-->
+                            <tr>
+                                <td>None</td>
+                                <td class="text-center">
+                                        <div class="custcheck">
+                                                <input name="rmnn" type="checkbox" id="rmnn" [(ngModel)]="rmnn" [disabled]="rvmn.value=='0 Months'">
+                                                <label for="rmnn"></label>
+                                            </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmnnn" value="0 Months" type="radio"  (change)="onChange();rmnn=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmnnn"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <!--Default-->
+                            <tr>
+                                <td>Don't Default</td>
+                                <td class="text-center">
+                                       &nbsp;
+                                </td>
+                                <td class="text-center">
+                                    <div class="custradio">
+                                        <input name="rvmn" id="rvmndn" value="" type="radio"  (change)="onChange();rmnn=false;" [(ngModel)]="rvmn.value" >
+                                        <label for="rvmndn"></label>
+                                    </div> 
+                                </td>
+                            </tr>
+                            
+                            
                             
                             
                         </table>

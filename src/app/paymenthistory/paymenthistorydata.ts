@@ -13,6 +13,7 @@ export class Readnextdata {
 
 export class Lginv {
 	show : boolean;
+	stat : string;
 	phno : string;
 	nick : string;
 	type : string;
@@ -32,6 +33,7 @@ export class Lginv {
 }
 
 export class pdrec {
+	type : string;
 	ivno : string;
 	totl : string;
 }

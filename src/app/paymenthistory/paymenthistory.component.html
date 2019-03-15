@@ -20,6 +20,7 @@
 							</div>
 							<div class="col-md-7" *ngIf="selecrec">
 									<table class="table">
+										
 										<tr>
 											<th class="text-right"><b>Payment Type:</b></th>
 											<th>{{selecrec.type}}</th>
@@ -74,6 +75,13 @@
 											<th class="text-right"><b> Attachement:</b></th>
 											<th><a class="btn btn-info btn-sm btnedit" target="_blank" title="View Attachment" href="/uploads/{{selecrec.atch}}">View&nbsp;&nbsp;<i class="fa fa-paperclip"></i></a></th>
 										</tr>
+										<tr>
+												<th class="text-right"><b>Payment Status:</b></th>
+												<th>
+													<span *ngIf="selecrec.stat=='P'" class="yelspan">Pending</span>
+													<span *ngIf="selecrec.stat=='S'" class="grnspan">Submitted</span>
+												</th>
+											</tr>
 									</table>
 							</div>
 							<div class="col-md-5" *ngIf="selecrec && selecrec.detl.length > 0">
@@ -98,7 +106,8 @@
 											<tbody>
 													<tr *ngFor="let invo of selecrec.detl;">
 																	
-																	<td>{{ invo.ivno }}</td>
+																	<td *ngIf="invo.type!=='A'"><a href="javascript:void(0);" (click)="viewInv(invo.ivno)" class="actvlnk">{{ invo.ivno }}</a></td>
+																	<td *ngIf="invo.type =='A'" style="color:red;font-weight: bold">*Adjustment*</td>
 																	<td>{{ invo.totl| currency }}</td>
 																
 													</tr>
@@ -169,6 +178,7 @@
 						<thead>
 							<tr>
 								<th><b>Payment Date</b></th>
+								<th class="text-center"><b>Payment Status</b></th>
 								<th><b>Account</b></th>
 								<th><b>Type</b></th>
 								<th><b>Total</b></th>
@@ -182,6 +192,10 @@
 							<ng-container *ngFor="let phno of (pagedItems)">
 								<tr *ngIf="phno.show === true">
 									<td data-label="Payment Date">{{phno.date}}</td>
+									<td data-label="Payment Status" class="text-center">
+											<span *ngIf="phno.stat=='P'" class="yelspan">Pending</span>
+											<span *ngIf="phno.stat=='S'" class="grnspan">Submitted</span>
+										</td>
 									<td data-label="Account">{{phno.nick}}</td>	
 									<td data-label="Type">{{phno.type}}</td>
 									<td data-label="Total">{{phno.totl|currency}}</td>

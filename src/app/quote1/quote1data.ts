@@ -45,6 +45,15 @@ export class bodyData{
     xrvm:boolean;
     xrvt:boolean;
     xrvp:boolean;
+    rm12: boolean;
+    rm24: boolean;
+    rm36: boolean;
+    rm48: boolean;
+    rm60: boolean;
+    rm72: boolean;
+    rm84: boolean;
+    rmnn: boolean;
+    rvmn: string;
 
 }
 

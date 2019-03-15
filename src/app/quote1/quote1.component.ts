@@ -65,6 +65,9 @@ export class Quote1Component implements OnInit {
   rvchange(){
     Util.showWait();
     this.mfgw.value = "";
+    if(this.rvtype == "T" || this.rvtype == "P"){
+    if(this.pagedata.body.rvmn !=="") this.mfgw.value = this.pagedata.body.rvmn.trim(); 
+    }
     this.engtyp.value ="";
     this.miles.value = "";
     Util.hideWait();

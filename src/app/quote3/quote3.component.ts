@@ -1177,27 +1177,7 @@ export class Quote3Component implements OnInit {
                   cost += rate.cost[i2][i3][srchi+3];
                 }
               });
-              //NCB Charge
-              var ncbsurch = 0;
-              if(cost > 0){
-              var profit = unitp[0]-cost;
-              if(profit <=3000 && unitp[0]<=5000){//Apply only if profit is less than 3k and retail price less than 5k.
-              var lowlimit =0;
-              rate.ncbtiers = Util.sortByKey(rate.ncbtiers,"prof","A");
-              rate.ncbtiers.forEach(ncb=>{
-                if(lowlimit <= profit && profit <= ncb.prof ) ncbsurch = ncb.surc;
-                lowlimit = ncb.prof +0.01;
-              })
-            }
-              unitp[0] += ncbsurch;
               
-              }
-              this.ncbarr.push(i0.toString().padEnd(4) +
-                               i1.toString().padEnd(4) +
-                               i2.toString().padEnd(4) +
-                               i3.toString().padEnd(4) 
-              );
-              this.ncbarrv.push(ncbsurch);
               
             }
 
@@ -1228,6 +1208,31 @@ export class Quote3Component implements OnInit {
                 }
               }
             }
+            if(this.cont.catg!=="RTL" && this.cont.catg !=="OTR"){
+              //NCB Charge
+              var ncbsurch = 0;
+              if(cost > 0){
+              var profit = unitp[0]-cost;
+              if(profit <=3000 && unitp[0]<=5000){//Apply only if profit is less than 3k and retail price less than 5k.
+              var lowlimit =0;
+              rate.ncbtiers = Util.sortByKey(rate.ncbtiers,"prof","A");
+              rate.ncbtiers.forEach(ncb=>{
+                if(lowlimit <= profit && profit <= ncb.prof ) ncbsurch = ncb.surc;
+                lowlimit = ncb.prof +0.01;
+              })
+            }
+              unitp[0] += ncbsurch;
+              
+              }
+              this.ncbarr.push(i0.toString().padEnd(4) +
+                               i1.toString().padEnd(4) +
+                               i2.toString().padEnd(4) +
+                               i3.toString().padEnd(4) 
+              );
+              this.ncbarrv.push(ncbsurch);
+
+
+            }  
             //Taxes
             if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
             

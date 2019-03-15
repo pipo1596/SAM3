@@ -19,6 +19,7 @@ export class InvoicePaymentComponent implements OnInit {
   valid = false;
   resp:any={};
   changes = false;
+  changeamount = false;
   jsonObj:any;
   newRec:any;
   ran:string = Util.makeid();
@@ -57,6 +58,14 @@ export class InvoicePaymentComponent implements OnInit {
     if(confirm("Cancel Payment and Submission of invoices?")){
       this.router.navigate(['/app/Invoices']);
     }
+  }
+
+  changeamnt(){
+    if(confirm("If you choose to change the amount to pay, processing will be delayed on all invoices that are being submitted.")){
+      this.changeamount = true;
+      setTimeout(() => { Util.focusById("topay");}, 200);
+    }
+
   }
   typchange(){
     Util.showWait();
@@ -198,13 +207,19 @@ export class InvoicePaymentComponent implements OnInit {
       if(this.totl.value !=="" && parseFloat(this.totl.value)<=0){this.totl.message="(invalid)";this.totl.erlevel ='D';this.valid = false;}
 
     }
+    if(this.paymode =="" && this.changeamount){
+      if(this.comm.value ==""){this.comm.message = "(required)";this.comm.erlevel ='D';this.valid = false;      }
+      if(this.totl.value ==""){this.totl.message="(required)";this.totl.erlevel ='D';this.valid = false;}
+      if(this.totl.value !=="" && parseFloat(this.totl.value)<=0){this.totl.message="(invalid)";this.totl.erlevel ='D';this.valid = false;}
+    }
+
 
     
     this.step2();  
   }
 
   step2(){
-    if(!this.valid) return false;
+    if(!this.valid){Util.scrollToId('quotesteps'); return false;}
     if(this.step == 2){
       this.step3();
       return false;
@@ -234,7 +249,8 @@ export class InvoicePaymentComponent implements OnInit {
                             Util.hideWait();
                             if (this.errSet.status === "S") {
                                 this.step = 2;
-                                setTimeout(() => { Util.scrollToId("alertschedule");},200);
+                                this.changeamount = false;
+                                setTimeout(() => { Util.scrollToId("quotesteps");},200);
                                  }else{
                                    this.nick.message = this.errSet.message;
                                    this.nick.erlevel = 'D'; this.valid = false;
@@ -246,7 +262,8 @@ export class InvoicePaymentComponent implements OnInit {
     }
     else{
     this.step = 2;
-    setTimeout(() => { Util.scrollToId("alertschedule");},200);
+    this.changeamount = false;
+    setTimeout(() => { Util.scrollToId("quotesteps");},200);
     }
     
   }
@@ -273,7 +290,7 @@ export class InvoicePaymentComponent implements OnInit {
                             
                             if (this.errSet.status === "S") {
                               this.prof = this.errSet.data;
-                              this.schedule();
+                              this.uploadImg();
                                  }else{
                                    this.dispAlert.message = this.errSet.message;
                                    this.dispAlert.status  = this.errSet.status;
@@ -285,31 +302,32 @@ export class InvoicePaymentComponent implements OnInit {
     }
     else{
       this.prof = this.method.value;
-      this.schedule();
+      this.uploadImg();
     
     }
     
   }
 
-  schedule(){
-    if(this.paymode == ""){
+  schedule(iono){
+    
     this.jsonObj = {
       mode: "SCHDL",
       acno: this.acno.value,
+      iono: iono,
       type: this.type.value,
       name: this.name.value,
       nick: this.nick.value,
       pdat: this.pdate.value,
       prof: this.prof,
       meth: this.method.value,
-      totl: this.pagedata.body.totl,
+      totl: this.totl.value,
+      comm: this.comm.value,
+      payml: this.totl.value,
       rout: this.rout.value
     }
-  }else{
+  
     
-    this.uploadImg();
-    return false;
-  }
+   
 
 
     this.jsonService
@@ -322,6 +340,7 @@ export class InvoicePaymentComponent implements OnInit {
                               this.dispAlert.status  = this.errSet.status;
                             if (this.errSet.status === "S") {
                                  this.step = 3;
+                                 Util.scrollToId("quotesteps");
                                  this.changes = false;
                                  }else{
                                    this.step = 1;
@@ -359,6 +378,7 @@ export class InvoicePaymentComponent implements OnInit {
                               this.dispAlert.status  = this.errSet.status;
                             if (this.errSet.status === "S") {
                                  this.step = 3;
+                                 Util.scrollToId("quotesteps");
                                  this.changes = false;
                                  }else{
                                    this.step = 1;
@@ -381,11 +401,17 @@ export class InvoicePaymentComponent implements OnInit {
       err => { Util.hideWait(); },
       () => {
         if(this.resp.body.status=='S'){
-          this.scheduleP(this.resp.body.data);
+          if(this.paymode =="P")
+            this.scheduleP(this.resp.body.data);
+          else
+            this.schedule(this.resp.body.data);
         }
       });
     }else{
-      this.scheduleP('');
+      if(this.paymode =="P")
+        this.scheduleP('');
+      else
+        this.schedule('');
     }
   }
 
@@ -427,6 +453,9 @@ export class InvoicePaymentComponent implements OnInit {
           this.pagedata.body.paymnt.forEach(elem=>{
             if(elem.stat == 'Y') this.method.value = elem.prof;
           });
+        this.totl.value = this.pagedata.body.totl.toString();
+        if(this.totl.value!=="")this.totl.value = (parseFloat(this.totl.value)).toFixed(2);  
+
         }
 
        }

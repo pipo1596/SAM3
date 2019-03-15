@@ -7,17 +7,20 @@
                     <h1 class="title">Make a Payment</h1>
                 </div>
             </div>
+            <div class="w100">
+                    <div class="white pull-left w100 stepsblock">
+                            <ul class="nav nav-wizard" id="quotesteps">
+                                <li class="active" ><a href="javascript:void(0)">Choose a payment method</a></li>
+                                <li [ngClass]="{'active':step>1}"><a [ngClass]="{'disabledstep':step<2}" href="javascript:void(0)">Review your information</a></li>
+                                <li [ngClass]="{'active':step>2}"><a [ngClass]="{'disabledstep':step<3}" href="javascript:void(0)">Payment confirmation</a></li>
+                            </ul>
+                            </div>
+            </div>
         </div> 
         <div class="row white">
 
             <form  class="contactform style4 clearfix panel-body" id="uplform" method="post" (submit)="checkData()" autocomplete="off">
-                <div class="col-md-12">
-                        <ul class="breadcrumb w100 pull-left">
-                                <li class="col-xs-4" [ngClass]="{'active':step==1}">Choose a payment method</li>
-                                <li class="col-xs-4" [ngClass]="{'active':step==2}">Review your information</li>
-                                <li class="col-xs-4" [ngClass]="{'active':step==3}">Payment confirmation</li>
-                        </ul>
-                </div>
+               
                 <div class="col-xs-6">
                     <h4 class="text-left"><span style="color:grey">Dealer </span>{{pagedata.body.name}}</h4>
                 </div>
@@ -40,6 +43,16 @@
                                     <th>{{pagedata.body.totl |currency}}</th>
                                 </tr>
                         </table>
+
+                        <div *ngIf="changeamount || comm.value !==''">
+                            <hr>
+                                <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Comments:
+                                   &nbsp;&nbsp;<span class="errorspan2" [class.opqquezero]="comm.message===''" [class.alert-danger]="comm.erlevel==='D'" [class.validating]="validating">{{comm.message}}</span> 
+                               </label>
+                               <div class="flat-input w100">
+                                 <textarea  style="max-height:100px;margin-bottom: 0;color:black;" maxlength="256" [class.validating]="validating" name="comm{{ran}}"  [(ngModel)]="comm.value"  [disabled]="step > 1" [class.required]="comm.message !==''" placeholder="Comments"  (change)="onChange()"></textarea>
+                               </div>
+                       </div>
                 </div>
                 <div class="col-sm-6" *ngIf="paymode=='P'">
                     <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Type of Payment:
@@ -79,8 +92,8 @@
                             </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div *ngIf="paymode=='P'">
-                            <label class="flat-input inputlabel"><span class="req" *ngIf="step==1 && ptyp.value =='O'">*&nbsp;</span>Comments:
+                    <div *ngIf="paymode=='P' || changeamount">
+                             <label class="flat-input inputlabel"><span class="req" *ngIf="step==1 && ptyp.value =='O'">*&nbsp;</span>Comments:
                                 &nbsp;&nbsp;<span class="errorspan2" [class.opqquezero]="comm.message===''" [class.alert-danger]="comm.erlevel==='D'" [class.validating]="validating">{{comm.message}}</span> 
                             </label>
                             <div class="flat-input w100">
@@ -88,7 +101,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-sm-6" *ngIf="paymode=='P' && ptyp.value !=='' && ptyp.value !=='S' ">
+                <div class="col-sm-6" *ngIf="paymode=='P' && ptyp.value !=='' && ptyp.value !=='S' || this.changeamount || imgtrgt!==''">
                         <p  class="errorspan2 text-right w100" style="display: block" [class.opqquezero]="umsg===''" [class.alert-danger]="umsg !==''" [class.validating]="validating">{{umsg}}&nbsp;</p>
                         <label class="drop_target" [class.disabled]="step > 1">
                                 <input id="inputFile" [disabled]="step > 1" type="file" name="SIFILE" [(ngModel)]="inpfile" (change)="onFileChange($event)"/>
@@ -122,8 +135,19 @@
                           <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                 </div>
                 <div class="col-sm-6" style="margin-top:10px;">
-                        <div class="well well-sm text-right" *ngIf="paymode==''">
-                                <label class="flat-input inputlabel" >Amount To Pay:&nbsp;<span style="color:#5a8ce6">{{pagedata.body.totl|currency}}</span></label>  
+                        <div class="well well-sm" *ngIf="paymode==''">
+                        <div class="col-xs-7" style="padding: 0">
+                                <label class="flat-input inputlabel"><span class="req" *ngIf="step < 2">*</span>Amount To Pay:&nbsp;
+                                    &nbsp;&nbsp;<span class="errorspan2" [class.opqquezero]="totl.message===''" [class.alert-danger]="totl.erlevel==='D'" [class.validating]="validating">{{totl.message}}</span> 
+                                    <input autocomplete="new-password{{ran}}" id="topay" [disabled]="!changeamount" [class.validating]="validating" name="ttl{{ran}}" type="text" [disabled]="step > 1" [(ngModel)]="totl.value"  [class.required]="totl.message !==''" placeholder="$"  (change)="onChange()">  
+                                </label>
+                        </div>
+                        <div class="col-xs-5">
+                                <label class="flat-input inputlabel">&nbsp;</label>
+                                <button name="submit"  *ngIf="step == 1" type="button" (click)="changeamnt()" class="btn-danger btn-block" title="Cancel">CHANGE AMOUNT</button>  
+
+                        </div>
+                        <div class="clearfix"></div>
                         </div>
                         <div class="well well-sm" *ngIf="paymode=='P'">
                                 <label class="flat-input inputlabel"><span class="req" *ngIf="step < 2">*</span>Amount To Pay:&nbsp;

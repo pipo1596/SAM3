@@ -13,6 +13,7 @@ export class bodyData{
             pymt: string;
             mnth: string; 
             lntp: string; 
+            rvmn: string;
 
             lntpdrp:[Drp];
             plnkon: boolean;
@@ -31,11 +32,20 @@ export class bodyData{
             xm12: boolean; 
             xm15: boolean; 
             xm18: boolean; 
-            xm24: boolean; 
+            xm24: boolean;
+            rm12: boolean;
+            rm24: boolean;
+            rm36: boolean;
+            rm48: boolean;
+            rm60: boolean;
+            rm72: boolean;
+            rm84: boolean;
+            rmnn: boolean; 
             xrvm: boolean; 
             xrvt: boolean; 
             xrvp: boolean;
             dbil: boolean;
+            
 }
 
 export class Drp{

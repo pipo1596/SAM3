@@ -3054,5 +3054,8 @@ textarea:disabled {
     background-color: #e9ecef;
     cursor: not-allowed;
 }
+.yelspan{color:#fff;padding:2px 13px;background:#f0ad4e;font-weight: bold;}
+.grnspan{color:#fff;padding:2px 5px;background:green;font-weight: bold;}
+.actvlnk{text-decoration: underline;color: #007bb8;font-weight: bold;}
 #uploadbtns{padding: 0px 15px; display:none;float:right;}
 #uploadbtns a{padding: 10px 20px;background: #3669dc;float: right;color: WHITE;font-weight: bold;text-decoration: none;border-radius: 6px;margin-top:-10px;}

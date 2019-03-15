@@ -159,39 +159,40 @@
                             <hr style="margin:0">
                         </span>
                         <span class="flat-input"  *ngIf = "rvtype!=='M' && rvmode">
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm12" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw4" value="12 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw4"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw4">12 Months</label> 
                             </div>
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm24" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw5" value="24 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw5"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw5">24 Months</label> 
                             </div>
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm36" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw6" value="36 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw6"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw6">36 Months</label> 
                             </div>
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm48" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw7" value="48 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw7"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw7">48 Months</label> 
                             </div>
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm60" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw8" value="60 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw8"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw8">60 Months</label> 
                             </div>
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm72" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw9" value="72 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw9"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw9">72 Months</label> 
                             </div>
-                            <div class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rm84" class="col-sm-4 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw10" value="84 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw10"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw10">84 Months</label> 
                             </div> 
-                            <div class="col-sm-8 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                            <div *ngIf="!pagedata.body.rmnn" class="col-sm-8 col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                                 <div class="custradio"><input name="mfgw" id="mfgw11" value="0 Months" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw11"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw11">None</label> 
                             </div> 
                         </span>    
+                        <div class="clearfix"></div>
                         <label class="flat-input inputlabel" *ngIf="pagedata.body.type==='R' ||
                                                                     (pagedata.body.type==='' && pagedata.body.dtype==='R')"><span class="req">*&nbsp;</span>Original Purchase Price
                                 <span class="errorspan2" [class.opqquezero]="price.message===''" [class.alert-danger]="price.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{price.message}}</span> 
@@ -298,10 +299,10 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title pull-left" id="alertTitle">No Coverages Available!</h4>
+              <h3 class="modal-title pull-left" id="alertTitle">No Coverages Available!</h3>
             </div>
             <div class="modal-body">
-              <p> No <span *ngIf="!hascover">Coverages</span> 
+              <p style="font-weight: bold;font-size: 17px;"> No <span *ngIf="!hascover">Coverages</span> 
                      <span *ngIf="!hascover && !hasterm"> / </span>
                      <span *ngIf="!hasterm">Terms</span> available because vehicle is out of eligibility.</p>
             </div>

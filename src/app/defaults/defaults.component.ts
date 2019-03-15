@@ -26,6 +26,7 @@ export class DefaultsComponent implements OnInit {
   plnk  = new  Textfield ; 
   pymt  = new  Textfield ; 
   mnth  = new  Textfield ;
+  rvmn  = new  Textfield ;
   //CheckBoxes
   xptf  :boolean = false; //paytype
   xptm  :boolean = false; 
@@ -46,6 +47,15 @@ export class DefaultsComponent implements OnInit {
   xrvm  :boolean = false; //RV Type
   xrvt  :boolean = false; 
   xrvp  :boolean = false;
+
+  rm12  :boolean = false; //RV Months
+  rm24  :boolean = false;
+  rm36  :boolean = false;
+  rm48  :boolean = false;
+  rm60  :boolean = false;
+  rm72  :boolean = false;
+  rm84  :boolean = false;
+  rmnn  :boolean = false;
 
   //Alerts
   dispAlert = new Dispalert();
@@ -86,6 +96,7 @@ export class DefaultsComponent implements OnInit {
       this.pagedata.body.plnk  = this.plnk.value;
       this.pagedata.body.pymt  = this.pymt.value;
       this.pagedata.body.mnth  = this.mnth.value;
+      this.pagedata.body.rvmn  = this.rvmn.value;
       
       //Checkboxes
       this.pagedata.body.xptf  = this.xptf;
@@ -104,6 +115,15 @@ export class DefaultsComponent implements OnInit {
       this.pagedata.body.xrvm  = this.xrvm;
       this.pagedata.body.xrvt  = this.xrvt;
       this.pagedata.body.xrvp  = this.xrvp;
+      this.pagedata.body.rm12  = this.rm12;
+      this.pagedata.body.rm24  = this.rm24;
+      this.pagedata.body.rm36  = this.rm36;
+      this.pagedata.body.rm48  = this.rm48;
+      this.pagedata.body.rm60  = this.rm60;
+      this.pagedata.body.rm72  = this.rm72;
+      this.pagedata.body.rm84  = this.rm84;
+      this.pagedata.body.rmnn  = this.rmnn;
+
 
       this.jsonService
         .initService(this.pagedata.body,Util.Url("CGICDFLTS"))
@@ -146,6 +166,7 @@ export class DefaultsComponent implements OnInit {
           this.lntp.value = this.pagedata.body.lntp;
           this.ancl.value = this.pagedata.body.ancl;
           this.mnth.value = this.pagedata.body.mnth;
+          this.rvmn.value = this.pagedata.body.rvmn;
           this.plnk.value = this.pagedata.body.plnk;
           this.pymt.value = this.pagedata.body.pymt;
           //Checkboxes
@@ -165,6 +186,14 @@ export class DefaultsComponent implements OnInit {
           this.xrvm = this.pagedata.body.xrvm;
           this.xrvt = this.pagedata.body.xrvt;
           this.xrvp = this.pagedata.body.xrvp;
+          this.rm12 = this.pagedata.body.rm12;
+          this.rm24 = this.pagedata.body.rm24;
+          this.rm36 = this.pagedata.body.rm36;
+          this.rm48 = this.pagedata.body.rm48;
+          this.rm60 = this.pagedata.body.rm60;
+          this.rm72 = this.pagedata.body.rm72;
+          this.rm84 = this.pagedata.body.rm84;
+          this.rmnn = this.pagedata.body.rmnn;
 
           //Set Bool
           this.hasplnk = this.pagedata.body.plnkon;
