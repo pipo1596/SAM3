@@ -2779,7 +2779,7 @@ margin:3px 0 0 3px;}
 .modal.step3left .closeleft{cursor: pointer;}
 .vehspan{display: inline-block;
     padding: 6px 0px 0px 10px;
-    max-width: 70%;
+    max-width: 67%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;}

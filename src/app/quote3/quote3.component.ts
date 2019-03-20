@@ -1208,7 +1208,6 @@ export class Quote3Component implements OnInit {
                 }
               }
             }
-            if(this.cont.catg!=="RTL" && this.cont.catg !=="OTR"){
               //NCB Charge
               var ncbsurch = 0;
               if(cost > 0){
@@ -1221,7 +1220,10 @@ export class Quote3Component implements OnInit {
                 lowlimit = ncb.prof +0.01;
               })
             }
+
+            if(this.cont.catg!=="RTL" && this.cont.catg !=="OTR"){
               unitp[0] += ncbsurch;
+            }
               
               }
               this.ncbarr.push(i0.toString().padEnd(4) +
@@ -1232,7 +1234,6 @@ export class Quote3Component implements OnInit {
               this.ncbarrv.push(ncbsurch);
 
 
-            }  
             //Taxes
             if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
             

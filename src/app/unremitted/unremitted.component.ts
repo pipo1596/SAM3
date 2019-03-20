@@ -246,7 +246,7 @@ for (var i = 0; i < numbers.length; i++) {
   	if(this.remtarr.length === 0){
   		return false;
   	}
-  	if(confirm("Remitt Selected Contracts?")){
+  	if(confirm("Remit Selected Contracts?")){
   		Util.showWait();
   		var delArr = [];
   		for(var i=0;i<this.remtarr.length;i++){
