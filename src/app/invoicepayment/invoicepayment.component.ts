@@ -73,6 +73,8 @@ export class InvoicePaymentComponent implements OnInit {
     this.inpfile ="";
     this.imgtrgt = "";
     this.upfile = "";
+    this.comm.value = "";
+    this.iden.value = "";
     Util.hideWait();
   }
   onFileChange(event){
