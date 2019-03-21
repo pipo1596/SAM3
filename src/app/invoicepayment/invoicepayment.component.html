@@ -227,8 +227,8 @@
 						<span class="flat-input">
 							<select   class="form__select" name="typc{{ran}}" [(ngModel)]="type.value" [class.required]="type.message !==''"  [class.validating]="validating"   [disabled]="step > 1" (change)="onChange()">
 								<option value="">Select</option>
-								<option value="C">Checking</option>
-								<option value="S">Saving</option>
+                                <option value="X">Commercial Checking</option>
+                                <option value="C">Personal Checking</option>
 							</select>
                         </span>
                         <label class="flat-input inputlabel"><span class="req" *ngIf="step==1">*&nbsp;</span>Account Holder's Name

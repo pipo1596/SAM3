@@ -31,8 +31,8 @@
 						<span class="flat-input">
 							<select  autocomplete="new-password" class="form__select" name="type" [(ngModel)]="selectedRec.type" [class.required]="type.message !==''"  [class.validating]="validating"  (change)="onChange()">
 								<option value="">Select</option>
-								<option value="C">Checking</option>
-								<option value="S">Saving</option>
+								<option value="X">Commercial Checking</option>
+								<option value="C">Personal Checking</option>
 							</select>
 						</span>
 					</div>

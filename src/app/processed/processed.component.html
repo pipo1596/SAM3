@@ -377,6 +377,7 @@
 											<td style="font-weight: bold;text-align: right">Refund Percentage</td>
 											<td width="50">{{canc.refp}}</td>
 									</tr>
+									
 						</table>
 						<div *ngIf="canc && canc.rows.length>0">
 						<h3 style="margin-top:15px">Payments</h3>
@@ -417,6 +418,31 @@
 									<input autocomplete="new-password{{ran}}" name="mileage{{ran}}" id="mileage" type="number" placeholder="Mileage" [(ngModel)]="miles.value" [class.required]="miles.message !==''"  [class.validating]="validating"  (change)="onChange()">
 							</div>
 						</div>
+						<div class="col-md-6">
+							<label class="flat-input inputlabel"><span class="req" *ngIf="reqlh">*&nbsp;</span>Cancellation Reason &nbsp;
+									<span class="errorspan2 alert-danger" [class.opqquezero]="reasn.message===''"  [class.validating]="validating">{{reasn.message}}</span> 
+							</label>
+							<span class="flat-input">
+											<select  autocomplete="new-password" class="form__select w100" name="lienholder"  [(ngModel)]="reasn.value" [class.required]="reasn.message !==''"  [class.validating]="validating">
+													 <option value="">Select</option>                                    
+													 <option value="C">Customer Request</option>                                    
+													 <option value="I">Trade-In</option>                                    
+													 <option value="T">Totaled/Stolen</option>                                    
+													 <option value="R">Reposession</option>                                    
+													 <option value="L">Loan Paid Off</option>                                    
+													 <option value="O">Other</option>                                    
+											 </select>
+									 </span>
+									
+					</div>
+					<div class="col-md-6" *ngIf="reasn.value =='O'">
+						<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Explain
+								<span class="errorspan2 alert-danger" [class.opqquezero]="comm.message===''" [class.validating]="validating">{{comm.message}}</span> 
+						</label>
+						<div class="flat-input w100" style="padding:0 5PX;">
+								<input autocomplete="new-password{{ran}}" maxlength="30" type="text" name="comm{{ran}}"  placeholder="Explain" [(ngModel)]="comm.value" [class.required]="comm.message !==''"  [class.validating]="validating"  (change)="onChange()">
+						</div>
+					</div>
 						<div class="col-xs-12">
 								<a href="javascript:void(0)"  (click) ="calculate()" class="btn pull-right nextsection btn-warning"  title="Back" style="padding:10px 30px;margin: 15px 5px;">
 										<span class="fa fa-calculator"></span>&nbsp;&nbsp; Calculate</a>
@@ -446,6 +472,12 @@
 											<td style="font-weight: bold;text-align: right;width:40%;">Return Percentage:</td>
 											<td width="50">{{rfnd.pct}}</td>
 									</tr>
+									<tr>
+										<td style="font-weight: bold;text-align: right">Cancellation Form:</td>
+										<td width="50">
+											<a href="javascript:void(0);" (click)="viewPdf(rfnd.iono)"  class="btn btn-primary btnedit" href="javascript:void(0)">View&nbsp;<i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
+										</td>
+								</tr>
 							</table>
 
 						</div>

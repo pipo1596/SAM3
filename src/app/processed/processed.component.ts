@@ -60,15 +60,17 @@ export class ProcessedComponent implements OnInit {
   canc : any;
   erScrolid :string = "";
   //Edit Input Fields
-  eoad1  = new Textfield
-  eoad2  = new Textfield
-  eocty = new Textfield
-  eost  = new Textfield
-  eozip = new Textfield
-  eophn = new Textfield
-  email = new Textfield
-  miles = new Textfield
-  cdate = new Textfield
+  eoad1  = new Textfield;
+  eoad2  = new Textfield;
+  eocty = new Textfield;
+  eost  = new Textfield;
+  eozip = new Textfield;
+  eophn = new Textfield;
+  email = new Textfield;
+  miles = new Textfield;
+  cdate = new Textfield;
+  reasn = new Textfield;
+  comm = new Textfield;
 	//Alerts
   dispAlert = new Dispalert();
 	
@@ -90,17 +92,42 @@ export class ProcessedComponent implements OnInit {
     this.gotrfnd = false;
     this.validating = true;
     this.cdate.message = "";
+    this.comm.message = "";
+    this.reasn.message = "";
     this.miles.message = "";
     if (this.cdate.value == "") { this.cdate.message = "(required)"; this.cdate.erlevel = "D"; this.valid = false; }
     if (this.miles.value == "") { this.miles.message = "(required)"; this.miles.erlevel = "D"; this.valid = false; }
+    if (this.reasn.value == "") { this.reasn.message = "(required)"; this.reasn.erlevel = "D"; this.valid = false; }
+    if(this.reasn.value == "O" && this.comm.value ==""){ this.comm.message = "(required)"; this.comm.erlevel = "D"; this.valid = false; }
 
     this.getRefund();
+  }
+  defaultDate(){
+    //Default Date
+    var now = new Date();
+    var month = (now.getMonth() + 1).toString();               
+    var day = now.getDate().toString();
+    if (parseInt(month) < 10) 
+      month = "0" + month.toString();
+    if (parseInt(day) < 10) 
+      day = "0" + day;
+    this.cdate.value = now.getFullYear().toString()+'-'+month+'-'+day;
   }
   editMode(){
     Util.showWait();
     if(this.canedit) this.editon = true;
     Util.hideWait();
 
+  }
+  viewPdf(iono){
+
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+iono),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    if (pdf == null || typeof(pdf)=='undefined') { 	
+      alert('Please disable your pop-up blocker and click the link again.'); 
+    } 
+    else { 	
+      pdf.focus();
+    }
   }
   getRefund(){
     if(!this.valid){return false;}
@@ -110,6 +137,8 @@ export class ProcessedComponent implements OnInit {
               "dlr": this.edlr,
               "asuf": this.easuf,
               "miles": this.miles.value,
+              "reasn": this.reasn.value,
+              "comm": this.reasn.value,
               "cdate": this.cdate.value
             }
     this.jsonService
@@ -231,6 +260,8 @@ export class ProcessedComponent implements OnInit {
 
   }
   viewCont(agr){
+    this.defaultDate();
+    this.miles.value = "";
     if(agr.anum !==undefined && agr.anum !==""){
     this.eanum = agr.anum;
     this.edlr  = agr.dlr;
@@ -379,7 +410,12 @@ export class ProcessedComponent implements OnInit {
     this.gothist = false;
     this.gotcanc = false;
     this.cdate.message = "";
+    this.comm.message = "";
+    this.reasn.message = "";
     this.miles.message = "";
+    this.defaultDate();
+    this.reasn.value = "";
+    this.miles.value = "";
     Util.hideWait();
   }
   getData(){
@@ -444,6 +480,8 @@ export class ProcessedComponent implements OnInit {
   }
 
   setPage(page: number){
+    if(page === 0) return false;
+    if(page > this.pager.totalPages && page !== 1) return false;
     this.pager = this.pagerService.getPager(this.pageCount, page, 25);
     this.dispItems =[ ];
     this.pagedata.contracts.forEach(sq =>{ if(sq.show) this.dispItems.push(sq)});
