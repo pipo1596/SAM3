@@ -436,11 +436,11 @@
 									
 					</div>
 					<div class="col-md-6" *ngIf="reasn.value =='O'">
-						<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Explain
+						<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Explanation
 								<span class="errorspan2 alert-danger" [class.opqquezero]="comm.message===''" [class.validating]="validating">{{comm.message}}</span> 
 						</label>
 						<div class="flat-input w100" style="padding:0 5PX;">
-								<input autocomplete="new-password{{ran}}" maxlength="30" type="text" name="comm{{ran}}"  placeholder="Explain" [(ngModel)]="comm.value" [class.required]="comm.message !==''"  [class.validating]="validating"  (change)="onChange()">
+								<input autocomplete="new-password{{ran}}" maxlength="30" type="text" name="comm{{ran}}"  placeholder="Explanation" [(ngModel)]="comm.value" [class.required]="comm.message !==''"  [class.validating]="validating"  (change)="onChange()">
 						</div>
 					</div>
 						<div class="col-xs-12">

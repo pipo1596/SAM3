@@ -138,7 +138,7 @@ export class ProcessedComponent implements OnInit {
               "asuf": this.easuf,
               "miles": this.miles.value,
               "reasn": this.reasn.value,
-              "comm": this.reasn.value,
+              "comm": this.comm.value,
               "cdate": this.cdate.value
             }
     this.jsonService
@@ -246,6 +246,15 @@ export class ProcessedComponent implements OnInit {
     this.showcc = false;
     this.gotrfnd = false;
     this.editon = false;
+    this.reasn.message = "";
+    this.miles.message = "";
+    this.cdate.message = "";
+    this.comm.message = "";
+    
+    this.defaultDate();
+    this.reasn.value = "";
+    this.miles.value = "";
+    this.comm.value = "";
     Util.hideWait();
   }
   resetf(){
@@ -377,7 +386,15 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     
     if(this.gotcanc) {this.pagemode = 'C';this.showc=false;this.showcc=false;this.showc=false;Util.hideWait();return false;}
+    this.reasn.message = "";
+    this.miles.message = "";
+    this.cdate.message = "";
+    this.comm.message = "";
     
+    this.defaultDate();
+    this.reasn.value = "";
+    this.miles.value = "";
+    this.comm.value = "";
     var obj ={"mode":"CANC",
               "anum": this.eanum,
               "dlr": this.edlr,
@@ -413,9 +430,13 @@ export class ProcessedComponent implements OnInit {
     this.comm.message = "";
     this.reasn.message = "";
     this.miles.message = "";
+    this.cdate.message = "";
+    this.comm.message = "";
+    
     this.defaultDate();
     this.reasn.value = "";
     this.miles.value = "";
+    this.comm.value = "";
     Util.hideWait();
   }
   getData(){
