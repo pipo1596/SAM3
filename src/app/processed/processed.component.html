@@ -423,7 +423,7 @@
 									<span class="errorspan2 alert-danger" [class.opqquezero]="reasn.message===''"  [class.validating]="validating">{{reasn.message}}</span> 
 							</label>
 							<span class="flat-input">
-											<select  autocomplete="new-password" class="form__select w100" name="lienholder"  [(ngModel)]="reasn.value" [class.required]="reasn.message !==''"  [class.validating]="validating">
+											<select  autocomplete="new-password" class="form__select w100" (change)="comm.value=''" name="lienholder"  [(ngModel)]="reasn.value" [class.required]="reasn.message !==''"  [class.validating]="validating">
 													 <option value="">Select</option>                                    
 													 <option value="C">Customer Request</option>                                    
 													 <option value="I">Trade-In</option>                                    
@@ -447,40 +447,8 @@
 								<a href="javascript:void(0)"  (click) ="calculate()" class="btn pull-right nextsection btn-warning"  title="Back" style="padding:10px 30px;margin: 15px 5px;">
 										<span class="fa fa-calculator"></span>&nbsp;&nbsp; Calculate</a>
 						</div>
-						<div class="col-xs-12" *ngIf="gotrfnd">
-							<h3>Result</h3>
-							<h4 *ngIf="rfnd.err!==''" style="color:red">{{rfnd.err}}</h4>
-							<table *ngIf="rfnd.err ==''" class="table table-bordered table-striped">
-							
-									<tr>
-											<td style="font-weight: bold;text-align: right;width:40%;">Created On:</td>
-											<td width="50">{{dt | date:'MM/dd/yyy HH:mm:ss a'}}</td>
-									</tr>
-									<tr>
-											<td style="font-weight: bold;text-align: right;width:40%;">Odometer:</td>
-											<td width="50">{{rfnd.odr|number:0}}</td>
-									</tr>
-									<tr>
-											<td style="font-weight: bold;text-align: right;width:40%;">Cancel Date:</td>
-											<td width="50">{{rfnd.cdt}}</td>
-									</tr>
-									<tr>
-											<td style="font-weight: bold;text-align: right;width:40%;">Rule:</td>
-											<td width="50">{{rfnd.rul}}</td>
-									</tr>
-									<tr>
-											<td style="font-weight: bold;text-align: right;width:40%;">Return Percentage:</td>
-											<td width="50">{{rfnd.pct}}</td>
-									</tr>
-									<tr>
-										<td style="font-weight: bold;text-align: right">Cancellation Form:</td>
-										<td width="50">
-											<a href="javascript:void(0);" (click)="viewPdf(rfnd.iono)"  class="btn btn-primary btnedit" href="javascript:void(0)">View&nbsp;<i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
-										</td>
-								</tr>
-							</table>
 
-						</div>
+						
 				</div>
 				<div *ngIf="pagemode=='R' && view.stat!=='Active'">
 					<h4 style="color:red">THE CONTRACT IS NOT ACTIVE. A CANCELLATION QUOTATION IS NOT PERMITTED.</h4>
@@ -613,6 +581,54 @@
 			<!--History Section End*****************************************************************************************-->
 		</div>
 		</form>
+	</div>
+	<div class="modal"  id="infomodal" role="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title pull-left" id="alertTitle">Result</h4>
+				</div>
+				<div class="modal-body"  *ngIf="gotrfnd">
+					<div class="col-xs-12">
+						<h4 *ngIf="rfnd.err!==''" style="color:red">{{rfnd.err}}</h4>
+						<table *ngIf="rfnd.err ==''" class="table table-bordered table-striped">
+						
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Created On:</td>
+										<td width="50">{{dt | date:'MM/dd/yyy HH:mm:ss a'}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Odometer:</td>
+										<td width="50">{{rfnd.odr|number:0}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Cancel Date:</td>
+										<td width="50">{{rfnd.cdt}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Rule:</td>
+										<td width="50">{{rfnd.rul}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Return Percentage:</td>
+										<td width="50">{{rfnd.pct}}</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;text-align: right">Cancellation Form:</td>
+									<td width="50">
+										<a href="javascript:void(0);" (click)="viewPdf(rfnd.iono)"  class="btn btn-primary btnedit" href="javascript:void(0)">View&nbsp;<i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
+									</td>
+							</tr>
+						</table>
+
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" (click)="hidemdl('infomodal');" type="button">OK</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>
 

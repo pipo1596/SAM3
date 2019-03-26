@@ -10,8 +10,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-remitted',
-  templateUrl: './remitted.component.html',
-  styleUrls: ['./remitted.component.css']
+  templateUrl: './remitted.component.html'
 })
 
 export class RemittedComponent implements OnInit {

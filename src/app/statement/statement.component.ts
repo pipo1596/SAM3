@@ -7,10 +7,9 @@ import { Textfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 
-@Component({
+@Component({ 
   selector: 'app-statement',
-  templateUrl: './statement.component.html',
-  styleUrls: ['./statement.component.css']
+  templateUrl: './statement.component.html'
 })
 
 export class StatementComponent implements OnInit {

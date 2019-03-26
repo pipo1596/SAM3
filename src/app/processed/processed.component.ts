@@ -10,8 +10,7 @@ import { PagerService } from '../_services'
 
 @Component({
   selector: 'app-processed',
-  templateUrl: './processed.component.html',
-  styleUrls: ['./processed.component.css']
+  templateUrl: './processed.component.html'
 })
 
 export class ProcessedComponent implements OnInit {
@@ -45,6 +44,8 @@ export class ProcessedComponent implements OnInit {
     this.gotcanc = false;
     this.viewCont(indata);
   }
+
+  
 	//Input Fields
 	ofn  : string="";
 	oln  : string="";
@@ -86,7 +87,9 @@ export class ProcessedComponent implements OnInit {
   killRecur : boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
- 
+  hidemdl(id){
+    Util.modalid('hide',id);
+  }
   calculate(){
     this.valid = true;
     this.gotrfnd = false;
@@ -148,6 +151,7 @@ export class ProcessedComponent implements OnInit {
   		() => {
         this.gotcanc = false;
         this.gotrfnd = true;
+        Util.modalid("show","infomodal");
         this.changes = false;
         Util.hideWait();  
   		}

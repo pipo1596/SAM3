@@ -9,8 +9,7 @@ import { Dispalert , Errsetter } from '../utilities/dispalert';
 
 @Component({
   selector: 'app-profit',
-  templateUrl: './profit.component.html',
-  styleUrls: ['./profit.component.css']
+  templateUrl: './profit.component.html'
 })
 
 export class ProfitComponent implements OnInit {

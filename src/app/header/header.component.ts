@@ -172,8 +172,8 @@ if(!this.stage){
         this.hideVersion();
         this.hideAlert();
         if(this.headdata.status === "I") { Util.modal("show");}
-        }, 1800000);
-    this.logMeOut = setTimeout(()=>{ Util.hidebyid("staylogin");Util.showbyid("toolate");}, 1820000);
+        }, 7180000);
+    this.logMeOut = setTimeout(()=>{ Util.hidebyid("staylogin");Util.showbyid("toolate");}, 7200000);
 }
 }
 
@@ -186,7 +186,7 @@ public logOutTimerB(mode){
         this.hideVersion();
         this.hideAlert();
         Util.modal("show");
-        }, 1800000);
+        }, 7180000);
     this.logMeOut = setTimeout(()=>{ 
        if(this.headdata.status === "I") {
         this.headService.
@@ -195,7 +195,7 @@ public logOutTimerB(mode){
                err => {},
                () => { location.reload();});
        };
-        }, 1820000);
+        }, 7200000);
 }
  
 
