@@ -4,6 +4,7 @@ import { Dispalert, Errsetter } from '../utilities/dispalert';
 import { Router } from '@angular/router';
 import { Quote2data } from './quote2data';
 import { JsonService } from '../utilities/json.service';
+import { Srchg } from '../contract/contractdata';
 
 @Component({
   selector: 'app-quote2',
@@ -334,7 +335,7 @@ export class Quote2Component implements OnInit {
       }
       //has OC?
       this.pagedata.body.srchg.forEach(schg=>{
-        if(schg.prgm == eachObj.prg && schg.ratc == eachObj.ratc) {eachObj.hasoc = true;return;}
+        if(schg.prgm == eachObj.prg && schg.ratc == eachObj.ratc && schg.type =="OC") {eachObj.hasoc = true;return;}
       });
     });
   }

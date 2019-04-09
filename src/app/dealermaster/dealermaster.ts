@@ -11,6 +11,7 @@ export class Body{
 	dsmd : string;
 	belg : boolean;
 	dbil : boolean;
+	nymm : boolean;
 	lck1 : boolean;
 	user : string;
 	type : string;

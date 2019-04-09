@@ -53,6 +53,7 @@ export class ProcessedComponent implements OnInit {
   asuf : string="";
   dlr : string="";
   vin  : string="";
+  canclmode  : string="";
   view : any;
   paym : any;
   hist : any;
@@ -89,6 +90,21 @@ export class ProcessedComponent implements OnInit {
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
   hidemdl(id){
     Util.modalid('hide',id);
+    if(this.canclmode == '2'){
+      this.cancelc();
+      this.canclmode ="3";
+      this.viewPdf(this.rfnd.iono);
+    }
+  }
+
+  cancelc(){
+    if(this.canclmode=="1"){
+    this.reasn.value = "";
+    this.reasn.message ="";
+    this.comm.value = "";
+    this.comm.message = "";
+    this.canclmode = "";
+    }
   }
   calculate(){
     this.valid = true;
@@ -100,10 +116,14 @@ export class ProcessedComponent implements OnInit {
     this.miles.message = "";
     if (this.cdate.value == "") { this.cdate.message = "(required)"; this.cdate.erlevel = "D"; this.valid = false; }
     if (this.miles.value == "") { this.miles.message = "(required)"; this.miles.erlevel = "D"; this.valid = false; }
+    if(this.canclmode == "1"){
     if (this.reasn.value == "") { this.reasn.message = "(required)"; this.reasn.erlevel = "D"; this.valid = false; }
     if(this.reasn.value == "O" && this.comm.value ==""){ this.comm.message = "(required)"; this.comm.erlevel = "D"; this.valid = false; }
-
-    this.getRefund();
+    this.getRefund('RFND1');
+  }
+    else{
+    this.getRefund('RFND');
+    }
   }
   defaultDate(){
     //Default Date
@@ -132,10 +152,10 @@ export class ProcessedComponent implements OnInit {
       pdf.focus();
     }
   }
-  getRefund(){
+  getRefund(actn){
     if(!this.valid){return false;}
     Util.showWait();
-    var obj ={"mode":"RFND",
+    var obj ={"mode":actn,
               "anum": this.eanum,
               "dlr": this.edlr,
               "asuf": this.easuf,
@@ -151,11 +171,17 @@ export class ProcessedComponent implements OnInit {
   		() => {
         this.gotcanc = false;
         this.gotrfnd = true;
+        if(actn =='RFND1') this.canclmode = '2';
         Util.modalid("show","infomodal");
         this.changes = false;
         Util.hideWait();  
   		}
   	);
+  }
+
+  cancelmode(){
+    this.hidemdl('infomodal');
+    this.canclmode = "1";
   }
 
   togglec(){
@@ -247,13 +273,19 @@ export class ProcessedComponent implements OnInit {
     Util.showWait();
     this.pagemode = mode;
     this.showc = false;
-    this.showcc = false;
+    if(mode =='R'){
+      this.showcc = true;
+      Util.scrollToId("continfo");
+    }
+    else
+      this.showcc = false;
     this.gotrfnd = false;
     this.editon = false;
     this.reasn.message = "";
     this.miles.message = "";
     this.cdate.message = "";
     this.comm.message = "";
+    this.canclmode = "";
     
     this.defaultDate();
     this.reasn.value = "";
@@ -380,6 +412,8 @@ export class ProcessedComponent implements OnInit {
   		() => {
         this.pagemode = 'P';
         this.gotpaym = true;
+        this.showcc=false;
+        this.showc=false;
         Util.hideWait();  
   		}
   	);
@@ -389,11 +423,12 @@ export class ProcessedComponent implements OnInit {
     
     Util.showWait();
     
-    if(this.gotcanc) {this.pagemode = 'C';this.showc=false;this.showcc=false;this.showc=false;Util.hideWait();return false;}
+    if(this.gotcanc) {this.pagemode = 'C';this.showc=false;this.showcc=true;Util.scrollToId("continfo");this.showc=false;Util.hideWait();return false;}
     this.reasn.message = "";
     this.miles.message = "";
     this.cdate.message = "";
     this.comm.message = "";
+    this.canclmode = "";
     
     this.defaultDate();
     this.reasn.value = "";
@@ -412,7 +447,8 @@ export class ProcessedComponent implements OnInit {
         this.pagemode = 'C';
         this.gotcanc = true;
         this.showc = false;
-        this.showcc = false;
+        this.showcc = true;
+        setTimeout(() => {Util.scrollToId("continfo");},100);
         Util.hideWait();  
   		}
   	);

@@ -235,10 +235,14 @@ checkStep1(){
 
     if(this.vin.value == "" || this.rvmode){
       if(this.rvmode)this.validvin = true;
+      if(this.rvmode || this.pagedata.body.nymm !=='Y'){
       if (this.year.value == "") { this.year.message = "(Year required)"; this.year.erlevel = "D"; this.valid = false; }
       if (this.year.message == "" && this.make.value == ""){this.year.message = "(Make required)";this.make.message = "R"; this.year.erlevel = "D"; this.valid = false; }
       if (this.year.message == "" && this.model.value == ""){this.year.message = "(Model required)";this.model.message = "R"; this.year.erlevel = "D"; this.valid = false; }
       if(this.vin.value !== "" && !this.validvin){this.vin.message = "(Invalid VIN)";this.vin.erlevel = "D";this.valid = false;if(this.notfoc){ Util.focusById("vAin");this.notfoc=false;}}
+      }else{
+        if (this.year.message == "" && this.vin.value == ""){this.vin.message = "(VIN required)";this.vin.erlevel = "D";this.valid = false;if(this.notfoc){ Util.focusById("vAin");this.notfoc=false;}}
+      }  
     }else{
       if(!this.validvin){this.vin.message = "(Invalid VIN)";this.vin.erlevel = "D";this.valid = false;if(this.notfoc){ Util.focusById("vAin");this.notfoc=false;}}
     }

@@ -60,12 +60,13 @@
 
                         <div class="clearfix"></div>
                         <h2>Vehicle Information&nbsp;&nbsp;<span class="errorspan2"  [class.alert-danger]="year.erlevel==='D'" [class.validating]="validating">{{year.message}}</span></h2>
-                        <span class="flat-input">
+                        <span class="flat-input" *ngIf="pagedata.body.nymm !=='Y' || pagedata.body.dtype!=='A' || pagedata.body.type ==='R'">
                           <select class="form__select" id="yearsel" name="year{{ran}}" [(ngModel)]="year.value" [class.required]="year.message!==''"  [class.validating]="validating"  (change)="yearChange()">
                             <option value="">Select Year</option>
                             <option *ngFor="let yeard of years" [value]="yeard" [attr.selected]="yeard==year.value ? true : null">{{yeard}}</option>
                           </select>
                         </span>
+                        <div *ngIf="pagedata.body.nymm !=='Y'">
                         <span class="flat-input" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')">
                           <select class="form__select" id="makesel" name="make{{ran}}" [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating"  (change)="makeChange()" [disabled]="year.value===''">
                             <option value="">Select Make</option>
@@ -78,6 +79,7 @@
                             <option *ngFor="let modeld of pagedata.body.models" [value]="modeld.model" [attr.selected]="modeld.model==model.value ? true : null">{{modeld.desc}}</option>
                           </select>
                         </span>
+                      </div>
                         <span class="flat-input" *ngIf="pagedata.body.type==='R' ||
                                                         (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                             <input autocomplete="new-password{{ran}}" name="make{{ran}}" id="make" type="text" placeholder="Make" maxlength="17"  [(ngModel)]="make.value" [class.required]="make.message !==''"  [class.validating]="validating" (change)="onChange()">
@@ -87,7 +89,7 @@
                                 <input autocomplete="new-password{{ran}}" name="model{{ran}}" id="model" type="text" placeholder="Model" maxlength="17"  [(ngModel)]="model.value" [class.required]="model.message !==''"  [class.validating]="validating" (change)="onChange()">
                             </span>
                         
-                        <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 style="margin-bottom: 0">OR</h4></div>
+                        <div class="text-center" *ngIf="pagedata.body.type==='A' || (pagedata.body.type==='' && pagedata.body.dtype==='A')"><h4 *ngIf="pagedata.body.nymm !=='Y'" style="margin-bottom: 0">OR</h4></div>
                         <div class="text-center" *ngIf="pagedata.body.type==='R' || (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                           <hr style="margin:0 0 15px 0">
                           <div class="col-sm-3 text-left" *ngIf="!pagedata.body.xrvm">
@@ -152,6 +154,10 @@
                                 <div class="custradio"><input name="mfgw" id="mfgw2" value="5 years / 100,000" type="radio"   [(ngModel)]="mfgw.value" ><label for="mfgw2"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw2">5 years / 100,000</label> 
                             </div>
+                            <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb" *ngIf="engtyp.value=='REARDSL'">
+                              <div class="custradio"><input name="mfgw" id="mfgw51" value="5 years / 100,000" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw3"></label></div>
+                              <label class="checklabel" style="font-weight: bold;" for="mfgw51">5 years / 100,000</label> 
+                          </div>
                             <div class="col-xs-12 text-left" style="padding: 10px 20px;background: #fbfbfb" *ngIf="engtyp.value=='REARDSL'">
                                 <div class="custradio"><input name="mfgw" id="mfgw3" value="7 years / 100,000" type="radio"  [(ngModel)]="mfgw.value" ><label for="mfgw3"></label></div>
                                 <label class="checklabel" style="font-weight: bold;" for="mfgw3">7 years / 100,000</label> 

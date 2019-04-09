@@ -95,11 +95,17 @@
 							</label>
 						</span>
 				</div>
-
-				
-
-				
-
+				<div class="clearfix"></div>
+				<div class="col-sm-6">
+						<label class="flat-input inputlabel">&nbsp;</label>
+						<span class="flat-input-checkbox">
+							<div class="custcheck">
+								<input [checked]="nymm" type="checkbox" name="nymm">
+								<label (click)="nymm=!nymm"></label>
+							</div>
+							<label class="checklabel" (click)="nymm=!nymm" style="font-weight: bold">Restrict Year Make Model</label>
+						</span>
+				</div>
 				<div class="col-xs-12">
 					<span class="flat-input">
 						<button class="flat-button pull-right" name="submit" style="margin-right:10px" type="submit" title="Save">Save</button>

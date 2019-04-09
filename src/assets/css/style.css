@@ -3041,7 +3041,11 @@ ul.breadcrumb {
   ul.breadcrumb li label{
     cursor: pointer;
   }
-
+.quoteprint{font-size:14px;}
+.quoteprint b{font-size:14px;}
+.quoteprint h3{font-size:20px;}
+.quoteprint h4{font-size:18px;}
+.quoteprint h5{font-size:16px;}
 .drop_target {cursor: pointer;background: #e6e6e6;border-radius: 4px;padding: 6px 15px;transition: all 0.2s; float: right;}
 .drop_target input[type="file"] {display: none;}
 .drop_target:hover,.drop_target.dropping {background: #7bbbf3;color:#fff;cursor: pointer;}      

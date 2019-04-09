@@ -27,6 +27,7 @@ export class DealermasterComponent implements OnInit {
   pass = new Textfield;
   belg:boolean = false;
   dbil:boolean = false;
+  nymm:boolean = false;
   //Alerts
   dispAlert = new Dispalert();
   errSet    = new Errsetter();
@@ -89,6 +90,7 @@ export class DealermasterComponent implements OnInit {
     this.pagedata.body.pass = this.pass.value;
     this.pagedata.body.belg = this.belg;
     this.pagedata.body.dbil = this.dbil;
+    this.pagedata.body.nymm = this.nymm;
 
     this.jsonService
     .initService(this.pagedata.body,Util.Url("CGICDLRMST"))
@@ -144,6 +146,7 @@ export class DealermasterComponent implements OnInit {
           this.type.value = this.pagedata.body.type;
           this.belg       = this.pagedata.body.belg;
           this.dbil       = this.pagedata.body.dbil;
+          this.nymm       = this.pagedata.body.nymm;
         }
 
        }

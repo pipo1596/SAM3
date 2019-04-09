@@ -41,6 +41,7 @@ export class bodyData{
     condyn :boolean;
     dms     : dms;
     dispdms :string;
+    nymm :string;
     step:string;
     xrvm:boolean;
     xrvt:boolean;

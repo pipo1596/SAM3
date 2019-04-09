@@ -166,7 +166,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="col-md-10 col-md-offset-1" style="padding-bottom: 15px">
-					<h3 style="cursor: pointer"  (click)="showcc=!showcc" *ngIf="pagemode!=='V' && innermode!=='I'"><i class="fa fa-plus" [class.fa-plus]="!showcc" [class.fa-minus]="showcc" ></i>&nbsp;Contract Information</h3>
+					<h3 style="cursor: pointer" id="continfo" (click)="showcc=!showcc" *ngIf="pagemode!=='V' && innermode!=='I'"><i class="fa fa-plus" [class.fa-plus]="!showcc" [class.fa-minus]="showcc" ></i>&nbsp;Contract Information</h3>
 					<table class="table table-bordered table-striped" [class.small-table]="innermode=='I'" *ngIf="view" [class.hidden]="!showcc && pagemode!=='V'">
 							
 								<tr>
@@ -401,13 +401,15 @@
 
 				<!--Cancellation Calculator Begin***************************************************************************************-->
 				<div *ngIf="pagemode=='R' && view.stat=='Active'">
-						<div class="col-xs-12"><p style="margin:15px 0px">Enter the current Odometer Reading and Cancellation date, Then click the calculate button:</p></div>
+						<div class="col-xs-12">
+							<p *ngIf="canclmode !== '1'" style="margin:15px 0px">Enter the current Odometer Reading and Cancellation date, Then click the calculate button:</p>
+							<p *ngIf="canclmode == '1'" style="margin:15px 0px;color:red;">Enter Cancellation reason, then click the create cancellation form button:</p></div>
 						<div class="col-md-6">
 								<label class="flat-input inputlabel" id="vpdlbl"><span class="req">*&nbsp;</span>Cancellation Date
 									<span class="errorspan2 alert-danger" [class.opqquezero]="cdate.message===''" [class.validating]="validating">{{cdate.message}}</span> 
 								</label>    
 								<div class="flat-input w100">
-									<input autocomplete="new-password{{ran}}" class="w100"  name="vpd{{ran}}" type="date"  placeholder="Cancellation Date" [class.required]="cdate.message !== ''"  [class.validating]="validating"  [(ngModel)]="cdate.value" maxlength="20"  style="margin-bottom:7px">
+									<input [disabled]="canclmode !== ''" autocomplete="new-password{{ran}}" class="w100"  name="vpd{{ran}}" type="date"  placeholder="Cancellation Date" [class.required]="cdate.message !== ''"  [class.validating]="validating"  [(ngModel)]="cdate.value" maxlength="20"  style="margin-bottom:7px">
 								</div>
 						</div>
 						<div class="col-md-6">
@@ -415,10 +417,10 @@
 									<span class="errorspan2 alert-danger" [class.opqquezero]="miles.message===''" [class.validating]="validating">{{miles.message}}</span> 
 							</label>
 							<div class="flat-input w100" style="padding:0 5PX;">
-									<input autocomplete="new-password{{ran}}" name="mileage{{ran}}" id="mileage" type="number" placeholder="Mileage" [(ngModel)]="miles.value" [class.required]="miles.message !==''"  [class.validating]="validating"  (change)="onChange()">
+									<input [disabled]="canclmode !== ''" autocomplete="new-password{{ran}}" name="mileage{{ran}}" id="mileage" type="number" placeholder="Mileage" [(ngModel)]="miles.value" [class.required]="miles.message !==''"  [class.validating]="validating"  (change)="onChange()">
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6" *ngIf="canclmode == '1'">
 							<label class="flat-input inputlabel"><span class="req" *ngIf="reqlh">*&nbsp;</span>Cancellation Reason &nbsp;
 									<span class="errorspan2 alert-danger" [class.opqquezero]="reasn.message===''"  [class.validating]="validating">{{reasn.message}}</span> 
 							</label>
@@ -443,9 +445,47 @@
 								<input autocomplete="new-password{{ran}}" maxlength="30" type="text" name="comm{{ran}}"  placeholder="Explanation" [(ngModel)]="comm.value" [class.required]="comm.message !==''"  [class.validating]="validating"  (change)="onChange()">
 						</div>
 					</div>
-						<div class="col-xs-12">
+						<div class="col-xs-12" *ngIf="canclmode ==''">
 								<a href="javascript:void(0)"  (click) ="calculate()" class="btn pull-right nextsection btn-warning"  title="Back" style="padding:10px 30px;margin: 15px 5px;">
 										<span class="fa fa-calculator"></span>&nbsp;&nbsp; Calculate</a>
+						</div>
+						<div class="col-xs-12" *ngIf="canclmode =='3'">
+								<a href="javascript:void(0);" (click)="viewPdf(rfnd.iono)"  class="btn btn-primary btnedit" href="javascript:void(0)">View Form&nbsp;<i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
+						</div>
+						<div class="col-xs-12" *ngIf="canclmode=='1'">
+								<a href="javascript:void(0)"  (click) ="cancelc()" class="btn pull-right nextsection btn-warning"  title="Cancel" style="padding:10px 30px;margin: 15px 5px;">
+										Cancel</a>
+								<a href="javascript:void(0)"  (click) ="calculate()" class="btn pull-right nextsection btn-danger"  title="Create Cancellation Form" style="padding:10px 30px;margin: 15px 5px;">
+										Create Cancellation Form</a>
+						</div>
+
+						<div class="col-xs-12" *ngIf="gotrfnd">
+							<h3>Result</h3>
+							<h4 *ngIf="rfnd.err!==''" style="color:red">{{rfnd.err}}</h4>
+							<table *ngIf="rfnd.err ==''" class="table table-bordered table-striped">
+							
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Created On:</td>
+											<td width="50">{{dt | date:'MM/dd/yyy HH:mm:ss a'}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Odometer:</td>
+											<td width="50">{{rfnd.odr|number:0}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Cancel Date:</td>
+											<td width="50">{{rfnd.cdt}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Rule:</td>
+											<td width="50">{{rfnd.rul}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Return Percentage:</td>
+											<td width="50">{{rfnd.pct}}</td>
+									</tr>
+							</table>
+
 						</div>
 
 						
@@ -586,13 +626,13 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title pull-left" id="alertTitle">Result</h4>
+					<h4 *ngIf="canclmode!=='2'"  class="modal-title pull-left" id="alertTitle">Result</h4>
+					<h4 *ngIf="canclmode =='2'"  class="modal-title pull-left" id="alertTitle">Print Cancellation Form</h4>
 				</div>
 				<div class="modal-body"  *ngIf="gotrfnd">
 					<div class="col-xs-12">
 						<h4 *ngIf="rfnd.err!==''" style="color:red">{{rfnd.err}}</h4>
-						<table *ngIf="rfnd.err ==''" class="table table-bordered table-striped">
-						
+						<table *ngIf="rfnd.err =='' && canclmode !=='2'" class="table table-bordered table-striped">
 								<tr>
 										<td style="font-weight: bold;text-align: right;width:40%;">Created On:</td>
 										<td width="50">{{dt | date:'MM/dd/yyy HH:mm:ss a'}}</td>
@@ -614,18 +654,26 @@
 										<td width="50">{{rfnd.pct}}</td>
 								</tr>
 								<tr>
-									<td style="font-weight: bold;text-align: right">Cancellation Form:</td>
-									<td width="50">
-										<a href="javascript:void(0);" (click)="viewPdf(rfnd.iono)"  class="btn btn-primary btnedit" href="javascript:void(0)">View&nbsp;<i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
+									<td colspan="2" class="text-center">
+										<p>Continue with the cancellation process and print form</p>
+										<a href="javascript:void(0);" (click)="cancelmode()"  class="btn btn-danger btnedit" href="javascript:void(0)">Continue &nbsp;<span class="fa fa-forward"></span></a>
 									</td>
 							</tr>
 						</table>
-
+						<table *ngIf="rfnd.err =='' && canclmode =='2'" class="table table-bordered table-striped">
+								<tr>
+										<td colspan="2">
+										Please print out the form and have contract holder sign it. The signed form and any required documentation can be emailed
+										to <a href="mailto:cancellations@revolos.com" style="color:#337ab7">cancellations@revolos.com</a>.<br> 
+										</td>
+								</tr>
+						</table>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-primary" (click)="hidemdl('infomodal');" type="button">OK</button>
+					<button *ngIf="canclmode !=='2'" class="btn btn-primary" (click)="hidemdl('infomodal');" type="button">OK</button>
+					<a *ngIf="canclmode =='2'" href="javascript:void(0);" (click)="hidemdl('infomodal');"  class="btn btn-primary btnedit" href="javascript:void(0)">View Form&nbsp;<i style="font-size:17px" class="fa fa-file-pdf-o"></i></a>
 				</div>
 			</div>
 		</div>
