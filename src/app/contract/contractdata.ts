@@ -152,6 +152,7 @@ export class Single{
     tax : string = "";
    ccst : string = "";
    xtr7 : string = "";
+   qual : string = "";
    lob  : string = "";
    covc : string = "";
 }

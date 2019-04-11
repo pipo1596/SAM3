@@ -62,6 +62,7 @@ export class ContractComponent implements OnInit {
   mindwn2:string = "5";
   caldwn: string = "";
   totalp: string = "0";
+  totalpt: string = "0";
   totalpi: string = "0";
   taxes: string = "";
   mthlyp: string = "";
@@ -661,14 +662,17 @@ formatCVV() {
             Util.hideWait();
             this.vinCheck();
             var totalpn = 0;
+            var totalb = 0;
 
             this.pagedata.body.contract.contracts.forEach(cnt =>{ 
               if(cnt.xtr7 !=='1')  totalpn += parseFloat(cnt.ccst);
+              if(cnt.xtr7 !=='1' && cnt.qual =="Y") totalb += parseFloat(cnt.ccst);
               if(parseFloat(cnt.ccst) <= parseFloat(cnt.covc)) this.costwrn = true;
               if(cnt.lob == 'RVGAP') this.reqlh = true;
             });
             if(this.costwrn) Util.modalid('show','costwarning');
-            this.totalp = totalpn.toString();
+            this.totalpt = totalpn.toString();
+            this.totalp = totalb.toString();
             this.totalpi = totalpn.toString();
             this.calcChng("totali");
           }

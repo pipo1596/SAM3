@@ -167,6 +167,7 @@ export class Quote2Component implements OnInit {
       
       parent.mesg = "";
       parent.open = false;
+      if(mode == 'L'){parent.open =true;}
       
     }
   //}
@@ -372,7 +373,7 @@ export class Quote2Component implements OnInit {
           //if(this.pagedata.body.srchg.length > 0) allones = false;
           this.pagedata.body.srchg.forEach(elem =>{
             if(elem.type === "VF"){
-              if(this.pagedata.body.veh.vin !=='n/a') allones = false;
+              if(this.pagedata.body.veh.vin =='n/a') allones = false;
             }else{
               allones = false;
             }
