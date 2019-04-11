@@ -275,7 +275,7 @@ export class ProcessedComponent implements OnInit {
     this.showc = false;
     if(mode =='R'){
       this.showcc = true;
-      Util.scrollToId("continfo");
+      setTimeout(() => {Util.scrollToId("continfo");},100);
     }
     else
       this.showcc = false;

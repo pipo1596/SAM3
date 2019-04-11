@@ -369,7 +369,14 @@ export class Quote2Component implements OnInit {
           }
 
           var allones = true;
-          if(this.pagedata.body.srchg.length > 0) allones = false;
+          //if(this.pagedata.body.srchg.length > 0) allones = false;
+          this.pagedata.body.srchg.forEach(elem =>{
+            if(elem.type === "VF"){
+              if(this.pagedata.body.veh.vin !=='n/a') allones = false;
+            }else{
+              allones = false;
+            }
+          });
           if(this.pagedata.body.chkdf.length > 0) allones = false;
 
           this.pagedata.body.data.forEach(parent=>{
