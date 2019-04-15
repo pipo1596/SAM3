@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 export class Quote3Component implements OnInit {
 
   changes = false;
+  showcalc:boolean = false;
   datanotsored :any;
   dispAlert = new Dispalert();
   errSet = new Errsetter();
@@ -375,7 +376,9 @@ export class Quote3Component implements OnInit {
   AllCov() {
 
     this.pagedata.body.data.forEach((eachObj,i1) => {
+
       //Coverages
+      if(eachObj.lobc ==="AUTO" || eachObj.lobc==="RV") this.showcalc = true;
       eachObj.cov.coverages.forEach((element,i2) => {
 
             var index = this.pagedata.body.chkdf.findIndex(obj => (
@@ -1281,7 +1284,10 @@ export class Quote3Component implements OnInit {
     var srcEl = e.srcElement || e.target;
     
     if (srcEl.checked) {
-      this.totalp = this.pagedata.body.tables[parent].rates[table].data[row][col][0].toString();
+      if(this.pagedata.body.tables[parent].lob == "RV" || this.pagedata.body.tables[parent].lob =="AUTO")
+        this.totalp = this.pagedata.body.tables[parent].rates[table].data[row][col][0].toString();
+      else
+        this.totalp = "";
       this.calcChng("totali");
     }
     var ind = {

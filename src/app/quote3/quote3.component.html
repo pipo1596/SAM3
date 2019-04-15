@@ -158,7 +158,7 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="padding:0">
-                        <div class="well well-sm sectionlabel active" style="margin:10px">
+                        <div class="well well-sm sectionlabel active" style="margin:10px" *ngIf="showcalc">
                             <div class="sectiontop" id="sec2"  (click)="toggleCalc()">
                                 <h3 class="firsth">Payment Calculator</h3>
                                 <i class="fa sectiond" [ngClass]="{'fa-minus':expcalc,'fa-plus':!expcalc}"></i>
