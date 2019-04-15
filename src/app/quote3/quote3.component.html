@@ -946,7 +946,7 @@
                                     
                                 </tbody>
                             </table>
-                            <hr>
+                            <hr style="margin-top:0">
                         <ng-container *ngFor="let element of pagedata.body.tables;let p = index">
                                 <ng-container *ngIf="element.show">
                                     <div class="" style="page-break-inside: avoid !important;background:white;padding:2px;border-color: black;BORDER: 1PX SOLID;BORDER-RADIUS: 5PX;MARGIN-BOTTOM: 15PX;">
@@ -977,12 +977,12 @@
                                                                 <td colspan="4">
                                                                     <div class="well well-sm w100" style="margin-bottom:0;padding:2px;background:#f5f5f5 !important;">
                                                                     <h5 class="text-center" style="margin-bottom:0;"><span>{{table.title}}</span></h5>
-                                                                    <hr style="margin:0" *ngIf="table.qdsc !==''||table.arrd.length>0">
-                                                                    <p class="w100">{{table.qdsc}}</p>
-                                                                    <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:10px;font-size:12px;font-weight:bold;padding:0">
+                                                                    <hr style="margin:0" *ngIf="table.qdsc !==''||table.arrd.length>0"> 
+                                                                    <p class="w100" style="margin-bottom:3px;">{{table.qdsc}}</p>
+                                                                    <p class="col-xs-4" *ngFor="let bullet of table.arrd" style="margin-top:1px;font-size:11px;font-weight:bold;padding:0">
                                                                         <i class="fa fa-angle-double-right"></i>&nbsp;{{bullet}}</p>
                                                                     <div *ngIf="table.surdesc && table.surdesc.length >0" class="pull-left w100">
-                                                                        <hr>
+                                                                        <hr style="margin-top:2px;margin-bottom:2px;">
                                                                         <h6 style="margin-bottom:0">OPTIONAL COVERAGES:</h6>
                                                                         <p class="col-xs-4" *ngFor="let oc of table.surdesc" style="margin-top:6px;font-size:11px;padding:0;white-space: nowrap;font-weight: bold;">
                                                                                 <i class="fa fa-star"></i>&nbsp;{{oc}}</p>
