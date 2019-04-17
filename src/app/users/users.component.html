@@ -30,11 +30,20 @@
                     <input id="mode" id="formmode" name="mode" type="hidden" [(ngModel)]="mode">
                     <input id="useri" name="useri" type="hidden" [(ngModel)]="useri">
                     <input id="editp" name="editp" type="hidden" [(ngModel)]="editP">
+                    
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Status</label>
                     <span class="flat-input">
                         <select  (change)="onChange()" class="form__select" name="stat{{ran}}" id="stat" [(ngModel)]="selectedUser.stat" [class.usractv]="selectedUser.stat==''" [class.usrdsbl]="selectedUser.stat=='D'">
                             <option value="">Active</option>
                             <option value="D">Disabled</option>
+                        </select>
+                    </span>
+                    <label class="flat-input inputlabel" [class.hidden]="!pagedata.head.as400 || !salesmode" ><span class="req">*&nbsp;</span>Company
+                        <span class="errorspan2" [class.opqquezero]="cmpc.message===''" [class.alert-danger]="cmpc.erlevel==='D'" [class.alert-success]="cmpc.erlevel==='S'" [class.validating]="validating">{{cmpc.message}}</span> 
+                    </label>
+                    <span class="flat-input" [class.hidden]="!pagedata.head.as400 || !salesmode">
+                        <select  [disabled]="selectedUser.slcds.length>0" (change)="onChange()" class="form__select" name="cmpc{{ran}}" id="rlno" [(ngModel)]="selectedUser.cmpc" [class.required]="rlno.value===''"  [class.validating]="validating">
+                            <option *ngFor="let cm of pagedata.comp" [value]="cm.key" [attr.selected]="cm.key==selectedUser.cmpc ? true : null">{{cm.val}}</option>
                         </select>
                     </span>
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Email
@@ -80,10 +89,23 @@
                     </div>
                     <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode">- OR -</label>
                     <label class="flat-input inputlabel"  [class.hidden]="!pagedata.head.as400 || !salesmode"><span class="req">*&nbsp;</span>Salesperson Code
-                        <span class="errorspan2" [class.opqquezero]="slcd.message===''" [class.alert-danger]="slcd.erlevel==='D'" [class.alert-success]="slcd.erlevel==='S'" [class.validating]="validating">{{slcd.message}}</span> 
+                        <span class="errorspan2 validating" [class.opqquezero]="slcd.message===''" [class.alert-danger]="slcd.erlevel==='D'" [class.alert-success]="slcd.erlevel==='S'">{{slcd.message}}</span> 
                     </label>
                     <div class="flat-input w100" [class.hidden]="!pagedata.head.as400 || !salesmode">
-                        <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="slcd{{ran}}" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="3">
+                        <div class="col-xs-8" style="padding-left:0">
+                            <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="slcd{{ran}}" (focus)="dealermode=true" (blur)="dealermode=false" type="text" placeholder="Salesperson Code"  [(ngModel)]="selectedUser.slcd" maxlength="5">
+                        </div>
+                        <div class="col-xs-4">
+                            <a  [class.disabled]="selectedUser.agrp=='Y'"  *ngIf="canedit" href="javascript:void(0)"  class="btn btn-primary" (click)="addSlcd()" style="min-width:100px;padding-top:8px;height:40px;">ADD</a>
+                        </div>
+                        <ul *ngIf="pagedata.head.as400 && selectedUser.slcds" class="w100 pull-left"  [class.hidden]="selectedUser.agrp=='Y'">
+                            <ng-container *ngFor="let slcd of selectedUser.slcds">
+                            <li  style="padding: 5px" *ngIf="slcd.code !==''">
+                                <a  title="remove"  *ngIf="canedit" href="javascript:void(0)" (click)="removeSlcd(slcd)"><i class="fa fa-remove" style="font-size:20px;color:red"></i></a>
+                                <span style="margin-left:10px;font-size: 18px">{{slcd.code}}</span>
+                            </li>
+                            </ng-container>
+                        </ul>
                     </div>
 
                     <label  class="flat-input inputlabel" *ngIf="!salesmode && pagedata.ingrp=='Y' && pagedata.head.as400 ">Add Dealer&nbsp;&nbsp;
@@ -214,7 +236,9 @@
                                 <td data-label="Authority">{{user.rold}}&nbsp;</td>
                                 <td data-label="Salesperson" *ngIf="!salesmode">{{user.sprs}}&nbsp;</td>
                                 <td *ngIf="salesmode" data-label="Agent Code">{{user.disc}}&nbsp;</td>
-                                <td *ngIf="salesmode" data-label="Salesperson Code">{{user.slcd}}&nbsp;</td>
+                                <td *ngIf="salesmode" data-label="Salesperson Code">
+                                    <span *ngFor="let slcd of user.slcds">{{slcd.code}} &nbsp;&nbsp;</span>
+                                </td>
                                 <td data-label="">
                                     <a href="javascript:void(0)" *ngIf="canedit" (click)="onSelect(user)" class="btn btn-warning btnedit">Edit&nbsp;<i class="fa fa-pencil-square-o"></i></a>
                                     <a href="javascript:void(0)" *ngIf="!canedit" (click)="onSelect(user)" class="btn btn-default btnedit">View&nbsp;<i class="fa fa-eye"></i></a>

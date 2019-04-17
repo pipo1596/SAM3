@@ -209,7 +209,7 @@ export class Quote2Component implements OnInit {
     this.jsonService
       .initService(ckdata, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.warnings = data,
-        err => { this.dispAlert.error(); Util.hideWait(); },
+        err => { this.dispAlert.error(); Util.hideWait2(); },
         () => {
           if(this.warnings.length <= 0){
             this.loadDb()
@@ -245,7 +245,7 @@ export class Quote2Component implements OnInit {
    this.jsonService
       .initService(this.pagedata.body, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.errSet = data,
-        err => { this.dispAlert.error(); Util.hideWait(); },
+        err => { this.dispAlert.error(); Util.hideWait2(); },
         () => {
           
           if(this.errSet.status !== "S") this.dispAlert.setMessage(this.errSet);
@@ -256,7 +256,7 @@ export class Quote2Component implements OnInit {
             }, 200);
             this.changes = false;
           } else {
-            Util.hideWait();
+            Util.hideWait2();
           }
         }
       );
@@ -343,12 +343,12 @@ export class Quote2Component implements OnInit {
 
   ngOnInit() {
     this.pagedata.head.status ="I";
-    Util.showWait();
+    Util.showWait2('');
     this.pagedata.head = Util.getHead(this.pagedata.head);
     this.jsonService
       .initService({ "mode": "INIT","tabid": sessionStorage.getItem("tabid") }, Util.Url("CGICQUOTE2"))
       .subscribe(data => this.pagedata = data,
-        err => {Util.responsiveMenu(); Util.hideWait(); },
+        err => {Util.responsiveMenu(); Util.hideWait2(); },
         () => {
           if(this.pagedata.body.typc){this.valid=true;this.loadDb();return false;}
           Util.responsiveMenu(); 
@@ -360,12 +360,12 @@ export class Quote2Component implements OnInit {
 
 
             setTimeout(() => {
-              Util.hideWait();
+              Util.hideWait2();
               this.router.navigate(['/app/']);
             }, 100);
           } else {
             this.defaultCheck();
-            Util.hideWait();
+            //Util.hideWait();
             setTimeout(() => { Util.scrollToId('quotesteps'); }, 100);
           }
 
@@ -431,7 +431,10 @@ export class Quote2Component implements OnInit {
           }
           
           this.checkData('L');
-          this.loading = false;
+          if(!allones) 
+            this.loading = false;
+          
+           if(!this.loading) Util.hideWait2();
 
         } 
 

@@ -5,6 +5,7 @@ export class Usersdata{
     public ingrp :boolean= false;
     public users :[ User ];
     public roles :[ Role ];
+    public comp: [Key];
 }
 
 export class Role{
@@ -21,6 +22,7 @@ export  class User{
     agrp : string;
     stat : string;
     rlno : string;
+    cmpc : string;
     rold : string;
     fnam : string;
     lnam : string;
@@ -29,10 +31,19 @@ export  class User{
     slcd : string;
     pswd : string;  
     dlr  : [ Dlr ];
+    slcds : [ Slc ];
+    
 }
 
 export class Dlr{
     dlri : string;
     desc : string;
+}
+export class Key{
+    key : string;
+    val : string;
+}
+export class Slc{
+    code : string;
 }
 

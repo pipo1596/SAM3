@@ -43,6 +43,7 @@ export class UsersComponent implements OnInit {
   //Input Fields
   user = new  Textfield ;
   rlno = new  Textfield ;
+  cmpc = new  Textfield ;
   stat = new  Textfield ;
   fnam = new  Textfield ;
   lnam = new  Textfield ;
@@ -68,6 +69,7 @@ export class UsersComponent implements OnInit {
     "agrp":"",
     "stat":"",
     "rlno":"",
+    "cmpc":"INT",
     "rold":"",
     "fnam":"",
     "lnam":"",
@@ -75,7 +77,8 @@ export class UsersComponent implements OnInit {
     "disc":"",
     "slcd":"",
     "pswd":"",
-    "dlr":[{"dlri":"","desc":""}]
+    "dlr":[{"dlri":"","desc":""}],
+    "slcds":[{"code":""}]
   }; 
   selectedUserG: User = {
     "mode":"",
@@ -86,6 +89,7 @@ export class UsersComponent implements OnInit {
     "agrp":"",
     "stat":"",
     "rlno":"",
+    "cmpc":"INT",
     "rold":"",
     "fnam":"",
     "lnam":"",
@@ -93,7 +97,8 @@ export class UsersComponent implements OnInit {
     "disc":"",
     "slcd":"",
     "pswd":"",
-    "dlr" :[{"dlri":"","desc":""}]
+    "dlr" :[{"dlri":"","desc":""}],
+    "slcds":[{"code":""}]
   };  
   constructor(private usersService: JsonService,
     private router: Router) { 
@@ -228,8 +233,51 @@ addDealer(){
        }
       );
     }
+addSlcd(){
+  if(this.selectedUser.agrp == 'Y') return;
+  this.validating = false;
+  if(this.selectedUser.slcd==""){
+    this.slcd.erlevel = "D";
+    this.slcd.message = "(Required)";
+    return false;
+  }
+  this.selectedUser.slcd = this.selectedUser.slcd.toUpperCase();
+  if(this.cmpc.value == 'PIP'){
+    if(this.selectedUser.slcds.length > 0){
+      this.slcd.erlevel = "D";
+          this.slcd.message = "(Only one allowed for PIP)";
+      return false;
+    }
+
+  }
+  Util.showWait();
+  this.usersService
+    .initService({"mode":"SLCDV","cmpc":this.selectedUser.cmpc,"slcd":this.selectedUser.slcd},Util.Url("CGICUSERSS"))
+    .subscribe(data => this.dlrv = data,
+      err => {  Util.hideWait(); },
+      () => {
+        if(this.dlrv.valid){
+          var index = this.selectedUser.slcds.findIndex(obj => obj.code==this.selectedUser.slcd);
+          if(index <0){
+
+            this.selectedUser.slcds.push({"code":this.selectedUser.slcd});
+          } 
+          this.slcd.erlevel = "S";
+          this.slcd.message = "(Salesperson Added)";
+          this.selectedUser.slcd = "";
+        }else{
+
+          this.slcd.erlevel = "D";
+          this.slcd.message = "(Invalid Salesperson Code)";
+        }
+        
+        Util.hideWait();
+      }
+      );
+    }
 
 removeDlr(dealer){
+  if(confirm("Delete this Dealer?")){
   Util.showWait();
   var index = this.selectedUser.dlr.findIndex(obj => obj.dlri==dealer.dlri);
   this.selectedUser.dlr.splice(index,1);
@@ -237,7 +285,19 @@ removeDlr(dealer){
   this.dlr.message = "(Dealer removed)";
   this.dlr.value = "";
   Util.hideWait();
-
+  }
+}    
+removeSlcd(slcd){
+  if(confirm("Delete this Salesperson Code?")){
+  Util.showWait();
+  var index = this.selectedUser.slcds.findIndex(obj => obj.code==slcd.code);
+  this.selectedUser.slcds.splice(index,1);
+  this.slcd.erlevel = "S";
+  this.slcd.message = "(Salesperson removed)";
+  this.slcd.value = "";
+  this.selectedUser.slcd = "";
+  Util.hideWait();
+  }
 }    
 onSelect(user: User): void {
   this.selectedUser.mode = "SAVE";
@@ -246,6 +306,7 @@ onSelect(user: User): void {
   this.selectedUser.user = user.user;
   this.selectedUser.useri = user.useri;
   this.selectedUser.rlno = user.rlno;
+  this.selectedUser.cmpc = user.cmpc;
   this.selectedUser.agrp = user.agrp;
   this.selectedUser.stat = user.stat;
   this.selectedUser.rold = user.rold;
@@ -254,14 +315,21 @@ onSelect(user: User): void {
   this.selectedUser.sprs = user.sprs;
   if(this.salesmode) this.selectedUser.sprs ="";
   this.selectedUser.disc = user.disc;
-  this.selectedUser.slcd = user.slcd;
-  this.selectedUser.dlr = JSON.parse(JSON.stringify(user.dlr));
+  this.selectedUser.slcd ="";
+  this.selectedUser.dlr = JSON.parse(JSON.stringify(user.dlr));              
+  this.selectedUser.slcds = JSON.parse(JSON.stringify(user.slcds));              
   this.selectedUser.pswd = "";
   this.dlr.erlevel ="";
   this.dlr.message ="";
+  this.dlr.value ="";
+
   this.sprs.erlevel ="";
   this.sprs.message ="";
-  this.dlr.value ="";
+  this.sprs.value ="";
+  this.slcd.erlevel ="";
+  this.slcd.message ="";
+  this.slcd.value ="";
+
   this.selectedUserG = user;
   this.pswd1 = "";
   this.pswd2 = "";
@@ -293,6 +361,7 @@ addUserInit(){
     "agrp":"",
     "stat":"",
     "rlno":"",
+    "cmpc":"INT",
     "rold":"",
     "fnam":"",
     "lnam":"",
@@ -300,13 +369,21 @@ addUserInit(){
     "disc":"",
     "slcd":"",
     "pswd":"",
-    "dlr" :[{"dlri":"","desc":""}]
+    "dlr" :[{"dlri":"","desc":""}],
+    "slcds":[{"code":""}]
   };  
+
   this.showtop = true;
   this.selectedUser.dlr.pop();
+  this.selectedUser.slcds.pop();
   this.dlr.erlevel ="";
   this.dlr.message ="";
   this.dlr.value ="";
+  
+  this.slcd.erlevel ="";
+  this.slcd.message ="";
+  this.slcd.value ="";
+  
   this.changes = false;
   Util.showUsers();
   Util.hideWait();
@@ -369,6 +446,7 @@ cancel(){
     "agrp":"",
     "stat":"",
     "rlno":"",
+    "cmpc":"INT",
     "rold":"",
     "fnam":"",
     "lnam":"",
@@ -376,7 +454,8 @@ cancel(){
     "disc":"",
     "slcd":"",
     "pswd":"",
-    "dlr" :[{"dlri":"","desc":""}]
+    "dlr" :[{"dlri":"","desc":""}],
+    "slcds":[{"code":""}]
   };  
   this.selectedUser.dlr.pop();
   this.changes = false;
@@ -401,6 +480,7 @@ checkUser(){
     //Reset Error Messages
     this.user.message  = "";
     this.rlno.message  = "";
+    this.cmpc.message  = "";
     this.stat.message  = "";
     this.fnam.message  = "";
     this.lnam.message  = "";
@@ -417,6 +497,7 @@ checkUser(){
     this.user.value  = this.selectedUser.user.trim();
     this.stat.value  = this.selectedUser.stat.trim();
     this.rlno.value  = this.selectedUser.rlno.trim();
+    this.cmpc.value  = this.selectedUser.cmpc.trim();
     this.fnam.value  = this.selectedUser.fnam.trim();
     this.lnam.value  = this.selectedUser.lnam.trim();
     this.sprs.value  = this.selectedUser.sprs.trim();
@@ -430,9 +511,16 @@ checkUser(){
     if (this.fnam.value == "") { this.fnam.message = "(required)"; this.fnam.erlevel = "D"; this.valid = false; }
     if (this.lnam.value == "") { this.lnam.message = "(required)"; this.lnam.erlevel = "D"; this.valid = false; }
     if (this.rlno.value == "") { this.rlno.message = "(required)"; this.rlno.erlevel = "D"; this.valid = false; }
-    if (this.salesmode && this.disc.value!=="" && this.slcd.value!=="") { this.disc.message = "(Agent - OR - Salesperson Code Allowed)"; this.disc.erlevel = "D"; this.valid = false; }
-    if (this.salesmode && this.disc.value =="" && this.slcd.value =="") { this.disc.message = "(Agent - OR - Salesperson Code Required)"; this.disc.erlevel = "D"; this.valid = false; }
-
+    if (this.cmpc.value == "") { this.cmpc.message = "(required)"; this.cmpc.erlevel = "D"; this.valid = false; }
+    if (this.salesmode && this.disc.value!=="" && this.selectedUser.slcds.length<0) { this.disc.message = "(Agent - OR - Salesperson Code Allowed)"; this.disc.erlevel = "D"; this.valid = false; }
+    if (this.salesmode && this.disc.value =="" && this.selectedUser.slcds.length < 1) { this.disc.message = "(Agent - OR - Salesperson Code Required)"; this.disc.erlevel = "D"; this.valid = false; }
+    if(this.cmpc.value == 'PIP'){
+      if(this.selectedUser.slcds.length > 1){
+        this.slcd.erlevel = "D";
+          this.slcd.message = "(Only one allowed for PIP)";
+          this.valid = false;
+      }
+    }
     //if (this.sprs.value == "" &&  !this.salesmode) { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
     if (this.pswd1 == "" && this.editP == "Y") { this.pswd.message = "(required)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd1 !== this.pswd2 && this.editP == "Y") { this.pswd.message = "(Passwords don't match)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
@@ -474,6 +562,7 @@ saveData(){
             "agrp":this.selectedUser.agrp,
             "stat":this.selectedUser.stat,
             "rlno":this.selectedUser.rlno,
+            "cmpc":this.selectedUser.cmpc,
             "rold":Util.getSelText(this.selectedUser.rlno,this.pagedata.roles),
             "fnam":this.selectedUser.fnam,
             "lnam":this.selectedUser.lnam,
@@ -481,7 +570,8 @@ saveData(){
             "disc":this.selectedUser.disc,
             "slcd":this.selectedUser.slcd,
             "pswd":"",
-            "dlr": this.selectedUser.dlr
+            "dlr": this.selectedUser.dlr,
+            "slcds":this.selectedUser.slcds
           });
 
           setTimeout(() => {
@@ -507,6 +597,7 @@ saveData(){
           this.selectedUserG.slcd = this.selectedUser.slcd;
           this.selectedUserG.pswd = "";
           this.selectedUserG.dlr = this.selectedUser.dlr;
+          this.selectedUserG.slcds = this.selectedUser.slcds;
           setTimeout(() => {
             Util.showWait();   
             this.cancel();
