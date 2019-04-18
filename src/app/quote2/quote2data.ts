@@ -16,6 +16,7 @@ contracts: [Cont];
     veh  = new Vehicle;
     hasdd: boolean = false;
     typc: boolean = false;
+    gapt: string;
 }
 
 export class Data{

@@ -4,7 +4,6 @@ import { Dispalert, Errsetter } from '../utilities/dispalert';
 import { Router } from '@angular/router';
 import { Quote2data } from './quote2data';
 import { JsonService } from '../utilities/json.service';
-import { Srchg } from '../contract/contractdata';
 
 @Component({
   selector: 'app-quote2',

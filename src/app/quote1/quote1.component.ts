@@ -51,6 +51,7 @@ export class Quote1Component implements OnInit {
   price  = new Textfield;
   msrp  = new Textfield;
   amfn  = new Textfield;
+  gapt  = new Textfield;
   lmil  = new Textfield;
   lmth  = new Textfield;
   insrvc = new Textfield;
@@ -207,6 +208,7 @@ checkStep1(){
     this.price.message    = "";
     this.msrp.message    = "";
     this.amfn.message    = "";
+    this.gapt.message    = "";
     this.lmil.message    = "";
     this.lmth.message    = "";
     this.insrvc.message   = "";
@@ -288,6 +290,12 @@ checkStep1(){
       if(this.amfn.value == null || this.amfn.value.toString() == ""){this.amfn.message = "(Required)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
       if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
+    if(this.arrlob.indexOf('GAP')>-1){
+      //Gap Terms
+      if(this.gapt.value == null || this.gapt.value.toString() == ""){this.gapt.message = "(Required)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
+      if(parseInt(this.gapt.value) <= 0){this.gapt.message = "(Invalid)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
+      if(this.valid && this.gapt.value.toString().length>4){this.gapt.message = "(Too High)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
+    }
     if(this.insrvc.value == ""){this.insrvc.message = "(Required)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}}
     if(this.insrvc.value !== "" && !Util.isdatestring("servicedate",this.insrvc.value)){
       this.insrvc.message = "(Invalid)";this.insrvc.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("servicedate");this.notfoc=false;}
@@ -325,6 +333,8 @@ checkStep1(){
       
       this.pagedata.body.amfn   = this.amfn.value;
       if(this.amfn.value == null || this.amfn.value.toString() == "")  this.pagedata.body.amfn ="";
+      this.pagedata.body.gapt   = this.gapt.value;
+      if(this.gapt.value == null || this.gapt.value.toString() == "")  this.pagedata.body.gapt ="";
       this.pagedata.body.lmil   = this.lmil.value;
       this.pagedata.body.lmth   = this.lmth.value;
       this.pagedata.body.insrvc  = this.insrvc.value;
@@ -492,7 +502,7 @@ addplan(e,plan){
         this.pagedata.body.ckprgs.push(obj);
         if(plan.dspasn == "Y") this.arrdspn.push("Y");
         this.arrlobAll.push(plan.lob);
-        if((plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob =='RVWHEEL' || plan.lob =='RVRS' ) && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
+        if((plan.lob ==='WT' || plan.lob =='GAP' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob =='RVWHEEL' || plan.lob =='RVRS' ) && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
     }else{
       if(plan.dspasn == "Y") this.arrdspn.pop();
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
@@ -586,6 +596,7 @@ ngOnInit() {
           this.price.value = this.pagedata.body.price;
           this.msrp.value = this.pagedata.body.msrp;
           this.amfn.value = this.pagedata.body.amfn;
+          this.gapt.value = this.pagedata.body.gapt;
           this.lmil.value = this.pagedata.body.lmil;
           this.lmth.value = this.pagedata.body.lmth;
           this.insrvc.value = this.pagedata.body.insrvc;

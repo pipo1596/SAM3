@@ -27,6 +27,7 @@ export class bodyData{
     miles   :string ;
     price   :string ;
     amfn   :string ;
+    gapt   :string ;
     msrp   :string ;
     lmth   :string ;
     lmil   :string ;

@@ -175,20 +175,28 @@ export class Quote3Component implements OnInit {
     else
      contract.DDESC +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
 
-    if(this.xlatelobc(contract.PRG.trim(), contract.RATC.trim())=='WT'){
+    var xlob = this.xlatelobc(contract.PRG.trim(), contract.RATC.trim());
+    if(xlob=='WT'){
       contract.CVMN += this.pagedata.body.veh.lmth.toString().padEnd(3);
       contract.CVML += this.pagedata.body.veh.lmil.toString().padEnd(7);
       contract.TERM += (this.pagedata.body.veh.lmth+' Months / ' +
                     this.withcommas(this.pagedata.body.veh.lmil)+' Miles').padEnd(50);
     }else{
       contract.CVMN += tb.rates[t].rows[r].mon.toString().padEnd(3);
+      
       contract.CVML += tb.rates[t].rows[r].mil.toString().padEnd(7);
-      contract.TERM += (tb.rates[t].rows[r].mon+' Months / ' +
+      
+      if(xlob=='GAP' && this.pagedata.body.gapt!==''){
+        contract.TERM += (this.pagedata.body.gapt+' Months / ' +
                     this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
+      }else{
+        contract.TERM += (tb.rates[t].rows[r].mon+' Months / ' +
+                    this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
+      }
     }
    
     contract.TXRT = this.pagedata.body.tax;
-    if(this.pagedata.body.tax>0){
+    if(this.pagedata.body.tax>0 && (xlob=='RV'||xlob=="RV")){
     if(this.pagedata.body.incl =='Y'){
     var subt = (ccst/(1+(contract.TXRT/100)));
     contract.TAX  +=  (ccst - subt).toFixed(2).toString().padEnd(15);
@@ -196,7 +204,10 @@ export class Quote3Component implements OnInit {
     else
     contract.TAX  +=  (ccst*(contract.TXRT/100)).toFixed(2).toString().padEnd(15);
     
-    }                
+    } 
+    else{
+      contract.TAX  +=  '0'.padEnd(15);
+    }               
     
   }                 
                   });
@@ -1238,8 +1249,9 @@ export class Quote3Component implements OnInit {
 
 
             //Taxes
-            if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
-            
+            if(table.lob == "RV" || table.lob == "AUTO"){
+              if (this.pagedata.body.tax > 0 && this.pagedata.body.incl =='Y') unitp[0] = unitp[0] + unitp[0] * this.pagedata.body.tax / 100;
+            }
             if(this.pagedata.body.incl !=='Y') 
               unitp[0] = Math.ceil(unitp[0])
             else

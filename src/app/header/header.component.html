@@ -132,19 +132,19 @@
                                             </ul>
                                         </li> 
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Support</a>
-                                            <ul class="submenu supportmenu">                                                 
+                                            <ul class="submenu supportmenu" >                                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus','title':'Contact Us'}" id="contactus">Contact Us</a></li>
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help','title':'Help'}" id="helplink">Help</a></li> 
                                                 <li><a href="https://www.interstatenational.com/milotraining/" target="_blank">Tutorials</a></li>                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'faqs','title':'FAQ\'s'}" id="faqs">FAQ's</a></li>
                                                 <li class="headerli"><hr><div>Forms</div></li> 
-                                                <li><a href="./forms/Cancellation_Form_2017.pdf" target="_blank">Cancellation</a></li> 
-                                                <li><a href="./forms/Transfer_Form_2017.pdf" target="_blank">Transfer</a></li>  
-                                                <li><a href="./forms/Remittance_Register_2017.pdf" target="_blank">Remittance Register</a></li>
-                                                <li><a href="./forms/Certified_Remittance_Register_2012.pdf" target="_blank">Remittance Register Certified</a></li>
-                                                <li><a href="./forms/Exception_Request_Form.pdf" target="_blank">Exception Request</a></li>
-                                                <li><a href="./forms/Upgrade_Request_Form.pdf" target="_blank">Upgrade Request</a></li>
-                                                <li><a href="./forms/star_waiver_form.pdf" target="_blank">Star Waiver Form</a></li>                    
+                                                <li><a href="./forms/Cancellation_Form_2017.pdf?pm={{ran}}" target="_blank">Cancellation</a></li> 
+                                                <li><a href="./forms/Transfer_Form_2017.pdf?pm={{ran}}" target="_blank">Transfer</a></li>  
+                                                <li><a href="./forms/Remittance_Register_2017.pdf?pm={{ran}}" target="_blank">Remittance Register</a></li>
+                                                <li><a href="./forms/Certified_Remittance_Register_2012.pdf?pm={{ran}}" target="_blank">Limited Warranty Remittance Register</a></li>
+                                                <li><a href="./forms/Exception_Request_Form.pdf?pm={{ran}}" target="_blank">Exception Request</a></li>
+                                                <li><a href="./forms/Upgrade_Request_Form.pdf?pm={{ran}}" target="_blank">Upgrade Request</a></li>
+                                                <li><a href="./forms/star_waiver_form.pdf?pm={{ran}}" target="_blank">Star Waiver Form</a></li>                    
                                             </ul><!-- /.submenu --> 
                                         </li>                                                                                                      
                                         <li><a href="javascript:void(0)" (click)="logOut()" title="Log Out">
