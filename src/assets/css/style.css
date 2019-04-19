@@ -3058,6 +3058,7 @@ textarea:disabled {
     background-color: #e9ecef;
     cursor: not-allowed;
 }
+#mainnav ul.submenu.rightalgn{right:0;left:auto;}
 .yelspan{color:#fff;padding:2px 13px;background:#f0ad4e;font-weight: bold;}
 .grnspan{color:#fff;padding:2px 5px;background:green;font-weight: bold;}
 .actvlnk{text-decoration: underline;color: #007bb8;font-weight: bold;}

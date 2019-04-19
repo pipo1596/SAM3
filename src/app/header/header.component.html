@@ -88,7 +88,7 @@
 
                                         <ng-container *ngFor="let main of headdata.menuOp">
                                         <li *ngIf="main.type=='M'"><a href="javascript:void(0)">Maintenance</a>
-                                            <ul class="submenu">
+                                            <ul class="submenu" [class.rightalgn]="headdata.currdlr ==''">
                                                 <ng-container *ngFor="let menu of headdata.menuOp">
                                                     <li *ngIf="menu.type=='M1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
@@ -117,7 +117,7 @@
                                         <!--Reports-->
                                         <ng-container *ngFor="let main of headdata.menuOp">
                                                 <li *ngIf="main.type=='R'"><a href="javascript:void(0)">Reports</a>
-                                                <ul class="submenu">       
+                                                <ul class="submenu" style="width:280px">       
                                                 <ng-container  *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='R1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
@@ -126,13 +126,13 @@
                                         </ng-container>
                                                                                                                                                            
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Claims</a>
-                                            <ul class="submenu claimsmenu">  
+                                            <ul class="submenu claimsmenu rightalgn" >  
                                                 <li><a href="https://secured.inds.com/Dealers/webclaimentry/indsclaim_login.asp" target="_blank">Claims Entry</a></li>
                                                 <li><a [routerLink]="['/app/ClaimsForm']">Claims Form</a></li>
                                             </ul>
                                         </li> 
                                         <li *ngIf="headdata.currdlr !==''"><a href="javascript:void(0)">Support</a>
-                                            <ul class="submenu supportmenu" >                                                 
+                                            <ul class="submenu rightalgn">                                                 
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'contactus','title':'Contact Us'}" id="contactus">Contact Us</a></li>
                                                 <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'help','title':'Help'}" id="helplink">Help</a></li> 
                                                 <li><a href="https://www.interstatenational.com/milotraining/" target="_blank">Tutorials</a></li>                                 
