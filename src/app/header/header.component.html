@@ -117,7 +117,7 @@
                                         <!--Reports-->
                                         <ng-container *ngFor="let main of headdata.menuOp">
                                                 <li *ngIf="main.type=='R'"><a href="javascript:void(0)">Reports</a>
-                                                <ul class="submenu" style="width:280px">       
+                                                <ul class="submenu supportmenu">       
                                                 <ng-container  *ngFor="let menu of headdata.menuOp">
                                                         <li *ngIf="menu.type=='R1'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
