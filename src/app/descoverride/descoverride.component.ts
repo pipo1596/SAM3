@@ -20,6 +20,7 @@ export class DescoverrideComponent implements OnInit {
 	//Input Fields
 	srky = new Textfield;
 	srky2= new Textfield;
+	form= new Textfield;
 	desc = new Textfield;
 	descq = new Textfield;
 	qdsc = new Textfield;
@@ -157,6 +158,7 @@ export class DescoverrideComponent implements OnInit {
   	//delete this.selectedRecG;
 	this.selectedRec.srky = record.srky;
 	this.selectedRec.srky2 = record.srky2;
+	this.selectedRec.form = record.form;
 	this.selectedRec.prg  = record.prg;
   	this.selectedRec.srkyi= record.srkyi;
   	this.selectedRec.desc = record.desc;
@@ -210,6 +212,7 @@ export class DescoverrideComponent implements OnInit {
   	//Reset Error Messages
 	this.srky.message = "";
 	this.srky2.message = "";
+	this.form.message = "";
 	this.prg.message = "";  
 	this.lob.message = "";  
   	this.desc.message = "";
@@ -220,12 +223,14 @@ export class DescoverrideComponent implements OnInit {
   	this.dispAlert.default();
   	//Trim Field Values
   	this.srky.value = this.selectedRec.srky.trim().toUpperCase();
+  	this.form.value = this.selectedRec.form.trim().toUpperCase();
   	this.srky2.value = this.selectedRec.srky2.trim().toUpperCase();
   	this.prg.value  = this.selectedRec.prg.trim().toUpperCase();
   	this.lob.value  = this.selectedRec.lob.trim().toUpperCase();
   	this.dlr.value  = this.selectedRec.dlr.trim().toUpperCase();
 
   	this.selectedRec.srky = this.selectedRec.srky.trim().toUpperCase();
+  	this.selectedRec.form = this.selectedRec.form.trim().toUpperCase();
   	this.selectedRec.srky2 = this.selectedRec.srky2.trim().toUpperCase();
   	this.selectedRec.dlr  = this.selectedRec.dlr.trim().toUpperCase();
   	this.selectedRec.prg  = this.selectedRec.prg.trim().toUpperCase();
@@ -235,7 +240,10 @@ export class DescoverrideComponent implements OnInit {
   	this.desc.value = this.selectedRec.desc.trim();
   	this.qdsc.value = this.selectedRec.qdsc.trim();
 
-  	if(this.srky.value == ""){ this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
+		if(this.srky.value == ""){ this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
+	//	if(this.form.value =="" && this.cmpc =='PIP' && this.selectedRec.srky && this.PMTYPE=='Program' && this.selectedRec.srky!=='' && this.selectedRec.srky.charAt(0).toUpperCase() == 'M'){
+		//	this.form.message = "(required)"; this.form.erlevel = 'D'; this.valid = false;
+		//}
   	if(this.desc.value == ""){ this.desc.message = "(required)"; this.desc.erlevel = 'D'; this.valid = false;}
   	if(this.PMTYPE == 'Program' && this.lob.value == ""){ this.lob.message = "(required)"; this.lob.erlevel = 'D'; this.valid = false;}
 
@@ -256,6 +264,7 @@ export class DescoverrideComponent implements OnInit {
   				if(this.selectedRec.mode == "ADD"){
   					this.newRec.srky = this.selectedRec.srky;
 					  this.newRec.srky2 = this.selectedRec.srky2;
+					  this.newRec.form = this.selectedRec.form;
 					  if(this.PMTYPE == 'Program')
 					  this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10) +
 					  					 this.selectedRec.srky2.toUpperCase().padEnd(10)+
@@ -287,6 +296,7 @@ export class DescoverrideComponent implements OnInit {
   					this.index = this.pagedata.overrides.findIndex(obj => obj.srkyi==this.selectedRec.srkyi && obj.dlri==this.selectedRec.dlri);
   					this.pagedata.overrides[this.index].srky = this.selectedRec.srky;
 					  this.pagedata.overrides[this.index].srky2 = this.selectedRec.srky2;
+					  this.pagedata.overrides[this.index].form = this.selectedRec.form;
 					  if(this.PMTYPE == 'Program')
 					  this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky.padEnd(10)+
 					  											  this.selectedRec.srky2.padEnd(10)+

@@ -132,6 +132,7 @@ export class Field{
         type : string="" ;
         prec : string = "" ;
         size : number = 0 ;
+        reqr : boolean = true;
         name : string="" ;
         data : [Drp];
        value : string="" ;

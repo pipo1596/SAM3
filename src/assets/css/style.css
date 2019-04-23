@@ -1902,6 +1902,7 @@ date-input-polyfill button{padding:5px;}
  .widget.widget-out-link ul li a:hover:before {
      color: aliceblue;
 }
+.hglt{background:aliceblue;}
 /* Widget-recent-new */
  .widget.widget-recent-new .widget-title {
      margin-bottom: 24px;

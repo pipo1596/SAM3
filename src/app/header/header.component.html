@@ -20,7 +20,7 @@
                               <a *ngIf="headdata.status==='I'" routerLink="/app/Home" rel="home" class="pull-left" >                                    
                                 <img src="/assets/images/milologo2.PNG?ts=2" alt="image">         
                             </a> 
-                            <div *ngIf="headdata.status==='I' && (headdata.multi || headdata.as400)" class="loccont" (click)="showLoc()" title="{{headdata.currloc}}">
+                            <div *ngIf="headdata.status==='I' && (headdata.multi || headdata.as400)" class="loccont" (click)="showLoc($event)" title="{{headdata.currloc}}">
                                 <div class="info-icon">
                                     <i class="fa fa-map-marker"></i>
                                 </div> 
@@ -227,7 +227,7 @@
         
             <div class="col-sm-6 col-xs-12" style="padding:0 8px;" *ngIf="headdata.as400">
                 <label class="pull-left" style="font-weight: bold;clear:left;">Dealer Code / Name</label>
-                <input class="pull-left" style="margin-right:15px;width:200px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  (focus)="clearagent()" type="text" placeholder="Dealer Code / Name" maxlength="30">
+                <input class="pull-left" style="margin-right:15px;width:200px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups($event)"  (focus)="clearagent($event)" type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
             </div>
             <div class="col-sm-6 col-xs-12" style="padding:0 8px;" *ngIf="headdata.as400">
@@ -246,18 +246,18 @@
             <div class="clearfix"></div>
             <div class="flat-input w100 text-center" style="padding:0 8px;" *ngIf="headdata.sales">
                     <label  class="pull-left" style="font-weight: bold;">Dealer code / Name</label>
-                <input class="pull-left" style="margin-right:15px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroupsAles()"  type="text" placeholder="Dealer Code / Name" maxlength="30">
+                <input class="pull-left" style="margin-right:15px;clear:left;" id="dealersearch" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroupsAles($event)"  type="text" placeholder="Dealer Code / Name" maxlength="30">
                 <div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
             </div>
             <div class="clearfix"></div>
           <ul *ngIf="headdata.as400 && !process && headdata.loctn" style="max-height: 400px;overflow-y: scroll">
-             <li *ngFor="let loc of headdata.loctn" >
+             <li *ngFor="let loc of headdata.loctn" [class.hglt] = "loc.dlr!=='' && dealer!==undefined && loc.dlr == dealer.trim()" >
                 <a href="javascript:void(0)" class="lochref" (click)="changeLoc(loc)">{{loc.desc}}</a>
             </li> 
             <li *ngIf="headdata.loctn.length==0 && (dealer!=='' || agentlast)"  style="padding: 0 10px"><b>No results found!</b></li>
           </ul>
           <ul *ngIf="temploctn && !headdata.as400" style="max-height: 400px;overflow-y: scroll">
-             <li *ngFor="let loc of temploctn" >
+             <li *ngFor="let loc of temploctn"  [class.hglt] = "loc.dlr!=='' && dealer!==undefined && loc.dlr == dealer.trim()"  >
                 <a href="javascript:void(0)" class="lochref" (click)="changeLoc(loc)">{{loc.desc}}</a>
             </li> 
             <li *ngIf="temploctn.length==0 && dealer!==''"  style="padding:0 10px"><b>No results found!</b></li>

@@ -252,7 +252,7 @@ export class ContractComponent implements OnInit {
 
       fld.message = "";
       fld.value = fld.value.trim();
-      if (fld.value == "") { fld.message = "(required)"; fld.erlevel = "D"; this.valid = false;this.erscrol(fld.name); }
+      if (fld.value == "" && fld.reqr) { fld.message = "(required)"; fld.erlevel = "D"; this.valid = false;this.erscrol(fld.name); }
       if(fld.value !==""){
 
         if(fld.type=='TEL' && !Util.validphone(fld.value)){fld.message = "(Invalid)";fld.erlevel="D";this.valid = false;this.erscrol(fld.name);}

@@ -15,6 +15,7 @@ export class Ovrd{
 	cmpc : string;
 	srky : string;
 	srky2 : string;
+	form : string;
 	prg  : string;
 	srkyi: string;
 	desc : string;
@@ -31,6 +32,7 @@ export class Ovrd{
 		this.mode = mode;
 		this.srky = "";
 		this.srky2 = "";
+		this.form = "";
 		this.desc = "";
 		this.qdsc = "";
 		this.dlr  = "";

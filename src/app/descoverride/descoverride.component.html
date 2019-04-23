@@ -36,6 +36,14 @@
 						<div class="flat-input w100" *ngIf="PMTYPE=='Program'">
 							<input autocomplete="new-password" style="text-transform:uppercase;" id="srky2" name="srky2" type="text" placeholder="Rate Card" [class.required]="srky2.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.srky2" maxlength="10" (change)="onChange()">
 						</div>
+					<div *ngIf="cmpc =='PIP' && selectedRec.srky && PMTYPE=='Program' && selectedRec.srky!=='' && selectedRec.srky.charAt(0).toUpperCase() == 'M'">
+					<label class="flat-input inputlabel" >Quote Form 
+							<span class="errorspan2" [class.opqquezero]="form.message===''" [class.alert-danger]="form.erlevel==='D'" [class.validating]="validating">{{form.message}}</span>
+						</label>
+						<div class="flat-input w100" *ngIf="PMTYPE=='Program'">
+							<input autocomplete="new-password" style="text-transform:uppercase;" id="form" name="form" type="text" placeholder="Quote Form" [class.required]="form.message !==''" [class.validating]="validating" [(ngModel)]="selectedRec.form" maxlength="30" (change)="onChange()">
+						</div>
+					</div>
 					<label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Override Description
 						<span class="errorspan2" [class.opqquezero]="desc.message===''" [class.alert-danger]="desc.erlevel==='D'" [class.validating]="validating">{{desc.message}}</span>
 					</label>

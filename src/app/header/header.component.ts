@@ -60,7 +60,7 @@ getVersion(){
            () => {location.reload();});
 }
 
-dealerGroupsAles(){
+dealerGroupsAles(e){
 
   this.process = true;
   clearTimeout(this.keytime);
@@ -78,6 +78,15 @@ dealerGroupsAles(){
                   }
 
                 });
+
+                var pos1 = this.temploctn.findIndex(obj => obj.dlr ==self.dealer.trim());
+                
+              if(pos1>-1){
+              if (e!==undefined && e.keyCode == 13) {
+                this.changeLoc(self.temploctn[0]);
+                return false;
+              }
+            }
                 self.process = false;
                 
     }, 100);
@@ -86,11 +95,13 @@ dealerGroupsAles(){
     self.process = false; 
   }
 }
-clearagent(){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerp="";this.dealerGroups();}
+clearagent(e){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerp="";this.dealerGroups(e);}
 cleardealer(){this.dealer='';this.dealerp="";this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.agentSearch();}
 agnblur(){ setTimeout(()=>{ this.agnfocus = false;},300);}
-dealerGroups(){
-  if(this.process || this.dealer == this.dealerp){ return false; }
+dealerGroups(e){
+  if(this.process || 
+    (this.dealer == this.dealerp && (e!==undefined && e.keyCode !== 13))){ return false; }
+  
 
   this.headdata.loctn = [{"stat":"","dlr":"","desc":""}]
   this.process = true;
@@ -105,9 +116,22 @@ dealerGroups(){
                err => {},
                () => { 
                 self.headdata.loctn = Util.sortByKey(self.headdata.loctn,"desc","A");
+                var pos1 = this.headdata.loctn.findIndex(obj => obj.dlr ==self.dealer.trim());
+                if(pos1>0){
+                    self.headdata.loctn.unshift(self.headdata.loctn[pos1]);
+                    self.headdata.loctn.splice(pos1+1,1);
+                
+                
+              }
+              if(pos1>-1){
+              if (e!==undefined && e.keyCode == 13) {
+                this.changeLoc(self.headdata.loctn[0]);
+                return false;
+              }
+            }
                 self.process = false;
                 if(self.dealer !== self.dealerp){
-                  self.dealerGroups();
+                  self.dealerGroups(e);
                 }
                });
     self.dealerp = self.dealer;
@@ -219,11 +243,11 @@ logOut(){
 }  
 
 
-showLoc(){
+showLoc(e){
   Util.modalid("show","roofTop");
   if(this.headdata.as400){
     this.dealer = this.headdata.currdlr;
-    if(this.dealer !== "") this.dealerGroups();
+    if(this.dealer !== "") this.dealerGroups(e);
   }
   this.headdata.loctn =  Util.sortByKey(this.headdata.loctn,"desc","A");
   this.temploctn = this.headdata.loctn;

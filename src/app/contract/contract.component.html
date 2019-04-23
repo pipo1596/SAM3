@@ -286,11 +286,11 @@
                     </div>
                 </div>
                 <div class="col-xs-12" *ngIf="pagedata.body.fields && pagedata.body.fields.length >0"><hr></div>
-                <div class="col-xs-12"  *ngIf="pagedata.body.fields && pagedata.body.fields.length >0"><h3>Required Fields</h3></div>
+                <div class="col-xs-12"  *ngIf="pagedata.body.fields && pagedata.body.fields.length >0"><h3>Additional Fields</h3></div>
                 <ng-container *ngIf="pagedata.body.fields && pagedata.body.fields.length >0">
                 <ng-container  *ngFor="let fld of pagedata.body.fields;let j=index;">
                     <div class="col-sm-6 col-xs-12">
-                    <label class="flat-input inputlabel" id="{{fld.name}}lbl"><span class="req">*&nbsp;</span>{{fld.labl}} 
+                    <label class="flat-input inputlabel" id="{{fld.name}}lbl"><span class="req" *ngIf="fld.reqr">*&nbsp;</span>{{fld.labl}} 
                         &nbsp;<a *ngIf="fld.name =='ECLHFI'" href="javascript:void(0)" title="Add New" (click)="newlhfi()" style="color:#5a8ce6">Add New</a>
                         <span class="errorspan2" [class.opqquezero]="fld.message===''" [class.alert-danger]="fld.erlevel==='D'" [class.validating]="validating">{{fld.message}}</span> 
                     </label>
