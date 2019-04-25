@@ -42,7 +42,7 @@
                         <span class="errorspan2" [class.opqquezero]="cmpc.message===''" [class.alert-danger]="cmpc.erlevel==='D'" [class.alert-success]="cmpc.erlevel==='S'" [class.validating]="validating">{{cmpc.message}}</span> 
                     </label>
                     <span class="flat-input" [class.hidden]="!pagedata.head.as400 || !salesmode">
-                        <select  [disabled]="selectedUser.slcds.length>0" (change)="onChange()" class="form__select" name="cmpc{{ran}}" id="rlno" [(ngModel)]="selectedUser.cmpc" [class.required]="rlno.value===''"  [class.validating]="validating">
+                        <select  [disabled]="selectedUser.slcds.length>0" (change)="onChange()" class="form__select" name="cmpc{{ran}}" id="cmpc" [(ngModel)]="selectedUser.cmpc" [class.required]="cmpc.value===''"  [class.validating]="validating">
                             <option *ngFor="let cm of pagedata.comp" [value]="cm.key" [attr.selected]="cm.key==selectedUser.cmpc ? true : null">{{cm.val}}</option>
                         </select>
                     </span>

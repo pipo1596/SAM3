@@ -216,9 +216,9 @@
                                 <input autocomplete="new-password{{ran}}" name="amfn{{ran}}" id="amfn" type="number" placeholder="Amount financed" [(ngModel)]="amfn.value" [class.required]="amfn.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
-                        <div *ngIf="arrlob.indexOf('GAP')>-1"> 
+                        <div *ngIf="arrlob.indexOf('GAP')>-1 && arrlob.indexOf('WT')<0"> 
                         <!--Financed-->
-                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>GAP Term in months 
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term in Months 
                                 <span class="errorspan2" [class.opqquezero]="gapt.message===''" [class.alert-danger]="gapt.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{gapt.message}}</span> 
                             </label>
                             <span class="flat-input">
@@ -234,14 +234,14 @@
                                 <input autocomplete="new-password{{ran}}" name="msrp{{ran}}" id="msrp" type="number" placeholder="MSRP" [(ngModel)]="msrp.value" [class.required]="msrp.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         <!--Lease Months-->
-                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Lease Months
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term in Months
                                 <span class="errorspan2" [class.opqquezero]="lmth.message===''" [class.alert-danger]="lmth.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{lmth.message}}</span> 
                             </label>
                             <span class="flat-input">
                                 <input autocomplete="new-password{{ran}}" name="lmth{{ran}}" id="lmth" type="number" placeholder="Lease Months" [(ngModel)]="lmth.value" [class.required]="lmth.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         <!--Lease Miles-->
-                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Lease Miles
+                        <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term Miles
                                 <span class="errorspan2" [class.opqquezero]="lmil.message===''" [class.alert-danger]="lmil.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{lmil.message}}</span> 
                             </label>
                             <span class="flat-input">

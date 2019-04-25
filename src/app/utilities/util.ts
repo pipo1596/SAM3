@@ -4,6 +4,7 @@ var logOut:any;//Global Variable
 var modalIn:any;//Global Variable
 var setMenu:boolean;
 var head;
+var uid="";
 
 export class Util{
 
@@ -85,7 +86,7 @@ static uncheckbyid(id){
 
 static Url(prgrm:string):string{
     if (location.hostname === "localhost")
-        return "http://192.168.6.47:64005/"+prgrm; 
+        return "http://192.168.6.48:64005/"+prgrm; 
     else
         return '/'+prgrm;
 }
@@ -606,6 +607,19 @@ static Usersnap(){
    s.async = true; 
    s.id = "usersnap";
    s.src = '//api.usersnap.com/load/69b4adfd-ead6-4236-9866-c0b963f1a978.js';
+   var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+}
+//===================================================================================//
+static Fullstory(email,name){
+    if($("#fsemail").length<1)return false;
+    $("#fsemail").val(email);
+    $("#fsname").val(name);
+    $("#fullstory").remove();
+   var s = document.createElement("script"); 
+   s.type = "text/javascript"; 
+   s.async = true; 
+   s.id = "fullstory";
+   s.src = '/assets/fullstory.js?pm=1';
    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
 }
 //===================================================================================//

@@ -175,7 +175,7 @@ export class Quote3Component implements OnInit {
     else
      contract.DDESC +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
 
-    var xlob = this.xlatelobc(contract.PRG.trim(), contract.RATC.trim());
+    var xlob = this.xlatelobc(tb.rates[t].program.trim(), tb.rates[t].ratc.trim());
     if(xlob=='WT'){
       contract.CVMN += this.pagedata.body.veh.lmth.toString().padEnd(3);
       contract.CVML += this.pagedata.body.veh.lmil.toString().padEnd(7);
@@ -196,7 +196,7 @@ export class Quote3Component implements OnInit {
     }
    
     contract.TXRT = this.pagedata.body.tax;
-    if(this.pagedata.body.tax>0 && (xlob=='RV'||xlob=="RV")){
+    if(this.pagedata.body.tax>0 && (xlob=="AUTO"||xlob=="RV")){
     if(this.pagedata.body.incl =='Y'){
     var subt = (ccst/(1+(contract.TXRT/100)));
     contract.TAX  +=  (ccst - subt).toFixed(2).toString().padEnd(15);

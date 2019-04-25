@@ -227,6 +227,10 @@ checkStep1(){
     this.mfgw.value  = this.mfgw.value.trim();
     this.insrvc.value   = this.insrvc.value.trim();
     this.asofdt.value   = this.asofdt.value.trim();
+    if(this.arrlob.indexOf('GAP')>-1 && this.arrlob.indexOf('WT')>-1){
+      this.gapt.value = this.lmth.value.toString().trim();
+    }
+    
 
     if(this.pagedata.body.ckprgs.length<1) { this.product.message = "(Select One)"; this.product.erlevel = "D"; this.valid = false; }
     if(!this.rvmode){
@@ -511,7 +515,7 @@ addplan(e,plan){
       var iloball = this.arrlobAll.indexOf(plan.lob);
       if (iloball > -1) { this.arrlobAll.splice(iloball, 1);}
 
-      if((plan.lob ==='WT' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL' || plan.lob == 'RVRS')){
+      if((plan.lob ==='WT' || plan.lob=='GAP' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL' || plan.lob == 'RVRS')){
       var ilob = this.arrlob.indexOf(plan.lob);
       if (ilob > -1) { this.arrlob.splice(ilob, 1);}
       

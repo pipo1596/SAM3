@@ -450,12 +450,14 @@ for (var i = 0; i < numbers.length; i++) {
   			} else {
           this.pageCount = parseInt(this.pagedata.ttlpgs.cnt,10);
           this.masterPgCnt = this.pageCount;
+          this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","D");
           this.setPage(1); 
   				Util.hideWait();
           if(this.pagedata.ttlpgs.lstrec !== 'EOF'){
             this.readNext(this.pagedata.ttlpgs.lstrec);
           } else {
             this.applyFiltBtn = true;
+            
           }
           this.canedit = !Util.noAuth(this.pagedata.head.menuOp,'9EDITCNTRC');
           this.showcap = !Util.noAuth(this.pagedata.head.menuOp,'VIEWCAPSH');
@@ -482,6 +484,7 @@ for (var i = 0; i < numbers.length; i++) {
     if(this.killRecur){
       return;
     }
+    this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","D");
     this.jsonService
     .initService({"mode":"READNEXT", "ecno":anchor},Util.Url("CGICUNRMCT"))
     .subscribe(data => this.readdata = data,

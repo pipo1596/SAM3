@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
             
             if (this.dispAlert.status === "S") {
               Util.hideWait();
-              
+              Util.Fullstory(this.employee.value.toUpperCase(),this.dispAlert.data);
               setTimeout(() => {
                 Util.showWait();   
                 this.router.navigate(['/app/Home']);

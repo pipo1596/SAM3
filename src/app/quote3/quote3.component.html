@@ -624,7 +624,10 @@
                                     <ng-container *ngFor="let row of table.rows;let r = index" >
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
-                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> <span>{{row.mon}} Months</span> / {{row.mil|number:0}}</span>
+                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
+                                                        <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
+                                                        <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
+                                                     / {{row.mil|number:0}}</span>
                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
