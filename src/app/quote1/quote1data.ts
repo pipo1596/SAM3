@@ -22,6 +22,7 @@ export class bodyData{
     model   :string ;
     vin     :string ;
     rvtype  :string ;
+    benf    :string ;
     engtyp  :string ;
     mfgw  :string ;
     miles   :string ;

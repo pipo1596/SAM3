@@ -123,6 +123,25 @@
                             <option value="U">Used</option>
                           </select>
                         </span>
+                        <!--Benefit Amount-->
+                        <div *ngIf="arrlob.indexOf('PIPETC')>-1">
+                        <label class="flat-input inputlabel" >
+                          <span class="req">*&nbsp;</span>Benefit Amount    
+                        </label>
+                        <span class="flat-input">
+                          <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                              <div class="custradio"><input name="benf" id="benf0" value="2500" type="radio"  [(ngModel)]="benf" >
+                                <label for="benf0"></label></div>
+                              <label class="checklabel" style="font-weight: bold;" for="mfgw0">$2,500</label> 
+                          </div>
+                          <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                              <div class="custradio"><input name="benf" id="benf1" value="5000" type="radio"  [(ngModel)]="benf" >
+                                <label for="benf1"></label></div>
+                              <label class="checklabel" style="font-weight: bold;" for="mfgw0">$5,000</label> 
+                          </div>
+                          
+                        </span>
+                        </div>
                         <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' && rvmode"><span class="req">*&nbsp;</span>Mileage
                             <span class="errorspan2" [class.opqquezero]="miles.message===''" [class.alert-danger]="miles.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{miles.message}}</span> 
                         </label>
@@ -207,7 +226,16 @@
                                                             (pagedata.body.type==='' && pagedata.body.dtype==='R')">
                                 <input autocomplete="new-password{{ran}}" name="prce{{ran}}" id="prce" type="number" placeholder="Original Purchase Price" [(ngModel)]="price.value" [class.required]="price.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
-                        <div *ngIf="arrlob.indexOf('RVGAP')>-1 || arrlob.indexOf('RVTHEFT')>-1 || arrlob.indexOf('RVWHEEL')>-1 || arrlob.indexOf('RVRS')>-1 ">
+                        <div *ngIf="arrlob.indexOf('RVGAP')>-1   || 
+                                    arrlob.indexOf('RVTHEFT')>-1 || 
+                                    arrlob.indexOf('RVWHEEL')>-1 || 
+                                    arrlob.indexOf('PIPETC')>-1  || 
+                                    arrlob.indexOf('PIPGAP')>-1  || 
+                                    arrlob.indexOf('PIPLSE')>-1  || 
+                                    arrlob.indexOf('PIPSKR')>-1  || 
+                                    arrlob.indexOf('PIPUVP')>-1  || 
+                                    arrlob.indexOf('PIPWTR')>-1  || 
+                                    arrlob.indexOf('RVRS')>-1 ">
                         <!--Financed-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Amount financed 
                                 <span class="errorspan2" [class.opqquezero]="amfn.message===''" [class.alert-danger]="amfn.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{amfn.message}}</span> 
@@ -216,7 +244,9 @@
                                 <input autocomplete="new-password{{ran}}" name="amfn{{ran}}" id="amfn" type="number" placeholder="Amount financed" [(ngModel)]="amfn.value" [class.required]="amfn.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
-                        <div *ngIf="arrlob.indexOf('GAP')>-1 && arrlob.indexOf('WT')<0"> 
+                        <div *ngIf="(arrlob.indexOf('GAP')>-1    || 
+                                     arrlob.indexOf('PIPGAP')>-1 ||  
+                                     arrlob.indexOf('PIPUVP')>-1) && arrlob.indexOf('WT')<0"> 
                         <!--Financed-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term in Months 
                                 <span class="errorspan2" [class.opqquezero]="gapt.message===''" [class.alert-danger]="gapt.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{gapt.message}}</span> 
@@ -225,7 +255,13 @@
                                 <input autocomplete="new-password{{ran}}" name="gapt{{ran}}" id="gapt" type="number" placeholder="Term in months" [(ngModel)]="gapt.value" [class.required]="gapt.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
-                        <div *ngIf="arrlob.indexOf('WT')>-1">
+                        <div *ngIf="arrlob.indexOf('WT')>-1      ||
+                                    arrlob.indexOf('PIPETC')>-1  || 
+                                    arrlob.indexOf('PIPGAP')>-1  || 
+                                    arrlob.indexOf('PIPLSE')>-1  || 
+                                    arrlob.indexOf('PIPSKR')>-1  || 
+                                    arrlob.indexOf('PIPUVP')>-1  || 
+                                    arrlob.indexOf('PIPWTR')>-1 ">
                         <!--MSRP-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>MSRP
                                 <span class="errorspan2" [class.opqquezero]="msrp.message===''" [class.alert-danger]="msrp.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{msrp.message}}</span> 
@@ -233,6 +269,8 @@
                             <span class="flat-input">
                                 <input autocomplete="new-password{{ran}}" name="msrp{{ran}}" id="msrp" type="number" placeholder="MSRP" [(ngModel)]="msrp.value" [class.required]="msrp.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
+                        </div>
+                        <div *ngIf="arrlob.indexOf('WT')>-1">
                         <!--Lease Months-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term in Months
                                 <span class="errorspan2" [class.opqquezero]="lmth.message===''" [class.alert-danger]="lmth.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{lmth.message}}</span> 

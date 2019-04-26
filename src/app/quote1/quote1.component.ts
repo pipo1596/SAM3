@@ -57,6 +57,7 @@ export class Quote1Component implements OnInit {
   insrvc = new Textfield;
   asofdt = new Textfield;
   rvtype:string ="";
+  benf:string ="";
   rvchange2(){
     Util.showWait();
     this.mfgw.value = "";
@@ -227,7 +228,9 @@ checkStep1(){
     this.mfgw.value  = this.mfgw.value.trim();
     this.insrvc.value   = this.insrvc.value.trim();
     this.asofdt.value   = this.asofdt.value.trim();
-    if(this.arrlob.indexOf('GAP')>-1 && this.arrlob.indexOf('WT')>-1){
+    if((this.arrlob.indexOf('GAP')>-1 || 
+        this.arrlob.indexOf('PIPUVP')>-1 || 
+        this.arrlob.indexOf('PIPGAP')>-1) && this.arrlob.indexOf('WT')>-1){
       this.gapt.value = this.lmth.value.toString().trim();
     }
     
@@ -276,10 +279,18 @@ checkStep1(){
       if(parseInt(this.price.value) <= 0){this.price.message = "(Invalid)";this.price.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("prce");this.notfoc=false;}}
     }  
     //WT //Lease Mode
-    if(this.arrlob.indexOf('WT')>-1){
+    if(this.arrlob.indexOf('WT')>-1   ||
+    this.arrlob.indexOf('PIPETC')>-1  || 
+    this.arrlob.indexOf('PIPGAP')>-1  || 
+    this.arrlob.indexOf('PIPLSE')>-1  || 
+    this.arrlob.indexOf('PIPSKR')>-1  || 
+    this.arrlob.indexOf('PIPUVP')>-1  || 
+    this.arrlob.indexOf('PIPWTR')>-1 ){
       //Msrp
       if(this.msrp.value == "" || this.msrp.value == null){this.msrp.message = "(Required)";this.msrp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("msrp");this.notfoc=false;}}
       if(parseInt(this.msrp.value) <= 0){this.msrp.message = "(Invalid)";this.msrp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("msrp");this.notfoc=false;}}
+    } 
+    if(this.arrlob.indexOf('WT')>-1){
       //Miles
       if(this.lmil.value == "" || this.lmil.value == null){this.lmil.message = "(Required)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
       if(parseInt(this.lmil.value) <= 0){this.lmil.message = "(Invalid)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
@@ -289,12 +300,23 @@ checkStep1(){
       if(parseInt(this.lmth.value) <= 0){this.lmth.message = "(Invalid)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
       if(this.valid && this.lmth.value.toString().length>3){this.lmth.message = "(Too High)";this.lmth.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmth");this.notfoc=false;}}
     }
-    if(this.arrlob.indexOf('RVGAP')>-1 || this.arrlob.indexOf('RVTHEFT')>-1 || this.arrlob.indexOf('RVWHEEL')>-1 || this.arrlob.indexOf('RVRS')>-1 ){
+    if(this.arrlob.indexOf('RVGAP')>-1    || 
+       this.arrlob.indexOf('RVTHEFT')>-1  || 
+       this.arrlob.indexOf('RVWHEEL')>-1  || 
+       this.arrlob.indexOf('PIPETC')>-1   || 
+       this.arrlob.indexOf('PIPGAP')>-1   || 
+       this.arrlob.indexOf('PIPLSE')>-1   || 
+       this.arrlob.indexOf('PIPSKR')>-1   || 
+       this.arrlob.indexOf('PIPUVP')>-1   || 
+       this.arrlob.indexOf('PIPWTR')>-1   ||
+       this.arrlob.indexOf('RVRS')>-1 ){
       //Amount Financed
       if(this.amfn.value == null || this.amfn.value.toString() == ""){this.amfn.message = "(Required)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
       if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
-    if(this.arrlob.indexOf('GAP')>-1){
+    if(this.arrlob.indexOf('GAP')>-1 ||
+       this.arrlob.indexOf('PIPUVP')>-1 ||  
+       this.arrlob.indexOf('PIPGAP')>-1){
       //Gap Terms
       if(this.gapt.value == null || this.gapt.value.toString() == ""){this.gapt.message = "(Required)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
       if(parseInt(this.gapt.value) <= 0){this.gapt.message = "(Invalid)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
@@ -329,8 +351,10 @@ checkStep1(){
       this.pagedata.body.dnup    = this.dnup.value;
       this.pagedata.body.engtyp = this.engtyp.value;
       this.pagedata.body.mfgw = this.mfgw.value;
-      this.pagedata.body.rvtype = "";
+      this.pagedata.body.rvtype = "";      
       if(this.rvmode) this.pagedata.body.rvtype  = this.rvtype;
+      this.pagedata.body.benf = "";
+      if(this.arrlob.indexOf('PIPETCH')>-1) this.pagedata.body.benf  = this.benf;
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
       this.pagedata.body.msrp   = this.msrp.value;
@@ -506,7 +530,18 @@ addplan(e,plan){
         this.pagedata.body.ckprgs.push(obj);
         if(plan.dspasn == "Y") this.arrdspn.push("Y");
         this.arrlobAll.push(plan.lob);
-        if((plan.lob ==='WT' || plan.lob =='GAP' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob =='RVWHEEL' || plan.lob =='RVRS' ) && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
+        if((plan.lob ==='WT'    || 
+            plan.lob =='GAP'    || 
+            plan.lob =='PIPETC' || 
+            plan.lob =='PIPGAP' || 
+            plan.lob =='PIPLSE' || 
+            plan.lob =='PIPSKR' || 
+            plan.lob =='PIPUVP' || 
+            plan.lob =='PIPWTR' || 
+            plan.lob =='RVGAP'  || 
+            plan.lob =='RVTHEFT'|| 
+            plan.lob =='RVWHEEL'|| 
+            plan.lob =='RVRS' ) && this.arrlob.indexOf(plan.lob)==-1){ this.arrlob.push(plan.lob);Util.showWait();Util.hideWait();}
     }else{
       if(plan.dspasn == "Y") this.arrdspn.pop();
       this.pagedata.body.ckprgs.splice(this.prgIndex(plan.prg,plan.ratc), 1);
@@ -515,7 +550,18 @@ addplan(e,plan){
       var iloball = this.arrlobAll.indexOf(plan.lob);
       if (iloball > -1) { this.arrlobAll.splice(iloball, 1);}
 
-      if((plan.lob ==='WT' || plan.lob=='GAP' || plan.lob =='RVGAP' || plan.lob=='RVTHEFT' || plan.lob == 'RVWHEEL' || plan.lob == 'RVRS')){
+      if((plan.lob ==='WT'      || 
+          plan.lob=='GAP'       || 
+          plan.lob =='PIPETC'   || 
+          plan.lob =='PIPGAP'   || 
+          plan.lob =='PIPLSE'   || 
+          plan.lob =='PIPSKR'   || 
+          plan.lob =='PIPUVP'   || 
+          plan.lob =='PIPWTR'   ||
+          plan.lob =='RVGAP'    || 
+          plan.lob=='RVTHEFT'   || 
+          plan.lob == 'RVWHEEL' || 
+          plan.lob == 'RVRS')){
       var ilob = this.arrlob.indexOf(plan.lob);
       if (ilob > -1) { this.arrlob.splice(ilob, 1);}
       
@@ -529,6 +575,7 @@ addplan(e,plan){
 
     if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
     if(this.rvtype == "") this.rvtype = "M";
+    if(this.benf == "") this.rvtype = "2500";
     if(!this.rvmode){this.engtyp.value ="";this.mfgw.value ="";this.mfgw.value = this.pagedata.body.mfgw;this.price.value="";}
     if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");
@@ -589,6 +636,8 @@ ngOnInit() {
           this.model.value = this.pagedata.body.model;
           this.vin.value = this.pagedata.body.vin;
           this.rvtype = this.pagedata.body.rvtype;
+          this.benf = this.pagedata.body.benf;
+          if(this.benf=="")this.benf = "2500";
           this.engtyp.value = this.pagedata.body.engtyp;
           this.mfgw.value = this.pagedata.body.mfgw;
           if(this.rvmode && this.rvtype == "") this.rvtype = "M";
