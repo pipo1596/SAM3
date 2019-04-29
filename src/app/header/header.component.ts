@@ -68,7 +68,7 @@ dealerGroupsAles(e){
   var self = this;
   if(this.dealer !== ""){
   this.keytime = setTimeout(()=>{ 
-    self.temploctn = [{"stat":"","dlr":"","desc":""}]; self.temploctn.pop();
+    self.temploctn = [{"stat":"","statd":"","dlr":"","desc":""}]; self.temploctn.pop();
                 self.headdata.loctn.forEach(loc =>{ 
                   var toucase1 = loc.desc.toUpperCase();
                   var toucase2 = self.dealer.toUpperCase();
@@ -95,15 +95,15 @@ dealerGroupsAles(e){
     self.process = false; 
   }
 }
-clearagent(e){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerp="";this.dealerGroups(e);}
-cleardealer(){this.dealer='';this.dealerp="";this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];this.agentSearch();}
+clearagent(e){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":""}];this.headdata.loctn = [{"stat":"","statd":"","dlr":"","desc":""}];this.tempAgnt.pop();this.dealerp="";this.dealerGroups(e);}
+cleardealer(){this.dealer='';this.dealerp="";this.headdata.loctn = [{"stat":"","statd":"","dlr":"","desc":""}];this.agentSearch();}
 agnblur(){ setTimeout(()=>{ this.agnfocus = false;},300);}
 dealerGroups(e){
   if(this.process || 
     (this.dealer == this.dealerp && (e!==undefined && e.keyCode !== 13))){ return false; }
   
 
-  this.headdata.loctn = [{"stat":"","dlr":"","desc":""}]
+  this.headdata.loctn = [{"stat":"","statd":"","dlr":"","desc":""}]
   this.process = true;
   this.agent = "";
   clearTimeout(this.keytime);
@@ -140,7 +140,7 @@ dealerGroups(e){
 agentSearch(){
   if(this.process2 || this.agent == this.agentp){ return false; }
   this.agnfocus = true;
-  this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];
+  this.headdata.loctn = [{"stat":"","statd":"","dlr":"","desc":""}];
   this.tempAgnt = [{"agnt":"" , "desc":""}]; 
   this.tempAgnt.pop();
   this.process2 = true;
@@ -169,7 +169,7 @@ setAgent(code){
   this.process3 = true;
   this.agent = code;
   this.agentp= "";
-  this.headdata.loctn = [{"stat":"","dlr":"","desc":""}];
+  this.headdata.loctn = [{"stat":"","statd":"","dlr":"","desc":""}];
   this.tempAgnt = [{"agnt":"" , "desc":""}]; 
   this.tempAgnt.pop();
   this.headService.

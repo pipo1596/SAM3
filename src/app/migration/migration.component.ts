@@ -20,6 +20,7 @@ export class MigrationComponent implements OnInit {
   //Field
   dealerp:string;
   dealer:string="";  
+  cachemode:boolean = false;
   dispAlert = new Dispalert();
 
   constructor(private jsonService: JsonService,private router: Router) { }
@@ -60,7 +61,43 @@ export class MigrationComponent implements OnInit {
   		}
   	);
   }
+  clearcache(loc){
+    Util.showWait();
+    loc.statd = "N";
+    this.jsonService
+  	.initService({"mode":"CLEARONE","dlr":loc.dlr},Util.Url("CGICMIGRAT"))
+  	.subscribe(data => this.dummy = data,
+  		err => {Util.hideWait(); },
+  		() => {
+        
+          Util.hideWait();
+          
+  		}
+  	);
+  }
+
+  clearall(){
+
+    Util.showWait();
+    this.jsonService
+  	.initService({"mode":"CLEARALL"},Util.Url("CGICMIGRAT"))
+  	.subscribe(data => this.dummy = data,
+  		err => {Util.hideWait(); },
+  		() => {
+          this.pagedata.loc =[];
+          this.dealer ="";
+          this.dealerp ="";
+          Util.hideWait();
+          
+  		}
+  	);
+
+  }
   ngOnInit() {
+    if (window.location.href.indexOf("ClearCache") != -1)
+      this.cachemode = true;
+    else
+      this.cachemode = false;
     this.pagedata.head.status = "I";
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);

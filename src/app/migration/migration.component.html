@@ -5,7 +5,8 @@
 		<div class="row">
 			<div class="col-xs-12" style="z-index:1">
 				<div class="title-section style3 left">
-					<h1 class="title">Dealer Migration</h1>
+					<h1 *ngIf="!cachemode" class="title">Dealer Migration</h1>
+					<h1 *ngIf="cachemode" class="title">Clear Cached Data</h1>
 				</div>
 			</div>
 		</div>
@@ -16,9 +17,18 @@
 			
 			<div class="row white" style="min-height: 600px;padding-top: 10px">
 					<div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
-							<h5>Dealer Migration includes dealer employees user ID and Legacy Invoices</h5>
+							<h5 *ngIf="!cachemode">Dealer Migration includes dealer employees user ID and Legacy Invoices</h5>
+							<h5 *ngIf="cachemode">Clear Cached Data for all/selected dealer</h5>
+					</div>
+					<div class="col-md-5 col-md-offset-1" style="padding-top:10px;">
 										<input class="pull-left" style="margin-right:15px" autocomplete="{{ran}}" name="dlr{{ran}}" [(ngModel)]="dealer" (keyup)="dealerGroups()"  type="text" placeholder="Dealer Code" maxlength="10">
 										<div *ngIf="process" class="loader2 pull-left" style="margin-top:5px"></div>
+					</div>
+					<div class="col-md-1" *ngIf="cachemode"  style="padding-top:15px;">
+						<h5 class="pull-left">--OR--</h5>
+					</div>
+					<div class="col-md-5 text-center" *ngIf="cachemode"  style="padding-top:10px;">
+							<button   type="button" class="btn btn-success" (click)="clearall()" >Clear All Cached Data</button>
 					</div>
 					<div class="col-md-10 col-md-offset-1">
 								  <table *ngIf="!process && pagedata.loc  && pagedata.loc.length >0 " class="col-xs-12">
@@ -29,13 +39,18 @@
 									  </tr>
 									  <tr *ngFor="let loc of pagedata.loc">
 										  <td style="padding:10px 0;width:50%"><span style="font-weight: bold">{{loc.desc}}</span></td>
-										  <td style="padding:10px 0;width:20%">
+										  <td *ngIf="!cachemode" style="padding:10px 0;width:20%">
 											<span *ngIf="loc.stat =='P'" style="background:#dc3545;padding:5px;font-weight: bold;color:white;">Processing</span>
 											<span *ngIf="loc.stat =='C'" class="bg-success" style="color:white;background:#28a745;padding:5px;font-weight: bold">Completed</span>
 											<span *ngIf="loc.stat ==''"  class="bg-secondary" style="background:gainsboro;padding:5px;font-weight: bold">Not Started</span>
 										  </td>
+										  <td *ngIf="cachemode" style="padding:10px 0;width:20%">
+											<span *ngIf="loc.statd =='Y'"  class="bg-success" style="color:white;background:#28a745;padding:5px;font-weight: bold">Cached Data</span>
+											<span *ngIf="loc.statd =='N'"  class="bg-secondary" style="background:gainsboro;padding:5px;font-weight: bold">No Data</span>
+										  </td>
 										  <td style="padding:10px 0;width:30%">&nbsp;
-											  <button *ngIf="loc.stat!=='P'" type="button" class="btn btn-primary" (click)="import(loc)" >Import Data</button>
+											  <button *ngIf="!cachemode && loc.stat!=='P'" type="button" class="btn btn-primary" (click)="import(loc)" >Import Data</button>
+											  <button *ngIf="cachemode && loc.statd=='Y'" type="button" class="btn btn-primary" (click)="clearcache(loc)" >Clear Cached Data</button>
 										  </td>
 
 									  </tr>

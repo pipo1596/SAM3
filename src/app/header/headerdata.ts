@@ -24,6 +24,7 @@ export class Menu{
 
 export class Locn{
         stat : string = "";
+        statd: string = "";
         dlr  : string = "";
         desc : string = "";
        

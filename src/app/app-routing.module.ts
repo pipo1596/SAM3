@@ -85,6 +85,7 @@ const routes: Routes = [
   { path: 'app/LegacyContracts',canDeactivate: [CanDeactivateGuard], component: LegacycontractsComponent },
   { path: 'app/PaymentHistory',canDeactivate: [CanDeactivateGuard], component: PaymentHistoryComponent },
   { path: 'app/Migration',canDeactivate: [CanDeactivateGuard], component: MigrationComponent },
+  { path: 'app/ClearCache',canDeactivate: [CanDeactivateGuard], component: MigrationComponent },
   { path: 'app/DealerStatement',canDeactivate: [CanDeactivateGuard], component: StatementComponent },
   { path: 'app/StaticPage',canDeactivate: [CanDeactivateGuard], component: StaticPageComponent },
   { path: 'app/DealerProfit',canDeactivate: [CanDeactivateGuard], component: ProfitComponent },
