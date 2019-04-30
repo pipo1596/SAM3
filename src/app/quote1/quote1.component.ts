@@ -354,7 +354,7 @@ checkStep1(){
       this.pagedata.body.rvtype = "";      
       if(this.rvmode) this.pagedata.body.rvtype  = this.rvtype;
       this.pagedata.body.benf = "";
-      if(this.arrlob.indexOf('PIPETCH')>-1) this.pagedata.body.benf  = this.benf;
+      if(this.arrlob.indexOf('PIPETC')>-1) this.pagedata.body.benf  = this.benf;
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
       this.pagedata.body.msrp   = this.msrp.value;

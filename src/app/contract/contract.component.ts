@@ -222,11 +222,11 @@ export class ContractComponent implements OnInit {
     if(this.pagedata.body.contract.vpd !=='')
       this.vpd.value   = this.pagedata.body.contract.vpd;
     else
-      this.vpd.value   =  new Date().toISOString().split('T')[0];
+      this.vpd.value   =  new Date(dt.getTime()-dt.getTimezoneOffset()*60*1000).toISOString().split('T')[0];
     if(this.pagedata.body.contract.cpd !=='')
       this.cpd.value   = this.pagedata.body.contract.cpd;
     else
-      this.cpd.value   =  new Date().toISOString().split('T')[0];
+      this.cpd.value   =  new Date(dt.getTime()-dt.getTimezoneOffset()*60*1000).toISOString().split('T')[0];
     this.vin.value   = this.pagedata.body.veh.vin;
     if(this.vin.value!=='') this.vinE = false;
     this.stock.value   = this.pagedata.body.contract.stock;
