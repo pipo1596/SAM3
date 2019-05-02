@@ -421,6 +421,26 @@ static sortBy2Key(array, key1,key2,dir) {
     });
 }
 //===================================================================================//
+static sortByKeyc(array, key,dir) {
+    return array.sort(function(a, b) {
+        var x = a[key].toString().toUpperCase(); var y = b[key].toString().toUpperCase();
+       if (dir=="D")
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));  
+       else
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+//===================================================================================//
+static sortBy2Keyc(array, key1,key2,dir) {
+    return array.sort(function(a, b) {
+        var x = (a[key1] + a[key2]).toString().toUpperCase(); var y = (b[key1] + b[key2]).toString().toUpperCase();
+       if (dir=="D")
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));  
+       else
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+//===================================================================================//
 static validZip(zip){
     var format = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
     if(zip.match(format)){

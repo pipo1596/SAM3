@@ -51,18 +51,20 @@ export class RemittedComponent implements OnInit {
   erScrolid :string = "";
   posScrolid :string = "";
   //Edit Input Fields
-  eofn  = new Textfield
-  lhfi  = new Textfield
-  eoln  = new Textfield
-  ecfn  = new Textfield
-  ecln  = new Textfield
-  eoad1  = new Textfield
-  eoad2  = new Textfield
-  eocty = new Textfield
-  eost  = new Textfield
-  eozip = new Textfield
-  eophn = new Textfield
-  email = new Textfield
+  eofn  = new Textfield;
+  lhfi  = new Textfield;
+  eoln  = new Textfield;
+  ecfn  = new Textfield;
+  ecln  = new Textfield;
+  eoad1  = new Textfield;
+  eoad2  = new Textfield;
+  eocty = new Textfield;
+  eost  = new Textfield;
+  eozip = new Textfield;
+  eophn = new Textfield;
+  email = new Textfield;
+  sortstck:boolean = false;
+  sortname:boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
   changeSort(){
@@ -72,6 +74,32 @@ export class RemittedComponent implements OnInit {
       this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","A");
     else
       this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
+  sortName(){
+    this.sortstck = false;
+    this.datesort = false;
+
+    this.sortname = !this.sortname;
+    Util.showWait();
+    if(this.sortname)
+      this.pagedata.contracts = Util.sortBy2Keyc(this.pagedata.contracts ,"fnam","lnam","A");
+    else
+      this.pagedata.contracts = Util.sortBy2Keyc(this.pagedata.contracts ,"fnam","lnam","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
+  sortStock(){
+    this.sortname = false;
+    this.datesort = false;
+
+    this.sortstck = !this.sortstck;
+    Util.showWait();
+    if(this.sortstck)
+      this.pagedata.contracts = Util.sortByKeyc(this.pagedata.contracts ,"stck","A");
+    else
+      this.pagedata.contracts = Util.sortByKeyc(this.pagedata.contracts ,"stck","D");
       this.setPage(1);
     Util.hideWait();  
   }

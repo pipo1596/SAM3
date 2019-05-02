@@ -92,8 +92,8 @@
 							<tr>
 								<th style="white-space: nowrap;"><b>Invoice #</b></th>
 								<th><b>Contract #</b></th>
-								<th nowrap><b>Stock #</b></th>
-								<th><b>Name</b></th>
+								<th nowrap><a href="javascript:void(0)" style="color:#337ab7" (click)="sortStock()" title="Sort By Stock #"><b>Stock #</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!sortstck" [class.fa-arrow-up]="sortstck"></i></a></th>
+								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="sortName()" title="Sort By Name"><b>Name</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!sortname" [class.fa-arrow-up]="sortname"></i></a></th>
 								<th nowrap><b>Co-buyer</b></th>
 								<th><b>Salesperson</b></th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort()" title="Sort By Date"><b>Date</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!datesort" [class.fa-arrow-up]="datesort"></i></a></th>

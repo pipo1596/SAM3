@@ -1160,7 +1160,8 @@ export class Quote3Component implements OnInit {
           table.catg = this.cont.catg;
           if(table.valu == null) table.valu = 0;
           
-          if (table.valu == undefined || table.valu == -1.2323 || (mode=='M' && table.valu ==0)){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
+          //if (table.valu == undefined || table.valu == -1.2323 || (mode=='M' && table.valu ==0)){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
+          if (table.valu == undefined || table.valu == -1.2323 || mode=='M' ){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && (this.cont.catg == 'OTC' || this.cont.catg == 'OTR')) this.cont.valu = table.valu.toFixed(2);
         }
 

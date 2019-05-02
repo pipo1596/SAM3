@@ -575,7 +575,7 @@ addplan(e,plan){
 
     if(this.pagedata.body.type == "R" || this.pagedata.body.type == 'H') this.rvmode = true;
     if(this.rvtype == "") this.rvtype = "M";
-    if(this.benf == "") this.rvtype = "2500";
+    if(this.benf == "") this.benf = "2500";
     if(!this.rvmode){this.engtyp.value ="";this.mfgw.value ="";this.mfgw.value = this.pagedata.body.mfgw;this.price.value="";}
     if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");

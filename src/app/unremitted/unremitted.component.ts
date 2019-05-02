@@ -64,15 +64,46 @@ export class UnremittedComponent implements OnInit {
   eophn = new Textfield
   email = new Textfield
   datesort:boolean = false;
+  sortstck:boolean = false;
+  sortname:boolean = false;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
+  
   changeSort(){
+    this.sortstck = false;
+    this.sortname = false;
     this.datesort = !this.datesort;
     Util.showWait();
     if(this.datesort)
       this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","A");
     else
       this.pagedata.contracts = Util.sortBy2Key(this.pagedata.contracts ,"ctdti","anum","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
+  sortName(){
+    this.sortstck = false;
+    this.datesort = false;
+
+    this.sortname = !this.sortname;
+    Util.showWait();
+    if(this.sortname)
+      this.pagedata.contracts = Util.sortBy2Keyc(this.pagedata.contracts ,"fnam","lnam","A");
+    else
+      this.pagedata.contracts = Util.sortBy2Keyc(this.pagedata.contracts ,"fnam","lnam","D");
+      this.setPage(1);
+    Util.hideWait();  
+  }
+  sortStock(){
+    this.sortname = false;
+    this.datesort = false;
+
+    this.sortstck = !this.sortstck;
+    Util.showWait();
+    if(this.sortstck)
+      this.pagedata.contracts = Util.sortByKeyc(this.pagedata.contracts ,"stck","A");
+    else
+      this.pagedata.contracts = Util.sortByKeyc(this.pagedata.contracts ,"stck","D");
       this.setPage(1);
     Util.hideWait();  
   }
