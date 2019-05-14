@@ -47,6 +47,7 @@ contracts : [Cont];
      xm15:boolean;
      xm18:boolean;
      xm24:boolean;
+     cmpc:string;
      gapt:string;
 
 

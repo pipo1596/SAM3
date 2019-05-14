@@ -190,8 +190,13 @@ export class Quote3Component implements OnInit {
         contract.TERM += (this.pagedata.body.gapt+' Months / ' +
                     this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
       }else{
+
+        if(tb.rates[t].rows[r].mil>0){
         contract.TERM += (tb.rates[t].rows[r].mon+' Months / ' +
                     this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
+        }else{
+          contract.TERM += (tb.rates[t].rows[r].mon+' Months').padEnd(50);
+        }
       }
     }
    
@@ -1291,6 +1296,17 @@ export class Quote3Component implements OnInit {
     else return "";
 
   }
+  //==================================================================================================//  
+  xlateratc(prg, ratc) {
+    if (this.pagedata.body.data === undefined) return "";
+    var index = this.pagedata.body.data.findIndex(obj => (obj.prg == prg && obj.ratc == ratc));
+    if(index<0){
+      index = this.pagedata.body.data.findIndex(obj => (obj.prg == prg));
+    }
+    if (index >= 0) return this.pagedata.body.data[index].ratc;
+    else return "";
+
+  }
   //==================================================================================================//
   selectCov(e, parent, table, row, col) {
     var cov = this.pagedata.body.coverages;
@@ -1344,6 +1360,15 @@ export class Quote3Component implements OnInit {
         () => {
           Util.setHead(this.pagedata.head);
           Util.responsiveMenu();
+          if(this.pagedata.body.cmpc == 'PIP'){
+          this.pagedata.body.tables.forEach(table => {
+            if (table.rates !== undefined) {
+              table.rates.forEach(rate => {
+                rate.ratc = this.xlateratc(rate.program,rate.ratc);
+              });
+            }
+          });
+        }
           this.AllCov();
           this.mindwn = this.pagedata.body.mindwn;
           this.months = this.pagedata.body.months;

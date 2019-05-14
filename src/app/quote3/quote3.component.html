@@ -465,7 +465,7 @@
                                         <span *ngIf="datads.lobc !=='WT'">
                                             <span *ngIf="!(datads.lobc=='GAP'&& pagedata.body.gapt!=='')">{{term.termm}} Months</span> 
                                             <span *ngIf="(datads.lobc=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
-                                            / {{term.miles|number:0}}</span>
+                                            <span *ngIf="term.miles!=='0'">/ {{term.miles|number:0}}</span></span>
                                         <span *ngIf="datads.lobc  =='WT'"><span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                     </label>
                                 </span>
@@ -544,8 +544,9 @@
                                            <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
                                                <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                 <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
-                                               / {{row.mil|number:0}}</span>
-                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                                <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
+                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> 
+                                           / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
                                         <td *ngIf="col.check">
@@ -627,7 +628,7 @@
                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
                                                         <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                         <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
-                                                     / {{row.mil|number:0}}</span>
+                                                        <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
@@ -847,7 +848,7 @@
                                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
                                                                     <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                                     <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
-                                                                    / {{row.mil|number:0}}
+                                                                    <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span>
                                                                 </span>
                                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                         </td>
@@ -1013,7 +1014,7 @@
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
                                                                             <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                                             <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
-                                                                            / {{row.mil|number:0}}</span>
+                                                                            <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                                 </td>
                                                                 <td style="font-weight: bold" *ngIf="col.ded!=='DD'">

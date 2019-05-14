@@ -229,7 +229,6 @@ checkStep1(){
     this.insrvc.value   = this.insrvc.value.trim();
     this.asofdt.value   = this.asofdt.value.trim();
     if((this.arrlob.indexOf('GAP')>-1 || 
-        this.arrlob.indexOf('PIPUVP')>-1 || 
         this.arrlob.indexOf('PIPGAP')>-1) && this.arrlob.indexOf('WT')>-1){
       this.gapt.value = this.lmth.value.toString().trim();
     }
@@ -315,7 +314,6 @@ checkStep1(){
       if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
     if(this.arrlob.indexOf('GAP')>-1 ||
-       this.arrlob.indexOf('PIPUVP')>-1 ||  
        this.arrlob.indexOf('PIPGAP')>-1){
       //Gap Terms
       if(this.gapt.value == null || this.gapt.value.toString() == ""){this.gapt.message = "(Required)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
@@ -436,6 +434,7 @@ onChange() {
 yearChange(){
   
   this.onChange();
+  this.vin.value = "";this.vin.message ="";Util.uncheckbyid("ckdate");
   this.pagedata.body.requot = false;
   this.pagedata.body.dyear = this.year.value;
   this.insrvc.value = "";
@@ -503,6 +502,7 @@ importDms(){
 makeChange(){
   Util.showWait();
   this.onChange();
+  this.vin.value = "";this.vin.message ="";Util.uncheckbyid("ckdate");
   this.pagedata.body.mode ="MAKE";
   this.pagedata.body.make = this.make.value;
   this.pagedata.body.models = [{"model":"","desc":""}];
@@ -519,6 +519,7 @@ makeChange(){
 }
 
 addplan(e,plan){
+    var currmode = this.rvmode;
     this.rvmode = false;
     var srcEl = e.srcElement || e.target;
     this.changes = true; 
@@ -579,8 +580,54 @@ addplan(e,plan){
     if(!this.rvmode){this.engtyp.value ="";this.mfgw.value ="";this.mfgw.value = this.pagedata.body.mfgw;this.price.value="";}
     if(this.pagedata.body.type=="" && (this.pagedata.body.dtype == "R" || this.pagedata.body.dtype == 'H')) this.rvmode = true;
     this.pagedata.body.ckprgs = Util.sortByKey(this.pagedata.body.ckprgs,"desc","A");
-}
 
+    if(currmode!== this.rvmode){
+      this.clearfields();
+    }
+
+}
+clearfields(){
+  this.dispAlert.default();
+
+  this.dlno.message     = "";
+  this.year.message     = "";
+  this.dnup.message     = "";
+  this.make.message     = "";
+  this.model.message    = "";
+  this.vin.message      = "";
+  this.engtyp.message   = "";
+  this.mfgw.message     = "";
+  this.miles.message    = "";
+  this.price.message    = "";
+  this.msrp.message     = "";
+  this.amfn.message     = "";
+  this.gapt.message     = "";
+  this.lmil.message     = "";
+  this.lmth.message     = "";
+  this.insrvc.message   = "";
+  //this.asofdt.message   = "";
+
+  this.dlno.value     = "";
+  this.year.value     = "";
+  this.dnup.value     = "";
+  this.make.value     = "";
+  this.model.value    = "";
+  this.vin.value      = "";
+  this.engtyp.value   = "";
+  this.mfgw.value     = "";
+  this.miles.value    = "";
+  this.price.value    = "";
+  this.msrp.value     = "";
+  this.amfn.value     = "";
+  this.gapt.value     = "";
+  this.lmil.value     = "";
+  this.lmth.value     = "";
+  this.insrvc.value   = "";
+  //this.asofdt.value   = "";
+  
+  
+  
+}
 prgIndex(prg,ratc){
   for (var i = 0; i < this.pagedata.body.ckprgs.length; i++) {
     if (this.pagedata.body.ckprgs[i].prg == prg && this.pagedata.body.ckprgs[i].ratc==ratc) {

@@ -234,7 +234,7 @@
                                 <label class="checklabel" for="check{{datads.prg+datads.ratc+term.termm+term.miles}}" *ngIf="datads.lobc!=='WT'">
                                     <span *ngIf="!(datads.lobc=='GAP'&& pagedata.body.gapt!=='')">{{term.termm}} Months</span> 
                                     <span *ngIf="(datads.lobc=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
-                                    / {{term.miles| number:0 }} miles</label>
+                                    <span *ngIf="term.miles!=='0'">/ {{term.miles| number:0 }} miles</span></label>
                                 <label class="checklabel" for="check{{datads.prg+datads.ratc+term.termm+term.miles}}" *ngIf="datads.lobc =='WT'"><span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil | number:0 }} miles</label>
                             </span>
                             </div>
