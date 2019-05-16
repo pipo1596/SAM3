@@ -268,7 +268,8 @@ addSlcd(){
         }else{
 
           this.slcd.erlevel = "D";
-          this.slcd.message = "(Invalid Salesperson Code)";
+          //this.slcd.message = "(Invalid Salesperson Code)";
+          this.slcd.message = this.dlrv.mesg;
         }
         
         Util.hideWait();
