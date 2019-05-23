@@ -37,9 +37,22 @@ table.sixcol{font-size:14px;}
     .sub-nav{
         font-size:14px;
     }
+    .bluemsg{color: #0f74c1;
+        font-size: 13px;
+        font-weight: bold;}
     .claimsmenu{width:260px !important;}
     .supportmenu{width:280px !important;}
 }
+#viewcost{position: fixed; top:300px; right:50px;padding: 10px;
+    background: ghostwhite;z-index: 9999999;
+}
+#viewcost button{cursor: pointer;}
+.desc3{BACKGROUND: #d25d5d;
+    font-size: 13px;
+    margin-top: -20px;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px; }
  body {
      line-height: 1;
      -webkit-font-smoothing: antialiased;
@@ -2403,7 +2416,7 @@ date-input-polyfill button{padding:5px;}
 .progress-bar{line-height:30px;}
 
 /* Absolute Center Spinner */
-.loading {
+.loading , #costcover{
   position: fixed;
   z-index: 999;
   height: 2em;
@@ -2417,7 +2430,7 @@ date-input-polyfill button{padding:5px;}
 }
 
 /* Transparent Overlay */
-.loading:before {
+.loading:before,#costcover:before {
   content: '';
   display: block;
   position: fixed;

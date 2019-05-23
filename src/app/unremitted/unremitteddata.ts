@@ -19,6 +19,7 @@ export class State{
 
 export class Cont {
 	show : boolean;
+	esvc : boolean;
 	ionov : string;
 	ionoc : string;
 	ionoz : string;

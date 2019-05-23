@@ -112,6 +112,8 @@
 											<a href="javascript:void(0)" tile="View" (click)="editCont(cont)" style="font-size:16px;color: #007bb8;"><span class="fa fa-eye"></span></a>
 										    
 											{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span>
+
+											<p class="bluemsg" *ngIf="cont.esvc">(FROM ESERVICES)</p>
 										
 										</td>	
 									<td data-label="Stock #">{{cont.stck}}</td>

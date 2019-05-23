@@ -115,6 +115,7 @@ export class Rate{
     coverage :string="";
     seq :string="";
     title :string="";
+    dsc3 :string="";
     nup :string="";
     surch: [string] = [""];
     surdesc: [string] = [""];

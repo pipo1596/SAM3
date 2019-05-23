@@ -130,6 +130,7 @@
 										<a href="javascript:void(0)" tile="Edit" (click)="editCont(cont)" style="font-size:18px;color: #007bb8;"><span class="fa fa-edit"></span></a>
 										    
 											{{cont.anum}}<span *ngIf="cont.asuf!==''">-{{cont.asuf}}</span>
+											<p class="bluemsg" *ngIf="cont.esvc">(FROM ESERVICES)</p>
 									</td>	
 									<td nowrap data-label="Stock #">{{cont.stck}}</td>
 									<td data-label="Name"><div style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;">{{cont.fnam}} {{cont.lnam}}</div></td>

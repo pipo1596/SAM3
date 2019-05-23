@@ -22,6 +22,7 @@ export class DescoverrideComponent implements OnInit {
 	srky2= new Textfield;
 	form= new Textfield;
 	desc = new Textfield;
+	dsc3 = new Textfield;
 	descq = new Textfield;
 	qdsc = new Textfield;
 	dlr  = new Textfield;
@@ -162,6 +163,7 @@ export class DescoverrideComponent implements OnInit {
 	this.selectedRec.prg  = record.prg;
   	this.selectedRec.srkyi= record.srkyi;
   	this.selectedRec.desc = record.desc;
+  	this.selectedRec.dsc3 = record.dsc3;
   	this.selectedRec.qdsc = record.qdsc;
   	this.selectedRec.dlr  = record.dlr;
   	this.selectedRec.dlri = record.dlri;
@@ -216,6 +218,7 @@ export class DescoverrideComponent implements OnInit {
 	this.prg.message = "";  
 	this.lob.message = "";  
   	this.desc.message = "";
+  	this.dsc3.message = "";
   	this.descq.message = "";
   	this.descq.value = "";
   	this.qdsc.message = "";
@@ -238,6 +241,7 @@ export class DescoverrideComponent implements OnInit {
   	this.selectedRec.cmpc  = this.cmpc;
 
   	this.desc.value = this.selectedRec.desc.trim();
+  	this.dsc3.value = this.selectedRec.dsc3.trim();
   	this.qdsc.value = this.selectedRec.qdsc.trim();
 
 		if(this.srky.value == ""){ this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
@@ -274,6 +278,7 @@ export class DescoverrideComponent implements OnInit {
 										   this.selectedRec.prg.toUpperCase();
 
   					this.newRec.desc = this.selectedRec.desc;
+  					this.newRec.dsc3 = this.selectedRec.dsc3;
   					this.newRec.qdsc = this.selectedRec.qdsc;
   					this.newRec.dlr  = this.selectedRec.dlr;
   					this.newRec.dlri = this.selectedRec.dlr.toUpperCase();
@@ -306,6 +311,7 @@ export class DescoverrideComponent implements OnInit {
 																	this.selectedRec.prg;
   					this.pagedata.overrides[this.index].prg = this.selectedRec.prg; 
   					this.pagedata.overrides[this.index].desc = this.selectedRec.desc; 
+  					this.pagedata.overrides[this.index].dsc3 = this.selectedRec.dsc3; 
   					this.pagedata.overrides[this.index].qdsc = this.selectedRec.qdsc; 
   					this.pagedata.overrides[this.index].dlr = this.selectedRec.dlr; 
   					this.pagedata.overrides[this.index].dlri = this.selectedRec.dlr;

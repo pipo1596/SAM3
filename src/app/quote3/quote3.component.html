@@ -522,6 +522,7 @@
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span>
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspNup(element.prgm,'U')}})</span>
                                                                    </h3>
+                            <p *ngIf="table.dsc3!==''" class="desc3">{{table.dsc3}}</p>
                             <table class="table sixcol">
                                 <thead>
                                     <tr>
@@ -606,6 +607,7 @@
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='P'">(Program)</span>
                                                                    <span class="pull-right" style="color:gray" *ngIf="table.nup =='U'">({{dspNup(element.prgm,'U')}})</span>
                                                                    </h3>
+                            <p *ngIf="table.dsc3!==''" class="desc3">{{table.dsc3}}</p>
                             <table class="table sixcol">
                                 <thead>
                                     <tr>
@@ -1062,6 +1064,11 @@
             </div>
         </div>
     </div>
+    <div *ngIf="pagedata.head.as400" id="viewcost" [class.hidden]="loading">
+        <button *ngIf="!costview" (click)="viewcost()" class="btn btn-default" type="button" title="View Cost">View Cost</button>
+        <button *ngIf="costview" (click)="proceed()" class="btn btn-info" type="button" title="Proceed">&nbsp;&nbsp;Proceed&nbsp;</button>
+    </div>
+    <div *ngIf="costview" id="costcover"></div>
     <div class="modal" id="taxmodal" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">

@@ -89,6 +89,12 @@
 								<textarea autocomplete="new-password"  style="max-height:100px;color:black;margin-bottom: 10px;" name="qdsc" [class.required]="qdsc.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.qdsc" maxlength="512"  (change)="onChange()"></textarea>
 						</div>
 				</div>
+				<div class="col-sm-12" >
+						<label class="flat-input inputlabel">Step 3 Description</label>
+						<div class="flat-input w100">
+								<textarea autocomplete="new-password"  style="max-height:80px;color:black;margin-bottom: 10px;" name="dsc3" [class.required]="dsc3.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.dsc3" maxlength="256"  (change)="onChange()"></textarea>
+						</div>
+				</div>
 				<div class="col-xs-12 well" >
 						<label class="flat-input inputlabel" style="margin-bottom: 20px;">Quote Printout Coverage Components&nbsp;<a href="javascript:void(0)" title="Add New" (click)="newcomp()" style="color:#5a8ce6">- Add New</a></label>
 						<div *ngFor="let bullet of selectedRec.bullets" class="col-sm-3 col-xs-6" >

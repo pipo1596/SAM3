@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 export class Quote3Component implements OnInit {
 
   changes = false;
+  costview = false;
   showcalc:boolean = false;
   datanotsored :any;
   dispAlert = new Dispalert();
@@ -63,7 +64,43 @@ export class Quote3Component implements OnInit {
   arrslct: [string] = [""];
 
   constructor(private jsonService: JsonService, private router: Router, private location: Location) { }
+  viewcost(){
+    Util.showWait();
+    this.pagedata.body.tables.forEach((table, i0) => {
+      table.rates.forEach((rate, i1) => {
+        rate.data.forEach((row, i2) => {
+          row.forEach((unitp, i3) => {
 
+              var cost = 0 ;
+              if(rate.cost !== undefined)
+              if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
+              if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>0)
+                cost+=rate.cost[i2][i3][0];
+                this.pagedata.body.srchg.forEach((surch, i4) => {
+                  var srchi = rate.surch.findIndex(sch => (surch.code == sch));
+                  if (srchi > -1 && surch.prgm == rate.program) {
+                    if(rate.cost !== undefined)
+                    if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
+                    if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>srchi+2)
+                    cost += rate.cost[i2][i3][srchi+3];
+                  }
+                });
+            if(cost > 0)
+              unitp[0] = cost;
+            else
+              unitp[0] = unitp[1];
+          })
+        })
+      })
+    })
+    Util.hideWait();
+    this.costview = true;
+
+  }
+  proceed(){
+    this.applySurch("C");
+    this.costview = false;
+  }
   printquote(){
     Util.prinQuote();
   }

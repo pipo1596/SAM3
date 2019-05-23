@@ -19,6 +19,7 @@ export class Ovrd{
 	prg  : string;
 	srkyi: string;
 	desc : string;
+	dsc3 : string;
 	qdsc : string;
 	desci: string;
 	lob  : string;
