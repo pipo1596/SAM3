@@ -1267,8 +1267,9 @@ export class Quote3Component implements OnInit {
             }
               //NCB Charge
               var ncbsurch = 0;
-              if(cost > 0){
+              if(cost > 0 ){
               var profit = unitp[0]-cost;
+              if(rate.ncbtiers!==undefined){
               if(profit <=3000 && unitp[0]<=5000){//Apply only if profit is less than 3k and retail price less than 5k.
               var lowlimit =0;
               rate.ncbtiers = Util.sortByKey(rate.ncbtiers,"prof","A");
@@ -1277,6 +1278,7 @@ export class Quote3Component implements OnInit {
                 lowlimit = ncb.prof +0.01;
               })
             }
+          }
 
             if(this.cont.catg!=="RTL" && this.cont.catg !=="OTR"){
               unitp[0] += ncbsurch;

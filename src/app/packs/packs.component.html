@@ -92,6 +92,7 @@
                     <h3  style="margin:25px 0 20px 0;color:#a94442;float:right;" [class.opqquezero]="warnmesg===''" [class.validating]="validating">{{warnmesg}}</h3> 
                     <h3 style="margin:25px 0 20px 0;float:left"> 
                         <div class="custradio" style="padding: 3px 30px 0 0;"><input name="sectn" id="sectn1" value="R" type="radio" (change)="effect()" [(ngModel)]="sectn"><label for="sectn1"></label></div><label for="sectn1"><u>Retail</u></label></h3>
+                        <p style="float: left;font-size:13px;margin-top:-20px;width:100%">*The Pack amount WILL be included in the "Producer Cost" field of the CAP sheet.</p>
                     <div class="clearfix"></div>
                     <div [class.hidden]="sectn !=='R'">
                     <label class="flat-input inputlabel" style="margin-top:2px">Customer Retail Amount
@@ -118,7 +119,8 @@
                     <div class="col-xs-12"><h3 style="text-align:center;margin:7px">Or</h3></div>
                     <h3 style="margin:0;">
                         <div class="custradio" style="padding: 3px 30px 0 0;"><input name="sectn" id="sectn2" value="I" type="radio" (change)="effect()" [(ngModel)]="sectn"><label for="sectn2"></label></div><label for="sectn2"><u>Internal</u></label></h3>
-                    <div class="clearfix"></div>
+                        <p style="float: left;font-size:13px;width:100%">*The Pack amount WILL NOT be included in the "Producer Cost" field of the CAP sheet.</p>
+                        <div class="clearfix"></div>
                     <div [class.hidden]="sectn!='I'">
                     <label class="flat-input inputlabel">Internal Markup $
                         <span class="errorspan2" [class.opqquezero]="amti.message===''" [class.alert-danger]="amti.erlevel==='D'"  [class.validating]="validating">{{amti.message}}</span> 
