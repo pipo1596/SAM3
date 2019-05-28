@@ -67,6 +67,7 @@ export class Quote3Component implements OnInit {
   viewcost(){
     Util.showWait();
     this.pagedata.body.tables.forEach((table, i0) => {
+      if(table.rates !== undefined){
       table.rates.forEach((rate, i1) => {
         rate.data.forEach((row, i2) => {
           row.forEach((unitp, i3) => {
@@ -92,6 +93,7 @@ export class Quote3Component implements OnInit {
           })
         })
       })
+    }
     })
     Util.hideWait();
     this.costview = true;

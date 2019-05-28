@@ -205,6 +205,15 @@ export class ContractComponent implements OnInit {
                                 this.validvin = true;this.vinE = false;}
                               else{
                                 this.vin.erlevel = 'D';
+                                if(this.vin.message.indexOf('VIN') > 0){
+                                  this.erscrol('vin');
+                                  Util.modalid('show','InvalidVinModal');
+
+                                }else{
+                                  this.erscrol('vin');
+                                  Util.modalid('show','WrongVinModal');
+
+                                }
                               }
                               if(this.validvin && this.vindata.vfmatch !='Y'){
                                 this.changes = false;
@@ -286,7 +295,9 @@ export class ContractComponent implements OnInit {
     if(this.erScrolid=='')
       this.erScrolid = id + 'lbl';
   }
-
+tostep1(){
+  this.router.navigate(['/app/Quote1']);
+}
   checkData() {
 
     this.dispAlert.default();
@@ -347,7 +358,11 @@ export class ContractComponent implements OnInit {
     if (this.pagedata.body.veh.type=='A' && this.vin.value !=='' && !this.validvin) { 
       this.vin.message = "( Invalid VIN for "+this.pagedata.body.veh.year+" "+
                                               this.pagedata.body.veh.make+" "+
-                                              this.pagedata.body.veh.model+"! )"; this.vin.erlevel = "D"; this.valid = false; this.erscrol('vin');}
+                                              this.pagedata.body.veh.model+"! )"; this.vin.erlevel = "D"; 
+                                              this.valid = false; 
+                                              this.erscrol('vin');
+                                              Util.modalid('show','WrongVinModal');
+                                            }
     if (this.vpd.value == "") { this.vpd.message = "(required)"; this.vpd.erlevel = "D"; this.valid = false; this.erscrol('vpd');}
     if(this.validvin && this.vindata.vfmatch !='Y'&& this.pagedata.body.veh.price ==""){
       this.valid = false;
