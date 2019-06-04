@@ -56,6 +56,8 @@ import { CancellationsComponent } from './cancellations/cancellations.component'
 import {Safe} from './_services/pager.service';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { ProduceranalysisComponent } from './produceranalysis/produceranalysis.component';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { SignpadComponent } from './signpad/signpad.component';
 
 
 enableProdMode();
@@ -105,13 +107,15 @@ enableProdMode();
     CancellationsComponent,
     DealermasterComponent,
     Safe,
-    ProduceranalysisComponent
+    ProduceranalysisComponent,
+    SignpadComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     TooltipModule,
+    SignaturePadModule,
     AppRoutingModule
   ],
   providers: [JsonService,

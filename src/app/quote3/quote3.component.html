@@ -463,8 +463,8 @@
                                     </div>
                                     <label class="checklabel" for="check{{datads.prg+datads.ratc+term.termm+term.miles}}">
                                         <span *ngIf="datads.lobc !=='WT'">
-                                            <span *ngIf="!(datads.lobc=='GAP'&& pagedata.body.gapt!=='')">{{term.termm}} Months</span> 
-                                            <span *ngIf="(datads.lobc=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
+                                            <span *ngIf="!((datads.lobc=='GAP'||datads.lobc=='PIPGAP')&& pagedata.body.gapt!=='')">{{term.termm}} Months</span> 
+                                            <span *ngIf="((datads.lobc=='GAP'||datads.lobc=='PIPGAP')&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                             <span *ngIf="term.miles!=='0'">/ {{term.miles|number:0}}</span></span>
                                         <span *ngIf="datads.lobc  =='WT'"><span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                     </label>
@@ -543,8 +543,8 @@
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
                                            <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
-                                               <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
-                                                <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
+                                               <span *ngIf="!((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
+                                                <span *ngIf="((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                 <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
                                            <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> 
                                            / {{pagedata.body.veh.lmil|number:0}}</span>
@@ -628,8 +628,8 @@
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
-                                                        <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
-                                                        <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
+                                                        <span *ngIf="!((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
+                                                        <span *ngIf="((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                         <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
@@ -848,8 +848,8 @@
                                                         </td>
                                                         <td style="font-weight: bold">
                                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
-                                                                    <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
-                                                                    <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
+                                                                    <span *ngIf="!((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
+                                                                    <span *ngIf="((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                                     <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span>
                                                                 </span>
                                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
@@ -906,57 +906,51 @@
                         .hideinprint {display :  none;}
                         
                         }
+                        
                     </style>
                     <div style="height: fill-available;height: -moz-available;height: -webkit-fill-available;margin-bottom:5px;width:650px;margin:0 auto;">
-                        <div class="text-right hideinprint" style="margin:10px;"><a href="javascript:window.print()" class="  btn btn-primary"><span class="fa fa-print"></span> PRINT</a></div>
+                        <div class="text-right hideinprint printbtn"><a href="javascript:window.print()" class="  btn btn-primary"><span class="fa fa-print"></span> PRINT</a></div>
                         <h3 class="text-center" style="margin:0">{{pagedata.body.veh.name}}</h3>
                         <table class="table table-sm" style="margin-bottom:0">
                                 <tbody>
                                         <tr>
-                                                <td class="text-right" nowrap >
+                                                <td class="text-left padleft" nowrap colspan="2">
                                                         <b>Vehicle:</b>
-                                                </td>
-                                                <td class="text-left" colspan="3">
+                                                
                                                    {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}
                                                 </td>
                                         </tr>     
                                         <tr>     
-                                        <td class="text-right" nowrap>
+                                        <td class="text-left padleft" nowrap *ngIf="pagedata.body.veh.miles!==''">
                                                 <b>Miles:</b>
-                                        </td>
-                                        <td class="text-left">
+                                       
                                             {{pagedata.body.veh.miles | number:0}}
                                         </td>
-                                                <td class="text-right" nowrap>
+                                                <td class="text-left padright" nowrap>
                                                         <b>In-Service:</b>
-                                                </td>
-                                                <td class="text-left">
+                                                
                                                     {{pagedata.body.veh.insrvc}}</td>
                                         </tr>
                                     <tr>
-                                        <td class="text-right" nowrap>
+                                        <td class="text-left padleft" nowrap>
                                             <b>Quote ID:</b>
-                                        </td>
-                                        <td class="text-left">
+                                        
                                         {{pagedata.body.qtid}}
                                     </td>
-                                        <td class="text-right" nowrap width="25%">
+                                        <td class="text-left padright" nowrap >
                                             <b>Quote Date:</b>
-                                        </td>
-                                        <td class="text-left">
+                                        
                                        {{today | date:'MM/dd/yyyy'}}
                                     </td>
                                     </tr>
                                     <tr>
-                                            <td class="text-right" nowrap>
+                                            <td class="text-left padleft" nowrap>
                                                 <b>Name:</b>
-                                            </td>
-                                            <td class="text-left">
+                                            
                                            {{pagedata.body.first +' '+pagedata.body.last}}</td>
-                                            <td class="text-right" nowrap>
+                                            <td class="text-left padright" nowrap>
                                                     <b>Stock #:</b>
-                                            </td>
-                                            <td class="text-left">
+                                            
                                                 {{pagedata.body.stock}}</td>
                                         </tr>
                                     
@@ -999,9 +993,9 @@
                                                                         <i class="fa fa-angle-double-right"></i>&nbsp;{{bullet}}</p>
                                                                     <div *ngIf="table.surdesc && table.surdesc.length >0" class="pull-left w100">
                                                                         <hr style="margin-top:2px;margin-bottom:2px;">
-                                                                        <h6 style="margin-bottom:0">OPTIONAL COVERAGES:</h6>
+                                                                        <h6 style="margin-bottom:0;font-size: inherit;">OPTIONAL COVERAGES:</h6>
                                                                         <p class="col-xs-4" *ngFor="let oc of table.surdesc" style="margin-top:6px;font-size:11px;padding:0;white-space: nowrap;font-weight: bold;">
-                                                                                <i class="fa fa-star"></i>&nbsp;{{oc}}</p>
+                                                                                <i class="fa fa-angle-double-right"></i>&nbsp;{{oc}}</p>
                                                                     </div>
                                                                     </div>
                                                                 </td>
@@ -1011,11 +1005,11 @@
                                                                             <div style="width:18px;height:18px;border:2px solid;float: left;margin-top:2px"></div>
                                                                             <label class="checklabel" style="margin-left:23px"><b>ACCEPT</b></label>
                                                                     </td>
-                                                                <td style="font-weight: bold">
+                                                                <td style="font-weight: bold;white-space:nowrap;">
                                                                         <b>Term:&nbsp;</b>
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
-                                                                            <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
-                                                                            <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP'&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
+                                                                            <span *ngIf="!((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
+                                                                            <span *ngIf="((xlatelobc(element.prgm,element.ratc)=='GAP'||xlatelobc(element.prgm,element.ratc)=='PIPGAP')&& pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                                             <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                                 </td>
@@ -1064,7 +1058,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="pagedata.head.as400" id="viewcost" [class.hidden]="loading">
+    <div *ngIf="pagedata.head.as400" id="viewcost" [class.hidden]="loading || pagedata.body.pagemode=='R'">
         <button *ngIf="!costview" (click)="viewcost()" class="btn btn-default" type="button" title="View Cost">View Cost</button>
         <button *ngIf="costview" (click)="proceed()" class="btn btn-info" type="button" title="Proceed">&nbsp;&nbsp;Proceed&nbsp;</button>
     </div>

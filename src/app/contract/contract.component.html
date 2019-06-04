@@ -581,15 +581,17 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">Vehicle Features Mismatch</h4>
+                  <h4 class="modal-title pull-left" id="alertTitle">Vehicle Features do not match!</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">The Vehicle Features don’t match with the VIN entered! Click update to change the vehicle information and requote or click 
-                        <a style="color:#2a8fe6" (click)="hidemdl('WrongVinModal')" href="javascript:void(0)"><b>&nbsp;<u>Here</u>&nbsp;</b></a> to change the VIN to match the vehicle information entered.
+                  <p id="alertBody">The Vehicle Features do not match with the VIN entered!<br>
+                    Click "Requote" to restart the quoting process with the entered VIN.<br>
+                     Click "Edit" to edit the VIN entered. 
                   </p>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" (click)="tostep1()" type="button">Update</button>
+                  <button class="btn btn-primary" (click)="tostep1()" type="button">Update</button>&nbsp;
+                  <button class="btn btn-primary" (click)="hidemdl('VFMismatchModal')" type="button">Edit</button>
                 </div>
               </div>
             </div>
@@ -601,12 +603,14 @@
                   <h4 class="modal-title pull-left" id="alertTitle">VIN does not match!</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">The Vehicle information entered does not match the VIN entered! Click update to change the vehicle information and requote or click 
-                      <a style="color:#2a8fe6" (click)="hidemdl('WrongVinModal')" href="javascript:void(0)"><b>&nbsp;<u>Here</u>&nbsp;</b></a> to change the VIN to match the vehicle information entered.
+                  <p id="alertBody">The Vehicle information entered does not match the VIN entered!<br>
+                     Click "Requote" to restart the quoting process with the entered VIN.<br>
+                     Click "Edit" to edit the VIN entered. 
                   </p>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" (click)="tostep1()" type="button">Update</button>
+                  <button class="btn btn-warning" (click)="tostep1()" type="button">Requote</button>&nbsp;
+                  <button class="btn btn-primary" (click)="hidemdl('WrongVinModal')" type="button">Edit</button>
                 </div>
               </div>
             </div>
@@ -615,12 +619,10 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">Invalid VIN</h4>
+                  <h4 class="modal-title pull-left" id="alertTitle">Invalid VIN!</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">The VIN entered is not valid. You must click 
-                      <a style="color:#2a8fe6" (click)="hidemdl('InvalidVinModal')" href="javascript:void(0)"><b>&nbsp;<u>Here</u>&nbsp;</b></a> to update and continue.
-                  </p>
+                  <p id="alertBody">The VIN entered is not valid. Click OK to update and contintue.</p>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-primary" (click)="hidemdl('InvalidVinModal')" type="button">OK</button>

@@ -324,6 +324,12 @@ static scrollToId(id){
 
 }
 //===================================================================================//
+static scrollToId2(id){
+    
+    if($("#"+id).length<1) return false;
+    $('html, body').animate({ scrollTop: $("#"+id).offset().top-5 }, 400);
+}
+//===================================================================================//
 static scrollToIds(id){
     if($("#"+id).length<1) return false;
     $('html, body').animate({ scrollTop: $("#"+id).offset().top-5 }, 400,"swing",

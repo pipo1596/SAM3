@@ -225,7 +225,7 @@ export class Quote3Component implements OnInit {
       
       contract.CVML += tb.rates[t].rows[r].mil.toString().padEnd(7);
       
-      if(xlob=='GAP' && this.pagedata.body.gapt!==''){
+      if((xlob=='GAP' || xlob=='PIPGAP') && this.pagedata.body.gapt!==''){
         contract.TERM += (this.pagedata.body.gapt+' Months / ' +
                     this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
       }else{

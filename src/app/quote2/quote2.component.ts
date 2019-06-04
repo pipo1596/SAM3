@@ -48,6 +48,7 @@ export class Quote2Component implements OnInit {
       eachObj.ded.deductibles.forEach(element => {element.check2 = this.allchek;});
 
     });
+    if(this.allchek) Util.scrollToId2('submbtn');
   //}
   }
 

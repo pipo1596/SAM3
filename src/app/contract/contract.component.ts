@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Util } from '../utilities/util';
 import { Dispalert, Errsetter } from '../utilities/dispalert';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Textfield } from '../utilities/textfield';
   templateUrl: './contract.component.html'
 })
 export class ContractComponent implements OnInit {
-
+ 
   changes = false;
   dispAlert = new Dispalert();
   dispAlertlh = new Dispalert();
@@ -48,6 +48,7 @@ export class ContractComponent implements OnInit {
 
   vinE:boolean = true;
   validvin:boolean = false;
+  wrongvin:boolean = false;
   prevVin:string = '';
   ran:string = Util.makeid();
   //Bottom Section
@@ -195,8 +196,9 @@ export class ContractComponent implements OnInit {
                        () => {
                               this.vin.message = this.vindata.message;
                               this.vin.erlevel = this.vindata.status;
-                              
+                              this.wrongvin = false;
                               this.validating = true;
+                              this.validvin = false;
                               if(this.vindata.status==="S"){ 
                                 this.pagedata.body.veh.mmil = this.vindata.mmil;
                                 this.pagedata.body.veh.mmth = this.vindata.mmth;
@@ -212,6 +214,7 @@ export class ContractComponent implements OnInit {
                                 }else{
                                   this.erscrol('vin');
                                   Util.modalid('show','WrongVinModal');
+                                  this.wrongvin = true;
 
                                 }
                               }
@@ -356,6 +359,8 @@ tostep1(){
     
     if (this.vin.value == "") { this.vin.message = "(required)"; this.vin.erlevel = "D"; this.valid = false;this.erscrol('vin'); }
     if (this.pagedata.body.veh.type=='A' && this.vin.value !=='' && !this.validvin) { 
+
+      if(this.wrongvin){
       this.vin.message = "( Invalid VIN for "+this.pagedata.body.veh.year+" "+
                                               this.pagedata.body.veh.make+" "+
                                               this.pagedata.body.veh.model+"! )"; this.vin.erlevel = "D"; 
@@ -363,6 +368,15 @@ tostep1(){
                                               this.erscrol('vin');
                                               Util.modalid('show','WrongVinModal');
                                             }
+                                          else{
+                                            this.vin.message = "( Invalid VIN )"; 
+                                            this.vin.erlevel = "D"; 
+                                            this.valid = false; 
+                                            this.erscrol('vin');
+                                            Util.modalid('show','InvalidVinModal');
+
+                                          }
+    }
     if (this.vpd.value == "") { this.vpd.message = "(required)"; this.vpd.erlevel = "D"; this.valid = false; this.erscrol('vpd');}
     if(this.validvin && this.vindata.vfmatch !='Y'&& this.pagedata.body.veh.price ==""){
       this.valid = false;
@@ -647,7 +661,6 @@ formatCVV() {
   
   ngOnInit() {
     this.pagedata.head.status ="I";
-    
     Util.showWait();
     this.pagedata.head = Util.getHead(this.pagedata.head);
     this.jsonService

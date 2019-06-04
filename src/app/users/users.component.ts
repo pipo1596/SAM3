@@ -242,14 +242,14 @@ addSlcd(){
     return false;
   }
   this.selectedUser.slcd = this.selectedUser.slcd.toUpperCase();
-  if(this.cmpc.value == 'PIP'){
-    if(this.selectedUser.slcds.length > 0){
-      this.slcd.erlevel = "D";
-          this.slcd.message = "(Only one allowed for PIP)";
-      return false;
-    }
+  //if(this.cmpc.value == 'PIP'){
+  //  if(this.selectedUser.slcds.length > 0){
+  //    this.slcd.erlevel = "D";
+  //        this.slcd.message = "(Only one allowed for PIP)";
+  //    return false;
+  //  }
 
-  }
+  //}
   Util.showWait();
   this.usersService
     .initService({"mode":"SLCDV","cmpc":this.selectedUser.cmpc,"slcd":this.selectedUser.slcd},Util.Url("CGICUSERSS"))
@@ -515,13 +515,13 @@ checkUser(){
     if (this.cmpc.value == "") { this.cmpc.message = "(required)"; this.cmpc.erlevel = "D"; this.valid = false; }
     if (this.salesmode && this.disc.value!=="" && this.selectedUser.slcds.length<0) { this.disc.message = "(Agent - OR - Salesperson Code Allowed)"; this.disc.erlevel = "D"; this.valid = false; }
     if (this.salesmode && this.disc.value =="" && this.selectedUser.slcds.length < 1) { this.disc.message = "(Agent - OR - Salesperson Code Required)"; this.disc.erlevel = "D"; this.valid = false; }
-    if(this.cmpc.value == 'PIP'){
-      if(this.selectedUser.slcds.length > 1){
-        this.slcd.erlevel = "D";
-          this.slcd.message = "(Only one allowed for PIP)";
-          this.valid = false;
-      }
-    }
+    //if(this.cmpc.value == 'PIP'){
+    //  if(this.selectedUser.slcds.length > 1){
+    //    this.slcd.erlevel = "D";
+    //      this.slcd.message = "(Only one allowed for PIP)";
+    //      this.valid = false;
+    //  }
+    //}
     //if (this.sprs.value == "" &&  !this.salesmode) { this.sprs.message = "(required)"; this.sprs.erlevel = "D"; this.valid = false; }
     if (this.pswd1 == "" && this.editP == "Y") { this.pswd.message = "(required)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
     if (this.pswd1 !== this.pswd2 && this.editP == "Y") { this.pswd.message = "(Passwords don't match)"; this.pswd.erlevel = "D"; this.valid = false; this.reqpass1=true;}
