@@ -171,6 +171,9 @@ export class ContractComponent implements OnInit {
     this.vinE = true;
     this.vin.message ='';
     this.prevVin = "";
+    
+    setTimeout(() => { Util.focusById('vininp');}, 100);
+    
   }
   vinCheck(){
     this.vin.value = this.vin.value.toUpperCase();
@@ -300,6 +303,14 @@ export class ContractComponent implements OnInit {
   }
 tostep1(){
   this.router.navigate(['/app/Quote1']);
+}
+tostep1w(){
+  this.jsonService
+      .initService({"mode":"VINUPD","vin":this.vin.value,"tabid": sessionStorage.getItem("tabid")},Util.Url("CGICCNTRCT"))
+      .subscribe(data => this.vindata = data,
+        err => { this.dispAlert.error(); Util.hideWait(); },
+                       () => {this.router.navigate(['/app/Quote1']);});
+
 }
   checkData() {
 
@@ -658,7 +669,9 @@ formatCVV() {
     }
        
   }
-  
+  tovin(){
+    setTimeout(() => { Util.focusById('vininp');}, 100);
+  }
   ngOnInit() {
     this.pagedata.head.status ="I";
     Util.showWait();
