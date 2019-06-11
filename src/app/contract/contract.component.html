@@ -98,7 +98,7 @@
                             <span class="errorspan2" [class.opqquezero]="vpd.message===''" [class.alert-danger]="vpd.erlevel==='D'" [class.validating]="validating">{{vpd.message}}</span> 
                         </label>    
                         <div class="flat-input w100">
-                            <input autocomplete="new-password{{ran}}" class="w100" (change)="onChange()"  name="vpd{{ran}}" type="date"  placeholder="Purchase Date" [class.required]="vpd.message !== ''"  [class.validating]="validating"  [(ngModel)]="vpd.value" maxlength="50"  style="margin-bottom:7px">
+                            <input autocomplete="new-password{{ran}}" class="w100" date-format="mm/dd/yyyy"  (change)="onChange()" id="vpdinp" name="vpd{{ran}}" type="date"  placeholder="Purchase Date" [class.required]="vpd.message !== ''"  [class.validating]="validating"  [(ngModel)]="vpd.value" maxlength="50"  style="margin-bottom:7px">
                         </div>
                 </div>
                 <div class="clearfix"></div>
@@ -187,7 +187,7 @@
                         <span class="errorspan2" [class.opqquezero]="cpd.message===''"  [class.alert-danger]="cpd.erlevel==='D'" [class.validating]="validating">{{cpd.message}}</span> 
                     </label>
                     <div class="flat-input w100">
-                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="cpd{{ran}}" type="date"  placeholder="Contract Purchase Date" [class.required]="cpd.message !== ''"  [class.validating]="validating"  [(ngModel)]="cpd.value" maxlength="15" style="margin-bottom:7px">
+                        <input autocomplete="new-password{{ran}}" date-format="mm/dd/yyyy"   class="w100"  id="cpdinp" (change)="onChange()" name="cpd{{ran}}" type="date"  placeholder="Contract Purchase Date" [class.required]="cpd.message !== ''"  [class.validating]="validating"  [(ngModel)]="cpd.value" maxlength="15" style="margin-bottom:7px">
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -308,7 +308,7 @@
                          </span>
                     </div>
                     <div class="flat-input w100" *ngIf="fld.type == 'DAT'">
-                        <input autocomplete="new-password{{ran}}"  class="w100" (change)="onChange()" name="{{fld.name}}{{ran}}" type="date"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
+                        <input autocomplete="new-password{{ran}}" date-format="mm/dd/yyyy"   class="w100" id="inp{{fld.name}}" (change)="onChange()" name="{{fld.name}}{{ran}}" type="date"  placeholder="{{fld.labl}}" [class.required]="fld.message !== ''"  [class.validating]="validating"  [(ngModel)]="fld.value" maxlength="{{fld.size}}" style="margin-bottom:7px">
                     </div>
                     <span class="flat-input w100" *ngIf="fld.type == 'DRP'">
                         <select   (change)="onChange()" class="form__select w100" name="{{fld.name}}{{ran}}"  [(ngModel)]="fld.value" [class.required]="fld.message !==''"  [class.validating]="validating">

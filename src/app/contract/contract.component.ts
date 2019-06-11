@@ -175,6 +175,12 @@ export class ContractComponent implements OnInit {
     setTimeout(() => { Util.focusById('vininp');}, 100);
     
   }
+  setDate(elem,id){
+    elem.value = Util.formatdateDsp(id,elem.value);
+}
+  setDater(elem){
+    elem.value = Util.formatdateDsp('inp'+elem.name,elem.value);
+}
   vinCheck(){
     this.vin.value = this.vin.value.toUpperCase();
     if(this.vin.value.length < 17){ this.validvin = false;this.prevVin = this.vin.value; }
@@ -236,12 +242,18 @@ export class ContractComponent implements OnInit {
     var dt = new Date();
     if(this.pagedata.body.contract.vpd !=='')
       this.vpd.value   = this.pagedata.body.contract.vpd;
-    else
+    else{
       this.vpd.value   =  new Date(dt.getTime()-dt.getTimezoneOffset()*60*1000).toISOString().split('T')[0];
+      
+    }
     if(this.pagedata.body.contract.cpd !=='')
       this.cpd.value   = this.pagedata.body.contract.cpd;
-    else
+    else{
       this.cpd.value   =  new Date(dt.getTime()-dt.getTimezoneOffset()*60*1000).toISOString().split('T')[0];
+      
+    }
+    setTimeout(() => {this.vpd.value = Util.formatdateDsp('vpdinp',this.vpd.value);
+                      this.cpd.value = Util.formatdateDsp('cpdinp',this.cpd.value);},100); 
     this.vin.value   = this.pagedata.body.veh.vin;
     if(this.vin.value!=='') this.vinE = false;
     this.stock.value   = this.pagedata.body.contract.stock;
@@ -733,6 +745,7 @@ formatCVV() {
           }
         }
       );
+      
   }
   setlhadr(mode){
     

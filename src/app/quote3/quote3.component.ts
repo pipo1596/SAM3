@@ -73,6 +73,7 @@ export class Quote3Component implements OnInit {
           row.forEach((unitp, i3) => {
 
               var cost = 0 ;
+              var costn = 0 ;
               if(rate.cost !== undefined)
               if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
               if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>0)
@@ -80,16 +81,20 @@ export class Quote3Component implements OnInit {
                 this.pagedata.body.srchg.forEach((surch, i4) => {
                   var srchi = rate.surch.findIndex(sch => (surch.code == sch));
                   if (srchi > -1 && surch.prgm == rate.program) {
+                    var nocst = true;
                     if(rate.cost !== undefined)
                     if(rate.cost[i2]!==undefined && rate.cost[i2].length>0)
-                    if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>srchi+2)
+                    if(rate.cost[i2][i3]!==undefined && rate.cost[i2][i3].length>srchi+2){
                     cost += rate.cost[i2][i3][srchi+3];
+                    nocst = false;
+                    }
+                    if(nocst)costn += unitp[srchi + 3];
                   }
                 });
             if(cost > 0)
-              unitp[0] = cost;
+              unitp[0] = cost + costn;
             else
-              unitp[0] = unitp[1];
+              unitp[0] = unitp[1] + costn;
           })
         })
       })
@@ -225,7 +230,7 @@ export class Quote3Component implements OnInit {
       
       contract.CVML += tb.rates[t].rows[r].mil.toString().padEnd(7);
       
-      if((xlob=='GAP' || xlob=='PIPGAP') && this.pagedata.body.gapt!==''){
+      if(xlob=='GAP'  && this.pagedata.body.gapt!==''){
         contract.TERM += (this.pagedata.body.gapt+' Months / ' +
                     this.withcommas(tb.rates[t].rows[r].mil)+' Miles').padEnd(50);
       }else{

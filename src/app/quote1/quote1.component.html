@@ -244,8 +244,7 @@
                                 <input autocomplete="new-password{{ran}}" name="amfn{{ran}}" id="amfn" type="number" placeholder="Amount financed" [(ngModel)]="amfn.value" [class.required]="amfn.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
-                        <div *ngIf="(arrlob.indexOf('GAP')>-1    || 
-                                     arrlob.indexOf('PIPGAP')>-1 ) && arrlob.indexOf('WT')<0"> 
+                        <div *ngIf="arrlob.indexOf('GAP')>-1  && arrlob.indexOf('WT')<0"> 
                         <!--Financed-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term in Months 
                                 <span class="errorspan2" [class.opqquezero]="gapt.message===''" [class.alert-danger]="gapt.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{gapt.message}}</span> 

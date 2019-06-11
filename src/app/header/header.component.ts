@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   @Input() headdata : Headerdata;
   modalIn:any;
   stage:boolean =false;
+  pvactn:boolean=false;
   logMeOut:any;
   temploctn:[Locn];
   tempAgnt:[Agnt];
@@ -61,7 +62,7 @@ getVersion(){
 }
 
 dealerGroupsAles(e){
-
+   this.pvactn = (e!==undefined && e.keyCode == 13);
   this.process = true;
   clearTimeout(this.keytime);
   
@@ -82,7 +83,7 @@ dealerGroupsAles(e){
                 var pos1 = this.temploctn.findIndex(obj => obj.dlr ==self.dealer.trim());
                 
               if(pos1>-1){
-              if (e!==undefined && e.keyCode == 13) {
+              if (this.pvactn || (e!==undefined && e.keyCode == 13)) {
                 this.changeLoc(self.temploctn[0]);
                 return false;
               }
@@ -99,6 +100,7 @@ clearagent(e){this.agent='';this.agentp="";this.tempAgnt = [{"agnt":"" , "desc":
 cleardealer(){this.dealer='';this.dealerp="";this.headdata.loctn = [{"stat":"","statd":"","dlr":"","desc":""}];this.agentSearch();}
 agnblur(){ setTimeout(()=>{ this.agnfocus = false;},300);}
 dealerGroups(e){
+  this.pvactn = (e!==undefined && e.keyCode == 13);
   if(this.process || 
     (this.dealer == this.dealerp && (e!==undefined && e.keyCode !== 13))){ return false; }
   
@@ -124,7 +126,7 @@ dealerGroups(e){
                 
               }
               if(pos1>-1){
-              if (e!==undefined && e.keyCode == 13) {
+              if (this.pvactn || (e!==undefined && e.keyCode == 13)) {
                 this.changeLoc(self.headdata.loctn[0]);
                 return false;
               }

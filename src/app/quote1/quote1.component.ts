@@ -228,8 +228,7 @@ checkStep1(){
     this.mfgw.value  = this.mfgw.value.trim();
     this.insrvc.value   = this.insrvc.value.trim();
     this.asofdt.value   = this.asofdt.value.trim();
-    if((this.arrlob.indexOf('GAP')>-1 || 
-        this.arrlob.indexOf('PIPGAP')>-1) && this.arrlob.indexOf('WT')>-1){
+    if(this.arrlob.indexOf('GAP')>-1 && this.arrlob.indexOf('WT')>-1){
       this.gapt.value = this.lmth.value.toString().trim();
     }
     
@@ -313,8 +312,7 @@ checkStep1(){
       if(this.amfn.value == null || this.amfn.value.toString() == ""){this.amfn.message = "(Required)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
       if(parseInt(this.amfn.value) < 0){this.amfn.message = "(Invalid)";this.amfn.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("amfn");this.notfoc=false;}}
     }
-    if(this.arrlob.indexOf('GAP')>-1 ||
-       this.arrlob.indexOf('PIPGAP')>-1){
+    if(this.arrlob.indexOf('GAP')>-1){
       //Gap Terms
       if(this.gapt.value == null || this.gapt.value.toString() == ""){this.gapt.message = "(Required)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
       if(parseInt(this.gapt.value) <= 0){this.gapt.message = "(Invalid)";this.gapt.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("gapt");this.notfoc=false;}}
