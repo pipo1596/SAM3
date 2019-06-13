@@ -84,7 +84,7 @@ static uncheckbyid(id){
     $("#"+id).prop("checked", false);
 }
 
-static Url(prgrm:string):string{
+static Url(prgrm:string):string{ 
     if (location.hostname === "localhost")
         return "http://192.168.6.47:64005/"+prgrm; 
     else

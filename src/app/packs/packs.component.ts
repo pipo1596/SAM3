@@ -106,6 +106,7 @@ export class PacksComponent implements OnInit {
     this.selectedRec.pcti = record.pcti;
     this.selectedRec.pctr = record.pctr;
     this.selectedRec.effd = record.effd;
+    this.selectedRec.effdi = record.effd;
     this.selectedRec.expd = record.expd;
     this.selectedRec.pkno = record.pkno;
     if(this.selectedRec.amti !==null || this.selectedRec.pcti !==null){this.sectn = "I";}else{this.sectn="R";}

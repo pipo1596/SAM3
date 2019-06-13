@@ -79,7 +79,7 @@
                         <span class="errorspan2" [class.opqquezero]="effd.message===''" [class.alert-danger]="effd.erlevel==='D'"  [class.validating]="validating">{{effd.message}}</span> 
                     </label>
                     <div class="flat-input w100">
-                        <input autocomplete="new-password" name="effd" type="date" placeholder="Effective From" [class.required]="effd.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.effd" (change)="onChange()">
+                        <input autocomplete="new-password" name="effd" [disabled]="modebtn =='SAVE'" type="date" placeholder="Effective From" [class.required]="effd.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.effd" (change)="onChange()">
                     </div> 
                     <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>Effective To
                         <span class="errorspan2" [class.opqquezero]="expd.message===''" [class.alert-danger]="expd.erlevel==='D'"  [class.validating]="validating">{{expd.message}}</span> 
