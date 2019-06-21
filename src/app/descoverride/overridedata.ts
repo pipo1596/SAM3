@@ -36,6 +36,7 @@ export class Ovrd{
 		this.form = "";
 		this.desc = "";
 		this.qdsc = "";
+		this.dsc3 = "";
 		this.dlr  = "";
 		this.prg  = "";
 		this.lob  = "";

@@ -132,15 +132,59 @@
                           <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                               <div class="custradio"><input name="benf" id="benf0" value="2500" type="radio"  [(ngModel)]="benf" >
                                 <label for="benf0"></label></div>
-                              <label class="checklabel" style="font-weight: bold;" for="mfgw0">$2,500</label> 
+                              <label class="checklabel" style="font-weight: bold;" for="benf0">$2,500</label> 
                           </div>
                           <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
                               <div class="custradio"><input name="benf" id="benf1" value="5000" type="radio"  [(ngModel)]="benf" >
                                 <label for="benf1"></label></div>
-                              <label class="checklabel" style="font-weight: bold;" for="mfgw0">$5,000</label> 
+                              <label class="checklabel" style="font-weight: bold;" for="benf1">$5,000</label> 
                           </div>
                           
                         </span>
+                        </div>
+                        <div *ngIf="arrlob.indexOf('PIPLSE')>-1">
+                            <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Coverage</label>
+                              <span class="flat-input">
+                                <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                    <div class="custradio"><input name="plcov" id="plcov0"  value="" type="radio"  [(ngModel)]="plcov" >
+                                      <label for="plcov0"></label></div>
+                                    <label class="checklabel" style="font-weight: bold;" for="plcov0">Standard</label> 
+                                </div>
+                                <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                    <div class="custradio"><input name="plcov" id="plcov1"  value="OPN" type="radio"  [(ngModel)]="plcov" >
+                                      <label for="plcov1"></label></div>
+                                    <label class="checklabel" style="font-weight: bold;" for="plcov1">Open Term</label> 
+                                </div>
+                                
+                              </span>
+                            <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Maximum Single Event Limit</label>
+                              <span class="flat-input">
+                                <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                    <div class="custradio"><input name="plmax" id="plmax0" value="" type="radio"  [(ngModel)]="plmax" >
+                                      <label for="plmax0"></label></div>
+                                    <label class="checklabel" style="font-weight: bold;" for="plmax0">$500</label> 
+                                </div>
+                                <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                    <div class="custradio"><input name="plmax" id="plmax1" value="MAX" type="radio"  [(ngModel)]="plmax" >
+                                      <label for="plmax1"></label></div>
+                                    <label class="checklabel" style="font-weight: bold;" for="plmax1">$1000</label> 
+                                </div>
+                                
+                              </span>
+                              <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Certified Pre-Owned Vehicle</label>
+                              <span class="flat-input">
+                                <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                    <div class="custradio"><input name="plcrt" id="plcrt0" value="" type="radio"  [(ngModel)]="plcrt" >
+                                      <label for="plcrt0"></label></div>
+                                    <label class="checklabel" style="font-weight: bold;" for="plcrt0">No</label> 
+                                </div>
+                                <div class="col-xs-6 text-left" style="padding: 10px 20px;background: #fbfbfb">
+                                    <div class="custradio"><input name="plcrt" id="plcrt1" value="CRT" type="radio"  [(ngModel)]="plcrt" >
+                                      <label for="plcrt1"></label></div>
+                                    <label class="checklabel" style="font-weight: bold;" for="plcrt1">Yes</label> 
+                                </div>
+                                
+                              </span>
                         </div>
                         <label class="flat-input inputlabel" [class.hidden]="rvtype!=='M' && rvmode"><span class="req">*&nbsp;</span>Mileage
                             <span class="errorspan2" [class.opqquezero]="miles.message===''" [class.alert-danger]="miles.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{miles.message}}</span> 
@@ -284,6 +328,7 @@
                                 <input autocomplete="new-password{{ran}}" name="lmil{{ran}}" id="lmil" type="number" placeholder="Lease Miles" [(ngModel)]="lmil.value" [class.required]="lmil.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
+                       
                         <label class="flat-input inputlabel"><span class="req">*&nbsp;</span>In Service Date&nbsp;<span class="infotip fa fa-question-circle" tooltip="In service date may affect certain coverage selections" placement="right" show-delay="200"></span>
                             &nbsp;&nbsp;<span class="errorspan2" [class.opqquezero]="insrvc.message===''" [class.alert-danger]="insrvc.erlevel==='D'" [class.validating]="validating">{{insrvc.message}}</span> 
                         </label>

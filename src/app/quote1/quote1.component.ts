@@ -58,6 +58,9 @@ export class Quote1Component implements OnInit {
   asofdt = new Textfield;
   rvtype:string ="";
   benf:string ="";
+  plcov:string ="";
+  plcrt:string ="";
+  plmax:string ="";
   rvchange2(){
     Util.showWait();
     this.mfgw.value = "";
@@ -350,7 +353,15 @@ checkStep1(){
       this.pagedata.body.rvtype = "";      
       if(this.rvmode) this.pagedata.body.rvtype  = this.rvtype;
       this.pagedata.body.benf = "";
+      this.pagedata.body.plcov = "";
+      this.pagedata.body.plcrt = "";
+      this.pagedata.body.plmax = "";
       if(this.arrlob.indexOf('PIPETC')>-1) this.pagedata.body.benf  = this.benf;
+      if(this.arrlob.indexOf('PIPLSE')>-1){ 
+          this.pagedata.body.plcov  = this.plcov;
+          this.pagedata.body.plcrt  = this.plcrt;
+          this.pagedata.body.plmax  = this.plmax;
+        }
       this.pagedata.body.miles   = this.miles.value;
       this.pagedata.body.price   = this.price.value;
       this.pagedata.body.msrp   = this.msrp.value;
@@ -681,6 +692,9 @@ ngOnInit() {
           this.model.value = this.pagedata.body.model;
           this.vin.value = this.pagedata.body.vin;
           this.rvtype = this.pagedata.body.rvtype;
+          this.plcov = this.pagedata.body.plcov;
+          this.plcrt = this.pagedata.body.plcrt;
+          this.plmax = this.pagedata.body.plmax;
           this.benf = this.pagedata.body.benf;
           if(this.benf=="")this.benf = "2500";
           this.engtyp.value = this.pagedata.body.engtyp;

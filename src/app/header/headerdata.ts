@@ -11,6 +11,8 @@ export class Headerdata{
     as400   : boolean = false;
     sales   : boolean = false;
     multi   : boolean = false;
+    newlook   : boolean = false;
+    hasmm   : boolean = false;
     loctn   : [ Locn ];
     
 }

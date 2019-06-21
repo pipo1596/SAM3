@@ -46,6 +46,15 @@ table.sixcol{font-size:14px;}
 #viewcost{position: fixed; top:300px; right:50px;padding: 10px;
     background: ghostwhite;z-index: 9999999;
 }
+.loginsection{background: url(/assets/images/backlogin.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}
+.siteseal{width:50px;}
+.loginmesg.col-xs-9{padding: 0;}
+.loginmesg.col-xs-3{padding: 0;}
+.loginmilo{width:80px;float:right;margin-top:-20px;margin-bottom:10px;}
 .quoteprint .table-sm.table>tbody>tr>td{padding:4px;}
 .quoteprint .table-sm.table>tbody>tr>td.padleft{padding-left:20px}
 .quoteprint .table-sm.table>tbody>tr>td.padright{padding-right: 20px;}

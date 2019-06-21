@@ -23,6 +23,9 @@ export class bodyData{
     vin     :string ;
     rvtype  :string ;
     benf    :string ;
+    plcov   :string ;
+    plcrt   :string ;
+    plmax   :string ;
     engtyp  :string ;
     mfgw  :string ;
     miles   :string ;

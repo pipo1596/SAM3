@@ -26,6 +26,7 @@ export  class User{
     rold : string;
     fnam : string;
     lnam : string;
+    mmid : string;
     sprs : string;
     disc : string;
     slcd : string;

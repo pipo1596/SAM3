@@ -284,7 +284,11 @@ export class ContractComponent implements OnInit {
 
         if(fld.type=='TEL' && !Util.validphone(fld.value)){fld.message = "(Invalid)";fld.erlevel="D";this.valid = false;this.erscrol(fld.name);}
         if(fld.type=='EML' && !Util.validemail(fld.value)){fld.message = "(Invalid)";fld.erlevel="D";this.valid = false;this.erscrol(fld.name);}
-      
+        if(fld.value !== ""){
+        if(fld.type =='DAT' &&  !Util.isdatestring("inp"+fld.name,fld.value)){
+          fld.message = "(Invalid)";fld.erlevel="D";this.valid = false;this.erscrol(fld.name);
+        }
+      }
       switch (fld.prec){
         case('I')://Integer
         if(parseInt(fld.value) < 0 || isNaN(parseInt(fld.value))){
@@ -401,6 +405,9 @@ tostep1w(){
                                           }
     }
     if (this.vpd.value == "") { this.vpd.message = "(required)"; this.vpd.erlevel = "D"; this.valid = false; this.erscrol('vpd');}
+    if(this.vpd.value !== "" && !Util.isdatestring("vpdinp",this.vpd.value)){
+      this.vpd.message = "(Invalid)";this.vpd.erlevel="D";this.valid = false;this.erscrol('vpd');
+    }
     if(this.validvin && this.vindata.vfmatch !='Y'&& this.pagedata.body.veh.price ==""){
       this.valid = false;
       this.changes = false;
@@ -410,6 +417,9 @@ tostep1w(){
 
     if (this.stock.value == "") { this.stock.message = "(required)"; this.stock.erlevel = "D"; this.valid = false; this.erscrol('stock');}
     if (this.cpd.value == "") { this.cpd.message = "(required)"; this.cpd.erlevel = "D"; this.valid = false; this.erscrol('cpd');}
+    if(this.cpd.value !== "" && !Util.isdatestring("cpdinp",this.cpd.value)){
+      this.cpd.message = "(Invalid)";this.cpd.erlevel="D";this.valid = false;this.erscrol('cpd');
+    }
     if (this.first.value == "") { this.first.message = "(required)"; this.first.erlevel = "D"; this.valid = false; this.erscrol('first');}
     if (this.last.value == "") { this.last.message = "(required)"; this.last.erlevel = "D"; this.valid = false; this.erscrol('last');}
     if (this.email.value == "") { this.email.message = "(required)"; this.email.erlevel = "D"; this.valid = false; this.erscrol('email');}

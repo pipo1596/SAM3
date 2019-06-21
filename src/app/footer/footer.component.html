@@ -2,7 +2,7 @@
 <footer class="footer widget-footer">  
     <div class="totop btn btn-primary hidden"  id="totop" (click)="toTop()" title="To Top" style="z-index:100;position:fixed;bottom:20px;left:10px;font-size:23px;opacity:0.4;"><span class="fa fa-angle-double-up"></span></div>
     <div class="container">            
-            <div class="col-sm-3 col-xs-6 reponsive-mb30">                                   
+            <div class="col-sm-2 col-xs-4 reponsive-mb30">                                   
                 <div class="widget widget-out-link clearfix" >                        
                     <!--<h5 class="widget-title">Our Links</h5>-->                          
                     <ul class="one-half-center">                                            
@@ -10,7 +10,7 @@
                     </ul>                                                                            
                 </div>                 
             </div>
-            <div class="col-sm-3 col-xs-6 reponsive-mb30">                                   
+            <div class="col-sm-3 col-xs-4 reponsive-mb30">                                   
                 <div class="widget widget-out-link clearfix" >                        
                     <!--<h5 class="widget-title">Our Links</h5>-->                          
                     <ul class="one-half-center">                                            
@@ -18,7 +18,9 @@
                     </ul>                                                                            
                 </div>                 
             </div>
-            <div class="col-sm-3 col-xs-6 reponsive-mb30">                                   
+            <div class="col-xs-4 hidden-md hidden-sm hidden-lg reponsive-mb30"></div>
+            <div class="clearfix hidden-md hidden-sm hidden-lg reponsive-mb30"></div>
+            <div class="col-sm-3 col-xs-4 reponsive-mb30">                                   
                 <div class="widget widget-out-link clearfix" >                        
                     <!--<h5 class="widget-title">Our Links</h5>-->                          
                     <ul class="one-half-center">                                            
@@ -26,7 +28,8 @@
                     </ul>                                                                            
                 </div>                 
             </div>
-            <div class="col-sm-3 col-xs-6 reponsive-mb30">                                   
+            
+            <div class="col-sm-2 col-xs-4 reponsive-mb30">                                   
                 <div class="widget widget-out-link clearfix">                           
                     <ul class="one-half-center">                                            
                         <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'faqs','title':'FAQ\'s'}" id="faqs">FAQ's</a></li>  
@@ -57,6 +60,9 @@
                         <li><a [routerLink]="['/app/StaticPage']"  [queryParams]="{pageid: 'claimsform','title':'Help'}" id="claimsform" class="hidden">claimsform</a></li>                                  
                     </ul>                                                                            
                 </div>                 
+            </div>
+            <div class="col-sm-2 col-xs-4 text-right">
+                <a href="javascript:void(0)" (click)="openseal()"><img src="/assets/images/colorsiteconfirm.gif?ts=2" class="siteseal"></a>
             </div>
             <!-- /.col-md-3 -->       
         </div><!-- /.row -->          

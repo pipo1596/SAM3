@@ -920,13 +920,19 @@
                                                    {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}
                                                 </td>
                                         </tr>     
-                                        <tr>     
-                                        <td class="text-left padleft" nowrap *ngIf="pagedata.body.veh.miles!==''">
+                                        <tr  *ngIf="pagedata.body.veh.miles!==''">     
+                                        <td class="text-left padleft" nowrap>
                                                 <b>Miles:</b>
                                        
                                             {{pagedata.body.veh.miles | number:0}}
                                         </td>
                                                 <td class="text-left padright" nowrap>
+                                                        <b>In-Service:</b>
+                                                
+                                                    {{pagedata.body.veh.insrvc}}</td>
+                                        </tr>
+                                        <tr  *ngIf="pagedata.body.veh.miles==''">     
+                                                <td class="text-left padleft" nowrap>
                                                         <b>In-Service:</b>
                                                 
                                                     {{pagedata.body.veh.insrvc}}</td>
@@ -943,6 +949,7 @@
                                        {{today | date:'MM/dd/yyyy'}}
                                     </td>
                                     </tr>
+                                    
                                     <tr>
                                             <td class="text-left padleft" nowrap>
                                                 <b>Name:</b>
@@ -953,6 +960,13 @@
                                             
                                                 {{pagedata.body.stock}}</td>
                                         </tr>
+                                        <tr *ngIf="pagedata.body.veh.price !==''">
+                                            <td class="text-left padleft">
+                                                <b>Purchase Price:</b>
+                                                {{pagedata.body.veh.price | currency}}
+                                            </td>
+                                            <td>&nbsp;</td>
+                                            </tr>
                                     
                                 </tbody>
                             </table>

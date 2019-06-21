@@ -106,6 +106,15 @@
 							<label class="checklabel" (click)="nymm=!nymm" style="font-weight: bold">Restrict Year Make Model</label>
 						</span>
 				</div>
+				<div class="clearfix"></div>
+				<div class="col-sm-6" style="padding-top: 15px;">
+						<label class="flat-input inputlabel">MenuMetric Dealer ID
+							<span class="errorspan2" [class.opqquezero]="mmid.message===''" [class.alert-danger]="mmid.erlevel==='D'" [class.validating]="validating">{{mmid.message}}</span> 
+						</label>
+						<div class="flat-input w100">
+							<input autocomplete="new-password"  name="mmid" type="text" placeholder="MenuMetric Dealer ID" [class.required]="mmid.message !==''"  [class.validating]="validating" [(ngModel)]="mmid.value" maxlength="50" (change)="onChange()">
+						</div>
+					</div>
 				<div class="col-xs-12">
 					<span class="flat-input">
 						<button class="flat-button pull-right" name="submit" style="margin-right:10px" type="submit" title="Save">Save</button>

@@ -47,6 +47,7 @@ export class UsersComponent implements OnInit {
   stat = new  Textfield ;
   fnam = new  Textfield ;
   lnam = new  Textfield ;
+  mmid = new  Textfield ;
   pswdc= new  Textfield ;
   pswd = new  Textfield ;
   sprs = new  Textfield ;
@@ -73,6 +74,7 @@ export class UsersComponent implements OnInit {
     "rold":"",
     "fnam":"",
     "lnam":"",
+    "mmid":"",
     "sprs":"",
     "disc":"",
     "slcd":"",
@@ -93,6 +95,7 @@ export class UsersComponent implements OnInit {
     "rold":"",
     "fnam":"",
     "lnam":"",
+    "mmid":"",
     "sprs":"",
     "disc":"",
     "slcd":"",
@@ -313,6 +316,7 @@ onSelect(user: User): void {
   this.selectedUser.rold = user.rold;
   this.selectedUser.fnam = user.fnam;
   this.selectedUser.lnam = user.lnam;
+  this.selectedUser.mmid = user.mmid;
   this.selectedUser.sprs = user.sprs;
   if(this.salesmode) this.selectedUser.sprs ="";
   this.selectedUser.disc = user.disc;
@@ -366,6 +370,7 @@ addUserInit(){
     "rold":"",
     "fnam":"",
     "lnam":"",
+    "mmid":"",
     "sprs":"",
     "disc":"",
     "slcd":"",
@@ -451,6 +456,7 @@ cancel(){
     "rold":"",
     "fnam":"",
     "lnam":"",
+    "mmid":"",
     "sprs":"",
     "disc":"",
     "slcd":"",
@@ -485,6 +491,7 @@ checkUser(){
     this.stat.message  = "";
     this.fnam.message  = "";
     this.lnam.message  = "";
+    this.mmid.message  = "";
     this.sprs.message  = "";
     this.disc.message  = "";
     this.slcd.message  = "";
@@ -501,6 +508,7 @@ checkUser(){
     this.cmpc.value  = this.selectedUser.cmpc.trim();
     this.fnam.value  = this.selectedUser.fnam.trim();
     this.lnam.value  = this.selectedUser.lnam.trim();
+    this.mmid.value  = this.selectedUser.mmid.trim();
     this.sprs.value  = this.selectedUser.sprs.trim();
     this.disc.value  = this.selectedUser.disc.trim();
     this.slcd.value  = this.selectedUser.slcd.trim();
@@ -567,6 +575,7 @@ saveData(){
             "rold":Util.getSelText(this.selectedUser.rlno,this.pagedata.roles),
             "fnam":this.selectedUser.fnam,
             "lnam":this.selectedUser.lnam,
+            "mmid":this.selectedUser.mmid,
             "sprs":this.selectedUser.sprs,
             "disc":this.selectedUser.disc,
             "slcd":this.selectedUser.slcd,

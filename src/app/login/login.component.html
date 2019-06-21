@@ -1,14 +1,23 @@
 <app-header [headdata]="pagedata.head"></app-header>
-<section class="flat-row section-iconbox">
+<section class="flat-row section-iconbox" [ngClass]="{'loginsection':pagedata.head.newlook}">
 <div class="container">                                                                           
   <div class="row">                                                                             
       <div class="col-md-6 col-md-offset-3 panel invisible" [ngClass]="{'visible':pagedata.head.status!=='I'}">       
                                                                        
           <form id="Login" class="contactform style4 clearfix panel-body" (submit)="checkLogin()" autocomplete="new-password">
                       <h1>Producer Login</h1>
+                      
                       <div class="alert alert-success" [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='S'}" role="alert">{{dispAlert.message}}</div>
                       <div class="alert alert-danger"  [ngClass]="{'hidden':dispAlert.message==='' || dispAlert.status!=='E'}" role="alert">{{dispAlert.message}}</div>
                       <div >
+                          <div *ngIf="pagedata.head.newlook">
+                              <div class="col-xs-9 loginmesg">
+                              <p><b>Milo is getting an upgrade!</b> The same core features with a great new look. Coming soon.</p>
+                              </div>
+                              <div class="col-xs-3 loginmesg">
+                              <img src="/assets/images/miloicon.PNG" class="loginmilo">
+                              </div>
+                            </div>
                       <span class="flat-input">
                           <span class="errorspan" [class.opqquezero]="employee.message===''" [class.alert-danger]="employee.erlevel==='D'" [class.alert-success]="employee.erlevel==='S'" [class.validating]="validating">{{employee.message}}</span> 
                         <input [(ngModel)]="employee.value" autocomplete="new-password" name="employee" autofocus id="employee" [class.required]="employee.value===''" [class.validating]="validating"  (change)="onChange()" type="text" placeholder="*Email" maxlength="50">

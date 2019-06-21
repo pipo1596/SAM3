@@ -25,6 +25,7 @@ export class DealermasterComponent implements OnInit {
 	type = new Textfield;
 	dsid = new Textfield;
   pass = new Textfield;
+  mmid = new Textfield;
   belg:boolean = false;
   dbil:boolean = false;
   nymm:boolean = false;
@@ -61,6 +62,7 @@ export class DealermasterComponent implements OnInit {
     this.type.message  = "";
     this.dsid.message  = "";
     this.pass.message  = "";
+    this.mmid.message  = "";
     this.dispAlert.default();
 
     this.loadDb()
@@ -83,6 +85,7 @@ export class DealermasterComponent implements OnInit {
       this.dsid.value = "";
     }
     this.pagedata.body.dsmd = this.dsmd.value;
+    this.pagedata.body.mmid = this.mmid.value;
     this.pagedata.body.pack = this.pack.value;
     this.pagedata.body.user = this.user.value;
     this.pagedata.body.type = this.type.value;
@@ -139,6 +142,7 @@ export class DealermasterComponent implements OnInit {
         }else{
           Util.hideWait();
           this.dsmd.value = this.pagedata.body.dsmd;
+          this.mmid.value = this.pagedata.body.mmid;
           this.pack.value = this.pagedata.body.pack;
           this.dsid.value = this.pagedata.body.dsid;
           this.pass.value = this.pagedata.body.pass;

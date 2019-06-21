@@ -214,6 +214,11 @@ export class PacksComponent implements OnInit {
         this.effd.message = "(Cannot be in the past)"; this.effd.erlevel = "D"; this.valid = false;
       }
     }
+    if (this.expd.value !== "") {
+    if(new Date(this.expd.value+ 'T00:00') < new Date(new Date().toDateString())){
+      this.expd.message = "(Cannot be in the past)"; this.expd.erlevel = "D"; this.valid = false;
+    }
+    }
     if (this.expd.value == "") { this.expd.message = "(required)"; this.expd.erlevel = "D"; this.valid = false; }
     if (this.effd.message == ""){
     if(new Date(this.effd.value+ 'T00:00') > new Date(this.expd.value+ 'T00:00')){

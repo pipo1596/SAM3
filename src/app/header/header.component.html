@@ -59,6 +59,7 @@
                                                 </ng-container>
                                                 </ng-container>
                                                 </ng-container>  
+                                                <li class="headerfirst" *ngIf="headdata.hasmm"><a  href="javascript:void(0)" (click)="goMenuMetric()">Menu</a></li>
                                                 <!--Contracts-->
                                                 <ng-container *ngFor="let main of headdata.menuOp">
                                                 <li class="headerli" *ngIf="main.type=='C'"><hr><div>Contracts</div></li> 
@@ -70,7 +71,8 @@
                                                         <li class="headerfirst" *ngIf="menu.type=='C2'"><a  routerLink="/app/{{menu.link}}">{{menu.desc}}</a></li>
                                                 </ng-container>
                                                 </ng-container>
-                                                </ng-container>               
+                                                </ng-container>         
+                                                      
                                             </ul><!-- /.submenu --> 
                                         </li> 
                                         </ng-container>
@@ -197,18 +199,17 @@
         </div>
       </div>
 
-  <div class="modal" id="vrsnModal" role="dialog">
+  <div class="modal" id="mmModalError" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title pull-left" id="alertTitle">New version available!</h4>
+              <h4 class="modal-title pull-left" id="alertTitle">Incomplete Setup!</h4>
             </div>
             <div class="modal-body">
-              <p id="alertBody">Load new version now?</p>
+              <p id="alertBody">Menu configruation not complete, please contact your administrator.</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" (click)="hideVersion()" >Not Now</button>
-              <button type="button" class="btn btn-primary" (click)="getVersion()" >Ok</button>
+              <button type="button" class="btn btn-default" (click)="hideVersion()" >OK</button>
             </div>
           </div>
         </div>

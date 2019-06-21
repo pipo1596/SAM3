@@ -48,7 +48,7 @@ hideAlert(){
 }     
 
 hideVersion(){
-  Util.modalid('hide','vrsnModal');
+  Util.modalid('hide','mmModalError');
 }  
 
 getVersion(){
@@ -242,6 +242,25 @@ logOut(){
         .subscribe(data=>this.headdata = data,
            err => {},
            () => { Util.showWait();this.router.navigate(['/app/login']);});
+}  
+
+goMenuMetric(){ 
+  var url;
+  Util.showWait();
+  this.
+    headService.
+      initService({"service":"MMLINK"},Util.Url("CGICSERVE"))
+        .subscribe(data=>url = data,
+           err => {},
+           () => { 
+          if(url.link!=='E') { 
+            window.location.href= url.link;
+          }else{
+            Util.hideWait();
+            Util.modalid("show","mmModalError");
+          }
+          
+          });
 }  
 
 

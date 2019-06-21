@@ -18,6 +18,7 @@ export class Body{
 	dsid : string;
 	pack : string;
 	pass : string;
+	mmid : string;
 	drop :[ Drp ];
 }
 
