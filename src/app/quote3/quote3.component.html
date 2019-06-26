@@ -916,58 +916,41 @@
                                         <tr>
                                                 <td class="text-left padleft" nowrap colspan="2">
                                                         <b>Vehicle:</b>
-                                                
                                                    {{pagedata.body.veh.year}} {{pagedata.body.veh.make}} / {{pagedata.body.veh.model}}
                                                 </td>
                                         </tr>     
                                         <tr  *ngIf="pagedata.body.veh.miles!==''">     
                                         <td class="text-left padleft" nowrap>
                                                 <b>Miles:</b>
-                                       
                                             {{pagedata.body.veh.miles | number:0}}
                                         </td>
                                                 <td class="text-left padright" nowrap>
                                                         <b>In-Service:</b>
-                                                
                                                     {{pagedata.body.veh.insrvc}}</td>
                                         </tr>
                                         <tr  *ngIf="pagedata.body.veh.miles==''">     
                                                 <td class="text-left padleft" nowrap>
                                                         <b>In-Service:</b>
-                                                
                                                     {{pagedata.body.veh.insrvc}}</td>
                                         </tr>
                                     <tr>
                                         <td class="text-left padleft" nowrap>
                                             <b>Quote ID:</b>
-                                        
                                         {{pagedata.body.qtid}}
                                     </td>
                                         <td class="text-left padright" nowrap >
                                             <b>Quote Date:</b>
-                                        
                                        {{today | date:'MM/dd/yyyy'}}
                                     </td>
                                     </tr>
-                                    
                                     <tr>
                                             <td class="text-left padleft" nowrap>
                                                 <b>Name:</b>
-                                            
                                            {{pagedata.body.first +' '+pagedata.body.last}}</td>
                                             <td class="text-left padright" nowrap>
                                                     <b>Stock #:</b>
-                                            
                                                 {{pagedata.body.stock}}</td>
                                         </tr>
-                                        <tr *ngIf="pagedata.body.veh.price !==''">
-                                            <td class="text-left padleft">
-                                                <b>Purchase Price:</b>
-                                                {{pagedata.body.veh.price | currency}}
-                                            </td>
-                                            <td>&nbsp;</td>
-                                            </tr>
-                                    
                                 </tbody>
                             </table>
                             <hr style="margin-top:0">
@@ -1068,7 +1051,6 @@
                             <p style="margin:15px">&nbsp;</p>
                             </div>
                 </div>
-
             </div>
         </div>
     </div>

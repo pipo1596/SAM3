@@ -143,16 +143,18 @@
                         </ng-container>  
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-3"  style="padding-top:15px;" *ngIf="pagedata.body.veh && pagedata.body.veh.mmth>0">
+                <div class="col-xs-12 col-sm-6 col-md-3"  style="padding-top:15px;" *ngIf="pagedata.body.veh && (pagedata.body.veh.mmth>0 || pagedata.body.veh.mmth < 0)">
                     <label class="flat-input inputlabel">Mfg. Warranty Full</label>
                     <div class="flat-input w100" style="padding:0 5PX;">
-                            <span>{{pagedata.body.veh.mmth}} Months / {{pagedata.body.veh.mmil |number:0}} miles&nbsp;</span>
+                            <span *ngIf="pagedata.body.veh.mmth>=0">{{pagedata.body.veh.mmth}} Months / {{pagedata.body.veh.mmil |number:0}} miles&nbsp;</span>
+                            <span *ngIf="pagedata.body.veh.mmth < 0">N/A&nbsp;</span>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-3" style="padding-top:15px;" *ngIf="pagedata.body.veh && pagedata.body.veh.pmth>0">
+                <div class="col-xs-12 col-sm-6 col-md-3" style="padding-top:15px;" *ngIf="pagedata.body.veh && (pagedata.body.veh.pmth>0 || pagedata.body.veh.mmth < 0)">
                     <label class="flat-input inputlabel">Mfg. Warranty Powertrain</label>
                     <div class="flat-input w100" style="padding:0 5PX;">
-                            <span>{{pagedata.body.veh.pmth}} Months / {{pagedata.body.veh.pmil |number:0}} miles&nbsp;</span>
+                            <span *ngIf="pagedata.body.veh.mmth>=0">{{pagedata.body.veh.pmth}} Months / {{pagedata.body.veh.pmil |number:0}} miles&nbsp;</span>
+                            <span *ngIf="pagedata.body.veh.mmth < 0">N/A&nbsp;</span>
                     </div>
                 </div>
                 
@@ -622,7 +624,7 @@
                   <h4 class="modal-title pull-left" id="alertTitle">Invalid VIN!</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="alertBody">The VIN entered is not valid. Click OK to update and contintue.</p>
+                  <p id="alertBody">The VIN entered is not valid. Click OK to update and continue.</p>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-primary" (click)="hidemdl('InvalidVinModal');tovin();" type="button">OK</button>

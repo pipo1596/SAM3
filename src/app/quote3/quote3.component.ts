@@ -811,6 +811,7 @@ export class Quote3Component implements OnInit {
             if (index >= 0 && index2 >= 0) {
             program.check = true;
             table.nup = this.pagedata.body.data[index].nup;
+            if(table.nup===undefined || table.nup==="") table.nup = program.nup;
             table.dflt = this.pagedata.body.data[index].dflt;
             table.showct = false;
             table.prgm = program.program;
@@ -1118,23 +1119,96 @@ export class Quote3Component implements OnInit {
           obj.prg == eachObj.prg &&
           obj.ratc == eachObj.ratc));
         if (index >= 0) { element.check2 = true; }
-
+        var notfound = true;
+        //New N
         var indexin = this.rightMatch.findIndex(obj => (obj.type == "C" &&
           obj.cov == element.termc &&
           obj.prg == eachObj.prg &&
+          obj.nup == "N" &&
           obj.ratc == eachObj.ratc));
         if (indexin >= 0) {
           element.disbl = false;
-          //if(mode=="I"){
-          if (eachObj.nup === undefined || eachObj.nup == "") eachObj.nup = this.rightMatch[indexin].nup;
-          if (this.rightMatch[indexin].nup == "N") eachObj.dspn = true;
-          if (this.rightMatch[indexin].nup == "U") eachObj.dspu = true;
-          if (this.rightMatch[indexin].nup == "P") eachObj.dspp = true;
-          element.nup = this.rightMatch[indexin].nup;
-          //}
-
+          if (eachObj.nup === undefined || eachObj.nup == "") eachObj.nup = this.rightMatch[indexin].nup;;
+            eachObj.dspn = true;
+            if (element.nup === undefined || element.nup == "") element.nup = this.rightMatch[indexin].nup;
+            if(element.nup !== this.rightMatch[indexin].nup){
+              var newel = JSON.parse(JSON.stringify(element));
+              newel.nup = this.rightMatch[indexin].nup;
+              var indexiner = eachObj.cov.coverages.findIndex(innerobj => (newel.termc == innerobj.termc &&
+                newel.termp == innerobj.termp &&
+                newel.nup == innerobj.nup &&
+                newel.desc == innerobj.desc));
+              if(indexiner<0) eachObj.cov.coverages.push(newel);
+            }
+            notfound = false;
         }
-        else {
+        //Used
+        var indexin = this.rightMatch.findIndex(obj => (obj.type == "C" &&
+          obj.cov == element.termc &&
+          obj.prg == eachObj.prg &&
+          obj.nup == "U" &&
+          obj.ratc == eachObj.ratc));
+        if (indexin >= 0) {
+          element.disbl = false;
+          if (eachObj.nup === undefined || eachObj.nup == "") eachObj.nup = this.rightMatch[indexin].nup;;
+            eachObj.dspu = true;
+            if (element.nup === undefined || element.nup == "") element.nup = this.rightMatch[indexin].nup;
+            if(element.nup !== this.rightMatch[indexin].nup){
+              var newel = JSON.parse(JSON.stringify(element));
+              newel.nup = this.rightMatch[indexin].nup;
+              var indexiner = eachObj.cov.coverages.findIndex(innerobj => (newel.termc == innerobj.termc &&
+                newel.termp == innerobj.termp &&
+                newel.nup == innerobj.nup &&
+                newel.desc == innerobj.desc));
+              if(indexiner<0) eachObj.cov.coverages.push(newel);
+            }
+            notfound = false;
+        }
+        //Program
+        var indexin = this.rightMatch.findIndex(obj => (obj.type == "C" &&
+          obj.cov == element.termc &&
+          obj.prg == eachObj.prg &&
+          obj.nup == "P" &&
+          obj.ratc == eachObj.ratc));
+        if (indexin >= 0) {
+          element.disbl = false;
+          if (eachObj.nup === undefined || eachObj.nup == "") eachObj.nup = this.rightMatch[indexin].nup;;
+            eachObj.dspp = true;
+          if (element.nup === undefined || element.nup == "") element.nup = this.rightMatch[indexin].nup;
+          if(element.nup !== this.rightMatch[indexin].nup){
+            var newel = JSON.parse(JSON.stringify(element));
+            newel.nup = this.rightMatch[indexin].nup;
+            var indexiner = eachObj.cov.coverages.findIndex(innerobj => (newel.termc == innerobj.termc &&
+              newel.termp == innerobj.termp &&
+              newel.nup == innerobj.nup &&
+              newel.desc == innerobj.desc));
+            if(indexiner<0) eachObj.cov.coverages.push(newel);
+          }
+            notfound = false;
+        }
+        //B
+        var indexin = this.rightMatch.findIndex(obj => (obj.type == "C" &&
+          obj.cov == element.termc &&
+          obj.prg == eachObj.prg &&
+          obj.nup == "B" &&
+          obj.ratc == eachObj.ratc));
+        if (indexin >= 0) {
+          element.disbl = false;
+          if (eachObj.nup === undefined || eachObj.nup == "") eachObj.nup = this.rightMatch[indexin].nup;;
+          if (element.nup === undefined || element.nup == "") element.nup = this.rightMatch[indexin].nup;
+          if(element.nup !== this.rightMatch[indexin].nup){
+            var newel = JSON.parse(JSON.stringify(element));
+            newel.nup = this.rightMatch[indexin].nup;
+            var indexiner = eachObj.cov.coverages.findIndex(innerobj => (newel.termc == innerobj.termc &&
+              newel.termp == innerobj.termp &&
+              newel.nup == innerobj.nup &&
+              newel.desc == innerobj.desc));
+            if(indexiner<0) eachObj.cov.coverages.push(newel);
+          }
+            notfound = false;
+        }
+
+        if(notfound) {
           element.check2 = false;
         }
 
