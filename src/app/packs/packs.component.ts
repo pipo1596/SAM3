@@ -5,6 +5,7 @@ import { Util } from '../utilities/util';
 import { Packsdata , Pack} from './packsdata'; 
 import { Textfield , Numfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
+import { d } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-packs',
@@ -23,6 +24,7 @@ export class PacksComponent implements OnInit {
   warnmesg:string ="";
   modebtn = "ADD";
   sectn:string = "R";
+  active:string = "Y";
   //Input Fields
   prg  = new  Textfield ;
   cov  = new  Textfield ;
@@ -37,6 +39,9 @@ export class PacksComponent implements OnInit {
   amtc = new  Numfield ;
   effd = new  Textfield ;
   expd = new  Textfield ;
+  d :Date = new Date();
+  dc :string = this.d.toISOString().substring(0, 10);
+  dc1 :string = (this.d.toISOString().substring(0, 10)).replace(/-/gi, "");
 
   //Alerts
   dispAlert = new Dispalert();
@@ -61,6 +66,13 @@ export class PacksComponent implements OnInit {
     else
       return prg;
   }
+  xlatecov(cov){
+    var index = this.pagedata.covdrop.coverages.findIndex(obj => obj.termc==cov );
+    if(index>=0)
+      return this.pagedata.covdrop.coverages[index].desc;
+    else
+      return cov;
+  }
   
   addRecInit(){
     this.selectedRec.default("ADD");
@@ -71,6 +83,7 @@ export class PacksComponent implements OnInit {
     this.validating = false;
     this.changes = false;
     this.sectn = "R";
+    if(this.pagedata.cmpc == 'PIP') this.sectn = 'B';
 
     this.modebtn = "ADD";
     Util.scrollTop();
@@ -96,7 +109,10 @@ export class PacksComponent implements OnInit {
   onSelect(record: Pack): void {
     this.selectedRec.prg  = record.prg;
     this.selectedRec.cov  = record.cov;
+    this.selectedRec.covd = record.cov;
     this.selectedRec.term = record.term;
+    this.selectedRec.cvmn = record.term.substring(0, 3);
+    this.selectedRec.cvml = record.term.substring(3);
     this.selectedRec.nub  = record.nub;
     this.selectedRec.mino = record.mino;
     this.selectedRec.upmi = record.upmi;
@@ -110,6 +126,7 @@ export class PacksComponent implements OnInit {
     this.selectedRec.expd = record.expd;
     this.selectedRec.pkno = record.pkno;
     if(this.selectedRec.amti !==null || this.selectedRec.pcti !==null){this.sectn = "I";}else{this.sectn="R";}
+    if(this.pagedata.cmpc == 'PIP') this.sectn = "B";
 
     this.selectedRecG = record;
     this.selectedRec.mode = "SAVE";
@@ -135,8 +152,15 @@ export class PacksComponent implements OnInit {
       () => {
         this.dispAlert.setMessage(this.errSet);
         if (this.dispAlert.status === "S") {
-  
-            this.pagedata.packs.splice(this.pagedata.packs.findIndex(obj => obj.pkno==this.selectedRec.pkno),1);
+          var y = new Date(new Date().setDate(new Date().getDate()-1));
+          var yesterday = y.toISOString().substring(0, 10);
+          //this.pagedata.packs.splice(this.pagedata.packs.findIndex(obj => obj.pkno==this.selectedRec.pkno),1);
+          if(new Date(this.expd.value+ 'T00:00') > y){
+            this.selectedRecG.expd = yesterday;
+          }
+          //if(new Date(this.selectedRecG.effd+ 'T00:00') > new Date(this.selectedRecG.expd+ 'T00:00')){
+          //  this.selectedRecG.effd = this.selectedRecG.expd;
+          //  }
             setTimeout(() => {
               Util.showWait();   
               this.cancel();
@@ -161,6 +185,8 @@ export class PacksComponent implements OnInit {
     this.dispAlert.message="";
     if(mode=="NEW"){
       this.selectedRec.term = "";
+      this.selectedRec.cvmn = "";
+      this.selectedRec.cvml = "";
       this.selectedRec.cov = "";
     }
     Util.showWait();
@@ -198,7 +224,7 @@ export class PacksComponent implements OnInit {
     this.prg.value   = this.selectedRec.prg.trim();
     this.effd.value  = this.selectedRec.effd.trim();
     this.expd.value  = this.selectedRec.expd.trim();
-    this.term.value  = this.selectedRec.term;
+    this.term.value  = this.selectedRec.term;    
     this.amti.value  = this.selectedRec.amti;
     this.amtr.value  = this.selectedRec.amtr;
     this.amtc.value  = this.selectedRec.amtc;
@@ -240,11 +266,15 @@ export class PacksComponent implements OnInit {
     }
 
     //Retail Or Internal
-    if((this.amtc.value !== null || this.amtr.value !== null || this.pctr.value !==null) &&
+    if(this.pagedata.cmpc !=='PIP'){
+      if((this.amtc.value !== null || this.amtr.value !== null || this.pctr.value !==null) &&
       (this.amti.value !== null || this.pcti.value !==null)){this.warnmesg = "(RETAIL --OR-- INTERNAL)";  this.valid = false; }
-    if(this.amtc.value === null && this.amtr.value === null && this.pctr.value ===null &&
+      if(this.amtc.value === null && this.amtr.value === null && this.pctr.value ===null &&
        this.amti.value === null && this.pcti.value ===null) {this.warnmesg = "(RETAIL --OR-- INTERNAL REQUIRED)"; this.valid = false; }
-
+    }else{
+      if((this.amtc.value == null && this.amtr.value == null && this.pctr.value ==null) &&
+      (this.amti.value == null && this.pcti.value ==null)){this.warnmesg = "(RETAIL --AND/OR-- INTERNAL)";  this.valid = false; }
+      }
     if (this.pcti.value < 0){ this.pcti.message = "(invalid)"; this.pcti.erlevel = "D"; this.valid = false; }
     if (this.pcti.value!== null && (this.pcti.value > 99.99 || (this.pcti.value.toString().length > 6))){ 
       this.pcti.message = "(Too big)"; this.pcti.erlevel = "D"; this.valid = false; 
@@ -277,25 +307,60 @@ export class PacksComponent implements OnInit {
         this.changes = false;
         this.dispAlert.setMessage(this.errSet);
         if (this.dispAlert.status === "S") {
-
-          if(this.selectedRec.mode=="ADD"){
+          
+          var y = new Date(new Date().setDate(new Date().getDate()-1));
+                  
+          if(this.selectedRec.mode=="ADD" || this.selectedRec.mode=="SAVE"){
             this.newRec.pkno = this.dispAlert.data;
             this.newRec.prg  = this.selectedRec.prg;
             this.newRec.cov  = this.selectedRec.cov;
+            this.newRec.covd  = this.xlatecov(this.selectedRec.cov);
             this.newRec.term = this.selectedRec.term;
+            this.newRec.cvmn = this.selectedRec.term.substring(0, 3);
+            this.newRec.cvml = this.selectedRec.term.substring(3);
             this.newRec.nub  = this.selectedRec.nub;
             this.newRec.mino = this.selectedRec.mino;
             this.newRec.upmi = this.selectedRec.upmi;
             this.newRec.effd = this.selectedRec.effd;
             this.newRec.expd = this.selectedRec.expd;
+            this.newRec.efdd = this.selectedRec.effd.toString().replace(/-/gi, "");
+            this.newRec.exdd = this.selectedRec.expd.toString().replace(/-/gi, "");
+            if(this.selectedRec.mode == "SAVE") this.newRec.effd =  this.dc;
             this.newRec.amti = this.selectedRec.amti;
             this.newRec.amtr = this.selectedRec.amtr;
             this.newRec.pcti = this.selectedRec.pcti;
             this.newRec.pctr = this.selectedRec.pctr;
             this.newRec.amtc = this.selectedRec.amtc;
             
-
+            if(this.dispAlert.data!==undefined && this.dispAlert.data!=="")
             this.pagedata.packs.push(JSON.parse(JSON.stringify(this.newRec)));
+            this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A");   
+            if(this.selectedRec.mode=="SAVE"){
+              //alert(this.index);
+              this.selectedRecG.prg  = this.selectedRec.prg.padEnd(20);
+              this.selectedRecG.cov  = this.selectedRec.cov;
+              this.selectedRecG.covd = this.xlatecov(this.selectedRec.cov);
+              this.selectedRecG.term = this.selectedRec.term;
+              this.selectedRecG.cvmn = this.selectedRec.term.substring(0, 3);
+              this.selectedRecG.cvml = this.selectedRec.term.substring(3);
+              this.selectedRecG.nub  = this.selectedRec.nub;
+              this.selectedRecG.mino = this.selectedRec.mino;
+              this.selectedRecG.upmi = this.selectedRec.upmi;
+              this.selectedRecG.effd = this.selectedRec.effd;
+              if(this.dispAlert.data!==undefined && this.dispAlert.data!=="")
+                this.selectedRecG.expd = y.toISOString().substring(0, 10);
+              else
+                this.selectedRecG.expd = this.selectedRec.expd;
+              this.selectedRecG.efdd = this.selectedRecG.effd.toString().replace(/-/gi, "");
+              this.selectedRecG.exdd = this.selectedRecG.expd.toString().replace(/-/gi, "");
+              this.selectedRecG.amti = this.selectedRec.amti;
+              this.selectedRecG.amtr = this.selectedRec.amtr;
+              this.selectedRecG.pcti = this.selectedRec.pcti;
+              this.selectedRecG.pctr = this.selectedRec.pctr;
+              this.selectedRecG.amtc = this.selectedRec.amtc;
+  
+              
+            }
 
             setTimeout(() => {
               Util.showWait();   
@@ -304,27 +369,7 @@ export class PacksComponent implements OnInit {
 
 
           }
-          if(this.selectedRec.mode=="SAVE"){
-            //alert(this.index);
-            this.selectedRecG.prg  = this.selectedRec.prg.padEnd(20);
-            this.selectedRecG.cov  = this.selectedRec.cov;
-            this.selectedRecG.term = this.selectedRec.term;
-            this.selectedRecG.nub  = this.selectedRec.nub;
-            this.selectedRecG.mino = this.selectedRec.mino;
-            this.selectedRecG.upmi = this.selectedRec.upmi;
-            this.selectedRecG.effd = this.selectedRec.effd;
-            this.selectedRecG.expd = this.selectedRec.expd;
-            this.selectedRecG.amti = this.selectedRec.amti;
-            this.selectedRecG.amtr = this.selectedRec.amtr;
-            this.selectedRecG.pcti = this.selectedRec.pcti;
-            this.selectedRecG.pctr = this.selectedRec.pctr;
-            this.selectedRecG.amtc = this.selectedRec.amtc;
-
-            setTimeout(() => {
-              Util.showWait();   
-              this.cancel();
-            }, 500);
-          }
+          
 
           
         }else{
@@ -369,6 +414,7 @@ export class PacksComponent implements OnInit {
         }else{
           Util.hideWait();
           this.selectedRec.prg = this.pagedata.dprg;
+          this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A");
         }
 
        }

@@ -661,7 +661,7 @@ changePass(){
         if(this.salesmode)
           this.noAuth = !this.pagedata.head.as400;
         else
-          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'EUSERS');
+          this.noAuth = Util.noAuth(this.pagedata.head.menuOp,'CEUSERS');
         if (this.pagedata.head.status === "O" || this.noAuth) {
           
           Util.showWait();

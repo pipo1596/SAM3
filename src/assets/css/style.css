@@ -51,6 +51,14 @@ table.sixcol{font-size:14px;}
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;}
+.notactive:before{background: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    float: left;
+    content: '';
+    margin: 6px;}
+.notactive.active:before{background: #0fca0f}
 .siteseal{width:50px;}
 .loginmesg.col-xs-9{padding: 0;}
 .loginmesg.col-xs-3{padding: 0;}

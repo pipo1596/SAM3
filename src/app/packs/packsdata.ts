@@ -4,6 +4,7 @@ export class Packsdata{
           head = new Headerdata ;
           packs :[ Pack ];
           dprg  : string ;
+          cmpc  : string ;
           prgdrop = new RateCards;
           covdrop = new Coverages;
           trm   = new Terms ; 
@@ -25,7 +26,10 @@ export class Pack{
            mode: string ;
            prg : string;
            cov : string;
+          covd : string;
           term : string;
+          cvmn : string;
+          cvml : string;
            nub : string;
           mino : number;
           upmi : number;
@@ -35,8 +39,10 @@ export class Pack{
           pcti : number;
           pctr : number;
           effd : string;
+          efdd : string;
           effdi: string;
           expd : string;
+          exdd : string;
           expdi: string;
           pkno : string;
 
