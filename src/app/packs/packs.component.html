@@ -224,6 +224,9 @@
                                 <th>
                                     <b>Type</b>
                                 </th>
+                                <th>
+                                    <b>Markup Amt.</b>
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -235,29 +238,50 @@
                             <tr *ngIf="active == 'N' || (dc1>=pack.efdd && dc1<=pack.exdd)">
                                 <td data-label="Program">
                                     <span class="notactive" [class.active]="(dc1>=pack.efdd && dc1<=pack.exdd)">{{xlate(pack.prg)}}</span></td>
-                                <td data-label="Coverage">{{pack.covd}}</td>
+                                <td data-label="Coverage">&nbsp;{{pack.covd}}</td>
                                 <td data-label="Term">
                                      &nbsp;
-                                     <span *ngIf="pack.term!==''">
+                                     <span *ngIf="pack.term!==''">&nbsp;
                                         <span *ngIf="pack.cvmn %12== 0 ">{{pack.cvmn/12}} Year</span>
                                         <span *ngIf="pack.cvmn %12!==0">{{pack.cvmn}} Months</span>
                                         <span *ngIf="pack.cvmn % 12 == 0 && pack.cvmn > 12">s</span> / {{pack.cvml}} miles 
                                     </span>
 
                                 </td>
-                                <td data-label="Eligibility">
+                                <td data-label="Eligibility">&nbsp;
                                         <span *ngIf="pack.nub == 'N' ">New</span>
                                         <span *ngIf="pack.nub == 'U' ">Used</span>
                                         <span *ngIf="pack.nub == 'P' ">Program</span>
                                 </td>
                                 <td data-label="From">{{pack.effd | date : "MM/d/y" }}</td>
                                 <td data-label="To">{{pack.expd | date : "MM/d/y" }}</td>
-                                <td data-label="Type" *ngIf="(pack.amtr !==null || pack.amtc !==null || pack.pctr !==null) &&
-                                                             (pack.amti ==null && pack.pcti ==null)">Retail</td>
+                                <td data-label="Type" nowrap *ngIf="(pack.amtr !==null || pack.amtc !==null || pack.pctr !==null) &&
+                                                             (pack.amti ==null && pack.pcti ==null)">
+                                                            <div *ngIf="pack.amtc !==null">Customer Retail $</div> 
+                                                            <div *ngIf="pack.amtr !==null">Retail $</div> 
+                                                            <div *ngIf="pack.pctr !==null">Retail %</div> 
+                                                            </td>
                                 <td data-label="Type" *ngIf="(pack.amtr ==null && pack.amtc ==null && pack.pctr ==null) &&
-                                                             (pack.amti !==null || pack.pcti !==null)">Internal</td>
-                                <td data-label="Type" *ngIf="(pack.amtr !==null || pack.amtc !==null || pack.pctr !==null) &&
-                                                             (pack.amti !==null || pack.pcti !==null)">Both</td>
+                                                             (pack.amti !==null || pack.pcti !==null)">
+                                                             <div *ngIf="pack.amti !==null">Internal $</div> 
+                                                             <div *ngIf="pack.pcti !==null">Internal %</div>  
+                                                            </td>
+                                <td data-label="Type" nowrap *ngIf="(pack.amtr !==null || pack.amtc !==null || pack.pctr !==null) &&
+                                                             (pack.amti !==null || pack.pcti !==null)">
+                                                             <div *ngIf="pack.amtc !==null">Customer Retail $</div> 
+                                                             <div *ngIf="pack.amtr !==null">Retail $</div> 
+                                                             <div *ngIf="pack.pctr !==null">Retail %</div>
+                                                             <div *ngIf="pack.amti !==null">Internal $</div> 
+                                                             <div *ngIf="pack.pcti !==null">Internal %</div> 
+                                                            </td>
+                                <td data-label="Markup Amt." >
+                                                             <div *ngIf="pack.amtc !==null">{{pack.amtc | currency}}</div> 
+                                                             <div *ngIf="pack.amtr !==null">{{pack.amtr | currency}}</div> 
+                                                             <div *ngIf="pack.pctr !==null">{{pack.pctr }}</div>
+                                                             <div *ngIf="pack.amti !==null">{{pack.amti | currency}}</div> 
+                                                             <div *ngIf="pack.pcti !==null">{{pack.pcti}}</div> 
+                                                            </td>
+                                
                                 <td data-label="Type" *ngIf="(pack.amtr  ==null && pack.amtc ==null && pack.pctr ==null) &&
                                                              (pack.amti  ==null && pack.pcti ==null)">&nbsp;</td>
                                 <td data-label="">

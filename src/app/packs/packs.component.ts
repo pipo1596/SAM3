@@ -39,9 +39,12 @@ export class PacksComponent implements OnInit {
   amtc = new  Numfield ;
   effd = new  Textfield ;
   expd = new  Textfield ;
-  d :Date = new Date();
+  d :Date = new Date(new Date().setDate(new Date().getDate()+1));
   dc :string = this.d.toISOString().substring(0, 10);
-  dc1 :string = (this.d.toISOString().substring(0, 10)).replace(/-/gi, "");
+ 
+  t :Date = new Date();
+  today:string = this.t.toISOString().substring(0, 10);
+  dc1 :string = (this.t.toISOString().substring(0, 10)).replace(/-/gi, "");
 
   //Alerts
   dispAlert = new Dispalert();
@@ -88,12 +91,9 @@ export class PacksComponent implements OnInit {
     this.modebtn = "ADD";
     Util.scrollTop();
     Util.focusById("code");
-    
-  
   }
 
   cancel(){
-
     Util.showWait();
     this.validating = false;
     this.selectedRec.default("ADD"); 
@@ -103,7 +103,6 @@ export class PacksComponent implements OnInit {
     this.dispAlert.default();
     Util.scrollTop();
     this.changes = false;
-    
   }
 
   onSelect(record: Pack): void {
@@ -138,7 +137,6 @@ export class PacksComponent implements OnInit {
     Util.focusById("code");
     this.changes = false;
     this.newPrg("E");
-    
   }
 
   delete(){
@@ -152,11 +150,12 @@ export class PacksComponent implements OnInit {
       () => {
         this.dispAlert.setMessage(this.errSet);
         if (this.dispAlert.status === "S") {
-          var y = new Date(new Date().setDate(new Date().getDate()-1));
-          var yesterday = y.toISOString().substring(0, 10);
-          //this.pagedata.packs.splice(this.pagedata.packs.findIndex(obj => obj.pkno==this.selectedRec.pkno),1);
-          if(new Date(this.expd.value+ 'T00:00') > y){
-            this.selectedRecG.expd = yesterday;
+          
+          
+          if(new Date(this.selectedRecG.effd+ 'T00:00') < this.t){
+            if(this.selectedRecG.expd > this.today) this.selectedRecG.expd = this.today;
+          }else{
+            this.pagedata.packs.splice(this.pagedata.packs.findIndex(obj => obj.pkno==this.selectedRec.pkno),1);
           }
           //if(new Date(this.selectedRecG.effd+ 'T00:00') > new Date(this.selectedRecG.expd+ 'T00:00')){
           //  this.selectedRecG.effd = this.selectedRecG.expd;
@@ -165,13 +164,9 @@ export class PacksComponent implements OnInit {
               Util.showWait();   
               this.cancel();
             }, 500);
-  
-          
         }else{
           Util.hideWait();
         }
-          
-  
       }
     );
     }
@@ -241,7 +236,7 @@ export class PacksComponent implements OnInit {
       }
     }
     if (this.expd.value !== "") {
-    if(new Date(this.expd.value+ 'T00:00') < new Date(new Date().toDateString())){
+    if(new Date(this.expd.value+ 'T00:00') <= new Date(new Date().toDateString())){
       this.expd.message = "(Cannot be in the past)"; this.expd.erlevel = "D"; this.valid = false;
     }
     }
@@ -308,9 +303,11 @@ export class PacksComponent implements OnInit {
         this.dispAlert.setMessage(this.errSet);
         if (this.dispAlert.status === "S") {
           
-          var y = new Date(new Date().setDate(new Date().getDate()-1));
+          var y = new Date();
                   
           if(this.selectedRec.mode=="ADD" || this.selectedRec.mode=="SAVE"){
+
+            if(this.selectedRec.mode =="ADD" || this.selectedRec.effd < this.today){
             this.newRec.pkno = this.dispAlert.data;
             this.newRec.prg  = this.selectedRec.prg;
             this.newRec.cov  = this.selectedRec.cov;
@@ -325,7 +322,7 @@ export class PacksComponent implements OnInit {
             this.newRec.expd = this.selectedRec.expd;
             this.newRec.efdd = this.selectedRec.effd.toString().replace(/-/gi, "");
             this.newRec.exdd = this.selectedRec.expd.toString().replace(/-/gi, "");
-            if(this.selectedRec.mode == "SAVE") this.newRec.effd =  this.dc;
+            if(this.selectedRec.mode == "SAVE" && this.selectedRec.effd < this.today) this.newRec.effd =  this.dc;
             this.newRec.amti = this.selectedRec.amti;
             this.newRec.amtr = this.selectedRec.amtr;
             this.newRec.pcti = this.selectedRec.pcti;
@@ -334,8 +331,9 @@ export class PacksComponent implements OnInit {
             
             if(this.dispAlert.data!==undefined && this.dispAlert.data!=="")
             this.pagedata.packs.push(JSON.parse(JSON.stringify(this.newRec)));
-            this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A");   
-            if(this.selectedRec.mode=="SAVE"){
+            this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A"); 
+            }  
+            if(this.selectedRec.mode=="SAVE" && this.selectedRec.effd <= this.today){
               //alert(this.index);
               this.selectedRecG.prg  = this.selectedRec.prg.padEnd(20);
               this.selectedRecG.cov  = this.selectedRec.cov;
