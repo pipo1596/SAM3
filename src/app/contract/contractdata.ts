@@ -34,6 +34,7 @@ export class bodyData{
    states : [State];
     srchg : [Srchg];
    fields : [Field];
+   dlstat : string;
 lienholders : [Lienh];
 }
 

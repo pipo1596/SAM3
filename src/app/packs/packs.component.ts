@@ -5,7 +5,6 @@ import { Util } from '../utilities/util';
 import { Packsdata , Pack} from './packsdata'; 
 import { Textfield , Numfield} from '../utilities/textfield';
 import { Dispalert , Errsetter } from '../utilities/dispalert';
-import { d } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-packs',
@@ -137,6 +136,9 @@ export class PacksComponent implements OnInit {
     Util.focusById("code");
     this.changes = false;
     this.newPrg("E");
+    if(new Date(this.selectedRec.effd+ 'T00:00').getDate() < this.t.getDate()){
+      setTimeout(() => {alert("Changes to this pack will not go into effect until tomorrow!")},500);
+    }
   }
 
   delete(){
@@ -152,7 +154,7 @@ export class PacksComponent implements OnInit {
         if (this.dispAlert.status === "S") {
           
           
-          if(new Date(this.selectedRecG.effd+ 'T00:00') < this.t){
+          if(new Date(this.selectedRecG.effd+ 'T00:00').getDate() < this.t.getDate()){
             if(this.selectedRecG.expd > this.today) this.selectedRecG.expd = this.today;
           }else{
             this.pagedata.packs.splice(this.pagedata.packs.findIndex(obj => obj.pkno==this.selectedRec.pkno),1);

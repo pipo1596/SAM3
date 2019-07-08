@@ -310,6 +310,16 @@ export class ContractComponent implements OnInit {
       } 
     } 
 
+    //Oregon 5% Rule
+    if(this.valid && this.pagedata.body.dlstat == "OR" && fld.labl =="Amount Financed"){
+      if(parseFloat(fld.value)>0){
+      if(parseFloat(this.totalpi)/parseFloat(fld.value) > 0.05){
+        this.valid = false;
+        Util.modalid('show','pricealert');
+      }
+      } 
+    }
+
     });
 
   }
@@ -319,6 +329,10 @@ export class ContractComponent implements OnInit {
   }
 tostep1(){
   this.router.navigate(['/app/Quote1']);
+}
+tostep3(){
+  this.changes = false;
+  this.router.navigate(['/app/Quote3']);
 }
 tostep1w(){
   this.jsonService
