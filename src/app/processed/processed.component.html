@@ -484,6 +484,10 @@
 											<td style="font-weight: bold;text-align: right;width:40%;">Return Percentage:</td>
 											<td width="50">{{rfnd.pct}}</td>
 									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Refund Amount:</td>
+											<td width="50">{{rfnd.amt}}</td>
+									</tr>
 							</table>
 
 						</div>
@@ -654,7 +658,16 @@
 										<td width="50">{{rfnd.pct}}</td>
 								</tr>
 								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Refund Amount:</td>
+										<td width="50">{{rfnd.amt}}</td>
+								</tr>
+								<tr>
 									<td colspan="2" class="text-center">
+										<p style="background: white;font-size:13px;">THIS PROGRAM IS PROVIDED BY NATIONAL WARRANTY CORPORATION AND PAYMENT INSURED PLAN, 
+											AND IS ESTIMATOR ONLY, ACTUAL REFUNDS WILL BE RE-CALCULATED ON THE RECEIPT OF CANCELLATION 
+											PAPERWORK. CANCELLATION PAPERWORK MUST BE SUBMITTED TO NATIONAL WARRANTY CORPORATION 
+											WITHIN 5 DAYSOF CANCELLATION QUOTE TO CUSTOMER. IF CLAIMS HAVE BEEN PAID ON GAP OR 
+											CREDIT LIFE POLICIES, THE POLICY IS NO LONGER ELIGIBLE FOR CANCELLATION.</p><hr>
 										<p>Continue with the cancellation process and print form</p>
 										<a href="javascript:void(0);" (click)="cancelmode()"  class="btn btn-danger btnedit" href="javascript:void(0)">Continue &nbsp;<span class="fa fa-forward"></span></a>
 									</td>
