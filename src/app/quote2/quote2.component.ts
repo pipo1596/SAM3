@@ -81,7 +81,7 @@ export class Quote2Component implements OnInit {
       this.pagedata.body.srchg = Util.sortByKey(this.pagedata.body.srchg, "type","D");
     }
     if(this.pagedata.body.data.length > 0){
-    this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc","A");
+    this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data,"lobc","desc","A");
     
     //  this.pagedata.body.data[0].open = true;
     }

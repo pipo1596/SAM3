@@ -1495,7 +1495,7 @@ export class Quote3Component implements OnInit {
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
             this.datanotsored = JSON.parse(JSON.stringify(this.pagedata.body.data));
-            this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "desc", "prg", "A");
+            this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "lobc", "desc", "A");
             
             
           }
@@ -1553,8 +1553,8 @@ export class Quote3Component implements OnInit {
             this.pagedata.body.pagemode = 'R';
           this.loading = false;
           if (this.pagedata.body.data.length > 0) {
-            this.pagedata.body.tables = Util.sortByKey(this.pagedata.body.tables, "desc", "A");
-            this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
+            this.pagedata.body.tables = Util.sortBy2Key(this.pagedata.body.tables, "lob" , "desc", "A");
+            this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data,"lobc","desc", "A");
             this.pagedata.body.states = Util.sortByKey(this.pagedata.body.states,"desc","A");
             //this.pagedata.body.data[0].open = true;
             }
