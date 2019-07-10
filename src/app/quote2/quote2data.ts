@@ -23,6 +23,7 @@ export class Data{
     prg  :string ="";
     ratc :string ="";
     lobc :string ="";
+    plns :string ="";
     desc :string ="";
     showct: boolean = false;
     hasoc:boolean=false;

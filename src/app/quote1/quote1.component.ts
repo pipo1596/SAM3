@@ -682,7 +682,7 @@ ngOnInit() {
         }else{
           this.pagedata.body.pln.plans.forEach(elem=>{elem.desc = elem.desc.toUpperCase();})
           this.pagedata.body.pln.plans = Util.sortByKey(this.pagedata.body.pln.plans, "desc","A");
-          this.pagedata.body.pln.plans = Util.sortBy2Key(this.pagedata.body.pln.plans, "plnt","lob","A");
+          this.pagedata.body.pln.plans = Util.sortBy2Key(this.pagedata.body.pln.plans, "plnt","plns","A");
           
           this.rfshYears(); 
           

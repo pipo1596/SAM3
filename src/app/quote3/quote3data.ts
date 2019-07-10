@@ -59,6 +59,7 @@ export class Data{
     desc :string ="";
     lob  :string ="";
     lobc :string ="";
+    plns :string ="";
     showct: boolean = false;
  selected : string =""; 
     ctrct :string ="";

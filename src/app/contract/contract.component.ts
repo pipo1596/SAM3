@@ -313,10 +313,20 @@ export class ContractComponent implements OnInit {
     //Oregon 5% Rule
     if(this.valid && this.pagedata.body.dlstat == "OR" && fld.labl =="Amount Financed"){
       if(parseFloat(fld.value)>0){
-      if(parseFloat(this.totalpi)/parseFloat(fld.value) > 0.05){
-        this.valid = false;
+
+        this.pagedata.body.contract.contracts.forEach(cnt =>{ 
+          if(cnt.lob == 'GAP' || cnt.lob == 'PIPGAP'){
+          if(parseFloat(cnt.ccst)/parseFloat(fld.value) > 0.05){
+            this.valid = false;
+            this.erscrol(fld.name);
+          }
+        }
+        });
+
+      if(!this.valid){
         Util.modalid('show','pricealert');
       }
+
       } 
     }
 

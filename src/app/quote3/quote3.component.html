@@ -550,7 +550,7 @@
                                            / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
-                                        <td *ngIf="col.check">
+                                        <td *ngIf="col.check && table.data[r][c]">
                                             <ng-container *ngIf="table.data[r][c][0]>0">
                                             <div class="custcheck" *ngIf="table.data[r][c]!==undefined">
                                                 <input name="plan" id="cell{{table.program+table.coverage+r+c}}" type="checkbox" class="c2" [checked]="table.data[r][c][2]==1" (change)="selectCov($event,p,t,r,c)">
@@ -634,7 +634,7 @@
                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
-                                        <td *ngIf="col.check">
+                                        <td *ngIf="col.check && table.data[r][c]">
                                             <ng-container *ngIf="table.data[r][c][0]>0">
                                             <div class="custcheck" *ngIf="table.data[r][c]!==undefined">
                                                 <input name="plan" id="cell{{table.program+table.coverage+r+c}}" type="checkbox" class="c2" [checked]="table.data[r][c][2]==1" (change)="selectCov($event,p,t,r,c)">

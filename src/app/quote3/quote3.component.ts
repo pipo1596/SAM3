@@ -1495,7 +1495,8 @@ export class Quote3Component implements OnInit {
           this.hasQuote1 = !Util.noAuth(this.pagedata.head.menuOp,'QUOTE1');
           if (this.pagedata.body.data.length > 0) {
             this.datanotsored = JSON.parse(JSON.stringify(this.pagedata.body.data));
-            this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "lobc", "desc", "A");
+            this.pagedata.body.data = Util.sortByKey(this.pagedata.body.data, "desc", "A");
+            this.pagedata.body.data = Util.sortBy2Key(this.pagedata.body.data, "plns", "desc", "A");
             
             
           }
