@@ -382,16 +382,17 @@ export class Quote2Component implements OnInit {
           if(this.pagedata.body.chkdf.length > 0) allones = false;
 
           this.pagedata.body.data.forEach(parent=>{
+            parent.ded.deductibles = Util.sortByKey(parent.ded.deductibles,"sort","A");
             if(parent.dflt){//Default Fuccillo Conditional Programs if firt time.
               parent.cov.coverages.forEach((elem)=>{
                 elem.check2 = true;
-              })
+              });
               parent.trm.terms.forEach((elem)=>{
                 elem.check2 = true;
-              })
+              });
               parent.ded.deductibles.forEach((elem)=>{
                 elem.check2 = true;
-              })
+              });
             }
             else{//Default if only one in each
               var i =0;

@@ -254,7 +254,10 @@ goMenuMetric(){
            err => {},
            () => { 
           if(url.link!=='E') { 
-            window.location.href= url.link;
+           // window.location.href= url.link;
+           Util.hideWait();
+            var win = window.open(url.link, '_blank');
+             win.focus();
           }else{
             Util.hideWait();
             Util.modalid("show","mmModalError");

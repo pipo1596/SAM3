@@ -53,8 +53,8 @@
                                                 </span>
                                             </td>
                                             <td style="font-weight: bold">{{ cont.term }}</td>
-                                            <td style="font-weight: bold" *ngIf="cont.ded!=='DD'">{{ cont.ded | currency }}</td>
-                                            <td style="font-weight: bold" *ngIf="cont.ded =='DD'">
+                                            <td style="font-weight: bold" *ngIf="cont.ded!=='DD' && cont.ded !=='DD2'">{{ cont.ded | currency }}</td>
+                                            <td style="font-weight: bold" *ngIf="cont.ded =='DD' || cont.ded  =='DD2'">
                                                     <span *ngIf="!cont.desc || cont.desc ==''">${{cont.ded}}</span>
                                                     <span *ngIf="cont.desc && cont.desc !==''">{{cont.desc}}</span> 
                                             </td>
@@ -545,8 +545,8 @@
                                         <span style="color:gray" *ngIf="cont.nup =='U'">- [{{dspNup(cont.prg,'U')}}]</span>
                                         </p>
                                         <p>{{ cont.term }}</p>
-                                        <p *ngIf="cont.ded!=='DD'"> {{ cont.ded | currency }}</p>
-                                        <p *ngIf="cont.ded =='DD'">
+                                        <p *ngIf="cont.ded!=='DD' && cont.ded !=='DD2'"> {{ cont.ded | currency }}</p>
+                                        <p *ngIf="cont.ded =='DD' || cont.ded  =='DD2'">
                                                 <span *ngIf="!cont.desc || cont.desc ==''">${{cont.ded}}</span>
                                                 <span *ngIf="cont.desc && cont.desc !==''">{{cont.desc}}</span> 
                                         </p>

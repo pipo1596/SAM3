@@ -854,8 +854,8 @@
                                                                 </span>
                                                                 <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                         </td>
-                                                        <td style="font-weight: bold" *ngIf="col.ded!=='DD'">{{ col.ded | currency}}</td>
-                                                        <td style="font-weight: bold" *ngIf="col.ded =='DD'">
+                                                        <td style="font-weight: bold" *ngIf="col.ded!=='DD' && col.ded!=='DD2'">{{ col.ded | currency}}</td>
+                                                        <td style="font-weight: bold" *ngIf="col.ded =='DD' || col.ded =='DD2'">
                                                         <span *ngIf="!col.desc || col.desc ==''">${{col.ded}}</span>
                                                         <span *ngIf="col.desc && col.desc !==''">{{col.desc}}</span>   
                                                         </td>
@@ -1010,9 +1010,9 @@
                                                                             <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
                                                                         <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                                 </td>
-                                                                <td style="font-weight: bold" *ngIf="col.ded!=='DD'">
+                                                                <td style="font-weight: bold" *ngIf="col.ded!=='DD' && col.ded!=='DD2'">
                                                                     <b>Deductible:&nbsp;</b>{{ col.ded | currency}}</td>
-                                                                <td style="font-weight: bold" *ngIf="col.ded =='DD'">
+                                                                <td style="font-weight: bold" *ngIf="col.ded =='DD' || col.ded =='DD2'">
                                                                     <b>Deductible:&nbsp;</b>
                                                                 <span *ngIf="!col.desc || col.desc ==''">${{col.ded}}</span>
                                                                 <span *ngIf="col.desc && col.desc !==''">{{col.desc}}</span>   

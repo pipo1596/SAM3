@@ -1564,6 +1564,7 @@ export class Quote3Component implements OnInit {
             var ratc;
             var foundfirst = false;
             this.pagedata.body.data.forEach((elem) =>{
+              elem.ded.deductibles = Util.sortByKey(elem.ded.deductibles,"sort","A");
               elem.cov.coverages.forEach((cv)=>{
                 if(!cv.check){
                   if(!foundfirst) {elem.open = true; prg=elem.prg; ratc = elem.ratc; foundfirst=true;}
