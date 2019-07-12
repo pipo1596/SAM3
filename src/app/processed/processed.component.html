@@ -485,8 +485,16 @@
 											<td width="50">{{rfnd.pct}}</td>
 									</tr>
 									<tr>
-											<td style="font-weight: bold;text-align: right;width:40%;">Refund Amount:</td>
-											<td width="50">{{rfnd.amt}}</td>
+											<td style="font-weight: bold;text-align: right;width:40%;">Customer Refund Amount:</td>
+											<td width="50">{{rfnd.amt | currency}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Dealer Refund Amount:</td>
+											<td width="50">{{rfnd.amtd | currency}}</td>
+									</tr>
+									<tr>
+											<td style="font-weight: bold;text-align: right;width:40%;">Cancellation Fee:</td>
+											<td width="50">{{rfnd.fee | currency}}</td>
 									</tr>
 							</table>
 
@@ -658,8 +666,16 @@
 										<td width="50">{{rfnd.pct}}</td>
 								</tr>
 								<tr>
-										<td style="font-weight: bold;text-align: right;width:40%;">Refund Amount:</td>
-										<td width="50">{{rfnd.amt}}</td>
+										<td style="font-weight: bold;text-align: right;width:40%;">Customer Refund Amount:</td>
+										<td width="50">{{rfnd.amt | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Dealer Refund Amount:</td>
+										<td width="50">{{rfnd.amtd | currency}}</td>
+								</tr>
+								<tr>
+										<td style="font-weight: bold;text-align: right;width:40%;">Cancellation Fee:</td>
+										<td width="50">{{rfnd.fee | currency}}</td>
 								</tr>
 								<tr>
 									<td colspan="2" class="text-center">

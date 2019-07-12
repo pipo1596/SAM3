@@ -1277,7 +1277,7 @@ export class Quote3Component implements OnInit {
     this.pagedata.body.tables.forEach((table, i0) => {
       if (table.rates !== undefined && table.prgm !== undefined && table.ctrct !== undefined) {
         var ic = this.pagedata.body.contracts.findIndex(
-          obj => (obj.code.trim() == table.ctrct.substring(20).trim() && obj.prgm == table.prgm.padEnd(10)+table.ratc.padEnd(10)));
+          obj => (obj.code.trim() == table.ctrct.substring(20).trim() && obj.prgm.trim() == (table.prgm.padEnd(10)+table.ratc.padEnd(10)).trim()));
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
