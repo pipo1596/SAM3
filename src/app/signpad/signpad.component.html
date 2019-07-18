@@ -1,4 +1,4 @@
-<app-header [headdata]="pagedata.head"></app-header>
+
 <div class="modal" id="signmodal" role="dialog" aria-hidden="true" style="display: none;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -11,8 +11,8 @@
       <div class="modal-footer">
         <button class="btn btn-warning" (click)="clearsig()" type="button">CLEAR</button>
         <button class="btn btn-primary" (click)="savesig()" type="button">SAVE</button>
+        <h1 *ngIf="iono">{{iono}}</h1>
       </div>
     </div>
   </div>
 </div>
-<app-footer></app-footer>

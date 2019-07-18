@@ -532,6 +532,9 @@
                                 <th scope="col" style="text-align: center">
                                     <b>VIEW</b>
                                 </th>
+                                <th scope="col" style="text-align: center">
+                                    <b>Sign</b>
+                                </th>
                             </tr>
                         </thead>
              <tbody>
@@ -554,19 +557,21 @@
                                     <td style="font-weight: bold" *ngIf="cont.xtr7 !=='1'">{{ cont.ccst| currency }}</td>
                                     <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>
                                     <td style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="viewPdf(i)"  class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a></td>
+                                    <td *ngIf="!cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i)"  class="btn btn-warning" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-edit"></i></a></td>
+                                    <td *ngIf="cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i)"  class="btn btn-primary" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check-square"></i></a></td>
                                 </tr>
                                 <tr *ngIf="payment !== 'F' && cont.qual=='Y'">
                                     <td style="font-weight: bold" colspan="2">
                                         <p>Paylink Agreement</p>
                                     </td>
-                                    <td style="font-weight: bold;text-align: center">
+                                    <td  colspan="2" style="font-weight: bold;text-align: center">
                                         <a href="javascript:void(0);" (click)="viewPdfz(i)"  class="btn btn-info btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i>&nbsp;ZIP</a>
                                     </td>
                                 </tr>
                 </ng-container>
                             <tr>
                                 <td colspan="1" style="font-weight: bold;text-align:right">Total</td>
-                                <td colspan="2" style="font-weight: bold;color:#337ab7;text-align: left">{{totalpi | currency}}</td>
+                                <td colspan="3" style="font-weight: bold;color:#337ab7;text-align: left">{{totalpi | currency}}</td>
                             </tr>
                         </tbody>
          </table>
@@ -725,6 +730,7 @@
             </div>
         </form>
           </div>
+    <app-signpad [iono]="signdata"></app-signpad>
     <div class="modal" id="carfaxdate" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog" role="document">
               <div class="modal-content">

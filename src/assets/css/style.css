@@ -67,7 +67,7 @@ table.sixcol{font-size:14px;}
 .quoteprint .table-sm.table>tbody>tr>td.padleft{padding-left:20px}
 .quoteprint .table-sm.table>tbody>tr>td.padright{padding-right: 20px;}
 .printbtn{position: absolute;right:25px;top:10px;}
-signature-pad{display: block;margin:0 auto;border:1px solid gainsboro;}
+signature-pad{display: block;margin:0 auto;border:1px solid gainsboro;text-align:center;}
 #viewcost button{cursor: pointer;}
 .desc3{BACKGROUND: #428bca;
     font-size: 13px;

@@ -157,6 +157,7 @@ export class Single{
    qual : string = "";
    lob  : string = "";
    covc : string = "";
+   sign : boolean = false;
 }
 
 export class Drp{

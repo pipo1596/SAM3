@@ -22,7 +22,7 @@ export class ContractComponent implements OnInit {
   erScrolid :string = "";
   pvinsrvc:string = "";
   dsplhfi:boolean = true;
-
+  signdata:string ="";
   payment:string ='F';
   //CC fields
   cctyp : string ="U";
@@ -463,7 +463,10 @@ tostep1w(){
     this.checkPayLink();
     this.loadDb();
   }
-
+  signPdf(index){
+    this.signdata = this.ionos.substring(index*10,index*10+10);
+    Util.modalid('show','signmodal');
+  }
   checkPayLink(){
     var d = new Date();
     if(this.payment == 'F'){ 

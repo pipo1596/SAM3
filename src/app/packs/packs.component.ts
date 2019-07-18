@@ -233,12 +233,15 @@ export class PacksComponent implements OnInit {
     if (this.prg.value  == "") { this.prg.message  = "(required)"; this.prg.erlevel  = "D"; this.valid = false; }
     if (this.effd.value == "") { this.effd.message = "(required)"; this.effd.erlevel = "D"; this.valid = false; }
     if(this.effd.value !== this.selectedRec.effdi){//If Entry mode or if date changed!
-      if(new Date(this.effd.value+ 'T00:00') < new Date(new Date().toDateString())){
+      if(new Date(this.effd.value+ 'T00:00').getTime() < new Date().getTime()){
         this.effd.message = "(Cannot be in the past)"; this.effd.erlevel = "D"; this.valid = false;
+      }
+      if(new Date(this.effd.value+ 'T00:00').getTime() == new Date().getTime()){
+        this.effd.message = "(Must be at least 1 day in the future)"; this.effd.erlevel = "D"; this.valid = false;
       }
     }
     if (this.expd.value !== "") {
-    if(new Date(this.expd.value+ 'T00:00') <= new Date(new Date().toDateString())){
+    if(new Date(this.expd.value+ 'T00:00').getTime() <= new Date().getTime()){
       this.expd.message = "(Cannot be in the past)"; this.expd.erlevel = "D"; this.valid = false;
     }
     }
@@ -321,22 +324,24 @@ export class PacksComponent implements OnInit {
             this.newRec.mino = this.selectedRec.mino;
             this.newRec.upmi = this.selectedRec.upmi;
             this.newRec.effd = this.selectedRec.effd;
-            this.newRec.expd = this.selectedRec.expd;
-            this.newRec.efdd = this.selectedRec.effd.toString().replace(/-/gi, "");
+            this.newRec.expd = this.selectedRec.expd;            
             this.newRec.exdd = this.selectedRec.expd.toString().replace(/-/gi, "");
             if(this.selectedRec.mode == "SAVE" && this.selectedRec.effd < this.today) this.newRec.effd =  this.dc;
+            this.newRec.efdd = this.newRec.effd.toString().replace(/-/gi, "");
             this.newRec.amti = this.selectedRec.amti;
             this.newRec.amtr = this.selectedRec.amtr;
             this.newRec.pcti = this.selectedRec.pcti;
             this.newRec.pctr = this.selectedRec.pctr;
             this.newRec.amtc = this.selectedRec.amtc;
             
-            if(this.dispAlert.data!==undefined && this.dispAlert.data!=="")
+            if(this.dispAlert.data!==undefined && this.dispAlert.data!=="" && this.dispAlert.data!=="D")
             this.pagedata.packs.push(JSON.parse(JSON.stringify(this.newRec)));
             this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A"); 
             }  
-            if(this.selectedRec.mode=="SAVE" && this.selectedRec.effd <= this.today){
+           // if(this.selectedRec.mode=="SAVE" && this.selectedRec.effd <= this.today){
+            if(this.selectedRec.mode=="SAVE"){
               //alert(this.index);
+              if(this.selectedRecG.effd > this.today){
               this.selectedRecG.prg  = this.selectedRec.prg.padEnd(20);
               this.selectedRecG.cov  = this.selectedRec.cov;
               this.selectedRecG.covd = this.xlatecov(this.selectedRec.cov);
@@ -347,18 +352,21 @@ export class PacksComponent implements OnInit {
               this.selectedRecG.mino = this.selectedRec.mino;
               this.selectedRecG.upmi = this.selectedRec.upmi;
               this.selectedRecG.effd = this.selectedRec.effd;
-              if(this.dispAlert.data!==undefined && this.dispAlert.data!=="")
-                this.selectedRecG.expd = y.toISOString().substring(0, 10);
-              else
-                this.selectedRecG.expd = this.selectedRec.expd;
-              this.selectedRecG.efdd = this.selectedRecG.effd.toString().replace(/-/gi, "");
-              this.selectedRecG.exdd = this.selectedRecG.expd.toString().replace(/-/gi, "");
               this.selectedRecG.amti = this.selectedRec.amti;
               this.selectedRecG.amtr = this.selectedRec.amtr;
               this.selectedRecG.pcti = this.selectedRec.pcti;
               this.selectedRecG.pctr = this.selectedRec.pctr;
               this.selectedRecG.amtc = this.selectedRec.amtc;
-  
+              }
+              if(this.dispAlert.data!==undefined && this.dispAlert.data!=="")
+                this.selectedRecG.expd = y.toISOString().substring(0, 10);
+              else{
+                this.selectedRecG.expd = this.selectedRec.expd;
+              }
+              this.selectedRecG.efdd = this.selectedRecG.effd.toString().replace(/-/gi, "");
+              this.selectedRecG.exdd = this.selectedRecG.expd.toString().replace(/-/gi, "");
+              
+              this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A"); 
               
             }
 
