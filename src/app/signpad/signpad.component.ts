@@ -9,7 +9,8 @@ import { JsonService } from '../utilities/json.service';
   templateUrl: './signpad.component.html'
 })
 export class SignpadComponent implements OnInit {
-  @Input() iono;
+  @Input() data;
+  @Input() i;
   @Output() notify = new EventEmitter();
   constructor(private jsonService: JsonService) { }
 
@@ -29,10 +30,13 @@ export class SignpadComponent implements OnInit {
   }
   savesig2(data){ 
   this.jsonService
-        .initService(this.iono+this.writeTiff(data,this.signaturePad.options), Util.Url("CGSAVETIF"))
+        .initService("&MODE="+this.data.mode+
+                     "&IONO="+this.data.iono+
+                     "&BLOB="+this.writeTiff(data,this.signaturePad.options), Util.Url("CGSAVETIF"))
         .subscribe(
           () => {
-            alert("success");
+            this.clearsig();
+            this.notify.emit({ event : this.i });
 
           });
   }
@@ -69,12 +73,15 @@ export class SignpadComponent implements OnInit {
       cvs.remove();
       }
   }
+  
   ngOnInit() {
     //Util.hideWait();
     //Util.modalid('show','signmodal');
-
+    
   }
-
+cancel(){
+  Util.modalidmain('hide','signmodal');
+}
   writeTiff(inputData,optn){
     var fptr = [];
     var offset;

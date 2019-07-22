@@ -22,7 +22,7 @@ export class ContractComponent implements OnInit {
   erScrolid :string = "";
   pvinsrvc:string = "";
   dsplhfi:boolean = true;
-  signdata:string ="";
+  signdata:any;
   payment:string ='F';
   //CC fields
   cctyp : string ="U";
@@ -42,8 +42,13 @@ export class ContractComponent implements OnInit {
   citylh = new Textfield;
   stalh = new Textfield;
   ziplh = new Textfield;
+  sigiono:string ="";
+  iniiono:string ="";
+  samesig:boolean = false;
+  sameini:boolean = false;
 
   tries : number = 0;
+  i : number = 0;
   ionos : string ="";
 
   vinE:boolean = true;
@@ -463,9 +468,119 @@ tostep1w(){
     this.checkPayLink();
     this.loadDb();
   }
-  signPdf(index){
-    this.signdata = this.ionos.substring(index*10,index*10+10);
-    Util.modalid('show','signmodal');
+
+  onNotify(e,data){
+    console.log(e);
+    console.log(data);
+    Util.modalidmain('hide','signmodal');
+    if(data.mode == 'USERSIG') this.signPdf(e.event,"R");
+    if(data.mode == 'USERINI') this.signPdf(e.event,"R");
+    if(data.mode == 'SAMESIG') this.signPdf(e.event,"R");
+    if(data.mode == 'SAMEINI') this.signPdf(e.event,"R");
+    if(data.mode == 'CONTSIG') this.pagedata.body.contract.contracts[e.event].sign = true;
+    if(data.mode == 'CONTINI') {this.pagedata.body.contract.contracts[e.event].ini = true;this.signPdf(e.event,"R");}
+    
+  }
+  signPdf(index,mode){
+    var hasdata;
+    Util.showWait();
+    //1// Dealer User Signature On File?
+    this.jsonService
+        .initService({ "mode": "HASSIG"}, Util.Url("CGICCNTRCT"))
+        .subscribe(data => hasdata = data,
+          err => { this.dispAlert.error();Util.hideWait(); },
+          () => {
+            
+            this.i = index;
+            Util.hideWait();
+            
+            //Sign clicked
+            if(mode=='I'){
+              this.pagedata.body.contract.contracts[index].sign = false;
+              this.pagedata.body.contract.contracts[index].ini = false;
+              this.samesig = false;
+              this.sameini = false;
+            }
+
+            if(!this.pagedata.body.contract.contracts[index].view){
+              if(confirm("You have not viewed this contract. Would you like to view it before signing?")){
+                this.viewPdf(index);
+                return false;
+              } 
+              } 
+            //INI>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            if(!this.sameini && this.iniiono!=="" && this.iniiono!==this.ionos.substring(index*10,index*10+10)){
+              this.sameini = true;
+              if(confirm("Customer initials have been captured already. Do you want to use the previeus initials or create new ones?")){
+                this.jsonService
+                .initService("&MODE=SAMEINI"+
+                             "&IONO="+this.ionos.substring(index*10,index*10+10)+
+                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
+                .subscribe(
+                  () => {
+                    this.pagedata.body.contract.contracts[index].ini = true;
+                    this.signPdf(index,"R");
+        
+                  });
+                return false;
+              }
+            }
+
+            if(!hasdata.hasini){ 
+              //Capture User Initials
+              alert("Salesperson Initials required.");
+              this.signdata={"mode":"USERINI", "iono": this.ionos.substring(index*10,index*10+10)}; 
+              
+              Util.modalidmain('show','signmodal');
+              return false;
+            }
+            //SIG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            if(!this.samesig && this.sigiono!=="" && this.sigiono!==this.ionos.substring(index*10,index*10+10)){
+              this.samesig = true;
+              if(confirm("Customer Signature has been captured already. Do you want to use the previeus Signature or create new one?")){
+                this.jsonService
+                .initService("&MODE=SAMESIG"+
+                             "&IONO="+this.ionos.substring(index*10,index*10+10)+
+                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
+                .subscribe(
+                  () => {
+                    this.pagedata.body.contract.contracts[index].sign = true;
+                    //this.signPdf(index,"R");
+        
+                  });
+                return false;
+              }
+            }
+            if(!hasdata.hassig){
+              //Capture User Signature
+              alert("All salespeople need a signature on file. This will be used on all contracts you create that get signed electronically.");
+              this.signdata={"mode":"USERSIG", "iono": this.ionos.substring(index*10,index*10+10)}; 
+              Util.modalidmain('show','signmodal');
+              return false;
+            }
+            
+            
+            
+           
+           if(!this.pagedata.body.contract.contracts[index].ini){
+            this.signdata={"mode":"CONTINI", "iono": this.ionos.substring(index*10,index*10+10)}; 
+            if(this.iniiono !=='') this.sameini = true;
+            if(this.iniiono =='') this.iniiono = this.ionos.substring(index*10,index*10+10);
+            Util.modalidmain('show','signmodal');
+            return false;
+           }
+
+           if(!this.pagedata.body.contract.contracts[index].sign){
+            this.signdata={"mode":"CONTSIG", "iono": this.ionos.substring(index*10,index*10+10)}; 
+            if(this.sigiono !=='') this.samesig = true;
+            if(this.sigiono =='') this.sigiono = this.ionos.substring(index*10,index*10+10);
+            Util.modalidmain('show','signmodal');
+            return false;
+           }
+    
+    
+    Util.modalidmain('show','signmodal');
+          });
   }
   checkPayLink(){
     var d = new Date();
@@ -533,8 +648,8 @@ tostep1w(){
     this.ccexp.value ='';
   }
   viewPdf(index){
-
-    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    this.pagedata.body.contract.contracts[index].view = true;
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)+"&RAN="+Util.makeid()),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 
     } 
@@ -544,7 +659,8 @@ tostep1w(){
   }
   viewPdfz(index){
     index = index + this.pagedata.body.contract.contracts.length;
-    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
+    this.pagedata.body.contract.contracts[index].view = true;
+    var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)+"&RAN="+Util.makeid()),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 
     } 
@@ -664,7 +780,7 @@ tostep1w(){
     this.changes= true;
   }
 
-  
+ 
 formatCVV() {
   
   this.cccvv.value = this.cccvv.value.replace(/\D/g, '');
@@ -784,6 +900,7 @@ formatCVV() {
       );
       
   }
+  
   setlhadr(mode){
     
     var indexlh = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLHFI'));

@@ -572,6 +572,26 @@ static modalid(mode,id){
     }
     }
 //===================================================================================//
+static modalidmain(mode,id){
+    if(mode=="show"){
+        $('#'+id).addClass('in');
+        $('#'+id).addClass('show');
+        $('#'+id).css('display', 'block');
+        $('#'+id).attr('aria-hidden', 'false');
+        $(".modal-backdrop").removeClass("hidden");
+        $(".modal-backdrop").removeClass("fade");
+        $(".modal-backdrop").addClass("in");
+    }else{
+        $('#'+id).removeClass('in');
+        $('#'+id).removeClass('show');
+        $('#'+id).css('display', 'none');
+        $('#'+id).attr('aria-hidden', 'true');
+        //$(".modal-backdrop").addClass("hidden");
+        //$(".modal-backdrop").addClass("fade");
+        //$(".modal-backdrop").removeClass("in");
+    }
+    }
+//===================================================================================//
 static alertmodal(message,title){
     $("#alertBody").html(message);
     $("#alertTitle").html(title);

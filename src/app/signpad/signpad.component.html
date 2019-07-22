@@ -3,15 +3,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title pull-left" id="alertTitle">Sign Contract</h4>
+        <h4 class="modal-title pull-left" id="alertTitle">
+          <span *ngIf="data && data.mode && data.mode =='USERSIG'">Salesperson Signature</span>
+          <span *ngIf="data && data.mode && data.mode =='USERINI'">Salesperson Initials</span>
+          <span *ngIf="data && data.mode && data.mode =='CONTSIG'">Signature Needed For Contract</span>
+          <span *ngIf="data && data.mode && data.mode =='CONTINI'">Initials Needed For Contract</span>
+        </h4>
       </div>
       <div class="modal-body">
           <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
       </div>
       <div class="modal-footer">
+        <button class="btn btn-info" (click)="cancel()" type="button">CANCEL</button>
         <button class="btn btn-warning" (click)="clearsig()" type="button">CLEAR</button>
         <button class="btn btn-primary" (click)="savesig()" type="button">SAVE</button>
-        <h1 *ngIf="iono">{{iono}}</h1>
       </div>
     </div>
   </div>

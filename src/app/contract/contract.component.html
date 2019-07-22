@@ -552,13 +552,14 @@
                                         <p *ngIf="cont.ded =='DD' || cont.ded  =='DD2'">
                                                 <span *ngIf="!cont.desc || cont.desc ==''">${{cont.ded}}</span>
                                                 <span *ngIf="cont.desc && cont.desc !==''">{{cont.desc}}</span> 
+                                                
                                         </p>
                                     </td>
                                     <td style="font-weight: bold" *ngIf="cont.xtr7 !=='1'">{{ cont.ccst| currency }}</td>
                                     <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>
                                     <td style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="viewPdf(i)"  class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a></td>
-                                    <td *ngIf="!cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i)"  class="btn btn-warning" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-edit"></i></a></td>
-                                    <td *ngIf="cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i)"  class="btn btn-primary" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check-square"></i></a></td>
+                                    <td *ngIf="!cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i,'I')"  class="btn btn-warning" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-edit"></i></a></td>
+                                    <td *ngIf="cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i,'I')"  class="btn btn-success" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check"></i></a></td>
                                 </tr>
                                 <tr *ngIf="payment !== 'F' && cont.qual=='Y'">
                                     <td style="font-weight: bold" colspan="2">
@@ -730,7 +731,7 @@
             </div>
         </form>
           </div>
-    <app-signpad [iono]="signdata"></app-signpad>
+    <app-signpad [data]="signdata" [i]="i" (notify)="onNotify($event,signdata)"></app-signpad>
     <div class="modal" id="carfaxdate" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog" role="document">
               <div class="modal-content">

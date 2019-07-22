@@ -233,15 +233,15 @@ export class PacksComponent implements OnInit {
     if (this.prg.value  == "") { this.prg.message  = "(required)"; this.prg.erlevel  = "D"; this.valid = false; }
     if (this.effd.value == "") { this.effd.message = "(required)"; this.effd.erlevel = "D"; this.valid = false; }
     if(this.effd.value !== this.selectedRec.effdi){//If Entry mode or if date changed!
-      if(new Date(this.effd.value+ 'T00:00').getTime() < new Date().getTime()){
+      if(new Date(this.effd.value+ 'T00:00').getDate() < new Date().getDate()){
         this.effd.message = "(Cannot be in the past)"; this.effd.erlevel = "D"; this.valid = false;
       }
-      if(new Date(this.effd.value+ 'T00:00').getTime() == new Date().getTime()){
+      if(new Date(this.effd.value+ 'T00:00').getDate() == new Date().getDate()){
         this.effd.message = "(Must be at least 1 day in the future)"; this.effd.erlevel = "D"; this.valid = false;
       }
     }
     if (this.expd.value !== "") {
-    if(new Date(this.expd.value+ 'T00:00').getTime() <= new Date().getTime()){
+    if(new Date(this.expd.value+ 'T00:00').getDate() <= new Date().getDate()){
       this.expd.message = "(Cannot be in the past)"; this.expd.erlevel = "D"; this.valid = false;
     }
     }
