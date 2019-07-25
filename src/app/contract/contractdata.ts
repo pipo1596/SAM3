@@ -12,6 +12,7 @@ export class bodyData{
         contract : Cont;
         months : string;
         mindwn : string;
+        signm : string;//Signature method
         plnk: string;
         lntp: string;
         xptf:boolean;

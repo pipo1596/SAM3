@@ -211,7 +211,10 @@ export class Quote3Component implements OnInit {
     contract.COV +=  tb.rates[t].coverage.padEnd(10);
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
     contract.PRG += tb.rates[t].program.padEnd(10);
-    contract.RATC += tb.rates[t].ratc.padEnd(10);
+    if(tb.rates[t].ratc!=="")
+      contract.RATC += tb.rates[t].ratc.padEnd(10);
+    else
+      contract.RATC += '$'.padEnd(10);
     contract.CVDS += tb.rates[t].title.padEnd(50);
     contract.DED +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
     if( tb.rates[t].cols[c].desc)

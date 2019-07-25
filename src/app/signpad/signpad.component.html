@@ -4,19 +4,34 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left" id="alertTitle">
-          <span *ngIf="data && data.mode && data.mode =='USERSIG'">Salesperson Signature</span>
-          <span *ngIf="data && data.mode && data.mode =='USERINI'">Salesperson Initials</span>
-          <span *ngIf="data && data.mode && data.mode =='CONTSIG'">Signature Needed For Contract</span>
-          <span *ngIf="data && data.mode && data.mode =='CONTINI'">Initials Needed For Contract</span>
+          <span *ngIf="_data && _data.mode && _data.mode =='USERSIG'">Salesperson <span style="color:brown">Signature</span></span>
+          <span *ngIf="_data && _data.mode && _data.mode =='USERINI'">Salesperson <span style="color:brown">Initials</span></span>
+          <span *ngIf="_data && _data.mode && _data.mode =='CONTSIG'">Customer <span style="color:brown">signature</span> Needed For Contract</span>
+          <span *ngIf="_data && _data.mode && _data.mode =='CONTINI'">Customer <span style="color:brown">initials</span> Needed For Contract</span>
         </h4>
       </div>
+      <!--Html5-->
+      <div [class.hidden]="!this._data || this._data.meth !== 'H'">
       <div class="modal-body">
           <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" >
         <button class="btn btn-info" (click)="cancel()" type="button">CANCEL</button>
         <button class="btn btn-warning" (click)="clearsig()" type="button">CLEAR</button>
         <button class="btn btn-primary" (click)="savesig()" type="button">SAVE</button>
+      </div>
+      </div>
+      <!--Topaz-->
+      <div [class.hidden]="!this._data || this._data.meth !== 'T'">
+      <div class="modal-body">
+          <canvas id="cnvt" name="cnvt" width="540" height="120"></canvas>
+          <img src="/assets/images/topaz.png" id="signtopaz">
+      </div>
+      <div class="modal-footer" >
+        <button class="btn btn-info" (click)="cancel();clearTopaz();" type="button">CANCEL</button>
+        <button class="btn btn-warning" (click)="ClearTablet()" type="button">CLEAR</button>
+        <button class="btn btn-primary" (click)="savesigt()" type="button">SAVE</button>
+      </div>
       </div>
     </div>
   </div>

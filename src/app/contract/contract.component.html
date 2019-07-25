@@ -559,7 +559,7 @@
                                     <td style="font-weight: bold" *ngIf="cont.xtr7  =='1'">$0.00</td>
                                     <td style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="viewPdf(i)"  class="btn btn-primary btnedit" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-file-pdf-o"></i></a></td>
                                     <td *ngIf="!cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i,'I')"  class="btn btn-warning" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-edit"></i></a></td>
-                                    <td *ngIf="cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);" (click)="signPdf(i,'I')"  class="btn btn-success" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check"></i></a></td>
+                                    <td *ngIf="cont.sign" style="font-weight: bold;text-align: center"><a href="javascript:void(0);"  class="btn btn-success" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check"></i></a></td>
                                 </tr>
                                 <tr *ngIf="payment !== 'F' && cont.qual=='Y'">
                                     <td style="font-weight: bold" colspan="2">
@@ -731,7 +731,7 @@
             </div>
         </form>
           </div>
-    <app-signpad [data]="signdata" [i]="i" (notify)="onNotify($event,signdata)"></app-signpad>
+    <app-signpad  *ngIf="signdata" [data]="signdata" [i]="i" (notify)="onNotify($event,signdata)"></app-signpad>
     <div class="modal" id="carfaxdate" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -751,7 +751,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">In Service Date Change</h4>
+                  <h4 class="modal-title pull-left">In Service Date Change</h4>
                 </div>
                 <div class="modal-body">
                   <p id="alertBody">In service date has been updated from {{pvinsrvc}} to {{errSet.data}}. Eligibility for this vehicle has changed. Click OK to re-quote this vehicle.</p>
@@ -766,13 +766,89 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title pull-left" id="alertTitle">Cost warning!</h4>
+                  <h4 class="modal-title pull-left">Cost warning!</h4>
                 </div>
                 <div class="modal-body">
                   <p id="alertBody">The price of the contract is equal to or less than the cost.</p>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-primary" (click)="hidemdl('costwarning');" type="button">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="viewcont" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-warning">
+                  <h4 class="modal-title pull-left">Contract not viewed!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">You have not viewed the contract. Would you like to view it before signing?</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-warning" (click)="noview()" type="button">&nbsp;&nbsp;NO&nbsp;&nbsp;</button>
+                  <button class="btn btn-primary" (click)="view()" type="button">&nbsp;&nbsp;YES&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="usigreq" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-warning">
+                  <h4 class="modal-title pull-left">Salesperson signature required!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">All salespeople need a signature on file. This will be used on all contracts you create that get signed electronically.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="usersign()" type="button">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="uinireq" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-warning">
+                  <h4 class="modal-title pull-left">Salesperson initials required!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">All salespeople need initials on file. This will be used on all contracts you create that get signed electronically.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="userini()" type="button">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal md-effect-2" id="sign" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-success">
+                  <h4 class="modal-title pull-left">Signature found on file!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Customer Signature has already been captured. Please Click Confirm to use it on this contract.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-success" (click)="sign()" type="button">CONFIRM</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="initial" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-success">
+                  <h4 class="modal-title pull-left">Initials found on file!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">Customer Initials have already been captured. Please Click Confirm to use them on this contract.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-success" (click)="initial()" type="button">CONFIRM</button>
                 </div>
               </div>
             </div>

@@ -21,6 +21,7 @@ export class DealermasterComponent implements OnInit {
 	//Input Fields
 	dsmd = new Textfield;
 	pack = new Textfield;
+	sigm = new Textfield;
 	user = new Textfield;
 	type = new Textfield;
 	dsid = new Textfield;
@@ -58,6 +59,7 @@ export class DealermasterComponent implements OnInit {
     //Reset Error Messages
     this.dsmd.message  = "";
     this.pack.message  = "";
+    this.sigm.message  = "";
     this.user.message  = "";
     this.type.message  = "";
     this.dsid.message  = "";
@@ -87,6 +89,7 @@ export class DealermasterComponent implements OnInit {
     this.pagedata.body.dsmd = this.dsmd.value;
     this.pagedata.body.mmid = this.mmid.value;
     this.pagedata.body.pack = this.pack.value;
+    this.pagedata.body.sigm = this.sigm.value;
     this.pagedata.body.user = this.user.value;
     this.pagedata.body.type = this.type.value;
     this.pagedata.body.dsid = this.dsid.value;
@@ -144,6 +147,7 @@ export class DealermasterComponent implements OnInit {
           this.dsmd.value = this.pagedata.body.dsmd;
           this.mmid.value = this.pagedata.body.mmid;
           this.pack.value = this.pagedata.body.pack;
+          this.sigm.value = this.pagedata.body.sigm;
           this.dsid.value = this.pagedata.body.dsid;
           this.pass.value = this.pagedata.body.pass;
           this.user.value = this.pagedata.body.user;

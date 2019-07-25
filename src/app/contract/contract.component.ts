@@ -473,13 +473,65 @@ tostep1w(){
     console.log(e);
     console.log(data);
     Util.modalidmain('hide','signmodal');
+    Util.modalidmain("show","contractModal");
     if(data.mode == 'USERSIG') this.signPdf(e.event,"R");
     if(data.mode == 'USERINI') this.signPdf(e.event,"R");
     if(data.mode == 'SAMESIG') this.signPdf(e.event,"R");
     if(data.mode == 'SAMEINI') this.signPdf(e.event,"R");
-    if(data.mode == 'CONTSIG') this.pagedata.body.contract.contracts[e.event].sign = true;
-    if(data.mode == 'CONTINI') {this.pagedata.body.contract.contracts[e.event].ini = true;this.signPdf(e.event,"R");}
+    if(data.mode == 'CONTSIG') {this.pagedata.body.contract.contracts[e.event].sign = true;this.sigiono = this.ionos.substring(e.event*10,e.event*10+10);}
+    if(data.mode == 'CONTINI') {this.pagedata.body.contract.contracts[e.event].ini = true;this.signPdf(e.event,"R");this.iniiono = this.ionos.substring(e.event*10,e.event*10+10);}
     
+  }
+
+  view(){
+   this.hidemdl('viewcont');
+   this.viewPdf(this.i);
+   Util.modalidmain("show","contractModal");
+
+  }
+  noview(){
+   this.hidemdl('viewcont');
+   this.pagedata.body.contract.contracts[this.i].view = true;
+   Util.modalidmain("show","contractModal");
+   this.signPdf(this.i,"I");
+  }
+  usersign(){
+    this.hidemdl('usigreq');
+    this.signdata={"mode":"USERSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(this.i*10,this.i*10+10)}; 
+    Util.modalidmain('show','signmodal');
+  }
+  userini(){
+    this.hidemdl('uinireq');
+    this.signdata={"mode":"USERINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(this.i*10,this.i*10+10)}; 
+    Util.modalidmain('show','signmodal');
+  }
+  sign(){
+    this.jsonService
+                .initService("&MODE=SAMESIG"+
+                             "&IONO="+this.ionos.substring(this.i*10,this.i*10+10)+
+                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
+                .subscribe(
+                  () => {
+                    this.hidemdl('sign');
+                    this.pagedata.body.contract.contracts[this.i].sign = true;
+                    Util.modalidmain('show','contractModal');
+        
+                  });
+
+  }
+  initial(){
+    this.jsonService
+                .initService("&MODE=SAMEINI"+
+                             "&IONO="+this.ionos.substring(this.i*10,this.i*10+10)+
+                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
+                .subscribe(
+                  () => {
+                    this.hidemdl('initial');
+                    this.pagedata.body.contract.contracts[this.i].ini = true;
+                    this.signPdf(this.i,"R");
+        
+                  });
+
   }
   signPdf(index,mode){
     var hasdata;
@@ -493,7 +545,7 @@ tostep1w(){
             
             this.i = index;
             Util.hideWait();
-            
+            Util.modalidmain("hide","contractModal");
             //Sign clicked
             if(mode=='I'){
               this.pagedata.body.contract.contracts[index].sign = false;
@@ -503,83 +555,56 @@ tostep1w(){
             }
 
             if(!this.pagedata.body.contract.contracts[index].view){
-              if(confirm("You have not viewed this contract. Would you like to view it before signing?")){
-                this.viewPdf(index);
-                return false;
-              } 
+              Util.modalidmain('show','viewcont');
+              return false;
               } 
             //INI>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             if(!this.sameini && this.iniiono!=="" && this.iniiono!==this.ionos.substring(index*10,index*10+10)){
+              Util.modalidmain('show','initial');
               this.sameini = true;
-              if(confirm("Customer initials have been captured already. Do you want to use the previeus initials or create new ones?")){
-                this.jsonService
-                .initService("&MODE=SAMEINI"+
-                             "&IONO="+this.ionos.substring(index*10,index*10+10)+
-                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
-                .subscribe(
-                  () => {
-                    this.pagedata.body.contract.contracts[index].ini = true;
-                    this.signPdf(index,"R");
-        
-                  });
-                return false;
-              }
+              return false;
             }
 
             if(!hasdata.hasini){ 
               //Capture User Initials
-              alert("Salesperson Initials required.");
-              this.signdata={"mode":"USERINI", "iono": this.ionos.substring(index*10,index*10+10)}; 
-              
-              Util.modalidmain('show','signmodal');
+              Util.modalidmain('show','uinireq');
               return false;
+              
             }
             //SIG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             if(!this.samesig && this.sigiono!=="" && this.sigiono!==this.ionos.substring(index*10,index*10+10)){
+              Util.modalidmain('show','sign');
               this.samesig = true;
-              if(confirm("Customer Signature has been captured already. Do you want to use the previeus Signature or create new one?")){
-                this.jsonService
-                .initService("&MODE=SAMESIG"+
-                             "&IONO="+this.ionos.substring(index*10,index*10+10)+
-                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
-                .subscribe(
-                  () => {
-                    this.pagedata.body.contract.contracts[index].sign = true;
-                    //this.signPdf(index,"R");
-        
-                  });
-                return false;
-              }
+              return false;
+              
             }
             if(!hasdata.hassig){
               //Capture User Signature
-              alert("All salespeople need a signature on file. This will be used on all contracts you create that get signed electronically.");
-              this.signdata={"mode":"USERSIG", "iono": this.ionos.substring(index*10,index*10+10)}; 
-              Util.modalidmain('show','signmodal');
+              Util.modalidmain('show','usigreq');
               return false;
+              
             }
             
             
             
            
            if(!this.pagedata.body.contract.contracts[index].ini){
-            this.signdata={"mode":"CONTINI", "iono": this.ionos.substring(index*10,index*10+10)}; 
+            this.signdata={"mode":"CONTINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
             if(this.iniiono !=='') this.sameini = true;
-            if(this.iniiono =='') this.iniiono = this.ionos.substring(index*10,index*10+10);
             Util.modalidmain('show','signmodal');
             return false;
            }
 
            if(!this.pagedata.body.contract.contracts[index].sign){
-            this.signdata={"mode":"CONTSIG", "iono": this.ionos.substring(index*10,index*10+10)}; 
+            this.signdata={"mode":"CONTSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
             if(this.sigiono !=='') this.samesig = true;
-            if(this.sigiono =='') this.sigiono = this.ionos.substring(index*10,index*10+10);
             Util.modalidmain('show','signmodal');
             return false;
            }
     
     
     Util.modalidmain('show','signmodal');
+    Util.modalidmain("show","contractModal");
           });
   }
   checkPayLink(){

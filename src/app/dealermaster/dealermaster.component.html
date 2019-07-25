@@ -115,6 +115,19 @@
 							<input autocomplete="new-password"  name="mmid" type="text" placeholder="MenuMetric Dealer ID" [class.required]="mmid.message !==''"  [class.validating]="validating" [(ngModel)]="mmid.value" maxlength="50" (change)="onChange()">
 						</div>
 					</div>
+				<div class="clearfix"></div>
+				<div class="col-sm-6" style="padding-top: 15px;">
+						<label class="flat-input inputlabel">Signature Method
+							<span class="errorspan2" [class.opqquezero]="sigm.message===''" [class.alert-danger]="sigm.erlevel==='D'" [class.validating]="validating">{{sigm.message}}</span> 
+						</label>
+						<span class="flat-input">
+							<select *ngIf="pagedata.body" autocomplete="new-password" class="form__select" name="sigm" id="pack" [class.validating]="validating"  [(ngModel)]="sigm.value">
+							<option value="H" >Mouse / Touch</option>
+							<option value="T" >Topaz</option>
+						</select>
+					</span>
+					</div>
+				<div class="clearfix"></div>
 				<div class="col-xs-12">
 					<span class="flat-input">
 						<button class="flat-button pull-right" name="submit" style="margin-right:10px" type="submit" title="Save">Save</button>

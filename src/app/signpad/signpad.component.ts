@@ -9,9 +9,26 @@ import { JsonService } from '../utilities/json.service';
   templateUrl: './signpad.component.html'
 })
 export class SignpadComponent implements OnInit {
-  @Input() data;
+  _data:any;
+  private tmr:any;
+  @Input() set data(data:any){
+    this._data = data;
+    Util.modalid('show','signmodal');
+    if(this._data.meth == "T"){//Topaz Method
+      this.onSign();
+    }
+    
+    
+  };
   @Input() i;
   @Output() notify = new EventEmitter();
+  baseUri:any = this.makeUri();
+  ctx:any;
+  NumPointsLastTime:number = 0;
+  SigWebFontThreshold:number = 155;
+  getBlobURL:any = (window.URL && URL.createObjectURL.bind(URL)) ;
+  revokeBlobURL:any = (window.URL && URL.revokeObjectURL.bind(URL)); 
+
   constructor(private jsonService: JsonService) { }
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
@@ -19,23 +36,62 @@ export class SignpadComponent implements OnInit {
   signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
     'minWidth': 1,
     'canvasWidth': 540,
-    'canvasHeight': 200
+    'canvasHeight': 120
   };
   clearsig(){
     this.signaturePad.clear();
   }
+  onSign()
+{
+   var canva = <HTMLCanvasElement> document.getElementById('cnvt');
+   var ctx = canva.getContext('2d');         
+   this.SetDisplayXSize( 540 );
+   this.SetDisplayYSize( 120 );
+   this.SetTabletState(0, this.tmr,50);
+   this.SetJustifyMode(0);
+   this.ClearTablet();
+   if(this.tmr == null)
+   {
+    this.tmr = this.SetTabletState(1, ctx, 50);
+   }
+   else
+   {
+      this.SetTabletState(0, this.tmr,50);
+      this.tmr = null;
+      this.tmr = this.SetTabletState(1, ctx, 50);
+   }
+}
+clearTopaz(){
+  this.SetTabletState(0, this.tmr,50);
+}
   savesig(){
-    
-    this.GetSigImageB64(this.signaturePad);
+    if(this.signaturePad.isEmpty()){
+      alert("Please sign before continuing");
+    }else{
+    this.GetSigImageB64Html5(this.signaturePad);
+    }
+  }
+  savesigt(){
+    var canva = <HTMLCanvasElement> document.getElementById('cnvt');
+    if(this.NumberOfTabletPoints() == 0)
+   {
+      alert("Please sign before continuing");
+   }
+   else
+   {
+    this.SetTabletState(0, this.tmr,5000000);
+    this.GetSigImageB64Html5(canva);
+   }
   }
   savesig2(data){ 
   this.jsonService
-        .initService("&MODE="+this.data.mode+
-                     "&IONO="+this.data.iono+
+        .initService("&MODE="+this._data.mode+
+                     "&IONO="+this._data.iono+
                      "&BLOB="+this.writeTiff(data,this.signaturePad.options), Util.Url("CGSAVETIF"))
         .subscribe(
           () => {
             this.clearsig();
+            this.clearTopaz();
             this.notify.emit({ event : this.i });
 
           });
@@ -55,7 +111,7 @@ export class SignpadComponent implements OnInit {
     // will be notified of szimek/signature_pad's onBegin event
     console.log('begin drawing');
   }
-  GetSigImageB64(canvas) 
+  GetSigImageB64Html5(canvas) 
   {
   
     var img = new Image();
@@ -65,10 +121,10 @@ export class SignpadComponent implements OnInit {
       {
         var cvs = document.createElement('canvas');
         cvs.width = 540;
-        cvs.height = 200;
+        cvs.height = 120;
       var cntx = cvs.getContext('2d');
       cntx.drawImage(img, 0, 0);
-      var b64String = cntx.getImageData(0, 0, 540, 200).data;
+      var b64String = cntx.getImageData(0, 0, 540, 120).data;
       self.savesig2(b64String);
       cvs.remove();
       }
@@ -81,6 +137,8 @@ export class SignpadComponent implements OnInit {
   }
 cancel(){
   Util.modalidmain('hide','signmodal');
+  Util.modalidmain('show','contractModal');
+  this.clearsig();
 }
   writeTiff(inputData,optn){
     var fptr = [];
@@ -95,12 +153,19 @@ cancel(){
            //... calculate the RGB value between 0 and 255 ...
            // only black & white for us
           
+           if(this._data.meth == 'T'){
+           bufferBits += 
+           ( 255 == inputData[((optn.canvasWidth * y) + x) * 4]   && 
+             255 == inputData[((optn.canvasWidth * y) + x) * 4+1] && 
+             255 == inputData[((optn.canvasWidth * y) + x) * 4+2] &&
+             255 == inputData[((optn.canvasWidth * y) + x) * 4+3] || x ==0 || y==0? "1" : "0");
+           }else{
            bufferBits += 
            (  0 < inputData[((optn.canvasWidth * y) + x) * 4]    || 
               0 < inputData[((optn.canvasWidth * y) + x) * 4+1]  || 
               0 < inputData[((optn.canvasWidth * y) + x) * 4+2]  ||
               0 < inputData[((optn.canvasWidth * y) + x) * 4+3]  ? "0" : "1");
-  
+           }
            if (bufferBits.length == 5)
            {
             this.WriteHexString(dataPtr, parseInt(bufferBits,2).toString(16) );
@@ -193,6 +258,254 @@ cancel(){
   //==============================================================================
   hex2dec(hex) {
     return parseInt(hex, 16);
+  }
+  //==============================================================================
+  isIE() {
+      return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec  
+          (navigator.userAgent) != null)));
+  }   
+  //==============================================================================
+  isChrome() {
+      var ua = navigator.userAgent;
+      if (ua.lastIndexOf('Chrome/') > 0) {
+          return true;
+      } else {
+          return false;
+      }
+  }  
+  //==============================================================================
+  makeUri() {
+      var prot = location.protocol;
+      if (prot == "file:") {
+          prot = 'http:';
+      }                    
+      if (this.isIE()) {
+          if (prot == 'https:') {
+              return (prot + "//tablet.sigwebtablet.com:47290/SigWeb/");
+          } else {
+              return (prot + "//tablet.sigwebtablet.com:47289/SigWeb/");
+          }
+      }       
+      if (this.isChrome()) {
+          if (prot == 'https:') {
+              return (prot + "//tablet.sigwebtablet.com:47290/SigWeb/");
+          } else {
+              return (prot + "//tablet.sigwebtablet.com:47289/SigWeb/");
+          }
+      } else {
+          if (prot == 'https:') {
+              return (prot + "//tablet.sigwebtablet.com:47290/SigWeb/");
+          } else {
+              return (prot + "//tablet.sigwebtablet.com:47289/SigWeb/");
+          }
+      }
+  }   
+  //==============================================================================
+  SigWebcreateXHR() {
+      try {
+          return new XMLHttpRequest();
+      } catch (e) {}
+      
+
+      alert("XMLHttpRequest not supported");
+      return null;
+  }   
+  //==============================================================================   
+  SigWebSetProperty(prop) {
+      var xhr = this.SigWebcreateXHR();  
+      if (xhr) {                 
+          xhr.open("POST", this.baseUri + prop, true);
+          xhr.send(null);
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              return xhr.responseText;
+          }
+      }
+      return "";
+  }   
+  //============================================================================== 
+  SigWebSetPropertySync(prop) {
+      var xhr = this.SigWebcreateXHR();   
+      if (xhr) {
+          xhr.open("POST", this.baseUri + prop, false);
+          xhr.send();
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              return xhr.responseText;
+          }
+      }
+      return "";
+  }    
+  //============================================================================== 
+  SigWebSetStreamProperty(prop, strm) {
+      var xhr = this.SigWebcreateXHR();     
+      if (xhr) {
+          xhr.open("POST", this.baseUri + prop);
+          xhr.setRequestHeader("Content-Type", "text/plain");
+          xhr.send(strm);
+      }
+      return "";
+  }  
+  //==============================================================================
+  SigWebSetImageStreamProperty(prop, strm) {
+      var xhr = this.SigWebcreateXHR();
+      if (xhr) {
+          xhr.open("POST", this.baseUri + prop, false);
+          xhr.setRequestHeader("Content-Type", "image/png");
+          xhr.send(strm);
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              return xhr.responseText;
+          }
+      }
+      return "";
+  }  
+  //==============================================================================
+  SigWebSetImageBlobProperty(prop, strm) {
+      var xhr = this.SigWebcreateXHR();    
+      if (xhr) {
+          xhr.open("POST", this.baseUri + prop, false);
+          xhr.setRequestHeader("Content-Type", "blob");
+          xhr.send(strm);
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              return xhr.responseText;
+          }
+      }
+      return "";
+  }   
+  //==============================================================================  
+  SigWebGetProperty(prop) {
+      var xhr = this.SigWebcreateXHR();
+
+      if (xhr) {
+          xhr.open("GET", this.baseUri + prop, false);
+          xhr.send(null);
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              return xhr.responseText;
+          }
+      }
+      return "";
+  }   
+  //==============================================================================
+  SigWebSetDisplayTarget(obj) {
+    this.ctx = obj;
+  } 
+  //============================================================================== 
+  SigWebRefresh() {
+      var NumPoints = this.NumberOfTabletPoints();
+      if (NumPoints == this.NumPointsLastTime) {
+          return;
+      }
+      this.NumPointsLastTime = NumPoints;  
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open("GET", this.baseUri + "SigImage/0", true);
+      xhr2.responseType = "blob";
+      var self = this;
+      xhr2.onload = function() {
+          var img = new Image();
+          img.src = self.getBlobURL(xhr2.response);
+          img.onload = function(){
+              self.ctx.drawImage(img, 0, 0);
+              img = null;
+          }
+      }
+      xhr2.send(null);
+  }             
+  //==============================================================================
+  NumberOfTabletPoints() {
+      var Prop = "TotalPoints";
+      Prop = Prop;
+      return parseInt(this.SigWebGetProperty(Prop));
+  }  
+ 
+  //==============================================================================
+  AutoKeyStart() {
+      var Prop = "AutoKeyStart"; 
+      Prop = Prop;
+      this.SigWebSetPropertySync(Prop);
+  }  
+  //==============================================================================
+  AutoKeyFinish() {
+      var Prop = "AutoKeyFinish"; 
+      Prop = Prop;
+      this.SigWebSetPropertySync(Prop);
+  }
+  //==============================================================================
+  SetAutoKeyData(keyData) {
+      var Prop = "SetAutoKeyData"; 
+      Prop = Prop;
+      this.SigWebSetStreamProperty(Prop, keyData);
+  }    
+  SetDisplayXSize(v) {
+      var Prop = "DisplayXSize/"; 
+      Prop = Prop + v;
+      this.SigWebSetPropertySync(Prop);
+  }  
+  //==============================================================================
+  SetDisplayYSize(v) {
+      var Prop = "DisplayYSize/";
+      Prop = Prop + v;
+      this.SigWebSetPropertySync(Prop);
+  }   
+  //==============================================================================
+  ClearTablet() {
+      var Prop = "ClearSignature"; 
+      Prop = Prop;
+      return this.SigWebGetProperty(Prop);
+  }  
+  //==============================================================================
+  SetImageXSize(v) {
+      var Prop = "ImageXSize/";   
+      Prop = Prop + v;
+      this.SigWebSetPropertySync(Prop);
+  } 
+  //==============================================================================      
+  SetJustifyMode(v) {
+      var Prop = "JustifyMode/";   
+      Prop = Prop + v;
+      this.SigWebSetPropertySync(Prop);
+  }   
+  //==============================================================================    
+  SetRealTabletState(v) {
+      var Prop = "TabletState/";   
+      Prop = Prop + v;
+      this.SigWebSetPropertySync(Prop);
+  }  
+  //============================================================================== 
+  GetTabletState() {
+      var Prop = "TabletState";    
+      Prop = Prop;
+      return parseInt(this.SigWebGetProperty(Prop));
+  }  
+  //==============================================================================  
+  SetTabletState(v, ctx, tv) {
+      var delay;          
+      if (tv) {
+          delay = tv;
+      } else {
+          delay = 100;
+      }                   
+      if (this.GetTabletState() != v) {
+          if (v == 1) {
+              if (ctx) {
+                  var can = ctx.canvas;
+                  this.SetDisplayXSize(can.width);
+                  this.SetDisplayYSize(can.height);
+                  this.SigWebSetDisplayTarget(ctx);
+              }
+              this.SetRealTabletState(v);
+              if (ctx && (this.GetTabletState() != 0)) {
+                  //return setInterval(this.SigWebRefresh, delay);
+                  return setInterval(() => { this.SigWebRefresh(); }, delay);
+              } else {
+                  return null;
+              }   
+          } else {
+              if (ctx) {
+                  clearInterval(ctx);
+              }
+              this.SigWebSetDisplayTarget(null);
+              this.SetRealTabletState(v);
+          }
+      }
+      return null;
   }
   //==============================================================================
 

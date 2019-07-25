@@ -19,6 +19,7 @@ export class Body{
 	pack : string;
 	pass : string;
 	mmid : string;
+	sigm : string;
 	drop :[ Drp ];
 }
 
