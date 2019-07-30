@@ -66,6 +66,8 @@ export class UnremittedComponent implements OnInit {
   datesort:boolean = false;
   sortstck:boolean = false;
   sortname:boolean = false;
+  signdata:any;
+  contg:any;
 
   constructor(private jsonService: JsonService,private router: Router, private pagerService: PagerService) { }
   
@@ -258,6 +260,73 @@ for (var i = 0; i < numbers.length; i++) {
   		}
   	);
     
+  }
+  onNotify(e,data){
+    console.log(e);
+    console.log(data);
+    Util.modalid('hide','signmodal');
+    if(data.mode == 'USERSIG') this.signPdf(this.contg,"R");
+    if(data.mode == 'USERINI') this.signPdf(this.contg,"R");
+    if(data.mode == 'CONTSIG') {this.contg.sign = true;this.posScrolid = "row"+this.contg.anum.toString();
+    setTimeout(() => { Util.scrollToIds(this.posScrolid);},100);}
+    if(data.mode == 'CONTINI') {this.contg.ini = true;this.signPdf(this.contg,"R");Util.modalid('hide','signmodal');}
+    
+  }
+
+  
+  usersign(){
+    Util.modalid('hide','usigreq');
+    this.signdata={"prg":"L","mode":"USERSIG","meth":this.pagedata.signm, "iono": this.contg.iono}; 
+    Util.modalid('show','signmodal');
+  }
+  userini(){
+    Util.modalid('hide','uinireq');
+    this.signdata={"prg":"L","mode":"USERINI","meth":this.pagedata.signm, "iono": this.contg.iono}; 
+    Util.modalid('show','signmodal');
+  }
+
+
+  signPdf(cont,mode){
+    var hasdata;
+    
+    Util.showWait();
+    //1// Dealer User Signature On File?
+    this.jsonService
+        .initService({ "mode": "HASSIG"}, Util.Url("CGICCNTRCT"))
+        .subscribe(data => hasdata = data,
+          err => { this.dispAlert.error();Util.hideWait(); },
+          () => {
+            Util.hideWait();
+            //Sign clicked
+            if(mode=='I'){
+              this.contg = cont;
+            }
+            
+            //INI>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            if(!hasdata.hasini){ 
+              //Capture User Initials
+              Util.modalid('show','uinireq');
+              return false;
+            }
+            //SIG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            if(!hasdata.hassig){
+              //Capture User Signature
+              Util.modalid('show','usigreq');
+              return false;
+            }
+           if(!cont.ini){
+            this.signdata={"prg":"L","mode":"CONTINI","meth":this.pagedata.signm, "iono": cont.ionov}; 
+            Util.modalid('show','signmodal');
+            return false;
+           }
+           if(!cont.sign){
+            this.signdata={"prg":"L","mode":"CONTSIG","meth":this.pagedata.signm, "iono": cont.ionov}; 
+            Util.modalid('show','signmodal');
+            return false;
+           }
+    Util.modalid('show','signmodal');
+    
+          });
   }
   clearMode(){
    

@@ -101,7 +101,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th><b>Remit/Void</b></th>
+								<th><b>Remit/<br>Void</b></th>
 								<th><b>Contract #</b></th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="sortStock()" title="Sort By Stock #"><b>Stock #</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!sortstck" [class.fa-arrow-up]="sortstck"></i></a></th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="sortName()" title="Sort By Name"><b>Name</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!sortname" [class.fa-arrow-up]="sortname"></i></a></th>
@@ -109,6 +109,7 @@
 								<th><b>Salesperson</b></th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort()" title="Sort By Date"><b>Date</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!datesort" [class.fa-arrow-up]="datesort"></i></a></th>
 								<th><b>Vehicle</b></th>
+								<th><b>Sign</b></th>
 								<th class="text-center"><b>View</b></th>
 							</tr>
 						</thead>
@@ -138,6 +139,10 @@
 									<td data-label="Salesperson">&nbsp;{{cont.sprs}}</td>
 									<td data-label="Date">&nbsp;{{cont.ctdt}}</td>
 									<td data-label="Vehicle"><span class="vinspan">{{cont.year}}<br> {{cont.make}}<br>{{cont.modl}}</span></td>
+									<td data-label="Sign">
+											<a href="javascript:void(0);" *ngIf="!cont.sign" (click)="signPdf(cont,'I')"  class="btn btn-warning btn-sm" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-edit"></i></a>
+											<a href="javascript:void(0);" *ngIf="cont.sign" class="btn btn-success btn-sm" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check"></i></a>
+									</td>
 									<td data-label="View">
 											<a href="javascript:void(0);" [class.invisible]="cont.ionov===''" (click)="viewCont(cont.ionov)" style="margin:1px;float: right;clear:right;width:58px" class="btn btn-primary btn-sm btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;VSC</a> 
 											<a href="javascript:void(0);" *ngIf="showcap" [class.invisible]="cont.ionoc===''" (click)="viewCont(cont.ionoc)" style="margin:1px;float: right;clear:right;width:58px" class="btn btn-warning btn-sm btnedit" href="javascript:void(0)"><i class="fa fa-file-pdf-o"></i>&nbsp;CAP</a> 
@@ -323,6 +328,39 @@
 				</div>
 				</form>
 	</div>
+	<app-signpad  *ngIf="signdata" [data]="signdata" [i]="i" (notify)="onNotify($event,signdata)"></app-signpad>
+	<div class="modal" id="usigreq" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-warning">
+                  <h4 class="modal-title pull-left">Salesperson signature required!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">All salespeople need a signature on file. This will be used on all contracts you create that get signed electronically.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="usersign()" type="button">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    <div class="modal" id="uinireq" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header alert-warning">
+                  <h4 class="modal-title pull-left">Salesperson initials required!</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="alertBody">All salespeople need initials on file. This will be used on all contracts you create that get signed electronically.</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" (click)="userini()" type="button">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+    
 </section>
 
 <app-footer></app-footer>

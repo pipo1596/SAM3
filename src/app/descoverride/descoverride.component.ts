@@ -244,7 +244,10 @@ export class DescoverrideComponent implements OnInit {
   	this.dsc3.value = this.selectedRec.dsc3.trim();
   	this.qdsc.value = this.selectedRec.qdsc.trim();
 
-		if(this.srky.value == ""){ this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
+		if(this.srky.value == "" && (this.PMTYPE !== 'Coverage' || this.cmpc!=="PIP") ){ this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
+		if(this.srky.value == "" && this.PMTYPE == 'Coverage' &&
+		this.cmpc=='PIP' && this.selectedRec.prg.charAt(0).toUpperCase() !== 'M' ){ 
+			this.srky.message = "(required)"; this.srky.erlevel = 'D'; this.valid = false;}
 	//	if(this.form.value =="" && this.cmpc =='PIP' && this.selectedRec.srky && this.PMTYPE=='Program' && this.selectedRec.srky!=='' && this.selectedRec.srky.charAt(0).toUpperCase() == 'M'){
 		//	this.form.message = "(required)"; this.form.erlevel = 'D'; this.valid = false;
 		//}
@@ -255,14 +258,17 @@ export class DescoverrideComponent implements OnInit {
   }
 
   loadDb(){
-  	if(!this.valid) return false;
-  	Util.showWait();
+	  if(!this.valid) return false;
+	  var fill = false;
+	Util.showWait();
+	if(this.srky.value == ""){ this.selectedRec.srky = '!'; fill =true;}
   	this.jsonService
   	.initService(this.selectedRec,Util.Url("CGICDESOVR"))
   	.subscribe(data => this.errSet = data,
   		err => {this.dispAlert.error(); Util.hideWait();},
   		() => {
-  			this.changes = false;
+			  this.changes = false;
+			  
   			this.dispAlert.setMessage(this.errSet);
   			if(this.dispAlert.status === "S"){
   				if(this.selectedRec.mode == "ADD"){
@@ -276,7 +282,7 @@ export class DescoverrideComponent implements OnInit {
 						else
 						this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10) +
 										   this.selectedRec.prg.toUpperCase();
-
+					if(fill){this.selectedRec.srky ="";this.newRec.srky ="";}
   					this.newRec.desc = this.selectedRec.desc;
   					this.newRec.dsc3 = this.selectedRec.dsc3;
   					this.newRec.qdsc = this.selectedRec.qdsc;
@@ -309,6 +315,7 @@ export class DescoverrideComponent implements OnInit {
 					  else
 					  this.pagedata.overrides[this.index].srkyi = this.selectedRec.srky.padEnd(10)+
 																	this.selectedRec.prg;
+					if(fill){this.selectedRec.srky ="";this.pagedata.overrides[this.index].srky="";}
   					this.pagedata.overrides[this.index].prg = this.selectedRec.prg; 
   					this.pagedata.overrides[this.index].desc = this.selectedRec.desc; 
   					this.pagedata.overrides[this.index].dsc3 = this.selectedRec.dsc3; 

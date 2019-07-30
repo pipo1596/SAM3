@@ -21,6 +21,18 @@
         <button class="btn btn-primary" (click)="savesig()" type="button">SAVE</button>
       </div>
       </div>
+      <!--ePad-->
+      <div [class.hidden]="!this._data || this._data.meth !== 'E'">
+      <div class="modal-body">
+          <canvas id="cnve" name="cnve" width="540" height="120"></canvas>
+          <img src="/assets/images/epad.png" id="signepad">
+      </div>
+      <div class="modal-footer" >
+          <button class="btn btn-info" (click)="cancel();clearTopaz();" type="button">CANCEL</button>
+          <button class="btn btn-warning" (click)="ClearTablet()" type="button">CLEAR</button>
+          <button class="btn btn-primary" (click)="savesigt()" type="button">SAVE</button>
+        </div>
+      </div>
       <!--Topaz-->
       <div [class.hidden]="!this._data || this._data.meth !== 'T'">
       <div class="modal-body">

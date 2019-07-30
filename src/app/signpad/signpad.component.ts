@@ -17,6 +17,9 @@ export class SignpadComponent implements OnInit {
     if(this._data.meth == "T"){//Topaz Method
       this.onSign();
     }
+    if(this._data.meth == "E"){//Topaz Method
+      this.StartSign();
+    }
     
     
   };
@@ -62,7 +65,9 @@ export class SignpadComponent implements OnInit {
    }
 }
 clearTopaz(){
+    if(this._data.meth == "T"){
   this.SetTabletState(0, this.tmr,50);
+    }
 }
   savesig(){
     if(this.signaturePad.isEmpty()){
@@ -135,9 +140,12 @@ clearTopaz(){
     //Util.modalid('show','signmodal');
     
   }
-cancel(){
+cancel(){if(this._data.prg == "C"){
   Util.modalidmain('hide','signmodal');
   Util.modalidmain('show','contractModal');
+}else{
+  Util.modalid('hide','signmodal');
+}
   this.clearsig();
 }
   writeTiff(inputData,optn){
@@ -259,7 +267,7 @@ cancel(){
   hex2dec(hex) {
     return parseInt(hex, 16);
   }
-  //==============================================================================
+  //==============================================================================Topaz Start
   isIE() {
       return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec  
           (navigator.userAgent) != null)));
@@ -326,7 +334,7 @@ cancel(){
   SigWebSetPropertySync(prop) {
       var xhr = this.SigWebcreateXHR();   
       if (xhr) {
-          xhr.open("POST", this.baseUri + prop, false);
+          xhr.open("POST", this.baseUri + prop, true);
           xhr.send();
           if (xhr.readyState == 4 && xhr.status == 200) {
               return xhr.responseText;
@@ -338,7 +346,7 @@ cancel(){
   SigWebSetStreamProperty(prop, strm) {
       var xhr = this.SigWebcreateXHR();     
       if (xhr) {
-          xhr.open("POST", this.baseUri + prop);
+          xhr.open("POST", this.baseUri + prop,true);
           xhr.setRequestHeader("Content-Type", "text/plain");
           xhr.send(strm);
       }
@@ -348,7 +356,7 @@ cancel(){
   SigWebSetImageStreamProperty(prop, strm) {
       var xhr = this.SigWebcreateXHR();
       if (xhr) {
-          xhr.open("POST", this.baseUri + prop, false);
+          xhr.open("POST", this.baseUri + prop, true);
           xhr.setRequestHeader("Content-Type", "image/png");
           xhr.send(strm);
           if (xhr.readyState == 4 && xhr.status == 200) {
@@ -361,7 +369,7 @@ cancel(){
   SigWebSetImageBlobProperty(prop, strm) {
       var xhr = this.SigWebcreateXHR();    
       if (xhr) {
-          xhr.open("POST", this.baseUri + prop, false);
+          xhr.open("POST", this.baseUri + prop, true);
           xhr.setRequestHeader("Content-Type", "blob");
           xhr.send(strm);
           if (xhr.readyState == 4 && xhr.status == 200) {
@@ -375,7 +383,7 @@ cancel(){
       var xhr = this.SigWebcreateXHR();
 
       if (xhr) {
-          xhr.open("GET", this.baseUri + prop, false);
+          xhr.open("GET", this.baseUri + prop, true);
           xhr.send(null);
           if (xhr.readyState == 4 && xhr.status == 200) {
               return xhr.responseText;
@@ -507,6 +515,68 @@ cancel(){
       }
       return null;
   }
-  //==============================================================================
+  //==============================================================================ePad Start
+
+   StartSign(){
+
+	    var canvasObj = <HTMLCanvasElement>document.getElementById('cnve');
+		canvasObj.getContext('2d').clearRect(0, 0, canvasObj.width, canvasObj.height);
+		
+        var message = { "firstName": "", 
+                        "lastName": "", 
+                        "eMail": "", 
+                        "location": "",
+                        "imageFormat": 1, 
+                        "imageX": 540, 
+                        "imageY": 120, 
+                        "imageTransparency": false, 
+                        "imageScaling": false, 
+                        "maxUpScalePercent": 0.0, 
+                        "rawDataFormat": "ENC", 
+                        "minSigPoints": 25, 
+                        "penThickness": 3, 
+                        "penColor": "#000000" };
+
+		document.addEventListener('SigCaptureWeb_SignResponse', this.SignResponse, false);
+		var messageData = JSON.stringify(message);
+		var element = document.createElement("SigCaptureWeb_ExtnDataElem");
+		element.setAttribute("SigCaptureWeb_MsgAttribute", messageData);
+		document.documentElement.appendChild(element);
+		var evt = document.createEvent("Events");
+		evt.initEvent("SigCaptureWeb_SignStartEvent", true, false);				
+		element.dispatchEvent(evt);		
+    }
+	SignResponse(event){
+
+	    var str = event.target.getAttribute("SigCaptureWeb_msgAttri");
+		var obj = JSON.parse(str);
+		this.SetValues(obj, 540, 120);
+    }
+    
+	SetValues(objResponse, imageWidth, imageHeight){
+
+        var obj = JSON.parse(JSON.stringify(objResponse));
+        var canvasObj = <HTMLCanvasElement> document.getElementById('cnve');
+	    var ctx = canvasObj.getContext('2d');
+
+			if (obj.errorMsg != null && obj.errorMsg!="" && obj.errorMsg!="undefined")
+			{
+                alert(obj.errorMsg);
+            }
+            else
+			{
+                if (obj.isSigned)
+				{
+					var img = new Image();
+					img.onload = function () 
+					{
+						ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
+					}
+					img.src = "data:image/png;base64," + obj.imageData;
+                }
+            }
+    }
+    
+    
 
 }

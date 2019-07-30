@@ -122,12 +122,19 @@ signature-pad{display: block;margin:0 auto;border:1px solid gainsboro;text-align
      -ms-interpolation-mode: bicubic;
      vertical-align: middle;
 }
+#signepad{
+    position: absolute;
+    right: 15px;
+    height: 15px;
+    bottom: 5px;
+}
 #signtopaz{
     position: absolute;
     right: 15px;
     height: 20px;
     bottom: 5px;
 }
+
  legend {
      white-space: normal;
 }

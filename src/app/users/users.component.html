@@ -134,10 +134,10 @@
                         </ng-container>
                     </ul>
                 </div>
-                <label class="flat-input inputlabel" *ngIf="!salesmode">MenuMetric User ID
+                <label class="flat-input inputlabel" *ngIf="pagedata.head.shwmm">MenuMetric User ID
                     <span class="errorspan2" [class.opqquezero]="mmid.message===''" [class.alert-danger]="mmid.erlevel==='D'" [class.alert-success]="mmid.erlevel==='S'" [class.validating]="validating">{{mmid.message}}</span> 
                 </label>
-                <div class="flat-input w100" *ngIf="!salesmode">
+                <div class="flat-input w100" *ngIf="pagedata.head.shwmm">
                     <input autocomplete="new-password{{ran}}"  (change)="onChange()" name="mmid{{ran}}" type="text" placeholder="MenuMetric User ID"   [class.validating]="validating" [(ngModel)]="selectedUser.mmid" maxlength="50">
                 </div>
                 </div>

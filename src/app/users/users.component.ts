@@ -602,6 +602,7 @@ saveData(){
           this.selectedUserG.rold = Util.getSelText(this.selectedUser.rlno,this.pagedata.roles);
           this.selectedUserG.fnam = this.selectedUser.fnam;
           this.selectedUserG.lnam = this.selectedUser.lnam;
+          this.selectedUserG.mmid = this.selectedUser.mmid;
           this.selectedUserG.sprs = this.selectedUser.sprs;
           this.selectedUserG.disc = this.selectedUser.disc;
           this.selectedUserG.slcd = this.selectedUser.slcd;

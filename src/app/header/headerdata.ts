@@ -10,6 +10,7 @@ export class Headerdata{
     orgdlr : string ="";
     as400   : boolean = false;
     sales   : boolean = false;
+    shwmm   : boolean = false;
     multi   : boolean = false;
     newlook   : boolean = false;
     hasmm   : boolean = false;

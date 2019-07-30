@@ -4,12 +4,14 @@ export class Unremitteddata{
     head = new Headerdata ;
 	contracts :[ Cont ];
 	states : [State];
-    ttlpgs = new PageCount;
+	ttlpgs = new PageCount;
+	signm : string;
 }
 
 export class Readnextdata {
 	contracts :[ Cont ];
 	ttlpgs = new PageCount;
+	
 }
 
 export class State{
@@ -19,6 +21,8 @@ export class State{
 
 export class Cont {
 	show : boolean;
+	sign : boolean;
+	ini : boolean;
 	esvc : boolean;
 	ionov : string;
 	ionoc : string;

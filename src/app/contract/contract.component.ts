@@ -497,12 +497,12 @@ tostep1w(){
   }
   usersign(){
     this.hidemdl('usigreq');
-    this.signdata={"mode":"USERSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(this.i*10,this.i*10+10)}; 
+    this.signdata={"prg":"C","mode":"USERSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(this.i*10,this.i*10+10)}; 
     Util.modalidmain('show','signmodal');
   }
   userini(){
     this.hidemdl('uinireq');
-    this.signdata={"mode":"USERINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(this.i*10,this.i*10+10)}; 
+    this.signdata={"prg":"C","mode":"USERINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(this.i*10,this.i*10+10)}; 
     Util.modalidmain('show','signmodal');
   }
   sign(){
@@ -542,7 +542,6 @@ tostep1w(){
         .subscribe(data => hasdata = data,
           err => { this.dispAlert.error();Util.hideWait(); },
           () => {
-            
             this.i = index;
             Util.hideWait();
             Util.modalidmain("hide","contractModal");
@@ -553,7 +552,6 @@ tostep1w(){
               this.samesig = false;
               this.sameini = false;
             }
-
             if(!this.pagedata.body.contract.contracts[index].view){
               Util.modalidmain('show','viewcont');
               return false;
@@ -564,45 +562,34 @@ tostep1w(){
               this.sameini = true;
               return false;
             }
-
             if(!hasdata.hasini){ 
               //Capture User Initials
               Util.modalidmain('show','uinireq');
               return false;
-              
             }
             //SIG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             if(!this.samesig && this.sigiono!=="" && this.sigiono!==this.ionos.substring(index*10,index*10+10)){
               Util.modalidmain('show','sign');
               this.samesig = true;
               return false;
-              
             }
             if(!hasdata.hassig){
               //Capture User Signature
               Util.modalidmain('show','usigreq');
               return false;
-              
             }
-            
-            
-            
-           
            if(!this.pagedata.body.contract.contracts[index].ini){
-            this.signdata={"mode":"CONTINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
+            this.signdata={"prg":"C","mode":"CONTINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
             if(this.iniiono !=='') this.sameini = true;
             Util.modalidmain('show','signmodal');
             return false;
            }
-
            if(!this.pagedata.body.contract.contracts[index].sign){
-            this.signdata={"mode":"CONTSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
+            this.signdata={"prg":"C","mode":"CONTSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
             if(this.sigiono !=='') this.samesig = true;
             Util.modalidmain('show','signmodal');
             return false;
            }
-    
-    
     Util.modalidmain('show','signmodal');
     Util.modalidmain("show","contractModal");
           });
