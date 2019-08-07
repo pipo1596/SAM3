@@ -122,12 +122,24 @@
 						</label>
 						<span class="flat-input">
 							<select *ngIf="pagedata.body" autocomplete="new-password" class="form__select" name="sigm" id="pack" [class.validating]="validating"  [(ngModel)]="sigm.value">
+							<option value="" >Select</option>
 							<option value="H" >Mouse / Touch</option>
 							<option value="T" >Topaz</option> 
 							<option value="E" >ePad</option> 
 						</select>
 					</span>
 					</div>
+					<div class="clearfix" *ngIf="pagedata.body && pagedata.body.hasach"></div>
+					<div class="col-sm-6" *ngIf="pagedata.body && pagedata.body.hasach" style="padding-top: 15px;">
+							<label class="flat-input inputlabel">ACH Merchant Account
+								<span class="errorspan2" [class.opqquezero]="xtr1.message===''" [class.alert-danger]="xtr1.erlevel==='D'" [class.validating]="validating">{{xtr1.message}}</span> 
+							</label>
+							<span class="flat-input">
+									<select *ngIf="pagedata.body" autocomplete="new-password" class="form__select" name="xtr1" id="xtr1" [class.validating]="validating"  (change)="onChange()" [(ngModel)]="xtr1.value">
+										<option *ngFor="let option of pagedata.body.achdrop" [value]="option.key" >{{option.desc}}</option>
+									</select>
+								</span>
+						</div>
 				<div class="clearfix"></div>
 				<div class="col-xs-12">
 					<span class="flat-input">

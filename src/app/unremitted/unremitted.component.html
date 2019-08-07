@@ -109,7 +109,7 @@
 								<th><b>Salesperson</b></th>
 								<th><a href="javascript:void(0)" style="color:#337ab7" (click)="changeSort()" title="Sort By Date"><b>Date</b>&nbsp;&nbsp;<i class="fa" [class.fa-arrow-down]="!datesort" [class.fa-arrow-up]="datesort"></i></a></th>
 								<th><b>Vehicle</b></th>
-								<th><b>Sign</b></th>
+								<th *ngIf="this.pagedata.signm!==''"><b>Sign</b></th>
 								<th class="text-center"><b>View</b></th>
 							</tr>
 						</thead>
@@ -139,7 +139,7 @@
 									<td data-label="Salesperson">&nbsp;{{cont.sprs}}</td>
 									<td data-label="Date">&nbsp;{{cont.ctdt}}</td>
 									<td data-label="Vehicle"><span class="vinspan">{{cont.year}}<br> {{cont.make}}<br>{{cont.modl}}</span></td>
-									<td data-label="Sign">
+									<td data-label="Sign" *ngIf="this.pagedata.signm!==''">
 											<a href="javascript:void(0);" *ngIf="!cont.sign" (click)="signPdf(cont,'I')"  class="btn btn-warning btn-sm" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-edit"></i></a>
 											<a href="javascript:void(0);" *ngIf="cont.sign" class="btn btn-success btn-sm" href="javascript:void(0)"><i style="font-size:17px" class="fa fa-check"></i></a>
 									</td>

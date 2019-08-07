@@ -23,7 +23,9 @@ export class Terms{
 }
 
 export class Pack{
+           show: boolean ;
            mode: string ;
+           prgd : string;
            prg : string;
            cov : string;
           covd : string;
@@ -45,10 +47,13 @@ export class Pack{
           exdd : string;
           expdi: string;
           pkno : string;
+          sepr : boolean;
 
           public default(mode){
+            this.show  = false;
             this.mode  = mode;
             this.prg   = "";
+            this.prgd   = "";
             this.cov   = "";
             this.term  = "";
             this.nub   = "";
@@ -60,8 +65,10 @@ export class Pack{
             this.pcti  = null;
             this.pctr  = null;
             this.effd  = "";
+            this.effdi  = "";
             this.expd  = "";
             this.pkno  = "";
+            this.sepr  = false;
         }
            
 }

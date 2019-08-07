@@ -276,12 +276,12 @@ for (var i = 0; i < numbers.length; i++) {
   
   usersign(){
     Util.modalid('hide','usigreq');
-    this.signdata={"prg":"L","mode":"USERSIG","meth":this.pagedata.signm, "iono": this.contg.iono}; 
+    this.signdata={"prg":"L","mode":"USERSIG","meth":this.pagedata.signm, "iono": this.contg.ionov}; 
     Util.modalid('show','signmodal');
   }
   userini(){
     Util.modalid('hide','uinireq');
-    this.signdata={"prg":"L","mode":"USERINI","meth":this.pagedata.signm, "iono": this.contg.iono}; 
+    this.signdata={"prg":"L","mode":"USERINI","meth":this.pagedata.signm, "iono": this.contg.ionov}; 
     Util.modalid('show','signmodal');
   }
 
@@ -367,13 +367,13 @@ for (var i = 0; i < numbers.length; i++) {
           this.changes = false;
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
-            this.setPage(this.pager.currentPage);
+            this.setPage(1);
             this.remtarr = [];
   					
   				} else {
   					
             this.remtarr = [];
-            this.setPage(this.pager.currentPage);
+            this.setPage(1);
   				}
   			})
   	}
@@ -403,13 +403,13 @@ for (var i = 0; i < numbers.length; i++) {
           this.changes = false;
   				this.dispAlert.setMessage(this.errSet);
   				if(this.dispAlert.status === "S"){
-            this.setPage(this.pager.currentPage);
+            this.setPage(1);
             this.remtarr = [];
   					
   				} else {
   					
             this.remtarr = [];
-            this.setPage(this.pager.currentPage);
+            this.setPage(1);
   				}
   			})
   	}

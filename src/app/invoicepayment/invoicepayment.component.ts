@@ -80,6 +80,7 @@ export class InvoicePaymentComponent implements OnInit {
   onFileChange(event){
     this.upfile = "";
     this.imgtrgt = "";
+    this.filesc =[];
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
@@ -98,7 +99,6 @@ export class InvoicePaymentComponent implements OnInit {
           event.value ="";
           this.upfile = "";
           this.imgtrgt ="";
-          this.filesc =[];
         }
 
     };

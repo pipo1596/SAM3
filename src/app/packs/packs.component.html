@@ -234,8 +234,11 @@
                             <tr *ngIf="pagedata.packs && pagedata.packs.length <1">
                                 <td colspan="8"><h4 style="padding: 15px 0;background:aliceblue;color: steelblue;text-align: center;">----No Packs To List----</h4></td>                        
                             </tr>
-                            <ng-container *ngFor="let pack of pagedata.packs">      
-                            <tr *ngIf="active == 'N' || (dc1>=pack.efdd && dc1<=pack.exdd)">
+                            <ng-container *ngFor="let pack of pagedata.packs">   
+                                    <tr *ngIf="pack.sepr && pack.show">
+                                            <td colspan="9" style="text-align: right;background: whitesmoke;">&nbsp;<b>{{xlate(pack.prg)}}</b></td>
+                                        </tr>   
+                            <tr *ngIf="pack.show">
                                 <td data-label="Program">
                                     <span class="notactive" [class.active]="(dc1>=pack.efdd && dc1<=pack.exdd)">{{xlate(pack.prg)}}</span></td>
                                 <td data-label="Coverage">&nbsp;{{pack.covd}}</td>

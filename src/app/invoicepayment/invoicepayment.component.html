@@ -104,7 +104,9 @@
                 <div class="col-sm-6" *ngIf="paymode=='P' && ptyp.value !=='' && ptyp.value !=='S' || this.changeamount || imgtrgt!==''">
                         <p  class="errorspan2 text-right w100" style="display: block" [class.opqquezero]="umsg===''" [class.alert-danger]="umsg !==''" [class.validating]="validating">{{umsg}}&nbsp;</p>
                         <label class="drop_target" [class.disabled]="step > 1">
+                            <form id="fileform">
                                 <input id="inputFile" [disabled]="step > 1" type="file" name="SIFILE" [(ngModel)]="inpfile" (change)="onFileChange($event)"/>
+                            </form>   
                                 <div class="settings_actions vertical">
                                 <label for="inputFile">
                                 <i class="fa fa-cloud-upload"></i>&nbsp;&nbsp;

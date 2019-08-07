@@ -79,7 +79,6 @@ export class DefaultsComponent implements OnInit {
     //Reset Top Alert
     this.dispAlert.default();
     //Required Logic
-
     //Save Data
     this.loadDb();  
   }

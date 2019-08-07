@@ -5,7 +5,7 @@ export class Defaultsdata{
           body = new bodyData;
 }
 export class bodyData{
-            mode: string ;
+            mode: string;
             perc: string;
             ancl: string;
             rvtp: string;
@@ -16,6 +16,7 @@ export class bodyData{
             rvmn: string;
 
             lntpdrp:[Drp];
+            achdrp:[Drp];
             plnkon: boolean;
             haslntp: boolean;
             pln:plans;

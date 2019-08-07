@@ -29,6 +29,7 @@ export class bodyData{
         xm18:boolean;
         xm24:boolean;
         dnup : String;
+        amfn : string = "";
         tax : number = 0 ;
         incl: string = "N" ;
  dspasnew : [string];
@@ -72,7 +73,7 @@ export class Cont{
          vpd : string = ""; 
          vin : string = ""; 
          cpd : string = "";
-        lhfi : string = "";
+        lhfi : string = "";        
         //Paylink
      payment : string = "";
        ccnam : string = "";

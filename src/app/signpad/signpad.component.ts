@@ -27,6 +27,8 @@ export class SignpadComponent implements OnInit {
   @Output() notify = new EventEmitter();
   baseUri:any = this.makeUri();
   ctx:any;
+  isSigned:boolean = false;
+  addedevent:boolean =false;
   NumPointsLastTime:number = 0;
   SigWebFontThreshold:number = 155;
   getBlobURL:any = (window.URL && URL.createObjectURL.bind(URL)) ;
@@ -88,13 +90,26 @@ clearTopaz(){
     this.GetSigImageB64Html5(canva);
    }
   }
+  savesige(){
+    Util.showWait();
+    var canva = <HTMLCanvasElement> document.getElementById('cnve');
+    if(!this.isSigned)
+   {
+      alert("Please sign before continuing");
+   }
+   else
+   {
+    this.GetSigImageB64Html5(canva);
+   }
+  }
   savesig2(data){ 
   this.jsonService
         .initService("&MODE="+this._data.mode+
                      "&IONO="+this._data.iono+
-                     "&BLOB="+this.writeTiff(data,this.signaturePad.options), Util.Url("CGSAVETIF"))
+                     "&BLOB="+this.writeTiff(data), Util.Url("CGSAVETIF"))
         .subscribe(
           () => {
+            Util.hideWait();
             this.clearsig();
             this.clearTopaz();
             this.notify.emit({ event : this.i });
@@ -148,31 +163,40 @@ cancel(){if(this._data.prg == "C"){
 }
   this.clearsig();
 }
-  writeTiff(inputData,optn){
+  writeTiff(inputData){
     var fptr = [];
     var offset;
 
     /* prep the data */
      var dataPtr = [];
      var datac="";
-     for (var y=0;y<optn.canvasHeight;y++) {
+     for (var y=0;y<120;y++) {
         var bufferBits = " ";
-        for (var x=0;x<optn.canvasWidth;x++) {
+        for (var x=0;x<540;x++) {
            //... calculate the RGB value between 0 and 255 ...
            // only black & white for us
           
-           if(this._data.meth == 'T'){
+           if(this._data.meth == 'T' ){//Topaz
            bufferBits += 
-           ( 255 == inputData[((optn.canvasWidth * y) + x) * 4]   && 
-             255 == inputData[((optn.canvasWidth * y) + x) * 4+1] && 
-             255 == inputData[((optn.canvasWidth * y) + x) * 4+2] &&
-             255 == inputData[((optn.canvasWidth * y) + x) * 4+3] || x ==0 || y==0? "1" : "0");
-           }else{
+           ( 255 == inputData[((540 * y) + x) * 4]   && 
+             255 == inputData[((540 * y) + x) * 4+1] && 
+             255 == inputData[((540 * y) + x) * 4+2] &&
+             255 == inputData[((540 * y) + x) * 4+3] || x ==0 || y==0? "1" : "0");
+           }
+           if( this._data.meth == 'E'){//Epad
+
            bufferBits += 
-           (  0 < inputData[((optn.canvasWidth * y) + x) * 4]    || 
-              0 < inputData[((optn.canvasWidth * y) + x) * 4+1]  || 
-              0 < inputData[((optn.canvasWidth * y) + x) * 4+2]  ||
-              0 < inputData[((optn.canvasWidth * y) + x) * 4+3]  ? "0" : "1");
+           ( 200 <  inputData[((540 * y) + x) * 4]   && 
+             200 <  inputData[((540 * y) + x) * 4+1] && 
+             200 <  inputData[((540 * y) + x) * 4+2] &&
+             200 <  inputData[((540 * y) + x) * 4+3] || x ==0 || y==0? "1" : "0");
+           }
+           if( this._data.meth == 'H'){//Html5
+           bufferBits += 
+           (  0 < inputData[((540 * y) + x) * 4]    || 
+              0 < inputData[((540 * y) + x) * 4+1]  || 
+              0 < inputData[((540 * y) + x) * 4+2]  ||
+              0 < inputData[((540 * y) + x) * 4+3]  ? "0" : "1");
            }
            if (bufferBits.length == 5)
            {
@@ -205,14 +229,14 @@ cancel(){if(this._data.prg == "C"){
       
      /* Width tag, short int */
      this.WriteHexString(fptr,"0100000300000001");
-     this.putc((optn.canvasWidth & 0xff00) / 256,fptr);    /* Image width */
-     this.putc((optn.canvasWidth & 0x00ff),fptr);
+     this.putc((540 & 0xff00) / 256,fptr);    /* Image width */
+     this.putc((540 & 0x00ff),fptr);
      this.WriteHexString(fptr,"0000");
   
      /* Height tag, short int */
      this.WriteHexString(fptr,"0101000300000001");
-     this.putc((optn.canvasHeight & 0xff00) / 256,fptr);    /* Image height */
-     this.putc((optn.canvasHeight & 0x00ff),fptr);
+     this.putc((120 & 0xff00) / 256,fptr);    /* Image height */
+     this.putc((120 & 0x00ff),fptr);
      this.WriteHexString(fptr,"0000");
   
      /* Compression flag, short int */
@@ -226,8 +250,8 @@ cancel(){if(this._data.prg == "C"){
   
      /* Rows per strip tag, short int */
      this.WriteHexString(fptr,"0116000300000001");
-     this.putc((optn.canvasHeight & 0xff00) / 256,fptr);
-     this.putc((optn.canvasHeight & 0x00ff),fptr);
+     this.putc((120 & 0xff00) / 256,fptr);
+     this.putc((120 & 0x00ff),fptr);
      this.WriteHexString(fptr,"0000");
   
      /* Strip byte count flag, long int */
@@ -521,7 +545,7 @@ cancel(){if(this._data.prg == "C"){
 
 	    var canvasObj = <HTMLCanvasElement>document.getElementById('cnve');
 		canvasObj.getContext('2d').clearRect(0, 0, canvasObj.width, canvasObj.height);
-		
+		this.isSigned = false;
         var message = { "firstName": "", 
                         "lastName": "", 
                         "eMail": "", 
@@ -536,8 +560,9 @@ cancel(){if(this._data.prg == "C"){
                         "minSigPoints": 25, 
                         "penThickness": 3, 
                         "penColor": "#000000" };
-
-		document.addEventListener('SigCaptureWeb_SignResponse', this.SignResponse, false);
+    if(!this.addedevent)
+        document.addEventListener('SigCaptureWeb_SignResponse', this.SignResponse.bind(this), false);
+        this.addedevent = true;
 		var messageData = JSON.stringify(message);
 		var element = document.createElement("SigCaptureWeb_ExtnDataElem");
 		element.setAttribute("SigCaptureWeb_MsgAttribute", messageData);
@@ -550,27 +575,21 @@ cancel(){if(this._data.prg == "C"){
 
 	    var str = event.target.getAttribute("SigCaptureWeb_msgAttri");
 		var obj = JSON.parse(str);
-		this.SetValues(obj, 540, 120);
-    }
-    
-	SetValues(objResponse, imageWidth, imageHeight){
-
-        var obj = JSON.parse(JSON.stringify(objResponse));
         var canvasObj = <HTMLCanvasElement> document.getElementById('cnve');
 	    var ctx = canvasObj.getContext('2d');
-
+        var self = this;
 			if (obj.errorMsg != null && obj.errorMsg!="" && obj.errorMsg!="undefined")
 			{
-                alert(obj.errorMsg);
+                //alert(obj.errorMsg);
             }
             else
-			{
+			{   this.isSigned = obj.isSigned;
                 if (obj.isSigned)
 				{
 					var img = new Image();
 					img.onload = function () 
 					{
-						ctx.drawImage(img, 0, 0, imageWidth, imageHeight);
+                        ctx.drawImage(img, 0, 0, 540, 120);
 					}
 					img.src = "data:image/png;base64," + obj.imageData;
                 }

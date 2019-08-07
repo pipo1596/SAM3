@@ -337,6 +337,26 @@ export class ContractComponent implements OnInit {
 
     });
 
+    //Oregon 5% Rule
+    if(this.valid && this.pagedata.body.dlstat == "OR" && this.pagedata.body.amfn !==""){
+      if(parseFloat(this.pagedata.body.amfn)>0){
+
+        this.pagedata.body.contract.contracts.forEach(cnt =>{ 
+          if(cnt.lob == 'GAP' || cnt.lob == 'PIPGAP'){
+          if(parseFloat(cnt.ccst)/parseFloat(this.pagedata.body.amfn) > 0.05){
+            this.valid = false;
+            this.erscrol('vpd');
+          }
+        }
+        });
+
+      if(!this.valid){
+        Util.modalid('show','pricealert');
+      }
+
+      } 
+    }
+
   }
   erscrol(id){
     if(this.erScrolid=='')

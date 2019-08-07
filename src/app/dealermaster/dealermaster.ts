@@ -9,6 +9,8 @@ export class MasterDealerData{
 export class Body{
 	mode : string;
 	dsmd : string;
+	xtr1 : string;
+	hasach : boolean;
 	belg : boolean;
 	dbil : boolean;
 	nymm : boolean;
@@ -20,6 +22,7 @@ export class Body{
 	pass : string;
 	mmid : string;
 	sigm : string;
+	achdrp :[ Drp ];
 	drop :[ Drp ];
 }
 

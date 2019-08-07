@@ -28,9 +28,9 @@
           <img src="/assets/images/epad.png" id="signepad">
       </div>
       <div class="modal-footer" >
-          <button class="btn btn-info" (click)="cancel();clearTopaz();" type="button">CANCEL</button>
-          <button class="btn btn-warning" (click)="ClearTablet()" type="button">CLEAR</button>
-          <button class="btn btn-primary" (click)="savesigt()" type="button">SAVE</button>
+          <button class="btn btn-info" (click)="cancel();" type="button">CANCEL</button>
+          <button class="btn btn-warning" (click)="StartSign()" type="button">CLEAR</button>
+          <button *ngIf="isSigned" class="btn btn-primary" (click)="savesige()" type="button">SAVE</button>
         </div>
       </div>
       <!--Topaz-->

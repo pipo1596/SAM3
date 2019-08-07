@@ -42,7 +42,6 @@ import { ClaimsComponent } from './claims/claims.component';
 import { RepairsComponent } from './repairs/repairs.component';
 import { CancellationsComponent } from './cancellations/cancellations.component';
 import { ProduceranalysisComponent } from './produceranalysis/produceranalysis.component';
-import { SignpadComponent } from './signpad/signpad.component';
 
 const routes: Routes = [
   { path: 'app/Home', component: HomeComponent },
@@ -94,7 +93,6 @@ const routes: Routes = [
   { path: 'app/Repairs',canDeactivate: [CanDeactivateGuard], component: RepairsComponent },
   { path: 'app/Cancellations',canDeactivate: [CanDeactivateGuard], component: CancellationsComponent },
   { path: 'app', component: LoginComponent },
-  { path: 'app/signpad', component: SignpadComponent },
   { path: 'app/**', component: LoginComponent },
   { path: '**', component: LoginComponent }
   

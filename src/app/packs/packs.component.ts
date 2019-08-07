@@ -38,7 +38,7 @@ export class PacksComponent implements OnInit {
   amtc = new  Numfield ;
   effd = new  Textfield ;
   expd = new  Textfield ;
-  d :Date = new Date(new Date().setDate(new Date().getDate()+1));
+  d :Date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
   dc :string = this.d.toISOString().substring(0, 10);
  
   t :Date = new Date();
@@ -136,7 +136,7 @@ export class PacksComponent implements OnInit {
     Util.focusById("code");
     this.changes = false;
     this.newPrg("E");
-    if(new Date(this.selectedRec.effd+ 'T00:00').getDate() < this.t.getDate()){
+    if(new Date(this.selectedRec.effd).toISOString().split('T')[0] < this.t.toISOString().split('T')[0]){
       setTimeout(() => {alert("Changes to this pack will not go into effect until tomorrow!")},500);
     }
   }
@@ -154,7 +154,7 @@ export class PacksComponent implements OnInit {
         if (this.dispAlert.status === "S") {
           
           
-          if(new Date(this.selectedRecG.effd+ 'T00:00').getDate() < this.t.getDate()){
+          if(new Date(this.selectedRecG.effd).toISOString().split('T')[0] < this.t.toISOString().split('T')[0]){
             if(this.selectedRecG.expd > this.today) this.selectedRecG.expd = this.today;
           }else{
             this.pagedata.packs.splice(this.pagedata.packs.findIndex(obj => obj.pkno==this.selectedRec.pkno),1);
@@ -172,6 +172,7 @@ export class PacksComponent implements OnInit {
       }
     );
     }
+    this.sortngroup(); 
   }
 
   newPrg(mode){
@@ -232,22 +233,23 @@ export class PacksComponent implements OnInit {
 
     if (this.prg.value  == "") { this.prg.message  = "(required)"; this.prg.erlevel  = "D"; this.valid = false; }
     if (this.effd.value == "") { this.effd.message = "(required)"; this.effd.erlevel = "D"; this.valid = false; }
-    if(this.effd.value !== this.selectedRec.effdi){//If Entry mode or if date changed!
-      if(new Date(this.effd.value+ 'T00:00').getDate() < new Date().getDate()){
+    if(this.effd.message =="" && this.effd.value !== this.selectedRec.effdi){//If Entry mode or if date changed!
+      if(new Date(this.effd.value).toISOString().split('T')[0] < new Date().toISOString().split('T')[0]){
         this.effd.message = "(Cannot be in the past)"; this.effd.erlevel = "D"; this.valid = false;
       }
-      if(new Date(this.effd.value+ 'T00:00').getDate() == new Date().getDate()){
+      if(new Date(this.effd.value).toISOString().split('T')[0] == new Date().toISOString().split('T')[0]){
         this.effd.message = "(Must be at least 1 day in the future)"; this.effd.erlevel = "D"; this.valid = false;
       }
     }
-    if (this.expd.value !== "") {
-    if(new Date(this.expd.value+ 'T00:00').getDate() <= new Date().getDate()){
-      this.expd.message = "(Cannot be in the past)"; this.expd.erlevel = "D"; this.valid = false;
-    }
-    }
+    
     if (this.expd.value == "") { this.expd.message = "(required)"; this.expd.erlevel = "D"; this.valid = false; }
-    if (this.effd.message == ""){
-    if(new Date(this.effd.value+ 'T00:00') > new Date(this.expd.value+ 'T00:00')){
+    if (this.expd.value !== "") {
+      if(new Date(this.expd.value).toISOString().split('T')[0] <= new Date().toISOString().split('T')[0]){
+        this.expd.message = "(Cannot be in the past)"; this.expd.erlevel = "D"; this.valid = false;
+      }
+      }
+    if (this.effd.message == "" && this.expd.message ==""){
+    if(new Date(this.effd.value).toISOString().split('T')[0] > new Date(this.expd.value).toISOString().split('T')[0]){
       this.expd.message = "(Cannot be less than effective date)"; this.expd.erlevel = "D"; this.valid = false;
       }
     }
@@ -336,7 +338,6 @@ export class PacksComponent implements OnInit {
             
             if(this.dispAlert.data!==undefined && this.dispAlert.data!=="" && this.dispAlert.data!=="D")
             this.pagedata.packs.push(JSON.parse(JSON.stringify(this.newRec)));
-            this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A"); 
             }  
            // if(this.selectedRec.mode=="SAVE" && this.selectedRec.effd <= this.today){
             if(this.selectedRec.mode=="SAVE"){
@@ -366,7 +367,7 @@ export class PacksComponent implements OnInit {
               this.selectedRecG.efdd = this.selectedRecG.effd.toString().replace(/-/gi, "");
               this.selectedRecG.exdd = this.selectedRecG.expd.toString().replace(/-/gi, "");
               
-              this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A"); 
+              
               
             }
 
@@ -383,7 +384,7 @@ export class PacksComponent implements OnInit {
         }else{
           Util.hideWait();
         }
-          
+        this.sortngroup();   
 
       }
     );
@@ -391,6 +392,7 @@ export class PacksComponent implements OnInit {
 
    effect(){
     Util.showWait();
+    this.sortngroup();
     if(this.sectn=="R"){
     this.selectedRec.amti = null;
     this.selectedRec.pcti = null;
@@ -422,11 +424,34 @@ export class PacksComponent implements OnInit {
         }else{
           Util.hideWait();
           this.selectedRec.prg = this.pagedata.dprg;
-          this.pagedata.packs = Util.sortByKey(this.pagedata.packs,"efdd","A");
+          this.pagedata.packs.forEach((elem)=>{
+            elem.prgd = this.xlate(elem.prg);
+          });
+          this.sortngroup();
+          
         }
 
        }
     );
+  }
+
+  sortngroup(){
+    this.pagedata.packs.forEach((elem)=>{
+      elem.prgd = this.xlate(elem.prg);
+    });
+    this.pagedata.packs = Util.sortBy2Key(this.pagedata.packs,"prgd","efdd","A");
+    var pvprg = "";
+    this.pagedata.packs.forEach((elem)=>{
+      elem.sepr = false;
+      elem.show = (this.active == 'N' || (this.dc1>=elem.efdd && this.dc1<=elem.exdd));
+      if(elem.show){
+          if(pvprg !== elem.prg)
+            elem.sepr = true;
+            pvprg = elem.prg;
+      }
+
+      
+    });
   }
 
   canDeactivate() {
