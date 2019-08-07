@@ -45,16 +45,22 @@ static formatdateDsp(id,str){
     }
 
     static isFutureDate(idate){
+        idate = idate.replace(/\//g,"-");
         var today = new Date();
         var twodays = new Date();
+        var arrdate = idate.split("-");
         twodays.setDate(twodays.getDate() + 2);
-        var indate = new Date(idate+' ');
+        if(parseInt(arrdate[0])>100)
+            var indate = new Date(arrdate[0],arrdate[1]-1,arrdate[2]);
+        else
+            var indate = new Date(arrdate[2],arrdate[0]-1,arrdate[1]);
         var char1 = today.getFullYear().toString()+today.getMonth().toString()+today.getDate().toString();
         var char2 = indate.getFullYear().toString()+indate.getMonth().toString()+indate.getDate().toString();
         var char3 = twodays.getFullYear().toString()+twodays.getMonth().toString()+twodays.getDate().toString();
         var num1 = parseInt(char1);
         var num2 = parseInt(char2);
         var num3 = parseInt(char3);
+        //alert(indate+'/==/'+num1+'//'+num2+'//'+num3);
         //indate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
         return (num1 <= num2 && num2 <= num3)
         }
