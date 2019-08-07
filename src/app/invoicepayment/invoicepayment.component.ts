@@ -178,7 +178,7 @@ export class InvoicePaymentComponent implements OnInit {
       this.pdate.message = "(invalid)"; this.pdate.erlevel = "D"; this.valid = false;
     }
     //Date in Future
-    if(this.valid && !Util.isFutureDate(this.pdate.value)){
+    if(this.valid && !Util.isFutureDate(Util.formatdateDsp('pdate',this.pdate.value))){
       this.pdate.message = "(Only 2 days into the future allowed!)"; this.pdate.erlevel = "D"; this.valid = false;
     }
     if(this.method.value == "") { this.method.message = "(required)"; this.method.erlevel = "D"; this.valid = false; }
@@ -451,6 +451,7 @@ export class InvoicePaymentComponent implements OnInit {
           if (parseInt(day) < 10) 
             day = "0" + day;
           this.pdate.value = now.getFullYear().toString()+'-'+month+'-'+day;
+          this.pdate.value = Util.formatdateDsp('pdate',this.pdate.value);
           //Default Payment
           this.pagedata.body.paymnt.forEach(elem=>{
             if(elem.stat == 'Y') this.method.value = elem.prof;
