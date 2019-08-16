@@ -1288,13 +1288,13 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
+         
           if(table.valu == null) table.valu = 0;
-          
           //if (table.valu == undefined || table.valu == -1.2323 || (mode=='M' && table.valu ==0)){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
           if (table.valu == undefined || table.valu == -1.2323 || mode=='M' ){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && (this.cont.catg == 'OTC' || this.cont.catg == 'OTR')) this.cont.valu = table.valu.toFixed(2);
         }
-
+        if(table.catg !== 'OTR' || mode!=="M"){
         table.rates.forEach((rate, i1) => {
           rate.data.forEach((row, i2) => {
             row.forEach((unitp, i3) => {
@@ -1392,6 +1392,7 @@ export class Quote3Component implements OnInit {
             });
           });
         });
+      }
       }
     });
     if (mode == 'C' || mode=='M') Util.hideWait();
