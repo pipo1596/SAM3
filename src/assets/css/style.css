@@ -2822,6 +2822,9 @@ span.req{color: #a94442;font-size: 16px;font-weight: bold;}
 .sectionlabel h2.firsth2 ,h3.firsth{
 float:left;
 margin:3px 0 0 3px;}
+.modal {
+    overflow-y:auto;
+  }
 .modal.step3left{max-width:400px;overflow-y: scroll;border-radius: 0px;}
 #plussquare{color: #124c8a;font-size: 30px;margin: 2px;}
 .productsel{cursor: pointer;}

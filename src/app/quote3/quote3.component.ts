@@ -208,7 +208,11 @@ export class Quote3Component implements OnInit {
     }
     contract.XTR8 += this.getCostPlus(p,t,r,c).toString().padEnd(15);
     contract.XTR9 += this.dspNupCode(tb.rates[t].program,tb.rates[t].nup).toString().padEnd(1);
-    contract.COV +=  tb.rates[t].coverage.padEnd(10);
+    if(tb.rates[t].coverage!=="")
+      contract.COV +=  tb.rates[t].coverage.padEnd(10);
+    else
+      contract.COV += '$'.padEnd(10);
+      
     contract.NUP +=  tb.rates[t].nup.padEnd(1);
     contract.PRG += tb.rates[t].program.padEnd(10);
     if(tb.rates[t].ratc!=="")

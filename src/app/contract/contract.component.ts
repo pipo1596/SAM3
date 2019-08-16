@@ -690,8 +690,9 @@ tostep1w(){
     }
   }
   viewPdfz(index){
+    
     index = index + this.pagedata.body.contract.contracts.length;
-    this.pagedata.body.contract.contracts[index].view = true;
+    
     var pdf = window.open(Util.Url("cgi/CGGLSRIOV2?PMIONO="+this.ionos.substring(index*10,index*10+10)+"&RAN="+Util.makeid()),'_blank', 'toolbar=0,scrollbars=-1,resizable=-1');
     if (pdf == null || typeof(pdf)=='undefined') { 	
       alert('Please disable your pop-up blocker and click the link again.'); 

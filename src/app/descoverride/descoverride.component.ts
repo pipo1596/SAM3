@@ -114,7 +114,7 @@ export class DescoverrideComponent implements OnInit {
   }
 
   cmpcChng(){
-	  this.cancel();
+	  this.cancel('R');
 	  this.ngOnInit();
   }
 
@@ -141,12 +141,12 @@ export class DescoverrideComponent implements OnInit {
   	Util.focusById("srky");
   }
 
-  cancel(){
-    Util.showWait();
+  cancel(mode){
+    if(mode=="") Util.showWait();
     this.validating = false;
 	this.selectedRec.default("ADD"); 
 	this.selectedRec.bullets.pop();
-    Util.hideWait(); 
+    if(mode=="")Util.hideWait(); 
     Util.hideTopForm();
     this.modebtn = "ADD";
     this.dispAlert.default();
@@ -199,7 +199,7 @@ export class DescoverrideComponent implements OnInit {
   					this.pagedata.overrides.splice(this.pagedata.overrides.findIndex(obj => obj.srkyi==this.selectedRec.srkyi && obj.dlri==this.selectedRec.dlri),1);
   					setTimeout(() => {
   						Util.showWait();
-  						this.cancel();
+  						this.cancel('');
   					}, 500);
   				} else {
   					Util.hideWait();
@@ -283,6 +283,7 @@ export class DescoverrideComponent implements OnInit {
 						this.newRec.srkyi= this.selectedRec.srky.toUpperCase().padEnd(10) +
 										   this.selectedRec.prg.toUpperCase();
 					if(fill){this.selectedRec.srky ="";this.newRec.srky ="";}
+  					this.newRec.prg = this.selectedRec.prg;
   					this.newRec.desc = this.selectedRec.desc;
   					this.newRec.dsc3 = this.selectedRec.dsc3;
   					this.newRec.qdsc = this.selectedRec.qdsc;
@@ -300,7 +301,7 @@ export class DescoverrideComponent implements OnInit {
 
   					setTimeout(() => {
   						Util.showWait();
-  						this.cancel();
+  						this.cancel('');
   					}, 500);
   				}
   				if(this.selectedRec.mode == "SAVE"){
@@ -330,7 +331,7 @@ export class DescoverrideComponent implements OnInit {
 					this.pagedata.overrides = Util.sortByKey(this.pagedata.overrides,"srky","A");
   					setTimeout(() => {
   						Util.showWait();
-  						this.cancel();
+  						this.cancel('');
   					}, 500);
   				}
   				

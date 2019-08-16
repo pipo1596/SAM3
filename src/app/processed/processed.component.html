@@ -156,11 +156,13 @@
 			
 			<a href="javascript:window.print()"  *ngIf="innermode!=='I'" class="btn pull-right nextsection btn-default"  title="Print" style="padding:10px 30px;margin: 15px;">
 				<span class="fa fa-print" style="font-size:16px"></span>&nbsp;&nbsp; Print</a>
-			
+			<div class="col-xs-12">
 			<a href="javascript:void(0)" *ngIf="view && canedit && view.stat=='Active' && pagemode=='V' && innermode!=='I'"  (click) ="editMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
 				<span class="fa fa-edit"></span>&nbsp;&nbsp;Edit</a>
 		    <a href="javascript:void(0)"  *ngIf="innermode!=='I'" (click) ="clearMode()" class="btn pull-right nextsection btn-primary"  title="Back" style="padding:10px 30px;margin: 15px;">
 					<span class="fa fa-backward"></span>&nbsp;&nbsp; Back</a>
+			</div>
+			<div class="clearfix"></div>
 			<div class="col-xs-12">
 				<hr *ngIf="innermode!=='I'">
 				<div class="clearfix"></div>
