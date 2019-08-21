@@ -69,7 +69,18 @@
                         </div>
                     </div>
                     
-                </div>
+				</div>
+				<div class="col-sm-6">
+					<label class="flat-input inputlabel" id="statelbl">Group Code 
+						<span class="errorspan2" [class.opqquezero]="grpc.message===''" [class.alert-danger]="grpc.erlevel==='D'" [class.validating]="validating">{{grpc.message}}</span> 
+					</label>
+					<span class="flat-input">
+					   <select  autocomplete="new-password"  (change)="onChange()" class="form__select w100" name="grpc1"  [(ngModel)]="selectedRec.grpc" [class.required]="grpc.message !==''"  [class.validating]="validating">
+							<option value="" >Select</option>                                    
+							<option *ngFor="let group of pagedata.groups" [value]="group.code" [attr.selected]="group.code==grpc.value ? true : null">{{group.desc}}</option>
+						</select>
+					</span>
+				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 hidden-sm hidden-md hidden-lg">
 					<p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p>

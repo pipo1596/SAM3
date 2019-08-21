@@ -22,6 +22,7 @@ export class ContracttypesComponent implements OnInit {
   modebtn = "ADD";
   //Input Fields
   desc = new  Textfield ;
+  aply = new  Textfield ;
   catg = new  Textfield ;
   valu = new  Numfield ;
   desce = new  Textfield ;
@@ -51,7 +52,7 @@ export class ContracttypesComponent implements OnInit {
     this.selectedRecE.default("ADD");
     this.selectedRecE.prgm.pop();
     this.pagedata.programs.plans.forEach(prg=>{
-      var jsob ={"prgm":prg.prg.padEnd(10) + prg.ratc,"desc":prg.desc,"check":false,"dlob":prg.dlob,"lobd":prg.lobd};
+      var jsob ={"prgm":prg.prg.padEnd(10) + prg.ratc,"desc":prg.desc,"aply":prg.aply,"check":false,"dlob":prg.dlob,"lobd":prg.lobd};
       this.selectedRecE.prgm.push(jsob);
     });
 
@@ -70,6 +71,7 @@ export class ContracttypesComponent implements OnInit {
   onSelect(record: Cont): void {
     this.selectedRec.codei  = record.codei;
     this.selectedRec.desc  = record.desc;
+    this.selectedRec.aply  = record.aply;
     this.selectedRec.catg  = record.catg;
     this.selectedRec.catgd = record.catgd;
     this.selectedRec.valu  = record.valu;
@@ -132,6 +134,7 @@ export class ContracttypesComponent implements OnInit {
     if(this.modebtn == 'SAVE'){
     //Reset Error Messages
     this.desc.message  = "";
+    this.aply.message  = "";
     this.catg.message  = "";
     this.valu.message  = "";
     this.prgm.message  = "";
@@ -141,7 +144,12 @@ export class ContracttypesComponent implements OnInit {
     if(this.valu.value!== null) this.valu.value = parseFloat(this.valu.value.toFixed(2));
     
     this.desc.value  = this.selectedRec.desc.trim();
+    
     this.catg.value  = this.selectedRec.catg.trim();
+    if(this.catg.value=='OTR')
+      this.aply.value  = this.selectedRec.aply.trim();
+    else
+      this.aply.value  = "";
     this.valu.value  = this.selectedRec.valu;
     this.prgm.value  = this.selectedRec.prgm.trim();
 
@@ -205,6 +213,7 @@ export class ContracttypesComponent implements OnInit {
         if (this.dispAlert.status === "S") {
             this.selectedRecG.codei = this.selectedRec.codei;
             this.selectedRecG.desc  = this.selectedRec.desc;
+            this.selectedRecG.aply  = this.selectedRec.aply;
             this.selectedRecG.catg  = this.selectedRec.catg;
             this.selectedRecG.catgd = Util.getSelDesc(this.selectedRec.catg,this.pagedata.categories);
             this.selectedRecG.valu  = this.selectedRec.valu;
@@ -274,7 +283,12 @@ export class ContracttypesComponent implements OnInit {
               if(pgm.check){
             this.newRec.codei = codes[i];
             this.newRec.desc  = this.selectedRecE.desc;
+            
             this.newRec.catg  = this.selectedRecE.catg;
+            if(this.newRec.catg == 'OTR')
+              this.newRec.aply  = this.selectedRecE.aply;
+            else
+              this.newRec.aply  = "";
             this.newRec.catgd = Util.getSelDesc(this.selectedRecE.catg,this.pagedata.categories);
             this.newRec.valu  = this.selectedRecE.valu;
             this.newRec.prgm  = pgm.prgm;

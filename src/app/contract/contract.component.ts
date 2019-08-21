@@ -529,7 +529,7 @@ tostep1w(){
     this.jsonService
                 .initService("&MODE=SAMESIG"+
                              "&IONO="+this.ionos.substring(this.i*10,this.i*10+10)+
-                             "&FIONO="+this.iniiono, Util.Url("CGSAVETIF"))
+                             "&FIONO="+this.sigiono, Util.Url("CGSAVETIF"))
                 .subscribe(
                   () => {
                     this.hidemdl('sign');
@@ -567,8 +567,8 @@ tostep1w(){
             Util.modalidmain("hide","contractModal");
             //Sign clicked
             if(mode=='I'){
-              this.pagedata.body.contract.contracts[index].sign = false;
-              this.pagedata.body.contract.contracts[index].ini = false;
+              //this.pagedata.body.contract.contracts[index].sign = false;
+              //this.pagedata.body.contract.contracts[index].ini = false;
               this.samesig = false;
               this.sameini = false;
             }

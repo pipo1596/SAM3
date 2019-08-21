@@ -65,6 +65,7 @@ export class Data{
     ctrct :string ="";
     valu :string="";
     catg :string ="";
+    aply :string ="";
     open :boolean =false;
     dflt :boolean =false;
     nup  :string = "";
@@ -103,6 +104,7 @@ export class Tabl{
     dflt : boolean = false;
     valu:number=0;
     catg :string ="";
+    aply :string ="";
     ctrct :string ="";
     nup:string="";
     desc : string ="";
@@ -146,6 +148,7 @@ export class Cont{
     prgm :string="";
     desc :string="";
     catg :string="";
+    aply :string="";
     slob :string="";
     valu :string="";
 }

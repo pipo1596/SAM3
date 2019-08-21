@@ -20,6 +20,7 @@ export class LienholdersComponent implements OnInit {
 	//Input Fields
 	name = new Textfield;
 	sta = new Textfield;
+	grpc = new Textfield;
 	adr1 = new Textfield;
 	city = new Textfield;
 	zip = new Textfield;
@@ -86,6 +87,7 @@ export class LienholdersComponent implements OnInit {
   	//delete this.selectedRecG;
 	this.selectedRec.name = record.name;
 	this.selectedRec.sta = record.sta;
+	this.selectedRec.grpc = record.grpc;
 	this.selectedRec.adr1 = record.adr1;
 	this.selectedRec.city = record.city;
 	this.selectedRec.zip = record.zip;
@@ -140,6 +142,7 @@ export class LienholdersComponent implements OnInit {
   	//Reset Error Messages
 	this.name.message = "";
 	this.sta.message = "";
+	this.grpc.message = "";
 	this.adr1.message = "";
 	this.city.message = "";
 	this.zip.message = "";
@@ -150,11 +153,13 @@ export class LienholdersComponent implements OnInit {
   	this.zip.value = this.selectedRec.zip.trim().toUpperCase();
   	this.phon.value = this.selectedRec.phon.trim().toUpperCase();
 	this.sta.value = this.selectedRec.sta.trim().toUpperCase();
+	this.grpc.value = this.selectedRec.grpc.trim().toUpperCase();
 	this.adr1.value = this.selectedRec.adr1.trim().toUpperCase();
 	this.city.value = this.selectedRec.city.trim().toUpperCase();
 	  
   	this.selectedRec.name = this.selectedRec.name.trim().toUpperCase();
   	this.selectedRec.sta = this.selectedRec.sta.trim().toUpperCase();
+  	this.selectedRec.grpc = this.selectedRec.grpc.trim().toUpperCase();
   	this.selectedRec.adr1 = this.selectedRec.adr1.trim().toUpperCase();
   	this.selectedRec.city = this.selectedRec.city.trim().toUpperCase();
 	this.selectedRec.zip = this.selectedRec.zip.trim().toUpperCase();
@@ -186,6 +191,7 @@ export class LienholdersComponent implements OnInit {
   				if(this.selectedRec.mode == "ADD"){
   					this.newRec.name = this.selectedRec.name;
   					this.newRec.sta = this.selectedRec.sta;
+  					this.newRec.grpc = this.selectedRec.grpc;
   					this.newRec.zip = this.selectedRec.zip;
   					this.newRec.phon = this.selectedRec.phon;
   					this.newRec.adr1 = this.selectedRec.adr1;
@@ -203,6 +209,7 @@ export class LienholdersComponent implements OnInit {
   					this.index = this.pagedata.filters.findIndex(obj => obj.namei==this.selectedRec.namei);
   					this.pagedata.filters[this.index].name = this.selectedRec.name;
   					this.pagedata.filters[this.index].sta = this.selectedRec.sta;
+  					this.pagedata.filters[this.index].grpc = this.selectedRec.grpc;
   					this.pagedata.filters[this.index].zip = this.selectedRec.zip;
   					this.pagedata.filters[this.index].phon = this.selectedRec.phon;
   					this.pagedata.filters[this.index].adr1 = this.selectedRec.adr1;

@@ -23,6 +23,7 @@ export  class Cont{
     desc : string;
     catg : string;
     catgd: string;
+     aply: string;
     valu : number;
     prgm : string;
     prgmd: string;
@@ -31,6 +32,7 @@ export  class Cont{
     public default(mode){
         this.mode = mode;
         this.desc = "";
+        this.aply = "";
         this.catg = "";
         this.catgd = "";
         this.valu = null;
@@ -42,6 +44,7 @@ export  class Cont{
 export  class Conte{
     mode : string;
     desc : string;
+    aply : string;
     catg : string;
     catgd: string;
     valu : number;
@@ -50,6 +53,7 @@ export  class Conte{
     public default(mode){
         this.mode = mode;
         this.desc = "";
+        this.aply = "";
         this.catg = "";
         this.catgd = ""; 
         this.valu = null;

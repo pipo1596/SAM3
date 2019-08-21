@@ -3,6 +3,7 @@ import {Headerdata} from "../header/headerdata";
 export class Lienholders2data{
 	head = new Headerdata ;
 	states : [State];
+	groups : [State];
     filters :[ Lienh ];
 }
 
@@ -14,6 +15,7 @@ export class Lienh{
 	lhno  : string;
 	adr1  : string;
 	city  : string;
+	grpc  : string;
 	sta   : string;
 	zip   : string;
 	phon  : string;
@@ -26,6 +28,7 @@ export class Lienh{
 		this.city = "";
 		this.namei= "";
 		this.sta = "";
+		this.grpc = "";
 		this.zip = "";
 		this.phon = "";
 		this.dlr  = "";

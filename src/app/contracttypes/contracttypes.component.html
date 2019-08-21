@@ -76,7 +76,22 @@
                         <input autocomplete="new-password" name="valu" type="number" placeholder="Value" [class.required]="valu.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRec.valu" maxlength="10"  (change)="onChange()">
                     </div>
                     <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
-                    
+                    <div *ngIf="selectedRec && selectedRec.catg=='OTR'" >
+                        <p style="font-size:13px;font-weight: bold;margin-top:5px;">When would you like the value entered above to be applied to the rates while quoting?</p>
+                        <div class="col-sm-5" style="padding-top:6px;">
+                            <div class="custradio"><input name="applya" id="applya1" value="" type="radio" [(ngModel)]="selectedRec.aply"><label for="applya1"></label></div>
+                            <label class="checklabel" for="applya1">Immediately
+                                &nbsp;<span class="infotip fa fa-question-circle" tooltip="The value will be applied immediately when transitionnig from quoting step 2 (selections) and step 3 (rates) and/or this contract type is selected from the drop-down on step 3." placement="right" show-delay="200"></span>
+
+                            </label>
+                          </div>
+                          <div class="col-sm-7"  style="padding-top:6px;" >
+                            <div class="custradio"><input name="applya" id="applya2" value="A" type="radio" [(ngModel)]="selectedRec.aply"><label for="applya2"></label></div>
+                            <label class="checklabel" for="applya2">When clicking the apply button
+                                &nbsp;<span class="infotip fa fa-question-circle" tooltip="The value will be applied only if the apply button was clicked when transitioning from quoting step 2 (selections) and step 3 (rates) and/or this contract type is selected from the drop-down on step3." placement="right" show-delay="200"></span>
+                            </label>
+                          </div>
+                    </div>
                 </div>
                 <!--Enter Mode-->
                 <div class="col-sm-6" *ngIf="selectedRecE && modebtn == 'ADD'">
@@ -102,7 +117,22 @@
                         <input autocomplete="new-password" name="value" type="number" placeholder="Value" [class.required]="value.message!==''"  [class.validating]="validating"  [(ngModel)]="selectedRecE.valu" maxlength="10"  (change)="onChange()">
                     </div>
                     <p style="font-size:12px;margin-top:-10px">(Percentage: 0.10 is 10%, 1.00 is 100%, 1.5 is 150%, etc.)</p>
-                    
+                    <div *ngIf="selectedRecE && selectedRecE.catg=='OTR'" >
+                        <p style="font-size:13px;font-weight: bold;margin-top:5px;">When would you like the value entered above to be applied to the rates while quoting?</p>
+                        <div class="col-sm-5" style="padding-top:6px;">
+                            <div class="custradio"><input name="apply" id="apply1" value="" type="radio" [(ngModel)]="selectedRecE.aply"><label for="apply1"></label></div>
+                            <label class="checklabel" for="apply1">Immediately
+                                &nbsp;<span class="infotip fa fa-question-circle" tooltip="The value will be applied immediately when transitionnig from quoting step 2 (selections) and step 3 (rates) and/or this contract type is selected from the drop-down on step 3." placement="right" show-delay="200"></span>
+
+                            </label>
+                          </div>
+                          <div class="col-sm-7"  style="padding-top:6px;" >
+                            <div class="custradio"><input name="apply" id="apply2" value="A" type="radio" [(ngModel)]="selectedRecE.aply"><label for="apply2"></label></div>
+                            <label class="checklabel" for="apply2">When clicking the apply button
+                                &nbsp;<span class="infotip fa fa-question-circle" tooltip="The value will be applied only if the apply button was clicked when transitioning from quoting step 2 (selections) and step 3 (rates) and/or this contract type is selected from the drop-down on step3." placement="right" show-delay="200"></span>
+                            </label>
+                          </div>
+                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 hidden-xs" style="margin-top:15px;">

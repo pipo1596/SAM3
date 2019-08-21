@@ -26,7 +26,7 @@ export class Quote3Component implements OnInit {
   listoc: number = 0;
   ran:string = Util.makeid();
   loading: boolean = true;
-  cont: Cont = { "code": "", "prgm": "", "desc": "", "catg": "", "slob": "", "valu": "0" };
+  cont: Cont = { "code": "", "prgm": "", "desc": "", "catg": "","aply":"", "slob": "", "valu": "0" };
 
   rightMatch: [any];
   ncbarr:[any];
@@ -826,6 +826,7 @@ export class Quote3Component implements OnInit {
             
             if(mode!=='C' || table.ctrct.trim()==""){
             table.catg = this.pagedata.body.data[index].catg;  
+            table.aply = this.pagedata.body.data[index].aply;  
             table.ctrct = this.pagedata.body.data[index].ctrct;
             table.valu = parseFloat(this.pagedata.body.data[index].valu);
             if(isNaN(table.valu)){table.valu = 0;}
@@ -937,6 +938,7 @@ export class Quote3Component implements OnInit {
               table.ctrct = table.prgm.padEnd(10) + table.ratc.padEnd(10) + ctrct.code.padEnd(30);
               table.valu= parseFloat(ctrct.valu);
               table.catg=ctrct.catg;
+              table.aply=ctrct.aply;
              }
            // return false;
           }
@@ -1275,6 +1277,19 @@ export class Quote3Component implements OnInit {
 
 
   }
+  autofill(){
+    this.stock.value = '123456';
+    this.first.value = 'first';
+    this.last.value  = 'last';
+    this.email.value = 'test@email.com';
+    this.phone.value = '(777) 777-7777';
+    this.adr1.value  = '399 Oak Street';
+    this.city.value  = 'South Amboy';
+    this.state.value  = 'NJ';
+    this.zip.value  = '08879';
+    this.checkData();
+
+  }
   //==================================================================================================//
   applySurch(mode) {
     this.ncbarr =[''];this.ncbarr.pop();
@@ -1288,13 +1303,17 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
+          table.aply = this.cont.aply;
          
           if(table.valu == null) table.valu = 0;
-          //if (table.valu == undefined || table.valu == -1.2323 || (mode=='M' && table.valu ==0)){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
           if (table.valu == undefined || table.valu == -1.2323 || mode=='M' ){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && (this.cont.catg == 'OTC' || this.cont.catg == 'OTR')) this.cont.valu = table.valu.toFixed(2);
         }
-        if(table.catg !== 'OTR' || mode!=="M"){
+        if (window.location.href.indexOf("3") > -1)
+            this.pagedata.body.pagemode = '3';
+          else
+            this.pagedata.body.pagemode = 'R';
+        if(table.catg !== 'OTR' || mode=="C" || table.aply == "" || this.pagedata.body.pagemode == 'R'){
         table.rates.forEach((rate, i1) => {
           rate.data.forEach((row, i2) => {
             row.forEach((unitp, i3) => {
@@ -1541,6 +1560,7 @@ export class Quote3Component implements OnInit {
         if (ic > -1) {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
+          table.aply = this.cont.aply;
           if (table.valu == undefined && (this.cont.catg =='OTC' || this.cont.catg=='OTR')) table.valu = parseFloat(this.cont.valu);
         }
       }
