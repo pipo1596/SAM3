@@ -227,6 +227,7 @@
                                 <th *ngIf="salesmode">
                                     <b>Salesperson Code</b>
                                 </th>
+                                <th *ngIf="pagedata.head.as400"></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -245,10 +246,14 @@
                                 <td *ngIf="salesmode" data-label="Salesperson Code">
                                     <span *ngFor="let slcd of user.slcds">{{slcd.code}} &nbsp;&nbsp;</span>
                                 </td>
-                                <td data-label="">
+                                <td data-label="" *ngIf="pagedata.head.as400" >
+                                    &nbsp;<a href="javascript:void(0)" *ngIf="user.hassig" title="Clear Signature On File" (click)="clearSig(user)" class="btn btn-danger btnedit"><i class="fa fa-ban"></i>&nbsp;<img src="/assets/images/sig.png"></a>
+                                </td>
+                                <td data-label="Clear Signatue">
                                     <a href="javascript:void(0)" *ngIf="canedit" (click)="onSelect(user)" class="btn btn-warning btnedit">Edit&nbsp;<i class="fa fa-pencil-square-o"></i></a>
                                     <a href="javascript:void(0)" *ngIf="!canedit" (click)="onSelect(user)" class="btn btn-default btnedit">View&nbsp;<i class="fa fa-eye"></i></a>
                                 </td>
+                                
                             </tr>
                         </tbody>
                     </table>

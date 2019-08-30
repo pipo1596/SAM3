@@ -440,6 +440,43 @@ onChange() {
   this.changes = true; 
 }
 
+rateDateChng(){
+  Util.showWait();
+  var plans;
+  var postdata = {mode:"DATECHNG",asofdt:this.asofdt.value}
+  this.jsonService
+  .initService(postdata,Util.Url("CGICQUOTE1"))
+  .subscribe(data => plans = data,
+    err => {Util.hideWait(); },
+    () => {
+      plans.plans.forEach(elem=>{elem.desc = elem.desc.toUpperCase();})
+      plans.plans = Util.sortByKey(plans.plans, "desc","A");
+      plans.plans = Util.sortBy2Key(plans.plans, "plnt","plns","A");
+      var pvlob ="";
+      plans.plans.forEach(eachObj =>{  
+        var obj = {"prg":eachObj.prg,"ratc":eachObj.ratc}; 
+        if(eachObj.plnt==="")eachObj.plnt ="A";//default to Auto if blank
+        
+          eachObj.check = false;
+        //Display LOB Header
+        if(pvlob =="" || pvlob !== eachObj.lobd) eachObj.dlob = true;
+        pvlob = eachObj.lobd; 
+       });
+
+      if(JSON.stringify(this.pagedata.body.pln) !== JSON.stringify(plans)){
+        this.pagedata.body.pln = JSON.parse(JSON.stringify(plans));
+        this.arrdspn=[];
+        this.pagedata.body.ckprgs=[""];this.pagedata.body.ckprgs.pop();
+        this.neednew = false;
+        this.arrlobAll =[];
+        this.arrlob =[];
+      }  
+      Util.hideWait();
+    }
+  );
+
+}
+
 yearChange(){
   
   this.onChange();

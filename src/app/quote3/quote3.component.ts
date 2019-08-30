@@ -1278,7 +1278,7 @@ export class Quote3Component implements OnInit {
 
   }
   autofill(){
-    this.stock.value = '123456';
+    this.stock.value =  Math.floor(Math.random() * 100000).toString();
     this.first.value = 'first';
     this.last.value  = 'last';
     this.email.value = 'test@email.com';

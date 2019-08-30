@@ -64,6 +64,7 @@ export class UsersComponent implements OnInit {
   selectedUser: User = { 
     "mode":"",
     "smode":this.salesmode,
+    "hassig":false,
     "user":"",
     "useri":"",
     "dlrc":"",
@@ -85,6 +86,7 @@ export class UsersComponent implements OnInit {
   selectedUserG: User = {
     "mode":"",
     "smode":this.salesmode,
+    "hassig":false,
     "user":"",
     "useri":"",
     "dlrc":"",
@@ -302,7 +304,26 @@ removeSlcd(slcd){
   this.selectedUser.slcd = "";
   Util.hideWait();
   }
-}    
+}   
+clearSig(user: User){
+  
+  if(!confirm('Clear Signatures on file for this user?')){return false;}
+  Util.showWait();
+  var data ={"mode":"CLEARSIG","useri":user.useri};
+  this.usersService
+  .initService(data,Util.Url("CGICUSERSS")) 
+  .subscribe(data => this.errSet = data,
+    err => { this.dispAlert.error(); Util.hideWait(); },
+    () => { 
+      Util.hideWait();
+      user.hassig = false;
+
+    }
+
+  );
+
+}
+
 onSelect(user: User): void {
   this.selectedUser.mode = "SAVE";
   this.validating = false;
@@ -360,6 +381,7 @@ addUserInit(){
    this.selectedUser = {
     "mode":"ADD",
     "smode":this.salesmode,
+    "hassig":false,
     "user":"",
     "useri":"",
     "dlrc":"",
@@ -446,6 +468,7 @@ cancel(){
   this.selectedUser = {
     "mode":"",
     "smode":this.salesmode,
+    "hassig":false,
     "user":"",
     "useri":"",
     "dlrc":"",
@@ -565,6 +588,7 @@ saveData(){
           this.pagedata.users.push({
             "mode":this.selectedUser.mode,
             "smode":this.salesmode,
+            "hassig":this.selectedUser.hassig,
             "user":this.selectedUser.user,
             "useri":this.selectedUser.user,
             "dlrc":this.selectedUser.dlrc,

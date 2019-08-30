@@ -175,7 +175,7 @@
                         <span class="errorspan2" [class.opqquezero]="lhfi.message===''" [class.alert-danger]="lhfi.erlevel==='D'" [class.validating]="validating">{{lhfi.message}}</span> 
                     </label>
                     <span class="flat-input" *ngIf="pagedata.body.lienholders && pagedata.body.lienholders.length > 0">
-                            <select  autocomplete="new-password" if="lhfi" (change)="onChange();setlhadr('C');" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
+                            <select  autocomplete="new-password" id="lienholder" (change)="onChange();setlhadr('C');" class="form__select w100" name="lienholder"  [(ngModel)]="lhfi.value" [class.required]="lhfi.message !==''"  [class.validating]="validating">
                                  <option value="">Select</option>                                    
                                  <option *ngFor="let optn of pagedata.body.lienholders" [value]="optn.code" [attr.selected]="optn.code==lhfi.value ? true : null">{{optn.desc}}</option>
                              </select>
@@ -716,6 +716,17 @@
                                         <div class="flat-input w100">
                                             <input autocomplete="new-password{{ran}}" class="w100" name="ziplh{{ran}}" type="text"  placeholder="Zip"  (change)="onChangelh()" [class.required]="ziplh.message !== ''"  [class.validating]="validatinglh"  [(ngModel)]="ziplh.value" maxlength="10" style="margin-bottom: 3px;width:100%">
                                         </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <label class="flat-input inputlabel">Group Code 
+                                    <span class="errorspan2" [class.opqquezero]="grpc.message===''" [class.alert-danger]="grpc.erlevel==='D'" [class.validating]="validating">{{grpc.message}}</span> 
+                                  </label>
+                                  <span class="flat-input">
+                                     <select  autocomplete="new-password"  (change)="onChange()" class="form__select w100" name="grpc1"  [(ngModel)]="grpc.value" [class.required]="grpc.message !==''"  [class.validating]="validating">
+                                      <option value="" >Select</option>                                    
+                                      <option *ngFor="let group of pagedata.body.groups" [value]="group.code" [attr.selected]="group.code==grpc.value ? true : null">{{group.desc}}</option>
+                                    </select>
+                                  </span>
                                 </div>
                                 <div class="col-xs-12"><p class="pull-left"><span class="req">*&nbsp;</span>Denotes required fields.</p></div>
                             <div class="clearfix"></div>

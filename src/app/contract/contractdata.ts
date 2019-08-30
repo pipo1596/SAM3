@@ -34,6 +34,7 @@ export class bodyData{
         incl: string = "N" ;
  dspasnew : [string];
    states : [State];
+   groups : [State];
     srchg : [Srchg];
    fields : [Field];
    dlstat : string;

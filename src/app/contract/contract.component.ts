@@ -42,6 +42,7 @@ export class ContractComponent implements OnInit {
   citylh = new Textfield;
   stalh = new Textfield;
   ziplh = new Textfield;
+  grpc = new Textfield;
   sigiono:string ="";
   iniiono:string ="";
   samesig:boolean = false;
@@ -587,6 +588,12 @@ tostep1w(){
               Util.modalidmain('show','uinireq');
               return false;
             }
+            if(!this.pagedata.body.contract.contracts[index].ini){
+              this.signdata={"prg":"C","mode":"CONTINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
+              if(this.iniiono !=='') this.sameini = true;
+              Util.modalidmain('show','signmodal');
+              return false;
+             }
             //SIG>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             if(!this.samesig && this.sigiono!=="" && this.sigiono!==this.ionos.substring(index*10,index*10+10)){
               Util.modalidmain('show','sign');
@@ -598,12 +605,7 @@ tostep1w(){
               Util.modalidmain('show','usigreq');
               return false;
             }
-           if(!this.pagedata.body.contract.contracts[index].ini){
-            this.signdata={"prg":"C","mode":"CONTINI","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
-            if(this.iniiono !=='') this.sameini = true;
-            Util.modalidmain('show','signmodal');
-            return false;
-           }
+           
            if(!this.pagedata.body.contract.contracts[index].sign){
             this.signdata={"prg":"C","mode":"CONTSIG","meth":this.pagedata.body.signm, "iono": this.ionos.substring(index*10,index*10+10)}; 
             if(this.sigiono !=='') this.samesig = true;
@@ -941,9 +943,11 @@ formatCVV() {
       if(this.lhfi.value !=="" && mode=="N") this.pagedata.body.fields[indexlh].value = this.lhfi.value;
       var lhindex = this.pagedata.body.lienholders.findIndex( obj => (obj.code == this.pagedata.body.fields[indexlh].value));
       var block = this.pagedata.body.lienholders[lhindex];
+      this.lhfi.value = block.code; 
     }else{
       var lhindex = this.pagedata.body.lienholders.findIndex( obj => (obj.code == this.lhfi.value));
       var block = this.pagedata.body.lienholders[lhindex];
+      
     }
     if(block !== undefined){
     if(indexlh > -1 || lhindex > -1 ){
@@ -964,7 +968,7 @@ formatCVV() {
       //Phone
       var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLPHN'));
       if(index>-1) this.pagedata.body.fields[index].value = block.phon;
-
+      
     }
   }
 
@@ -998,6 +1002,7 @@ formatCVV() {
     var index = this.pagedata.body.fields.findIndex(obj => (obj.name == 'ECLPHN'));
     if(index>-1) this.phon.value = this.pagedata.body.fields[index].value;
     }
+    this.grpc.value = "";
     this.dispAlertlh.default();
   }
   addlienh(){
@@ -1009,6 +1014,7 @@ formatCVV() {
 	this.adr1.message = "";
 	this.citylh.message = "";
 	this.ziplh.message = "";
+	this.grpc.message = "";
 	this.phon.message = "";
   this.dispAlertlh.default();
   //CheckData
@@ -1029,6 +1035,7 @@ formatCVV() {
           newRec.name = this.name.value;
 					newRec.sta  = this.stalh.value;
   				newRec.zip  = this.ziplh.value;
+  				newRec.grpc = this.grpc.value;
   				newRec.phon = this.phon.value;
   				newRec.adr1 = this.adr1.value;
   				newRec.city = this.citylh.value;
@@ -1070,6 +1077,7 @@ refreshlhfi(){
             added.sta  = this.stalh.value.toUpperCase();
             added.phon = this.phon.value.toUpperCase();
   					added.zip  = this.ziplh.value.toUpperCase();
+  					added.grpc = this.grpc.value.toUpperCase();
 
   					this.pagedata.body.lienholders.push(JSON.parse(JSON.stringify(added)));
         this.setlhadr('N');
@@ -1079,6 +1087,7 @@ refreshlhfi(){
 	      this.adr1.value = "";
 	      this.citylh.value = "";
 	      this.ziplh.value = "";
+	      this.grpc.value = "";
         this.phon.value = "";
         Util.hideWait();
 

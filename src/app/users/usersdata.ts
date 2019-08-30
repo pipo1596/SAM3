@@ -16,6 +16,7 @@ export class Role{
 export  class User{
     mode : string;
     smode: boolean;
+    hassig: boolean;
     user : string;
     useri : string;
     dlrc : string;
