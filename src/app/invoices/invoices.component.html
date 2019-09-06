@@ -95,7 +95,7 @@
 							</tr>
 							<ng-container *ngFor="let inv of (pagedItems)">
 								<tr *ngIf="inv.show === true">
-									<td data-label="Delete" style="padding-top:0">
+									<td data-label="Submit to Revolos" style="padding-top:0">&nbsp;
 										<span class="flat-input-checkbox-SQ" *ngIf="inv.stat !=='T'">
 											<div class="custcheck">
 												<input class="c1" name="{{inv.ivno}}" [disabled]="inv.stat=='T'" (change)="onChange()" type="checkbox" id="{{inv.ivno}}" [checked]="inv.selected" (change)="chkInv(inv)">

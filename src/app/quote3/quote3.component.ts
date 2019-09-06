@@ -714,8 +714,17 @@ export class Quote3Component implements OnInit {
     setTimeout(() => {
       this.pagedata.body.mode = "SAVE";
       this.pagedata.body.tables.forEach((table) => {
+        if(table.ctrct !== undefined && table.ctrctp !== undefined){
+        if(table.ctrct.substring(0,50)!==table.ctrctp.substring(0,50)){
+          table.ctrct = table.ctrctp;
+          table.catg  = table.catgp;
+          table.valu  = table.valup;
+        }
+      }
         if (table.valu !== -1.2323 && table.valu !== undefined)
           table.ctrct = table.ctrct.substring(0, 50)+table.valu;
+
+          
       });
 
       this.pagedata.body.stock = this.stock.value;
@@ -1304,16 +1313,22 @@ export class Quote3Component implements OnInit {
           this.cont = this.pagedata.body.contracts[ic];
           table.catg = this.cont.catg;
           table.aply = this.cont.aply;
-         
+          
+            
           if(table.valu == null) table.valu = 0;
           if (table.valu == undefined || table.valu == -1.2323 || mode=='M' ){if(this.cont.catg=='OTC' || this.cont.catg == 'OTR') table.valu = parseFloat(this.cont.valu);}
           if (mode == 'D' && (this.cont.catg == 'OTC' || this.cont.catg == 'OTR')) this.cont.valu = table.valu.toFixed(2);
+          if(this.cont.catg !=='OTR' || mode=='C' || table.aply == ""){
+          table.valup = table.valu;
+          table.ctrctp = table.ctrct;
+          table.catgp = table.catg;
+          }
         }
         if (window.location.href.indexOf("3") > -1)
             this.pagedata.body.pagemode = '3';
           else
             this.pagedata.body.pagemode = 'R';
-        if(table.catg !== 'OTR' || mode=="C" || table.aply == "" || this.pagedata.body.pagemode == 'R'){
+        if(table.catg !== 'OTR' || mode=="C" || table.aply == "" || (this.pagedata.body.pagemode == 'R' && mode !=='D' && table.aply=="")){
         table.rates.forEach((rate, i1) => {
           rate.data.forEach((row, i2) => {
             row.forEach((unitp, i3) => {

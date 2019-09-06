@@ -103,9 +103,12 @@ export class Tabl{
     show : boolean = false;
     dflt : boolean = false;
     valu:number=0;
+    valup:number=0;
     catg :string ="";
+    catgp :string ="";
     aply :string ="";
     ctrct :string ="";
+    ctrctp :string ="";
     nup:string="";
     desc : string ="";
     lob : string ="";

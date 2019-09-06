@@ -321,7 +321,7 @@ export class ContractComponent implements OnInit {
       if(parseFloat(fld.value)>0){
 
         this.pagedata.body.contract.contracts.forEach(cnt =>{ 
-          if(cnt.lob == 'GAP' || cnt.lob == 'PIPGAP'){
+          if(cnt.lob == 'GAP' || cnt.lob == 'PIPGAP' || cnt.lob == 'RVGAP'){
           if(parseFloat(cnt.ccst)/parseFloat(fld.value) > 0.05){
             this.valid = false;
             this.erscrol(fld.name);
@@ -343,7 +343,7 @@ export class ContractComponent implements OnInit {
       if(parseFloat(this.pagedata.body.amfn)>0){
 
         this.pagedata.body.contract.contracts.forEach(cnt =>{ 
-          if(cnt.lob == 'GAP' || cnt.lob == 'PIPGAP'){
+          if(cnt.lob == 'GAP' || cnt.lob == 'PIPGAP' || cnt.lob == 'RVGAP'){
           if(parseFloat(cnt.ccst)/parseFloat(this.pagedata.body.amfn) > 0.05){
             this.valid = false;
             this.erscrol('vpd');
