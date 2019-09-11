@@ -462,11 +462,11 @@
                                         <label for="check{{datads.prg+datads.ratc+term.termm+term.miles}}"></label>
                                     </div>
                                     <label class="checklabel" for="check{{datads.prg+datads.ratc+term.termm+term.miles}}">
-                                        <span *ngIf="datads.lobc !=='WT'">
+                                        <span *ngIf="datads.lobc !=='WT' && datads.lobc !=='PIPLSE'">
                                             <span *ngIf="!(datads.lobc=='GAP' && pagedata.body.gapt!=='')">{{term.termm}} Months</span> 
                                             <span *ngIf="(datads.lobc=='GAP' && pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                             <span *ngIf="term.miles!=='0'">/ {{term.miles|number:0}}</span></span>
-                                        <span *ngIf="datads.lobc  =='WT'"><span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                        <span *ngIf="datads.lobc  =='WT' || datads.lobc =='PIPLSE'"><span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                     </label>
                                 </span>
                             </ng-container>
@@ -542,11 +542,11 @@
                                     <ng-container *ngFor="let row of table.rows;let r = index" >
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
-                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
+                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT' && xlatelobc(element.prgm,element.ratc) !=='PIPLSE'"> 
                                                <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                 <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                 <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
-                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> 
+                                           <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT' || xlatelobc(element.prgm,element.ratc) =='PIPLSE'"> <span>{{pagedata.body.veh.lmth}} Months</span> 
                                            / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
@@ -627,11 +627,11 @@
                                     <ng-container *ngFor="let row of table.rows;let r = index" >
                                     <tr *ngIf="row.check">
                                         <th scope="row" style="font-weight: bold">
-                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
+                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT' && xlatelobc(element.prgm,element.ratc) !=='PIPLSE'"> 
                                                         <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                         <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                         <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
-                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT' || xlatelobc(element.prgm,element.ratc) =='PIPLSE' "> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                         </th>
                                     <ng-container *ngFor="let col of table.cols;let c = index" >
                                         <td *ngIf="col.check && table.data[r][c]">
@@ -847,12 +847,12 @@
                                                             </span>
                                                         </td>
                                                         <td style="font-weight: bold">
-                                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
+                                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT' && xlatelobc(element.prgm,element.ratc) !=='PIPLSE'"> 
                                                                     <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                                     <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                                     <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span>
                                                                 </span>
-                                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                                                <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT' || xlatelobc(element.prgm,element.ratc) =='PIPLSE'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                         </td>
                                                         <td style="font-weight: bold" *ngIf="col.ded!=='DD' && col.ded!=='DD2'">{{ col.ded | currency}}</td>
                                                         <td style="font-weight: bold" *ngIf="col.ded =='DD' || col.ded =='DD2'">
@@ -1004,11 +1004,11 @@
                                                                     </td>
                                                                 <td style="font-weight: bold;white-space:nowrap;">
                                                                         <b>Term:&nbsp;</b>
-                                                                        <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT'"> 
+                                                                        <span *ngIf="xlatelobc(element.prgm,element.ratc) !=='WT' && xlatelobc(element.prgm,element.ratc) !=='PIPLSE'"> 
                                                                             <span *ngIf="!(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{row.mon}} Months</span> 
                                                                             <span *ngIf="(xlatelobc(element.prgm,element.ratc)=='GAP' && pagedata.body.gapt!=='')">{{pagedata.body.gapt}} Months</span> 
                                                                             <span *ngIf="row.mil!==0">/ {{row.mil|number:0}}</span></span>
-                                                                        <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
+                                                                        <span *ngIf="xlatelobc(element.prgm,element.ratc) =='WT' || xlatelobc(element.prgm,element.ratc) =='PIPLSE'"> <span>{{pagedata.body.veh.lmth}} Months</span> / {{pagedata.body.veh.lmil|number:0}}</span>
                                                                 </td>
                                                                 <td style="font-weight: bold" *ngIf="col.ded!=='DD' && col.ded!=='DD2'">
                                                                     <b>Deductible:&nbsp;</b>{{ col.ded | currency}}</td>
@@ -1054,7 +1054,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="pagedata.head.as400" id="viewcost" [class.hidden]="loading || pagedata.body.pagemode=='R'">
+    <div *ngIf="pagedata.body.vcost" id="viewcost" [class.hidden]="loading || pagedata.body.pagemode=='R'">
         <button *ngIf="!costview" (click)="viewcost()" class="btn btn-default" type="button" title="View Cost">View Cost</button>
         <button *ngIf="costview" (click)="proceed()" class="btn btn-info" type="button" title="Proceed">&nbsp;&nbsp;Proceed&nbsp;</button>
     </div>

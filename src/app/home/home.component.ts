@@ -4,7 +4,9 @@ import { JsonService } from '../utilities/json.service';
 import { Util } from '../utilities/util';
 import { Homedata } from './homedata';
 
-
+//npm install angular2-signaturepad --save
+//npm install jquery — save
+//npm i ng2-tooltip-directive --save
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'

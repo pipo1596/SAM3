@@ -49,6 +49,7 @@ contracts : [Cont];
      xm24:boolean;
      cmpc:string;
      gapt:string;
+     vcost:boolean=false;
 
 
 }

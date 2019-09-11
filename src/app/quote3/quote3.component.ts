@@ -227,7 +227,7 @@ export class Quote3Component implements OnInit {
      contract.DDESC +=  tb.rates[t].cols[c].ded.toString().padEnd(10);
 
     var xlob = this.xlatelobc(tb.rates[t].program.trim(), tb.rates[t].ratc.trim());
-    if(xlob=='WT'){
+    if(xlob=='WT' || xlob=='PIPLSE'){
       contract.CVMN += this.pagedata.body.veh.lmth.toString().padEnd(3);
       contract.CVML += this.pagedata.body.veh.lmil.toString().padEnd(7);
       contract.TERM += (this.pagedata.body.veh.lmth+' Months / ' +

@@ -312,7 +312,7 @@
                                 <input autocomplete="new-password{{ran}}" name="msrp{{ran}}" id="msrp" type="number" placeholder="MSRP" [(ngModel)]="msrp.value" [class.required]="msrp.message !==''"  [class.validating]="validating"  (change)="onChange()">
                             </span>
                         </div>
-                        <div *ngIf="arrlob.indexOf('WT')>-1">
+                        <div *ngIf="arrlob.indexOf('WT')>-1 || arrlob.indexOf('PIPLSE')>-1">
                         <!--Lease Months-->
                         <label class="flat-input inputlabel" ><span class="req">*&nbsp;</span>Term in Months
                                 <span class="errorspan2" [class.opqquezero]="lmth.message===''" [class.alert-danger]="lmth.erlevel==='D'" [class.validating]="validating" (change)="onChange()">{{lmth.message}}</span> 

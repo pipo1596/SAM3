@@ -291,7 +291,7 @@ checkStep1(){
       if(this.msrp.value == "" || this.msrp.value == null){this.msrp.message = "(Required)";this.msrp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("msrp");this.notfoc=false;}}
       if(parseInt(this.msrp.value) <= 0){this.msrp.message = "(Invalid)";this.msrp.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("msrp");this.notfoc=false;}}
     } 
-    if(this.arrlob.indexOf('WT')>-1){
+    if(this.arrlob.indexOf('WT')>-1 || this.arrlob.indexOf('PIPLSE')>-1 ){
       //Miles
       if(this.lmil.value == "" || this.lmil.value == null){this.lmil.message = "(Required)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
       if(parseInt(this.lmil.value) <= 0){this.lmil.message = "(Invalid)";this.lmil.erlevel="D";this.valid = false;if(this.notfoc){ Util.focusById("lmil");this.notfoc=false;}}
